@@ -33,7 +33,7 @@ class ChateventController extends IndexController
             return ;
         }
         //读取工作列表
-        $message_data['works'] = M('ChatWorks')->alias('a')->field('a.*,b.name')->join("left join ".C('DB_PREFIX')."firm as b on b.id = a.creatid")->where("ratify = 1")->select();
+        $message_data['works'] = M('ChatWorks')->alias('a')->field('a.*,b.name as firmname')->join("left join ".C('DB_PREFIX')."firm as b on b.id = a.creatid")->where("ratify = 1")->select();
         // $message_data['works'] = $this->works;
         
         // 根据类型执行不同的业务
@@ -174,7 +174,8 @@ class ChateventController extends IndexController
                 Vendor('getgailu');
                 $gailu = new \getgailu();
                 $thisworks = $gailu::gailu($message_data['works']);
-                $message['content'] = $message_data['client_name']."在".$thisworks['yes']['name'].$thisworks['yes']['name'];
+                var_dump($thisworks);
+                $message['content'] = $message_data['client_name']."在".$thisworks['yes']['firmname'].$thisworks['yes']['name'];
                 $data = [];
                 $gain = "";
                 $worksarr = unserialize($thisworks['yes']['value']);
@@ -182,7 +183,7 @@ class ChateventController extends IndexController
                     $data[$value['name']] = array('exp',$value['name'].$value['value']);
                     $gain = $gain.$value['name'].":".$value['value']." ";
                 }
-                $message['content'] = $message_data['client_name']."在".$thisworks['yes']['name'].$thisworks['yes']['name']."时,".$gain;
+                $message['content'] = $message_data['client_name']."在".$thisworks['yes']['firmname'].$thisworks['yes']['name']."时,".$gain;
                 $res = M('ChatUserinfo')->where("uid = $uid")->save($data);
                 if ($res) {
                     Gateway::sendToClient($message_data['client_id'], json_encode($message));

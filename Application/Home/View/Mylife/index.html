@@ -1,10 +1,16 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>mylife-chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- <link href="/chat/css/bootstrap.min.css" rel="stylesheet"> -->
   <link rel="stylesheet" href="/assets/css/bootstrap.css">
   <link href="/chat//css/style.css" rel="stylesheet">
-  
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/loader-style.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="assets/css/media.css">
+    <link rel="stylesheet" href="assets/css/social.css">
+
   <script type="text/javascript" src="/chat/js/swfobject.js"></script>
   <script type="text/javascript" src="/chat/js/web_socket.js"></script>
   <!-- <script type="text/javascript" src="/chat/js/jquery.min.js"></script> -->
@@ -192,7 +198,7 @@
   </script>
 </head>
 <body onload="connect();">
-    <div class="container-fluid">
+    <!-- <div class="container-fluid">
       <div class="row clearfix">
           <div class="col-md-1 column">
           </div>
@@ -231,7 +237,295 @@
             </div>
           </div>
       </div>
-    </div>
+    </div> -->
+  <div class="wrap-fluid" style="width: auto;">
+    <div class="container-fluid paper-wrap bevel tlbr">
+            <!-- CONTENT -->
+            <!--TITLE -->
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <span class="entypo-doc-text"></span>
+                            <span>Blog List
+                            </span>
+                        </h2>
+
+                    </div>
+
+                    <div class="col-sm-7">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="tittle-middle-header">
+
+                            <div class="alert">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <span class="tittle-alert entypo-info-circled"></span>
+                                Welcome back,&nbsp;
+                                <strong>Dave mattew!</strong>&nbsp;&nbsp;Your last sig in at Yesterday, 16:54 PM
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="btn-group btn-wigdet pull-right visible-lg">
+                            <div class="btn">
+                                Widget</div>
+                            <button data-toggle="dropdown" class="btn dropdown-toggle" type="button">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul role="menu" class="dropdown-menu">
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-plus-circled margin-iconic"></span>Add New</a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-heart margin-iconic"></span>Favorite</a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-cog margin-iconic"></span>Setting</a>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <!--/ TITLE -->
+
+            <!-- 导航条搜索区 -->
+            <!-- <ul id="breadcrumb">
+                <li>
+                    <span class="entypo-home"></span>
+                </li>
+                <li><i class="fa fa-lg fa-angle-right"></i>
+                </li>
+                <li><a href="#" title="Sample page 1">Blog</a>
+                </li>
+                <li><i class="fa fa-lg fa-angle-right"></i>
+                </li>
+                <li><a href="#" title="Sample page 1">Blog List</a>
+                </li>
+                <li class="pull-right">
+                    <div class="input-group input-widget">
+
+                        <input style="border-radius:15px" type="text" placeholder="Search..." class="form-control">
+                    </div>
+                </li>
+            </ul> -->
+
+            <!-- END OF BREADCRUMB -->
+
+
+            <!--CONTENT-->
+            <div class="row" style="margin-top:30px;padding:0 15px;">
+                <!--  BLOG CONTENT -->
+                <div class="col-sm-8">
+
+                    <div class="blog-list-nest">
+                        <!--封面图-->
+                        <!-- <div class="vendor">
+                            <img class="img-responsive-media" src="http://lorempixel.com/output/food-q-c-600-300-9.jpg" alt="">
+                        </div> -->
+
+                        <!-- <div class="blog-list-content">
+                            <h2>Article Heading</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero.</p>
+
+                            <p class="pull-right">
+                                <span class="label label-default">keyword</span>
+                                <span class="label label-default">tag</span>
+                                <span class="label label-default">post</span>
+                            </p>
+                            <ul class="list-inline">
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-network"></span>&nbsp;2 Days Ago</a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-chat"></span>&nbsp;2 Comments</a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-share"></span>&nbsp;14 Shares</a>
+                                </li>
+                            </ul>
+                            <hr>
+                            <button class="btn btn-info pull-right">Read More</button>
+                            <div style="clear:both;"></div>
+                        </div> -->
+                        <div class="panel-body">
+                            <img class="img-circle pull-left" src="http://api.randomuser.me/portraits/thumb/men/29.jpg">
+                            <div class="social-profile">
+                                <h3> <a class="tweet-link" href="#">Ahmad Heavy Folder</a>
+                                    <span><i class="entypo-globe"></i>&nbsp;1 hours ago</span>
+                                </h3>
+                                <p>mungkin pengemis yg baru saja mampir kerumah jauh lebih kaya dari saya...(minimal kaya daging, dia gemuk sedang saya kurus)....</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <hr>
+                            <!-- <div class="social-content">
+                                <div class="social-header" style="margin: -5px 0 0px;">
+                                    <a class="tweet-link" onclick="hidepl(this);" href="javascript:void(0);">
+                                        <span class="entypo-loop"></span>2个 回复
+                                    </a>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <img class="img-social-content img-circle pull-left" src="http://api.randomuser.me/portraits/thumb/men/21.jpg">
+                                        <span><a style="color:#0AA699;" href="#">今日有喜</a> nek do menehi wujud pangan palingo,,dadi gendut...he he he
+                                            <br>
+                                            <b>5 Minute</b>
+                                        </span>
+
+                                    </li>
+
+                                    <li>
+                                        <img class="img-social-content img-circle pull-left" src="http://api.randomuser.me/portraits/thumb/men/29.jpg">
+                                        <span><a class="tweet-link" href="#">笑你在笑</a> lha pengemise mau nganggo wewangian/parfum barang....elok tenan...
+                                            <a class="tweet-link" href="#">@Ciwuk Hartadi</a>
+                                            <br>
+                                            <b>13 Minute</b>
+                                        </span>
+
+                                    </li>
+                                    <form>
+                                        <div class="input-group">
+                                            <div class="input-group-btn">
+                                                <button class="btn">+1</button>                    
+                                            </div>
+                                            <input type="text" placeholder="回复" class="form-control">
+                                        </div>
+                                    </form>
+                                </ul>                                    
+                            </div> -->
+                        </div>
+                        <div class="panel-body">
+                            <img class="img-circle pull-left" src="http://api.randomuser.me/portraits/thumb/men/29.jpg">
+                            <div class="social-profile">
+                                <h3> <a class="tweet-link" href="#">Ahmad Heavy Folder</a>
+                                    <span><i class="entypo-globe"></i>&nbsp;1 hours ago</span>
+                                </h3>
+                                <p>mungkin pengemis yg baru saja mampir kerumah jauh lebih kaya dari saya...(minimal kaya daging, dia gemuk sedang saya kurus)....</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <hr>
+                        </div>
+                        <div class="panel-body">
+                            <img class="img-circle pull-left" src="http://api.randomuser.me/portraits/thumb/men/29.jpg">
+                            <div class="social-profile">
+                                <h3> <a class="tweet-link" href="#">Ahmad Heavy Folder</a>
+                                    <span><i class="entypo-globe"></i>&nbsp;1 hours ago</span>
+                                </h3>
+                                <p>mungkin pengemis yg baru saja mampir kerumah jauh lebih kaya dari saya...(minimal kaya daging, dia gemuk sedang saya kurus)....</p>
+                            </div>
+
+                            <div class="clearfix"></div>
+                            <hr>
+                        </div>
+                    </div>
+
+                    <ul class="pager success">
+                        <li class="previous"><a href="#">�?Older</a>
+                        </li>
+                        <li class="next disabled"><a href="#">Newer �?/a&gt;
+                        </a></li>
+                    </ul>
+                </div>
+                <!--  END OF BLOG CONTENT -->
+
+                <!--  BLOG SIDE CONTENT -->
+                <div class="col-sm-4">
+                    <div class="panel panel-default">
+                        <img class="media-object img-circle blog-profile" data-src="holder.js/64x64" alt="64x64" src="http://api.randomuser.me/portraits/thumb/men/10.jpg">
+                        <hr style="margin:0;">
+
+                        <div class="panel-body">
+                            <p class="lead text-center">逍遥</p>
+                            <!-- <p class="tex-center social-blog-profile">
+                                <a href="#">
+                                    <span class="entypo-facebook-circled"></span>
+                                </a>
+                                <a class="tweet-link" href="#">
+                                    <span class="entypo-twitter-circled"></span>
+                                </a>
+                                <a class="gplus-textcolor" href="#">
+                                    <span class="entypo-instagrem"></span>
+                                </a>
+
+                            </p> -->
+                            <p style="text-align: center;">
+                              <span class="fontawesome-money" title="金钱"></span>&nbsp;248&nbsp;&nbsp;
+                              <span class="entypo-trophy" title="精力"></span>&nbsp;1000000&nbsp;&nbsp;
+                              <span class="fontawesome-user-md" title="力量"></span>&nbsp;2130&nbsp;&nbsp;
+                              <!-- <span class="entypo-gauge"></span>&nbsp;12 Km/<i>Hours</i>&nbsp;&nbsp; -->
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="blog-side-nest">
+                        <h4 class="text-center">加入机构</h4>
+                        <p class="text-center">Sign up for our daily Newslatter</p>
+                        <form role="form">
+                            <div class="row">
+                                <div class="col-xs-8">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" placeholder="Enter email">
+                                    </div>
+                                </div>
+                                <!-- /.col-xs-8 -->
+                                <div class="col-xs-4 col-full-width-left">
+                                    <button type="submit" class="btn btn-info btn-block">Sign up</button>
+                                </div>
+                                <!-- /.col-xs-4 -->
+                            </div>
+                            <!-- /.row -->
+                        </form>
+                    </div>
+
+                    <div class="blog-side-nest">
+                        <h4 class="text-left">实时</h4>
+                        <hr style="margin:0">
+
+                        <div class="media">
+                            <div class="media-body">
+                                <h5 class="media-heading">Cras sit amet nibh Lorem ipsum dolor si amet</h5>
+                                <a class="link-comment recentpost-link" style="margin:-10px 0 10px" href="#">88 Views</a>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    <!--  标签区 -->
+                    <div class="blog-side-nest">
+                        <h4 class="text-left">功能</h4>
+                        <hr style="margin:0">
+                        <ul class="list-inline">
+                            <li>
+                                <a class="btn btn-info" onclick="hidepl(this);" href="javascript:void(0);">开工</a>
+                            </li>
+                            <li>
+                                <a class="btn btn-info" onclick="hidepl(this);" href="javascript:void(0);">练习赛</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <!--  END OF BLOG SIDE CONTENT -->
+            </div>
+
+
+            <!-- /END OF CONTENT -->
+        </div>
+      </div>
     <!-- 位置选择模态框（Modal） -->
     <div class="modal fade" id="contest_1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -343,6 +637,19 @@
           console.log(sdata);
         });
       });
+    </script>
+    <!-- 页面操作-->
+    <script type="text/javascript">
+      function hidepl(hh){
+        var thispl = $(hh).parent().parent().find('ul');
+        var ishide = thispl.is(':hidden');
+        if (ishide) {
+          $(hh).parent().parent().find('ul').slideDown();
+        }else{
+          $(hh).parent().parent().find('ul').slideUp();
+        }
+        
+      }
     </script>
 </body>
 </html>

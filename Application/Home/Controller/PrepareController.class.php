@@ -17,6 +17,7 @@ class PrepareController extends Controller {
         $this->invite = \Home\Model\FirmModel::inviting($this->userinfo['mobile']);
     }
 
+    //允许邀请等操作
     public function index()
     {
         if (!empty($this->invite)){

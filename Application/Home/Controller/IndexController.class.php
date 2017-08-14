@@ -6,7 +6,11 @@ class IndexController extends AdminController {
     protected function _initialize(){
         parent::_initialize();
         //临时登陆代码
-        $user = M('ChatUser')->alias('a')->join("left join ".C('DB_PREFIX')."chat_userinfo as b on a.id = b.uid")->where("a.id = $this->uid")->find();
+        if ($this->uid) {
+            $user = M('ChatUser')->alias('a')->join("left join ".C('DB_PREFIX')."chat_userinfo as b on a.id = b.uid")->where("a.id = $this->uid")->find();
+        }else{
+            $user = M('ChatUser')->alias('a')->join("left join ".C('DB_PREFIX')."chat_userinfo as b on a.id = b.uid")->where("a.id = 1")->find();
+        }        
         $this->userinfoField = M('ChatUserinfo')->getDbFields();
         session('uid',$user['id']);
         session('username',$user['username']);
