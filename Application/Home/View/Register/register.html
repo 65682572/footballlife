@@ -1,0 +1,231 @@
+<include file="Common:header" />
+<title data-i18n="register.title"></title>
+<script src="__JS__plugins/confirm/jquery-confirm.js"></script>
+<link rel="stylesheet" href="__CSS__plugins/confirm/jquery-confirm.css"/>
+</head>
+<body class="gray-bg">
+<div class="middle-box text-center inviteReg loginscreen animated fadeInDown">
+    <div class="jt_registerArea">
+        <h3 data-i18n="register.title"></h3>
+        <p class="error"></p>
+        <form class="m-t form-horizontal" role="form">
+            <div class="form-group">
+                <label class="col-sm-3 control-label" data-i18n="register.name"></label>
+                <div class="col-sm-9">
+                    <input name="name" type="text" class="form-control" data-i18n="[placeholder]register.name" required="">
+                </div>
+                <span class="jt_registerXH">*</span>
+            </div>
+            <div class="form-group clearfix codeValition">
+                <label class="col-sm-3 control-label" data-i18n="login.tel"></label>
+                <div class="col-sm-9">
+                    <input name="tel" type="tel" class="form-control" data-i18n="[placeholder]login.tel" required="" maxlength="11">
+                    <button type="button" class="fetchCode btn btn-default" data-i18n="forgetPwd.getCode" disabled="disabled"></button>
+                </div>
+                <span class="jt_registerXH">*</span>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" data-i18n="forgetPwd.code"></label>
+                <div class="col-sm-9">
+                    <input name="code" type="text" class="form-control" data-i18n="[placeholder]forgetPwd.code" required="" maxlength="6">
+                </div>
+                <span class="jt_registerXH">*</span>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" data-i18n="login.password"></label>
+                <div class="col-sm-9">
+                    <input name="password" type="password" class="form-control" data-i18n="[placeholder]login.password" required="">
+                </div>
+                <span class="jt_registerXH">*</span>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label" data-i18n="register.passwordConf"></label>
+                <div class="col-sm-9">
+                    <input name="password_confirm" type="password" class="form-control" data-i18n="[placeholder]register.passwordConf" required="">
+                </div>
+                <span class="jt_registerXH">*</span>
+            </div>
+            <div id="slider">
+                <div id="slider_bg"></div>
+                <span id="label">>></span>
+                <span id="labelTip" data-i18n="register.sliderValidate"></span>
+            </div>
+            <!--<div class="form-group">-->
+                <!--<label class="col-sm-3 control-label">验证码</label>-->
+                <!--<div class="col-sm-4">-->
+                    <!--<input name="verify" type="text" class="form-control"  placeholder="请输入验证码" required="">-->
+                <!--</div>-->
+                <!--<div class="col-sm-5">-->
+                    <!--<img id="verifyimg" alt="点击切换" src="{:U('register/verifyDisplay')}" onclick="refreshVerify()">-->
+                <!--</div>-->
+                <!--<span class="jt_registerXH">*</span>-->
+            <!--</div>-->
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <button type="button" class="btn btn-primary block full-width m-b dosub" data-i18n="register.completeReg"></button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <p class="text-muted text-center jt_logoGo"><small data-i18n="register.hasAccount"></small></p>
+                </div>
+            </div>
+            <div class="form-group jt_logoGo">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <a class="btn btn-sm btn-white btn-block" href="/login" data-i18n="login.login"></a>
+                </div>
+            </div>
+            
+        </form>
+    </div>
+</div>
+<include file="Common:change_lng" />
+<include file="Common:footer1" />
+<link rel="stylesheet" href="/Public/common/css/plugins/slideunlock/slide-unlock.css"/>
+<script src="/Public/common/js/plugins/slideunlock/jquery.slideunlock.js"></script>
+<script>
+    function refreshVerify(){
+        var ts = Date.parse(new Date())/1000;
+        $('#verifyimg').attr("src", "/register/verifyDisplay?id="+ts);
+    }
+    $(function () {
+        var slider = new SliderUnlock("#slider",{
+            successLabelTip : "欢迎注册智慧物联管理系统！"
+        },function(){
+            isverify = true;
+        });
+        slider.init();
+    });
+    var isverify = false;
+    var myObj = {
+        $tel:$('input[name="tel"]'),
+        $code:$('input[name="code"]'),
+        $pwd:$('input[name="password"]'),
+        $username:$('input[name="name"]'),
+        $fetchCode:$('.fetchCode'),
+        //$verify:$('input[name="verify"]'),
+        $error:$('.error'),
+        $sub:true,
+        init:function(){
+            myObj.$tel.on('input',function(){
+                var tel = $(this).val();
+                var reg = /\d{11}/;
+                if(reg.test(tel)){
+                    myObj.$fetchCode.removeAttr('disabled');
+                }else{
+                    myObj.$fetchCode.attr('disabled','disabled');
+                }
+            });
+            myObj.$fetchCode.on('click',function(){
+                $.ajax({
+                    url:'/register/sendMessage',
+                    type:'post',
+                    data:{mobile:myObj.$tel.val()},
+
+                    success:function(ret){
+                        if(ret['status'] == true){  //进入倒计时
+                            myObj.$fetchCode.attr('disabled','disabled');
+                            myObj.countTimeDown();
+                        }else{
+                            myObj.$error.text(ret.msg).show();
+                            myObj.$fetchCode.removeAttr('disabled').i18n();
+                        }
+                    }
+                });
+            });
+            $(".dosub").bind("click", function(){
+                myObj.sub($(this));
+            });
+        },
+        check:function(){
+            if(!isverify){
+                myObj.$error.text('请拖动滑块进行验证!').show();
+                return false;
+            }
+            var result = Link.utils.isMobile(myObj.$tel.val());
+            if(!result){
+                myObj.$error.text('电话号码格式错误!').show();
+                return result;
+            }
+
+            var result = Link.utils.ckPwd(myObj.$pwd.val());
+            if(!result){
+                myObj.$error.text('密码必须为8-20之间的字母+数字组合！').show();
+                return result;
+            }
+
+            if($('input[name="password"]').val() != $('input[name="password_confirm"]').val()){
+                $('input[name="password_confirm"]').val();
+                myObj.$error.text('两次输入的密码不一致!').show();
+                return false;
+            }
+
+            return true;
+        },
+        countTimeDown:function(){
+            var count = 60;
+            var myInteval = setInterval(function(){
+                if(count != 0){
+                    myObj.$fetchCode.text(count+'s');
+                    count--;
+                }else{
+                    clearInterval(myInteval);
+                    myObj.$fetchCode.removeAttr('disabled').i18n();
+                }
+            },1000);
+        },
+        sub:function(obj){
+            var ret = myObj.check();
+            if (ret == false || myObj.$sub == false){
+                return false;
+            }
+            myObj.$sub = false;
+            obj.addClass("btn_waiting");
+            var tel = $.trim(myObj.$tel.val());
+            var password = $.trim(myObj.$pwd.val());
+            var vcode = $.trim(myObj.$code.val());
+            var username = $.trim(myObj.$username.val());
+            //var verify = $.trim(myObj.$verify.val());
+            $.ajax({
+                url:'/register/register',
+                type:'post',
+                async:false,
+                data:{mobile:tel,password:password,vcode:vcode,username:username},
+                //data:{mobile:tel,password:password,vcode:vcode,username:username,verify:verify},
+                dataType : 'json',
+                success:function(ret){
+                    //console.log(ret.msg)
+                    if (ret['status'] == true){
+                        //location.href = '/main';
+                        var alert = {
+                            title: '提示信息',
+                            content: ret.msg,
+                            icon: 'fa fa-rocket',
+                            animation: 'scale',
+                            closeAnimation: 'scale',
+                            buttons: {
+                                okay: {
+                                    text: '确定',
+                                    btnClass: 'btn-blue',
+                                    action: function () {
+                                        if(ret['status'] == true){
+                                            location.href = '/main';
+                                        }
+                                    }
+                                }
+                            }
+                        };
+                        $.alert(alert);
+                    }else{
+                        myObj.$error.text(ret.msg).show();
+                        obj.removeClass("btn_waiting");
+                        myObj.$sub = true;
+                    }
+                }
+            });
+        }
+    };
+    myObj.init();
+</script>
+</body>
+</html>

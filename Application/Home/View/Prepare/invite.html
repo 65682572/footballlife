@@ -1,0 +1,62 @@
+<include file="Common:header" />
+<title data-i18n="reg.title"></title>
+</head>
+<body class="gray-bg">
+<div class="passwordBox inviteReg text-center">
+    <div class="row">
+        <div class="col-md-12">
+            <volist name="invitelist" id="v">
+            <div class="ibox-content"><!--  style="margin-bottom: 10px" -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3><span>{$userinfo.username} 您好，{$v.username}</span> <span data-i18n="reg.welcome2"></span> <span>{$v.firmname}</span></h3>
+                        <div>
+                            <a href="javascript:;" class="btn btn-primary btn-w-m m-t" data-i18n="public.accept" data-id="{$v.id}" data-v="1"></a>
+                            <a href="javascript:;" class="btn btn-default btn-w-m m-t" data-i18n="public.reject" data-id="{$v.id}" data-v="2"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </volist>
+        </div>
+    </div>
+</div>
+<include file="Common:change_lng" />
+<script>
+    var myObj = {
+        $sub:true,
+        init:function(){
+            $(".btn-w-m").bind('click', function(){
+                myObj.invite($(this));
+            });
+        },
+        invite:function(obj){
+            if (myObj.$sub == false){
+                return false;
+            }
+            myObj.$sub = false;
+            obj.addClass("btn_waiting");
+            var id = obj.attr("data-id");
+            var status = obj.attr("data-v");
+            $.ajax({
+                url:'/Prepare/invite',
+                type:'post',
+                async:false,
+                data:{id:id,status:status},
+                dataType : 'json',
+                success:function(ret){
+                    if (ret['status'] == true){
+                        location.href = '/Prepare';
+                    }else{
+                       alert(ret.msg);
+                        obj.removeClass("btn_waiting");
+                        myObj.$sub = true;
+                    }
+                }
+            });
+        }
+    };
+    myObj.init();
+</script>
+</body>
+</html>

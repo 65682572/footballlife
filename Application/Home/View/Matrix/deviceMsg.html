@@ -1,0 +1,1098 @@
+<!-- 设备管理 -->
+<title data-i18n="deviceManage.deviceManage"></title>
+<include file="Common:matrix_header" />
+<include file="Common:matrix_menu" />
+<include file="Common:matrix_leftbar_public3" />
+<include file="Common:msgFootable" />
+<script src="/Public/common/js/msgFootable.js"></script>
+<link rel="stylesheet" href="/Public/common/css/plugins/jsTree/style.min.css" />
+<script src="__JS__plugins/jsTree/jstree.min.js"></script>
+
+<!-- 中间 -->
+<div class="wrap-fluid jt_deviceMsg1 jt_deviceMsg jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span data-i18n="deviceManage.deviceManage"></span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="nest" id="FootableClose">
+                    <div class="title-alt">
+                        <h6 data-i18n="deviceManage.deviceManage"></h6>
+                        <div class="titleClose">
+                            <a class="gone" href="#FootableClose">
+                                <span class="entypo-cancel"></span>
+                            </a>
+                        </div>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#Footable">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="Footable">
+                        <table class="table-striped footable-res footable metro-blue" data-page-size="20">
+                            <thead>
+                            <tr>
+                                <th class="fixedWidth90"><span data-i18n="public.number"></span></th>
+                                <th class="fixedWidth250"><span data-i18n="alert.deviceName"></span></th>
+                                <!--<th>序列号/设备编号</th>-->
+                                <th class="jt_status fixedWidth90" data-hide="phone"><span data-i18n="alert.status"></span></th>
+                                <th><span data-i18n="deviceManage.type"></span></th>
+                                <th><span data-i18n="deviceManage.group"></span></th>
+                                <th><span data-i18n="deviceManage.brand"></span></th>
+                                <th><span data-i18n="deviceManage.specificationModel"></span></th>
+                                <th><span data-i18n="deviceManage.organ"></span></th>
+                                <th><span data-i18n="alert.remarks"></span></th>
+                                <th><span data-i18n="public.operation"></span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="v">
+                                <tr data-search="search" data-type="{$v.types}" data-fl="{$v.type}" data-name="{$v.name}" data-id="{$v.id}" data-intro="{$v.intro}" data-groupid="{$v.groupid}" data-username="{$v.configsarr.0.name}" data-pwd="{$v.configsarr.0.pwd}" data-groupname="{$v.catename}" class="tableTbodyFirstTr">
+                                    <td class="jt_hiddenTd fixedWidth90"></td>
+                                    <td class="jt_hiddenTd fixedWidth250" title="{$v.name}">{$v.name}</td>
+                                    <!--<td class="jt_hiddenTd"><a title="{$v.uuid}" href="#">{$v.uuid}</a></td>-->
+                                    <td class="jt_hiddenTd fixedWidth90" title="{$v.state}">
+                                        {$v['state'] == '在线'? "在线" :'<div style="color: red">离线</div>'}
+                                    </td>
+                                    <td title="{$v.catename}" class="jt_hiddenTd">{$v.catename}</td>
+                                    <td title="{$v.typesName}" class="jt_hiddenTd">{$v.typesName}</td>
+                                    <td title="{$v.brand_name}" class="jt_hiddenTd">{$v.brand_name}</td>
+                                    <td title="{$v.marking_name}" class="jt_hiddenTd">{$v.marking_name}</td>
+                                    <td title="{$v.firmName}" class="jt_hiddenTd">{$v.firmName}</td>
+                                    <td title="{$v.intro}" class="jt_hiddenTd">{$v.intro}</td>
+                                    <td class="jt_borderTop" data-value="1">
+                                        <div class="btn-group">
+                                            <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" type="button">
+                                                <span data-i18n="deviceManage.more"></span>
+                                                <span class="caret"></span>
+                                            </button>
+                                            <ul role="menu" class="dropdown-menu jt_dropDownMenu">
+                                                <li>
+                                                    <a href="javascript:void(0);" data-pwd="{$v.configs[0]['pwd']}" data-pwdname="{$v.configs[0]['name']}" data-uuid="{$v.uuid}" data-varsionId="{$v.version_id}" data-varsionName="{$v.version_name}" data-markingId="{$v.marking_id}" data-markingName="{$v.marking_name}" data-brandId="{$v.brands_id}" data-brandName="{$v.brand_name}" class="editBtn" data-toggle="modal" data-target="#updata">
+                                                        <i class="entypo-pencil"></i>
+                                                        <span data-i18n="deviceManage.modifyData"></span>
+                                                    </a>
+                                                    <a href="javascript:void(0);" class="btn-param" data-toggle="modal" data-target="#canshuSet" data-id="{$v.id}">
+                                                        <i class="entypo-info"></i>
+                                                        <span data-i18n="deviceManage.parameSet"></span>
+                                                    </a>
+                                                    <a href="javascript:void(0);" class="sharebtn" did="{$v.uuid}" disabled="true">
+                                                        <i class="entypo-share"></i>
+                                                        <span data-i18n="deviceManage.shareResource"></span>
+                                                    </a>
+                                                    <a href="javascript:void(0);" class="skipSystem" data-id="{$v.id}">
+                                                        <i class="entypo-cog"></i>
+                                                        <span data-i18n="deviceManage.deviceSet"></span>
+                                                    </a>
+                                                    <php>
+                                                    $isdev = strstr($v['uuid'],"ffff");
+                                                    if($isdev){
+                                                    </php>
+                                                    <a href="javascript:void(0);" data-state="{$v.state}" class="btn-control" data-id="{$v.id}">
+                                                        <i class="fontawesome-random"></i>
+                                                        <span data-i18n="deviceManage.deviceControl"></span>
+                                                    </a>
+                                                    <php>}</php>
+                                                    <a href="javascript:void(0);" class="btn-del" id="btn-deviceDel" data-id="{$v.id}">
+                                                        <i class="icon icon-trash"></i>
+                                                        <span data-i18n="deviceManage.deleteData"></span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="8">
+                                    <div class="pagination pagination-centered"></div>
+                                </td>
+                            </tr>
+                            </tfoot>
+                            <div class="btn-group jt_btnSetWidth">
+                                <button class="btn btn-primary" id="jt_addChange" data-toggle="modal" data-target="#addDevice" data-i18n="deviceManage.addDevice"></button>
+                                <button class="btn btn-primary jt_btnAElement">
+                                    <a href="{:U('/Matrix/shareList','','')}" data-i18n="deviceManage.shareManage"></a>
+                                </button>&emsp;
+                                <label data-i18n="deviceManage.deviceSelect"></label>
+                                <select name="drpPublisher2" id="drpPublisher2">
+                                    <volist name="list" id="v">
+                                    <option value="1">{$v.name}</option>
+                                    </volist>
+                                </select>
+                                &emsp;<label data-i18n="deviceManage.typeSelect"></label>
+                                <select class="jt_selectStyle" onchange="publicMsgSearch(this,'td:nth-child(4)')" id="selectSearch" class="form-control">
+									<option selected="selected" value="0" data-i18n="deviceManage.allType"></option>
+                                    <volist name="catearr" id="cv">
+                                        <option value="1">{$cv}</option>
+                                    </volist>
+                                </select>
+                                &emsp;<label data-i18n="deviceManage.GroupSelect"></label>
+                                <select class="jt_selectStyle" onchange="publicMsgSearch(this,'td:nth-child(5)')" class="form-control">
+                                    <option selected="selected" value="0" data-i18n="deviceManage.allGroup"></option>
+                                    <volist name="typearr" id="v1">
+                                    	<option value="1">{$v1}</option>
+                                    </volist>
+                                </select>
+                                &emsp;<label data-i18n="deviceManage.organSelect"></label>
+                                <select class="jt_selectStyle" onchange="publicMsgSearch(this,'td:nth-child(8)')" class="form-control">
+                                    <option selected="selected" value="0" data-i18n="deviceManage.allOrgan"></option>
+                                    <volist name="firmarr" id="fv">
+                                        <option value="1">{$fv}</option>
+                                    </volist>
+                                </select>
+                                <i onclick="funcRefresh(this)" class="jt_styleRefresh glyphicon glyphicon-refresh"></i>
+                                <!--<select class="jt_selectShowNum" id="changeSelectVal" onchange="selectChange(this)">-->
+                                    <!--<option value="0" selected="selected">10条</option>-->
+                                <!--</select>-->
+                            </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框 -->
+<!-- 添加设备 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg jt_deviceModel" aria-hidden="true" id="addDevice">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title" data-i18n="deviceManage.addDevice"></h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div>
+                        <div class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label  for="deviceName" class="col-sm-2 control-label" data-i18n="alert.deviceName"></label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-i18n="[placeholder]alert.deviceName" id="deviceName" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  for="uuId" class="col-sm-2 control-label" data-i18n="deviceManage.serialNumber"></label>
+                                <div class="col-sm-10">
+                                    <input type="text"  data-i18n="[placeholder]deviceManage.serialNumber" id="uuId" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-2 control-label" data-i18n="deviceManage.deviceGroup"></label>
+                                <div class="col-sm-10">
+                                    <select class="filter-status form-control">
+                                        <option value="0" data-i18n="deviceManage.deviceGroup"></option>
+                                        <volist name="tagtypes" id="v">
+                                            <option value="{$v.id}">{$v.name}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  class="col-sm-2 control-label" data-i18n="deviceManage.deviceClass"></label>
+                                <!-- 注释开始：这里的层级不要动，涉及到分类搜索功能 -->
+                                <div class="col-sm-10 jt_typeSSRelative">
+                                    <div id="divSelect" class="div_select">
+                                        <div onclick="jt_clickDiv_select()" id="jt_changeText" class="jt_clickDiv_select" data-i18n="deviceManage.deviceClass"></div>
+                                        <i class="pull-right"></i>
+                                        <ul class="jt_showUl">
+                                            <div class="jt_typeOne">
+                                                <li class="jt_htmlLi1" onclick="jt_clickLi_select(this)" data-i18n="deviceManage.deviceClass"></li>
+                                            </div>
+                                            <?php
+                                        foreach($list3 as $k=>$v){
+                                            ?>
+                                            <div class="jt_typeOne">
+                                                <li value="{$v.id}" class="jt_htmlLi1" onclick="jt_clickLi_select(this)">{$v.name}</li>
+                                                <ul>
+                                                    <?php
+                                                foreach($v as $k1=>$v1){
+                                                    if(is_array($v1)){
+                                                    ?>
+                                                    <li value="{$v1.id}" class="jt_htmlLi2" onclick="jt_clickLi_select(this)">{$v1.name}</li>
+                                                    <ul>
+                                                        <?php
+                                                    foreach($v1 as $k2=>$v2){
+                                                        if(is_array($v2)){
+                                                        ?>
+                                                        <li  value="{$v2.id}" class="jt_htmlLi3" onclick="jt_clickLi_select(this)">{$v2.name}</li>
+                                                        <?php
+                                                }
+                                                   }
+                                                ?>
+                                                    </ul>
+                                                    <?php
+                                            }
+                                               }
+                                            ?>
+
+                                                </ul>
+                                            </div>
+                                            <?php
+                                       }
+                                    ?>
+                                        </ul>
+                                    </div>
+                                    <include file="Common:publicSearch" />
+                                </div>
+                                <!-- 注释结束：这里的层级不要动，涉及到分类搜索功能 -->
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-offset-3 jt_labelMarginLeft" data-i18n="common.specification"></label>
+                                <select class="filter-status brand_list jt_selectWidth1" id="addbrand">
+                                    <option value="0" data-i18n="common.specification"></option>
+                                    <volist name="brands" id="v">
+                                         <option value="{$v.brand_id}" >{$v.name}</option>
+                                    </volist>
+                                </select>
+                                <label class="control-label col-sm-offset-1" data-i18n="deviceManage.edition"></label>
+                                <select class="filter-status addversion jt_selectWidth2" id="addversion">
+
+                                </select>
+                                <label  class="control-label col-sm-offset-1" data-i18n="common.typeNumber"></label>
+                                <select class="filter-status  typeList addmarking jt_selectWidth2" id="addmarking">
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label  for="ipAdress" class="col-sm-2 control-label" data-i18n="deviceManage.ipAddress"></label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-i18n="[placeholder]deviceManage.ipAddress" id="ipAdress" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  for="userName" class="col-sm-2 control-label" data-i18n="deviceManage.userName"></label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-i18n="[placeholder]deviceManage.userName" id="userName" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  for="passWord" class="col-sm-2 control-label" data-i18n="login.password"></label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-i18n="[placeholder]login.password" id="passWord" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="deviceDesc" class="col-sm-2 control-label" data-i18n="alert.remarks"></label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="deviceDesc" data-i18n="[placeholder]alert.remarks" rows="8"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group jt_btnGroupWZ">
+                                <button class="addDeviceBtn btn col-sm-offset-2" data-i18n="public.confirm"></button>
+                                <button class="btn cancelBtn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="updata">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title" data-i18n="deviceManage.modifyDevice"></h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div>
+                        <div class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label for="edituuid" class="col-sm-2 control-label" data-i18n="deviceManage.serial/number"></label>
+                                <div class="col-sm-10">
+                                    <p id="edituuid" class="form-control-static">
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="editDeviceName" class="col-sm-2 control-label" data-i18n="alert.deviceName"></label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-i18n="[placeholder]alert.deviceName" id="editDeviceName" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" data-i18n="deviceManage.deviceGroup"></label>
+                                <div class="col-sm-10">
+                                    <select class="filter-status form-control editTypeId">
+                                        <option  fz="0" value="0" data-i18n="deviceManage.deviceGroup"></option>
+                                        <volist name="tagtypes" id="v">
+                                            <option  fz="{$v.id}"  value="{$v.id}" >{$v.name}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" data-i18n="deviceManage.deviceClass"></label>
+                                <!-- 注释开始：这里的层级不要动，涉及到分类搜索功能 -->
+                                <div class="col-sm-10 jt_typeSSRelative">
+                                    <div id="divSelect1" class="div_select">
+                                        <div onclick="jt_clickDiv_select1()" id="jt_changeText1" class="jt_clickDiv_select" data-i18n="deviceManage.deviceClass"></div>
+                                        <i class="pull-right"></i>
+                                        <ul class="jt_showUl">
+                                        <div class="jt_typeOne">
+                                            <li class="jt_htmlLi1" onclick="jt_clickLi_select1(this)" data-i18n="deviceManage.deviceClass"></li>
+                                        </div>
+                                            <?php
+                                        foreach($list3 as $k=>$v){
+                                            ?>
+                                            <div class="jt_typeOne">
+                                                <li value="{$v.id}" class="jt_htmlLi1" onclick="jt_clickLi_select1(this)">{$v.name}</li>
+                                                <ul>
+                                                    <?php
+                                                foreach($v as $k1=>$v1){
+                                                    if(is_array($v1)){
+                                                    ?>
+                                                    <li value="{$v1.id}" class="jt_htmlLi2" onclick="jt_clickLi_select1(this)">{$v1.name}</li>
+                                                    <ul>
+                                                        <?php
+                                                    foreach($v1 as $k2=>$v2){
+                                                        if(is_array($v2)){
+                                                        ?>
+                                                        <li  value="{$v2.id}" class="jt_htmlLi3" onclick="jt_clickLi_select1(this)">{$v2.name}</li>
+                                                        <?php
+                                                }
+                                                   }
+                                                ?>
+                                                    </ul>
+                                                    <?php
+                                            }
+                                               }
+                                            ?>
+                                                </ul>
+                                            </div>
+                                            <?php
+                                       }
+                                    ?>
+                                        </ul>
+                                    </div>
+                                    <include file="Common:publicSearch" />
+                                </div>
+                                <!-- 注释结束：这里的层级不要动，涉及到分类搜索功能 -->
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-offset-3 jt_labelMarginLeft" data-i18n="common.specification"></label>
+                                <select class="filter-status brand_list jt_selectWidth1"  id="editbrand">
+                                    <option value="0" data-i18n="common.specification"></option>
+                                    <volist name="brands" id="v">
+                                        <option brand_id="{$v.brand_id}" value="{$v.brand_id}" >{$v.name}</option>
+                                    </volist>
+                                </select>
+                                <label class="control-label col-sm-offset-1" data-i18n="deviceManage.edition"></label>
+                                <select class="filter-status addversion jt_selectWidth2" id="editversion">
+
+                                </select>
+                                <label  class="control-label col-sm-offset-1" data-i18n="common.typeNumber"></label>
+                                <select class="filter-status  typeList addmarking jt_selectWidth2" id="editmarking">
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="editUserName" class="col-sm-2 control-label" data-i18n="deviceManage.userName"></label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-i18n="[placeholder]deviceManage.userName" id="editUserName" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="editPassWord" class="col-sm-2 control-label" data-i18n="login.password"></label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-i18n="[placeholder]login.password" id="editPassWord" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="editDeviceDesc" class="col-sm-2 control-label" data-i18n="alert.remarks"></label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="editDeviceDesc" data-i18n="[placeholder]alert.remarks" rows="8"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group jt_btnGroupWZ">
+                                <button class="editDeviceBtn btn col-sm-offset-2" data-i18n="public.confirm"></button>
+                                <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 参数设置 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="canshuSet">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title" data-i18n="deviceManage.parameSet"></h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <table class="table-striped footable-res footable metro-blue" data-page-size="6">
+                        <thead>
+                        <tr>
+                            <th><span data-i18n="public.number"></span></th>
+                            <th><span data-i18n="deviceManage.parameName"></span></th>
+                            <th><span data-i18n="deviceManage.defaultValue"></span></th>
+                            <th data-hide="phone,tablet" data-i18n="alert.remarks"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <volist name="paramlist" id="v">
+                            <tr>
+                                <td></td>
+                                <td>{$v.name}</td>
+                                <td><input type="text" id="param{$v.id}" onclick="fastparamet(this)" value="" class="form-control"></td>
+                                <!--<empty name="v.paramvalue">-->
+                                <!--<td><input type="text" data-id="{$v.id}" onclick="fastparamet(this)" value="{$v.value}" class="form-control"></td>-->
+                                <!--<else/>-->
+                                <!--<td><input type="text" data-id="{$v.id}" onclick="fastparamet(this)" value="{$v.paramvalue}" class="form-control"></td>-->
+                                <!--</empty>-->
+                                <td>{$v.remarke}</td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <div class="pagination pagination-centered"></div>
+                            </td>
+                        </tr>
+                        </tfoot>
+                        <!--<div class="btn-group">-->
+                            <!--<button class="btn btn-primary" data-toggle="modal" data-target="#addCanshu">添加参数</button>-->
+                        <!--</div>-->
+                    </table>
+                </div>
+                <div class="form-group jt_btnGroup">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加参数 暂未启用 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="addCanshu">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 id="myLargeModalLabel" class="modal-title" data-i18n="deviceManage.addParame"></h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="deviceManage.parameName"></label>
+                            <div class="col-sm-10">
+                                <input name="paramName" type="text" data-i18n="[placeholder]deviceManage.parameName" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="deviceManage.parameType"></label>
+                            <div class="col-sm-10">
+                                <select id="paramType" class="filter-status form-control">
+                                    <option value="0" data-i18n="deviceManage.selectType"></option>
+                                    <option value="1" data-i18n="deviceManage.byte"></option>
+                                    <option value="2" data-i18n="deviceManage.int"></option>
+                                    <option value="3" data-i18n="deviceManage.long"></option>
+                                    <option value="4" data-i18n="deviceManage.float"></option>
+                                    <option value="5" data-i18n="deviceManage.double"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="deviceManage.default"></label>
+                            <div class="col-sm-10">
+                               <input name="paramValue" type="text" data-i18n="[placeholder]deviceManage.default" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="deviceManage.parameExplain"></label>
+                            <div class="col-sm-10">
+                                <input name="paramDesc" type="text" data-i18n="[placeholder]deviceManage.parameExplain" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group jt_btnGroupWZ">
+                            <button class="btn col-sm-offset-2 addparam" data-i18n="public.confirm"></button>
+                            <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--修改资源共享-->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg"
+     aria-hidden="true" id="modifyResources">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title" data-i18n="deviceManage.resourcesList"></h6>
+            </div>
+            <!-- 注释开始：这里的层级不要动，涉及到通用jsTree全选反选功能 -->
+            <div class="modal-body">
+                <div class="compose_mail jt_bodyTableBox3">
+                    <input type="hidden" id="modifyid">
+                    <div class="modal-body" id="modifyTree">
+
+                    </div>
+                </div>
+                <div class="form-group jt_btnGroup">
+                    <!--<button class="btn jt_btnColor" onclick="checkedAllTree(this)">全&nbsp;选</button>-->
+                    <!--<button class="btn jt_btnColor" onclick="checkedNoTree(this)">反&nbsp;选</button>-->
+                    <button class="btn btn-primary resourceModifyConfirm" data-i18n="public.confirm"></button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+                </div>
+            </div>
+            <!-- 注释结束：这里的层级不要动，涉及到通用jsTree全选反选功能 -->
+        </div>
+    </div>
+</div>
+<!--修改资源共享end-->
+
+<!-- 权限控制 -->
+<!--<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="authMsg">-->
+    <!--<div class="modal-dialog modal-lg">-->
+        <!--<div class="modal-content">-->
+            <!--<div class="modal-header">-->
+                <!--<button aria-hidden="true" data-dismiss="modal" class="close" type="button">-->
+                    <!--<span class="entypo-cancel"></span>-->
+                <!--</button>-->
+                <!--<h6 class="modal-title">权限控制</h6>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; 注释开始：这里的层级不要动，涉及到通用jsTree全选反选功能 &ndash;&gt;-->
+            <!--<div class="modal-body">-->
+                <!--<div class="compose_mail">-->
+                    <!--<div class="compose_mail jt_bodyTableBox3">-->
+                        <!--<div class="modal-body" id="authTree">-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                    <!--<div class="form-group jt_btnGroup">-->
+                        <!--<button class="btn jt_btnColor" onclick="checkedAllTree(this);">全&emsp;选</button>-->
+                        <!--<button class="btn jt_btnColor" onclick="checkedNoTree(this);">反&emsp;选</button>-->
+                        <!--<button class="btn authConfirm">确&emsp;认</button>-->
+                        <!--<button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; 注释结束：这里的层级不要动，涉及到通用jsTree全选反选功能 &ndash;&gt;-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<script>
+//    resourceModifyInit = 0;
+//    /* 打开权限控制模态框 */
+//    $('.authButton').click(function (){
+//        matrixId = $(this).attr('matrix-id');
+//
+//        if (resourceModifyInit == 0) {
+//            $('#authTree').empty();
+//            var wait = '<div class="panel-heading">读取资源中...</div>';
+//            $('#authTree').append(wait);
+//            $.ajax({
+//                url: '/Matrix/getDeviceListForShareDevice',
+//                type: 'get',
+//                success: function (result) {
+//                    $('#authTree').empty();
+//                    if (result) {
+//                        resourceModifyInit = 1;
+//                        $('#authTree').jstree({
+//                            'checkbox': {
+//                                'real_checkboxes': true
+//                            },
+//                            'plugins': ['checkbox', 'types', 'sort'],
+//                            'types': {
+//                                'default': {
+//                                    'icon': false  // 关闭默认图标
+//                                }
+//                            },
+//                            'core': {
+//                                'data': result
+//                            }
+//                        });
+//
+//                        $.ajax({
+//                            url: '/Matrix/getResourceForMatrixId',
+//                            type: 'post',
+//                            data: {id: matrixId},
+//                            success: function (result) {
+//                                if (result.status == true) {
+//                                    $.each(result.data, function (key, value) {
+//                                        $('#authTree').jstree("check_node", $('#' + value + '_anchor'));
+//                                    });
+//                                    $("#authMsg").modal("show");
+//                                } else {
+//                                    alert(result.msg);
+//                                }
+//                            }
+//                        });
+//                    }
+//                }
+//            });
+//        } else {
+//            $('#authTree').jstree("deselect_all");
+//            $.ajax({
+//                url: '/Matrix/getResourceForMatrixId',
+//                type: 'post',
+//                data: {id: matrixId},
+//                success: function (result) {
+//                    if (result.status == true) {
+//                        $('#authTree').jstree().open_all();
+//                        $.each(result.data, function (key, value) {
+//                            $('#authTree').jstree("check_node", $('#' + value + '_anchor'));
+//                        });
+//                        $("#authMsg").modal("show");
+//                    } else {
+//                        alert(result.msg);
+//                    }
+//                }
+//            });
+//        }
+//    });
+//
+//    $('.authConfirm').click(function () {
+//        var dataModify = $('#authTree').jstree(true).get_bottom_selected();
+//        confirmBtnDisabled($(this),'/Matrix/editShareListForMatrixId',{id: matrixId, resource: dataModify});
+//    });
+    var brand_list = {$json_brands};
+    $(".brand_list").change(function () {
+        $(".addmarking").empty();
+        $(".addversion").empty();
+        var brand_id = $(this).val();
+        //当没有选择品牌时不执行
+        if(brand_id != 0){
+            for(var i = 0 ; i < brand_list.length ; i++){
+                var aaaa = brand_list[i];
+
+                //型号
+                if(brand_list[i].brand_id == brand_id && typeof brand_list[i].marking[0] == 'object'){
+                    //marking是型号规格的数组  二维
+                    var marking_option = '<option class="optionI18n" value="0" data-i18n="deviceManage.selectModel"></option>';
+                    setTimeout(function(){
+                        $('.optionI18n').i18n();
+                    },1);
+                    for(var index = 0 ; index < brand_list[i].marking.length ; index++)
+                    {
+                        var marking = brand_list[i].marking[index];
+                        marking_option += '<option value="'+marking.marking_id+'">'+marking.name+'</option>';
+                    }
+                    $(".addmarking").empty();
+                    $(".addmarking").append(marking_option);
+                }
+                //版本
+                if(brand_list[i].brand_id == brand_id && typeof brand_list[i].version[0] == 'object'){
+                    //marking是型号规格的数组  二维
+                    var version_option = '<option class="optionI18n" value="0" data-i18n="deviceManage.selectEdition"></option>';
+                    setTimeout(function(){
+                        $('.optionI18n').i18n();
+                    },1);
+                    for(var index = 0 ; index < brand_list[i].version.length ; index++)
+                    {
+                        var version = brand_list[i].version[index];
+                        version_option += '<option value="'+version.version_id+'">'+version.name+'</option>';
+                    }
+                    $(".addversion").empty();
+                    $(".addversion").append(version_option);
+                }
+            }
+        }
+    });
+
+    /* 业务逻辑脚本 */
+    var myObj = {
+        /* 添加设备 */
+        addDevice:function () {
+            $(".addDeviceBtn").on('click',function(){
+                var id = '';
+                var action = 'addDeviceAction';
+                var devicename = $("#deviceName").val();
+
+                var uuid = $("#uuId").val();
+
+                var remark = $("#deviceDesc").val();
+
+                var type = $(".filter-status").val();
+
+                var name = $("#userName").val();
+                var password = $("#passWord").val();
+                var types = $("#jt_changeText").attr('value');
+                var brandId = $("#addbrand").val();
+                var markingId = $("#addmarking").val();
+                var versionId = $("#addversion").val();
+                var duuidcheck = /_/.test(uuid);
+                if(!devicename){
+                    publicAlert({title:'提示信息',content:'请输入设备名称',icon:'fa fa-rocket'},false);
+                    return;
+                }
+                if(!uuid){
+                    publicAlert({title:'提示信息',content:'请输入序列号',icon:'fa fa-rocket'},false);
+                    return;
+                }
+                if(duuidcheck){
+                    publicAlert({title:'提示信息',content:'序列号不允许包含 _ 符号',icon:'fa fa-rocket'},false);
+                    return;
+                }
+                if(types == 0){/* 不填写也可以添加 */
+                    publicAlert({title:'提示信息',content:'请选择设备分类',icon:'fa fa-rocket'},false);
+                    return;
+                }
+                confirmBtnDisabled($(this),'/Device/editDevice',{action:action,devicename:devicename,uuid:uuid,
+                    name:name,password:password,remark:remark,id:id,type:type,types:types,
+                    brandId:brandId,markingId:markingId,versionId:versionId});
+            });
+        },
+        /* 删除设备 */
+        delDevice:function () {
+            $(".btn-del").on('click',function () {
+                var did = $(this).attr('data-id');
+                publicConfirm({title:'提示信息',content:'确定删除吗？',icon:'fa fa-rocket'},did);
+            });
+        },
+        /* 控制 */
+        controlDevice:function () {
+            $('.btn-control').on('click',function(){
+                var state = $(this).attr('data-state');
+                if(state.trim() == '离线'){
+                    publicAlert({title:'提示信息',content:'设备离线禁止控制',icon:'fa fa-rocket'},false);
+                    return;
+                }
+                var id = $(this).parent().parent().parent().parent().parent().attr("data-id");
+                window.open('/Matrix/index/matrix_id/' + id,'_blank');
+            });
+        },
+        /* 设置skip to systemset */
+        SkipSystem:function () {
+            $('.skipSystem').on('click',function(){
+                var id = $(this).parent().parent().parent().parent().parent().attr("data-id");
+                window.location.href = "/SystemSet/timeSet/matrix_id/"+id;
+            });
+        },
+        /* 修改设备 */
+        editDevice:function () {
+            var remark = '';
+            var id = '';
+            var devicename = '';
+            $('.editBtn').on('click',function(){
+                // 点击编辑初始化赋值模板
+
+                $("#edituuid").html($(this).attr('data-uuid'));
+                
+                $("#editDeviceName").val($(this).parent().parent().parent().parent().parent().attr('data-name'));
+                remark = $(this).parent().parent().parent().parent().parent().attr('data-intro');
+                $("#editDeviceDesc").val(remark);
+               
+//                devicename = $(this).parent().parent().parent().parent().parent().attr('data-name');
+                id = $(this).parent().parent().parent().parent().parent().attr("data-id");
+                var type_id = $(this).parent().parent().parent().parent().parent().attr('data-type');
+                $("option[fz = '"+type_id+"']").attr('selected','selected');
+         
+                var types_id = $(this).parent().parent().parent().parent().parent().attr('data-fl');
+                var username = $(this).parent().parent().parent().parent().parent().attr('data-username');
+                $("#editUserName").val(username);
+ 
+                var pwd = $(this).parent().parent().parent().parent().parent().attr('data-pwd');
+                $("#editPassWord").val(pwd);
+                //设备分类
+             
+                var devicechild = $(this).parent().parent().parent().parent().parent().children()[2];
+                var devicesort = devicechild.innerText;
+                $('#jt_changeText1').text(devicesort);
+                $('#jt_changeText1').attr('value',types_id);
+                /* 如果修改的时候没有设备分类则显示设备分类 */
+                if($('#jt_changeText1').text() == ""){
+                    $('#jt_changeText1').text('设备分类');
+                }
+                var brand_id = $(this).attr('data-brandid');
+                var brand_name = $(this).attr('data-brandname');
+                var marking_id = $(this).attr('data-markingid');
+                var marking_name = $(this).attr('data-markingname');
+                var varsion_id = $(this).attr('data-varsionid');
+                var varsion_name = $(this).attr('data-varsionname');
+                if(brand_id && brand_name){
+                    $("option[brand_id = '"+brand_id+"']").attr('selected','selected');
+                }else{
+                    $("#editbrand").val(0);
+                    $("#editbrand").trigger('change');
+                }
+                if(marking_id && marking_name){
+                    var marking_option = '<option value="'+marking_id+'">'+marking_name+'</option>';
+                    $("#editmarking").empty();
+                    $("#editmarking").append(marking_option);
+                }
+                if(varsion_id && varsion_name){
+                    var version_option = '<option value="'+varsion_id+'">'+varsion_name+'</option>';
+                    $("#editversion").empty();
+                    $("#editversion").append(version_option);
+                }
+            });
+            // 赋值结束，开始获取值并执行操作
+            $(".editDeviceBtn").on('click',function () {
+                var type = $(".editTypeId").val();
+                var types = $("#jt_changeText1").attr('value');
+                var action = 'modifyDeviceAction';
+                var name = $("#editUserName").val();
+                var password = $("#editPassWord").val();
+                devicename = $("#editDeviceName").val();
+                remark =$("#editDeviceDesc").val();
+                if(!devicename){
+                    publicAlert({title:'提示信息',content:'请输入设备名称',icon:'fa fa-rocket'},false);
+                    return;
+                }
+                if(types == 0){
+                    publicAlert({title:'提示信息',content:'请选择设备分类',icon:'fa fa-rocket'},false);
+                    return;
+                }
+                var brandId = $("#editbrnad").val();
+                var markingId = $("#editmarking").val();
+                var versionId = $("#editversion").val();
+                confirmBtnDisabled($(this),'/Device/editDevice',{action:action,devicename:devicename,
+                    name:name,password:password,remark:remark,id:id,type:type,types:types,
+                    brandId:brandId,markingId:markingId,versionId:versionId});
+            });
+        },
+        /* 添加参数 */
+        addParam:function () {
+
+
+//             $(".addparam").on('click',function(){
+//                 var action = 'addparam';
+//                 var paramName = $("#addCanshu input[name='paramName']").val();
+//                 var paramValue = $("#addCanshu input[name='paramValue']").val();
+//                 var paramDesc = $("#addCanshu input[name='paramDesc']").val();
+//                 var paramType = $("#addCanshu #paramType option:selected").val();
+//                 if(!id){
+//                     alert('未获取到所属父级ID');return;
+//                 }
+//                 if(!paramName){
+//                     alert('请输入设备名称');return;
+//                 }
+//                 confirmBtnDisabled($(this),'/Device/addParam',{id:id,action:action,paramName:paramName,paramValue:paramValue,
+//                     paramDesc:paramDesc,paramType:paramType});
+//             });
+        }
+    };
+
+    myObj.addDevice();
+    myObj.delDevice();
+    myObj.controlDevice();
+    myObj.SkipSystem();
+    myObj.editDevice();
+    myObj.addParam();
+
+    var deviceid = '';
+            $(".btn-param").on('click',function(){
+                deviceid = $(this).parent().parent().parent().attr("data-id");
+                $.post('/Device/getParam', {deviceid: deviceid}, function(sdata) {
+                    for (var i = 0; i < sdata.length; i++) {
+                        var paramid = sdata[i].id;
+                        if (sdata[i].paramvalue) {
+                            $("#param"+paramid).val(sdata[i].paramvalue);
+                        }else{
+                            $("#param"+paramid).val(sdata[i].value);
+                        }
+                    }
+                });
+            });
+
+            function fastparamet(res){
+                $(res).bind('input oninput', function() {
+                    var paramValue = $(res).val();
+                    var id = $(res).attr('data-id');
+                    confirmBtnDisabled($(this),'/Device/bindParam',{id:id,deviceid:deviceid,paramvalue:paramValue});
+                });
+            }
+</script>
+<script>
+//    $(document).ready(function(){
+//        $('#deviceTree').empty();
+//        var wait = '<div class="panel-heading">读取资源中...</div>';
+//        $('#deviceTree').append(wait);
+//        $.ajax({
+//            url: '/Matrix/getDeviceListForShareDevice',
+//            type: 'get',
+//            success: function (result) {
+//                $('#deviceTree').empty();
+//                if (result) {
+//                    $('#deviceTree').jstree({
+//                        'checkbox': {
+//                            'keep_selected_style': true,
+//                            'real_checkboxes': true
+//                        },
+//                        'plugins': ['checkbox', 'types', 'sort'],
+//                        'types': {
+//                            'default': {
+//                                "icon": false  // 关闭默认图标
+//                            }
+//                        },
+//                        'core' : {
+//                            'data' : result
+//                        }
+//                    }).bind("select_node.jstree", function (e, data) {
+//                        if (data.node.id != 1) {
+//                            data.instance.toggle_node(data.node);
+//                        }
+//                    });
+//                }
+//            }
+//        });
+//    });
+    $(document).ready(function(){;
+        resTree2();
+    });
+    $('.sharebtn').on('click',function(){
+        var did = $(this).attr('did');
+        if(!did){
+            publicAlert({title:'提示信息',content:'该设备不合法！',icon:'fa fa-rocket'},false);
+            return false;
+        }
+        $.ajax({
+            url: '/Matrix/getShareByDevice',
+            type: 'post',
+            data: {did:did},
+            async: false,
+            dataType: 'json',
+            success: function(res){
+                if(res.status == true){
+                    var rarr = res.data;
+                    if(rarr){
+                        var selected = [];
+                        $.each(rarr,function(k,v){
+                            selected.push(k);
+                        });
+                        $('#modifyTree').jstree('select_node',selected);
+                    }
+                    $('#modifyid').val(did);
+                    $('#modifyResources').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                }else{
+                    publicAlert({title:'提示信息',content:res.msg,icon:'fa fa-rocket'},false);
+                    return false;
+                }
+            }
+        });
+    });
+    $('#modifyResources').on('hidden.bs.modal', function () {
+        $('#modifyid').val('');
+        $('#modifyTree').jstree('uncheck_all');
+    });
+    function resTree2(){
+        $.ajax({
+            url: '/Matrix/getAllResource',
+            type: 'get',
+            success: function (result) {
+                if (result) {
+                    $(".sharebtn").attr('disabled',false);
+                    editshareTree(result);
+                }else{
+                    $(".sharebtn").text('资源加载失败');
+                }
+            }
+        });
+    }
+    function editshareTree(resTree){
+        //编辑共享时的原始树
+        $('#modifyTree').jstree({
+            'checkbox': {
+                'real_checkboxes': true
+            },
+            'plugins': ['checkbox', 'types'],
+            'types': {
+                'default': {
+                    "icon": false  // 关闭默认图标
+                }
+            },
+            'core': {
+                'data': resTree
+            }
+        });
+    }
+    $('.resourceModifyConfirm').click(function (){
+        var did = $('#modifyid').val();
+        var modifydata = [];
+        var resDataObj = $('#modifyTree').jstree(true).get_bottom_selected(true);
+        $.each(resDataObj, function (key, value) {
+            if(value.original.isneed){
+    //                    modifydata.push(value.id+'_'+value.text);
+                var ptext = value.text;
+                if(value.original.isleaf){
+                    var pnode = $('#modifyTree').jstree('get_node',value.parent);
+                    ptext = pnode.text+':'+value.text;
+                    modifydata.push(value.id+'_'+ptext);
+                }else{
+                    modifydata.push(value.id+'_'+value.text);
+                }
+            }
+        });
+        if(!did){
+            publicAlert({title:'提示信息',content:'源数据不存在！',icon:'fa fa-rocket'},false);
+            return false;
+        }
+//        console.log(modifydata,did);
+//        $(this).attr('disabled','disabled');
+//        $.ajax({
+//            url: '/Matrix/shareSave',
+//            type: 'post',
+//            data: {dataDevice: did, resData: modifydata,savetype: 2},
+//            async: false,
+//            success: function (result) {
+//                if(result.status == true){
+//                    publicAlert({title:'提示信息',content:result.msg,icon:'fa fa-rocket'},false);
+//                }
+//            }
+//        });
+//        $(this).removeAttr('disabled');
+//        $('#modifyResources').modal('hide');
+//        return false;
+        if(modifydata.length <= 0){
+            console.log(modifydata.length);
+            if(confirm('确定要清空该设备下的所有共享资源么？')){
+                confirmBtnDisabled($(this),'/Matrix/shareDel',{did:did},false);
+                $('#modifyResources').modal('hide');
+                $(this).removeAttr('disabled');
+            }else{
+                $(this).removeAttr('disabled');
+                return false;
+            }
+        }else{
+            confirmBtnDisabled($(this),'/Matrix/shareSave',{dataDevice: did, resData: modifydata,savetype: 2},false);
+            $('#modifyResources').modal('hide');
+            $(this).removeAttr('disabled');
+        }
+    });
+</script>
+<include file="Common:footer" />
+</body>
+</html>

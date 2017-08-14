@@ -1,0 +1,200 @@
+<include file="Common:header" />
+<link href="__CSS__plugins/jsTree/style.min.css" rel="stylesheet">
+<link href="__CSS__plugins/dataTables/datatables.min.css" rel="stylesheet">
+<title data-i18n="menu.p_contact"></title>
+</head>
+<body>
+<div id="wrapper" class="contact">
+    <include file="Common:leftBar" />
+    <div id="page-wrapper" class="gray-bg">
+        <include file="Common:topBar" />
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5 data-i18n="menu.p_contact"></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                <thead>
+                                <tr>
+                                    <th data-i18n="contact.order"></th>
+                                    <th data-i18n="contact.name"></th>
+                                    <th data-i18n="contact.tel"></th>
+                                    <th data-i18n="public.remark"></th>
+                                    <th data-i18n="public.op"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr id="1">
+                                    <td class="order">1</td>
+                                    <td class="name">唐键坪</td>
+                                    <td class="tel">15802592810</td>
+                                    <td class="remark">大家好</td>
+                                    <td class="text-center op">
+                                        <div class="btn-group">
+                                            <button class="btn btn-primary btn-sm modify" data-i18n="public.modify"></button>
+                                            <button class="btn btn-danger btn-sm delete" data-i18n="public.delete" data-toggle="confirmation" data-placement="left" data-original-title="确定删除?"></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr id="2">
+                                    <td class="order">2</td>
+                                    <td class="name">唐键坪1</td>
+                                    <td class="tel">15802592811</td>
+                                    <td class="remark">大家好1</td>
+                                    <td class="text-center op">
+                                        <div class="btn-group">
+                                            <button class="btn btn-primary btn-sm modify" data-i18n="public.modify"></button>
+                                            <button class="btn btn-danger btn-sm delete" data-i18n="public.delete" data-toggle="confirmation" data-placement="left" data-original-title="确定删除?"></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <button class="btn btn-primary btn-wlg m-r" type="add" data-i18n="public.add" onclick="myObj.add()"></button>
+                                <button class="btn btn-default btn-wlg" type="save" data-i18n="public.save" onclick="myObj.save()"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Mainly scripts -->
+<script src="__JS__plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="__JS__plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<!-- Custom and plugin javascript -->
+<script src="__JS__inspinia.js"></script>
+<script src="__JS__plugins/pace/pace.min.js"></script>
+<script src="__JS__plugins/dataTables/datatables.min.js"></script>
+<script src="__JS__bootstrap-tooltip.js"></script>
+<script src="__JS__bootstrap-confirmation.js"></script>
+<script>
+    window.myObj={
+        $result:$('table'),
+        pageLength:10,
+        init:function(){
+            $('.dataTables-example').DataTable({
+                info:false,
+                lengthChange:false,
+                pageLength: myObj.pageLength,
+                responsive: true
+            });
+            $('[data-toggle="confirmation"]').confirmation({
+                animation:true,
+                btnOkLabel:'是',
+                btnCancelLabel:'否',
+                singleton:true,
+                popout:true,
+                onConfirm:function(){
+                    var id = $(this).parentsUntil('td').parent().attr('id');
+                    $('[data-toggle="confirmation"]').confirmation('hide');
+                    $.ajax({
+                        url:"",
+                        data:'id='+id,
+                        success:function(result){
+                            var result = eval('('+result+')');
+                            if(result==1) window.reload();
+                        }
+                    });
+                }
+            });
+            $('.modify').on('click',function(){
+                if($(this).attr('data-lock')) return;
+                $(this).attr('data-lock',true);
+                var $parent = $(this).parent().parent().parent().addClass('edit');
+                var $td = $parent.find('td');
+                $td.each(function(i,item){
+                    var $html = null;
+                    if($(this).hasClass('name') || $(this).hasClass('tel')){
+                        $html = $('<input name='+$(this).attr('class')+' class="form-control" type="text" class="form-control" required="" value="'+$(this).text()+'"/>');
+                    }else if($(this).hasClass('remark')){
+                        $html = $('<input name='+$(this).attr('class')+' class="form-control" type="text" class="form-control" value="'+$(this).text()+'"/>');
+                    }
+                    if(i==1) $html.focus();
+                    if($html) $(this).html($html);
+                });
+            });
+        },
+        add:function(){
+            var $line = $('<tr class="new">'
+                    +'<td class="order"></td>'
+                    +'<td class="name"><input name="name" type="text"  class="form-control" required="" value=""></td>'
+                    +'<td class="tel"><input name="tel" type="tel"  class="form-control" required="" value=""></td>'
+                    +'<td class="remark"><input name="remark" type="text"  class="form-control" value=""></td>'
+                    +'<td class="text-center op">'
+                    +'    <div class="btn-group">'
+                    +'        <button class="btn btn-primary btn-sm modify" data-i18n="public.modify"></button>'
+                    +'        <button class="btn btn-danger btn-sm delete" data-i18n="public.delete" data-toggle="confirmation" data-placement="top" data-original-title="确定删除?"></button>'
+                    +'  </div>'
+                    +' </td></tr>');
+            $line.i18n();
+            $line.find('.delete').on('click',function(){
+                $line.remove();
+            });
+            myObj.$result.find('tr:visible').last().after($line);
+        },
+        save:function(){
+            //先保存新增的行
+            var $rows_new = myObj.$result.find('tr.new');
+            if($rows_new.length){
+                var newUserArr = new Array();
+                $rows_new.each(function(i,item){//检查所有添加和修改项
+                    var user = new Object();
+                    user.name = $(this).find('.name input').val('');
+                    user.tel = $(this).find('.tel input').val('');
+                    user.remark = $(this).find('.name remark').val('');
+                    newUserArr.push(user);
+                });
+                if(newUserArr.length){
+                    $.ajax({
+                        url:'',
+                        data:'newUserArr='+JSON.stringify(newUserArr),
+                        success:function(result){
+                            var result = eval('('+result+')');
+                            if(result==1){
+                                alert('添加用户成功!');
+                                window.location.reload();
+                            }else{
+                                alert('添加用户发生错误，请重试!');
+                            }
+                        }
+                    });
+                }
+            }
+            //保存编辑的行
+            var $rows_edit = myObj.$result.find('tr.edit');
+            if($rows_edit.length){
+                var editUserArr = new Array();
+                $rows_edit.each(function(i,item){//检查所有添加和修改项
+                    var user = new Object();
+                    user.id = $(this).attr('data-id');
+                    user.name = $(this).find('.name input').val('');
+                    user.tel = $(this).find('.tel input').val('');
+                    user.remark = $(this).find('.name remark').val('');
+                    editUserArr.push(user);
+                });
+                $.ajax({
+                    url:'',
+                    data:'editUserArr='+JSON.stringify(editUserArr),
+                    success:function(result){
+                        var result = eval('('+result+')');
+                        if(result==1){
+                            alert('修改用户成功!');
+                            window.location.reload();
+                        }else{
+                            alert('修改用户发生错误，请重试!');
+                        }
+                    }
+                });
+            }
+        }
+    };
+    myObj.init();
+</script>
+</body>
+</html>

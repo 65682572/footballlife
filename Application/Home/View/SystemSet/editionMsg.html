@@ -1,0 +1,264 @@
+<!-- 版本管理 -->
+<title data-i18n="edition.editionManage"></title>
+<include file="Common:matrix_header" />
+<include file="Common:matrix_menu" />
+<include file="Common:matrix_leftbar_public3" />
+<include file="Common:msgFootable" />
+<script src="/Public/common/js/msgFootable.js"></script>
+<!-- 中间 -->
+<div class="wrap-fluid jt_typeNumberMain jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span data-i18n="edition.editionManage"></span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle" />
+                    <div class="col-sm-2">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="btn-group btn-wigdet pull-right visible-lg">
+                            <div class="btn">
+                                Widget</div>
+                            <button data-toggle="dropdown" class="btn dropdown-toggle jt_dropTo">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul role="menu" class="dropdown-menu">
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-plus-circled margin-iconic"></span>Add New
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-heart margin-iconic"></span>Favorite
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-cog margin-iconic"></span>Setting
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 jt_rowNest1">
+                <div class="nest" id="FootableClose">
+                    <div class="title-alt">
+                        <h6 data-i18n="edition.editionManage"></h6>
+                        <div class="titleClose">
+                            <a class="gone" href="#FootableClose">
+                                <span class="entypo-cancel"></span>
+                            </a>
+                        </div>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#Footable">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="Footable">
+                        <table class="table-striped footable-res footable metro-blue" data-page-size="10">
+                            <thead>
+                            <tr>
+                                <th><span data-i18n="public.number"></span></th>
+                                <th><span data-i18n="edition.editionName"></span></th>
+                                <th data-hide="phone"><span data-i18n="deviceManage.brand"></span></th>
+                                <th><span data-i18n="alert.remarks"></span></th>
+                                <th><span data-i18n="public.operation"></span></th>
+                            </tr>
+                            </thead>
+                            <tbody id="versionhtml">
+                            <volist name="typedata" id="v">
+                                <tr>
+                                    <td></td>
+                                    <td>{$v.name}</td>
+                                    <td>
+                                        <a href="#">{$v.brand_name}</a>
+                                    </td>
+                                    <td>{$v.intro}</td>
+                                    <td data-value="1">
+                                        <div class="btn-group">
+                                            <button data-versionname="{$v.name}" data-versionId="{$v.version_id}" data-brandId="{$v.brand_id}"  data-intro="{$v.intro}"  class="btn btn-warning editbtn" data-toggle="modal" data-target="#updataEdition" data-i18n="public.modify"></button>
+                                            <button data-versionId="{$v.version_id}" class="btn btn-danger delbtn" id="btn-editionDel" data-i18n="public.delete"></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="6">
+                                    <div class="pagination pagination-centered"></div>
+                                </td>
+                            </tr>
+                            </tfoot>
+                            <div class="btn-group">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#addEdition" data-i18n="edition.addEdition"></button>
+                            </div>
+                            <div class="btn-group pull-right jt_toggle">
+                                <span data-i18n="modelGG.brandToggle"></span>
+                                <select class="jt_xzPP filter-status form-control brandData">
+                                    <volist name="brands" id="v">
+                                        <option value="{$v.brand_id}">{$v.name}</option>
+                                    </volist>
+                                </select>
+                            </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框 -->
+<!-- 添加版本 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="addEdition">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title" data-i18n="edition.addEdition"></h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div>
+                        <div class="form-horizontal" role="form" >
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" data-i18n="edition.editionName"></label>
+                                <div class="col-sm-10">
+                                    <input data-i18n="[placeholder]edition.editionName" class="form-control" id="addversionname">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" data-i18n="deviceManage.brand"></label>
+                                <div class="col-sm-10">
+                                    <select class="filter-status form-control addversionbrand">
+                                        <option value="0" data-i18n="modelGG.selectBrand"></option>
+                                        <volist name="brands" id="v" >
+                                            <option value="{$v.brand_id}">{$v.name}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2  control-label" data-i18n="alert.remarks"></label>
+                                <div class="col-sm-10">
+                                    <textarea id="addversionintro" class="form-control" data-i18n="[placeholder]alert.remarks" rows="8"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group jt_btnGroupWZ">
+                                <button class="btn col-sm-offset-2 addbtntrue" data-i18n="public.confirm"></button>
+                                <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="updataEdition">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title" data-i18n="edition.modifyEdition"></h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="edition.modifyEdition"></label>
+                            <div class="col-sm-10">
+                                <input id="editversionname" type="text" data-i18n="[placeholder]edition.modifyEdition" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="deviceManage.brand"></label>
+                            <div class="col-sm-10">
+                                <select class="filter-status form-control editversionbrand" >
+                                    <volist name="brands" id="v" >
+                                        <option editbrandid="{$v.brand_id}" value="{$v.brand_id}">{$v.name}</option>
+                                    </volist>
+                            </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="alert.remarks"></label>
+                            <div class="col-sm-10">
+                                <textarea id="editversionintro" class="form-control" data-i18n="[placeholder]alert.remarks" rows="8"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group jt_btnGroupWZ">
+                            <button class="btn col-sm-offset-2 editbtntrue" data-i18n="public.confirm"></button>
+                            <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Common:footer" />
+<script>
+    /* 这一块代码有问题，描述：（切换品牌之后值赋予、序号不显示） */
+    $(".brandData").on('change',function () {
+        var brand_id = $(this).val();
+        $.post('/SystemSet/editionMsg',{brand_id:brand_id},function (resData) {
+            $("#versionhtml").empty();
+            var html = '';
+            if(resData.status == true){
+                for(var i = 0 ; i < resData.data.length ; i++){
+                    html += '<tr><td></td><td>'+resData.data[i].name+'</td><td> <a href="#">'
+                        +resData.data[i].brand_name+'</a></td><td>'+
+                        resData.data[i].intro+'</td><td data-value="1"><div class="btn-group">'+ '<button  data-versionId="'+resData.data[i].version_id+'" data-event="'+resData.data[i].event+'" data-intro="'+resData.data[i].intro+'" data-brandId="'+resData.data[i].brand_id+'" data-maringname="'+resData.data[i].name+'"  class="btn btn-warning" data-toggle="modal" data-target="#updata" data-i18n="public.modify"></button>'+
+                        '<button data-versionId="'+resData.data[i].version_id+'"  class="btn btn-danger" data-i18n="public.delete"></button> </div> </td> </tr>';
+                }
+                $("#versionhtml").append(html);
+                $('.i18_links').i18n();
+            }
+        });
+    });
+
+    $(".addbtntrue").on('click',function () {
+        var name = $("#addversionname").val();
+        var brandId = $(".addversionbrand").val();
+        var intro = $("#addversionintro").val();
+        confirmBtnDisabled($(this),'/SystemSet/addVersion',{brandId:brandId,name:name,intro:intro});
+    });
+
+    var versionId = '';
+    $(".editbtn").on('click',function () {
+        $("#editversionname").val($(this).attr('data-versionname'));
+        $("option[editbrandid = '"+$(this).attr("data-brandId")+"']").attr('selected','selected');
+        $("#editversionintro").val($(this).attr('data-intro'));
+        versionId = $(this).attr('data-versionId');
+    });
+
+    $(".editbtntrue").on('click',function () {
+        var name = $("#editversionname").val();
+        var brandId = $(".editversionbrand").val();
+        var intro = $("#editversionintro").val();
+        confirmBtnDisabled($(this),'/SystemSet/editVersion',{brandId:brandId,name:name,intro:intro,versionId:versionId});
+    });
+    $(".delbtn").on('click',function () {
+        var did = $(this).attr('data-versionId');
+        publicConfirm({title:'提示信息',content:'确定删除吗？',icon:'fa fa-rocket'},did);
+    });
+</script>
+</body>
+</html>

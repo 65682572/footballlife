@@ -1,0 +1,90 @@
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Peergine基本功能演示</title>
+<script src="/Public/common/js/jquery-2.1.1.js"></script>
+<!-- Le styles -->
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/loader-style.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/Public/common/css/plugins/slider/bootstrap-slider.css">
+    <link rel="stylesheet" type="text/css" href="/assets/js/progress-bar/number-pb.css">
+    <link href="/Public/common/css/publicIndex.css" rel="stylesheet" />
+
+</head>
+<body>
+<table width="1280px">
+  <tr>
+    <td width="20%"><div>
+    <div class="side-bar jt_side-bar">
+        <ul id="menu-showhide2" class="topnav top2 menu-left-nest topList">
+            <li>
+                <a onclick="showmenu(this)" class="tooltip-tip title-menu-left ajax-load">
+                    <span>设备列表</span>
+                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                </a>
+            </li>
+            <ul id="menu3" style="display: block;">
+                <li>
+                </li>
+            </ul>
+        </ul>
+    </div>
+</div></td>
+    <td width="80%">
+      <div id="paper-middle" class="monitorPage">
+  <div class="jt_containerMain jt_mContainerMain">
+      <div id="jt_videoRegion" class="jt_mainArea">
+          <div class="jt_twelveGrid jt_grid">
+              <div class="grid twelveGrid twelveGrid1 twelveGrid1-4" id="grid37" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+              <div class="grid twelveGrid twelveGrid2 twelveGrid1-4" id="grid38" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+              <div class="grid twelveGrid twelveGrid3 twelveGrid1-4" id="grid39" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+              <div class="grid twelveGrid twelveGrid4 twelveGrid1-4" id="grid40" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+              <div class="grid twelveGrid twelveGrid5 twelveGrid5-8" id="grid41" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+              <div class="grid twelveGrid twelveGrid6 twelveGrid5-8" id="grid42" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+              <div class="grid twelveGrid twelveGrid7 twelveGrid5-8" id="grid43" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+              <div class="grid twelveGrid twelveGrid8 twelveGrid5-8" id="grid44" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+              <div class="grid twelveGrid twelveGrid9 twelveGrid9-12" id="grid45" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+              <div class="grid twelveGrid twelveGrid10 twelveGrid9-12" id="grid46" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+              <div class="grid twelveGrid twelveGrid11 twelveGrid9-12" id="grid47" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+              <div class="grid twelveGrid twelveGrid12 twelveGrid9-12" id="grid48" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+          </div>
+      </div>
+  </div>
+</div>
+    </td>
+  </tr>
+</table>
+
+
+<embed id="pgAtx99999" codebase="/Uploads/pgSetup_zh_v1.28.0.msi" width="0" height="0" type="application/peergine-plugin">
+<script type="text/javascript">
+    function adduser(sUser){
+        var index = sUser.lastIndexOf("\_"); //找到最后一个的位置
+        var uuid = sUser.substring(index+1);
+
+                html = '<a title="' + sUser + '" id="'+sUser+'"><img style="width: 20px;" src="/Public/common/images/icon_juZhenWhite.png" /><span  onclick="click_hide(this)" style="white-space:nowrap;">'+ sUser + '</span></a>';
+            $("#menu3 li").append(html);
+
+
+    }
+    function deluser(sUser){
+        var userList = $("#menu3 li").find("a").each(function(){
+            var ss = $(this).attr("id");
+            if (ss == sUser) {
+                $(this).remove();
+            }
+        });
+    }
+    function doubleclick(obj){
+        var ss = $(obj).attr("id");
+        editVedio(ss);
+    }
+</script>
+<!--加载pg插件-->
+<script src="/Public/common/js/PgLib.js"></script>
+<!--加载初始化函数-->
+<script src="/Public/common/js/PgLibinit.js"></script>
+<script src="/assets/js/monitor_pg.js"></script>
+
+</body>
+</html>

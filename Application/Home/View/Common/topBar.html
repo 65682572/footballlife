@@ -1,0 +1,97 @@
+<div class="row border-bottom">
+    <nav class="navbar navbar-static-top" role="navigation"><!-- margin-bottom: 0; -->
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+        </div>
+        <ul class="nav navbar-top-links navbar-right">
+            <li>
+                <a class="personal" href="/user/personal">
+                    <img alt="image" class="img-circle" src="__IMG__profile_small.jpg" />
+                    <span>{$userInfo.username}</span>
+                </a>
+            </li>
+            <li>
+                <a href="/" class="m-r-sm text-muted welcome-message" data-i18n="nav.welcome"></a>
+            </li>
+            <li class="dropdown">
+                <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                    <i class="fa fa-envelope"></i> <span class="label label-warning">{$count}</span>
+                </a>
+                <ul class="dropdown-menu dropdown-messages">
+                    <volist name="message" id="v">
+                        <li>
+                            <div class="dropdown-messages-box">
+                                <img alt="image" class="img-circle" src="__IMG__a4.jpg">
+                                <div class="media-body">
+                                    <strong>{$v.username}</strong>
+                                    <p>邀请你加入{$v.firmname}</p>
+                                    <small class="text-muted fr">{$v.createtime|date="Y-m-d H:i:s",###}</small>
+                                </div>
+                            </div>
+                            <a class="hot_block" href="/user/mailbox/{$v.id}"></a>
+                        </li>
+                        <li class="divider"></li>
+                    </volist>
+                    <li>
+                        <div class="text-center link-block">
+                            <i class="fa fa-envelope"></i>
+                            <span data-i18n="public.more"></span>
+                        </div>
+                        <a class="hot_block" href="/user/maillist"></a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="/login/logout">
+                    <i class="fa fa-sign-out"></i><span data-i18n="public.logout"></span>
+                </a>
+            </li>
+            <li>
+                <div class="change_lng btn-group">
+                    <a class="btn btn-white set_zh active"><img src="__IMG__icon_zh.png"> ZH</a>
+                    <a class="btn btn-white set_en"><img src="__IMG__icon_en.png"> EN</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</div>
+<script src="__JS__jquery.cookie.js"></script>
+<script type="text/javascript">
+    var myObj1={
+        $btns:$('.btn'),
+        init:function(){
+            var lng = $.cookie('lng');
+            if(!lng) lng = 'zh';
+            if(lng == 'zh'){
+                $('.set_zh').addClass('active');
+                $('.set_en').removeClass('active');
+            }else{
+                $('.set_zh').removeClass('active');
+                $('.set_en').addClass('active');
+            }
+            $.i18n.init({
+                resGetPath: '__LOCALS____lng__.json',
+                load: 'unspecific',
+                fallbackLng: false,
+                lng: 'zh'
+            }, function (t){
+                $('.i18_links').i18n();
+            });
+            $('.set_zh').on('click', function (){
+                myObj1.$btns.removeClass("active");
+                $(this).addClass("active");
+                i18n.setLng('zh', function(){
+                    $('.i18_links').i18n();
+                });
+            });
+            $('.set_en').on('click', function (){
+                myObj1.$btns.removeClass("active");
+                $(this).addClass("active");
+                i18n.setLng('en', function(){
+                    $('.i18_links').i18n();
+                });
+            });
+        }
+    };
+    myObj1.init();
+</script>

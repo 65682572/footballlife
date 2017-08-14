@@ -1,0 +1,225 @@
+<!-- 分组管理 -->
+<title> 分组管理 </title>
+<include file="Common:matrix_header" />
+<include file="Common:matrix_menu" />
+<include file="Common:matrix_leftbar_public3" />
+<include file="Common:msgFootable" />
+<script src="/Public/common/js/msgFootable.js"></script>
+<!-- 中间 -->
+<div class="wrap-fluid jt_deviceMsg jt_branchMain jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span>分组管理</span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle" />
+                    <div class="col-sm-2">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="btn-group btn-wigdet pull-right visible-lg">
+                            <div class="btn">
+                                Widget</div>
+                            <button data-toggle="dropdown" class="btn dropdown-toggle jt_dropTo">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul role="menu" class="dropdown-menu">
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-plus-circled margin-iconic"></span>Add New
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-heart margin-iconic"></span>Favorite
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-cog margin-iconic"></span>Setting
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 jt_rowNest1">
+                <div class="nest" id="FootableClose">
+                    <div class="title-alt">
+                        <h6>
+                            分组管理
+                        </h6>
+                        <div class="titleClose">
+                            <a class="gone" href="#FootableClose">
+                                <span class="entypo-cancel"></span>
+                            </a>
+                        </div>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#Footable">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="Footable">
+                        <table class="table-striped footable-res footable metro-blue" data-page-size="10">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>分组名称</th>
+                                <th>所属机构</th>
+                                <th data-hide="phone">创建时间</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list2" id="v">
+                                <tr data-id="{$v.id}">
+                                    <td></td>
+                                    <td class="jt_hiddenTd3 footable-first-column">{$v.name}</td>
+                                    <td class="jt_hiddenTd3">{$v.firmid|get_firmname=$v.firmid}</td>
+                                    <td class="jt_hiddenTd4">{$v.createtime|date='Y-m-d H:i:s',###}</td>
+                                    <td class="jt_hiddenTd4 footable-last-column">
+                                        <div class="btn-group">
+                                            <button class="btn btn-warning editCategory" data-toggle="modal" data-target="#edits">编&nbsp;辑</button>
+                                            <button data-id="{$v.id}" class="btn btn-danger delKindBtn" id="btn-SBGroupDel">删&nbsp;除</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <div class="pagination pagination-centered"></div>
+                                </td>
+                            </tr>
+                            </tfoot>
+                            <div class="btn-group">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#addGroup">添加分组</button>
+                            </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框 -->
+<!-- 添加分组 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="addGroup">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">添加分组</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div>
+                        <div class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label  for="categoryName" class="col-sm-2 control-label">分组名称</label>
+                                <div class="col-sm-10">
+                                    <input type="text" placeholder="分组名称" id="categoryName" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group jt_btnGroupWZ">
+                                <button class="addCategory btn col-sm-offset-2">确&nbsp;认</button>
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 编辑 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="edits">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">编辑分组</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div>
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label  for="cateEditName" class="col-sm-2 control-label">分组名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" placeholder="分组名称" id="cateEditName" class="form-control cateEditName">
+                            </div>
+                        </div>
+                        <div class="form-group jt_btnGroupWZ">
+                            <button class="editTrueButton btn col-sm-offset-2">确&nbsp;认</button>
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    /*业务逻辑脚本*/
+    var myObj = {
+        /*分类管理删除*/
+        delKind:function () {
+            $(".delKindBtn").on('click',function () {
+                var did = $(this).attr('data-id');
+                publicConfirm({title:'提示信息',content:'确定删除吗？',icon:'fa fa-rocket'},did);
+            });
+
+        },
+        /*分类添加管理*/
+        addCategory:function () {
+            $(".addCategory").on('click',function () {
+                var cateName = $("#categoryName").val();
+                if (!cateName) {
+                    publicAlert({title:'提示信息',content:'请输入分组名称！',icon:'fa fa-rocket'},false);return;
+                }
+                var action = 'addClassifyAction';
+                confirmBtnDisabled($(this),'/Matrix/classify_add_ok',{action:action,classifyname:cateName});
+            });
+
+        },
+        /*编辑分类*/
+        editCategory:function () {
+            /*点编辑初始化生成id变量*/
+            $(".editCategory").on('click',function () {
+                var id = $(this).parent().parent().parent().attr('data-id');
+                myObj.id = id;
+                var groupval = $(this).parent().parent().parent().find('td').get(0).childNodes[1].nodeValue;
+                $('.cateEditName').val(groupval);
+            });
+            $(".editTrueButton").on('click',function () {
+                var action = 'editClassifyAction';
+                var cateName = $("#cateEditName").val();
+                if (!cateName) {
+                    publicAlert({title:'提示信息',content:'请输入分组名称',icon:'fa fa-rocket'},false);return;
+                }
+                confirmBtnDisabled($(this),'/Matrix/classify_add_ok',{action:action,classifyname:cateName,id:myObj.id});
+            });
+        }
+    };
+    myObj.delKind();
+    myObj.addCategory();
+    myObj.editCategory();
+</script>
+<include file="Common:footer" />
+</body>
+</html>

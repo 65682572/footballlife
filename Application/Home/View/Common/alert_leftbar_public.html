@@ -1,0 +1,48 @@
+<!-- 左菜单 -->
+<div class="jt_leftGYMenu jt_leftXTMenu">
+    <div id="skin-select">
+        <include file="Common:logoFunc" />
+        <div class="jt_leftBarMenu" id="jt_leftBarMenu">
+            <div class="skin-part">
+                <div id="tree-wrap">
+                    <div class="side-bar">
+                        <ul id="jt_showhide2" class="topnav top2 menu-left-nest jt_weizhi">
+                            <li>
+                                <a onclick="showmenu(this)" class="tooltip-tip title-menu-left ajax-load">
+                                    <span data-i18n="common.alertAction"></span>
+                                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                                </a>
+                            </li>
+                            <ul id="menu-showhide2">
+                                <li>
+                                    <a href="{:U('/Alert/alertOperation','','')}" data-i18n="common.alertOperation"></a>
+                                </li>
+                                <li>
+                                    <a href="{:U('/Alert/alertDevice','','')}" data-i18n="common.deviceManage"></a>
+                                </li>
+                                <li>
+                                    <a href="{:U('/Alert/alertEvent','','')}" data-i18n="common.alertEvent"></a>
+                                </li>
+                                <li>
+                                    <a href="{:U('/Alert/alertMode','','')}" data-i18n="common.responseMode"></a>
+                                </li>
+                                <li>
+                                    <a href="{:U('/Alert/rspList','','')}" data-i18n="common.alertConfig"></a>
+                                </li>
+                                <li>
+                                    <a href="{:U('/Alert/alertType','','')}" data-i18n="common.alertType"></a>
+                                </li>
+                                <li>
+                                    <a href="{:U('/Alert/alarmLog','','')}" data-i18n="common.alertLog"></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" data-i18n="common.parameterSet"></a>
+                                </li>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

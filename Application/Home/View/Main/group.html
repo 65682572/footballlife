@@ -1,0 +1,454 @@
+<include file="Common:header"/>
+<link href="__CSS__plugins/jsTree/style.min.css" rel="stylesheet">
+<link href="__CSS__plugins/dataTables/datatables.min.css" rel="stylesheet">
+<link href="__CSS__bootstrap-select.min.css" rel="stylesheet">
+<title data-i18n="menu.branch_m"></title>
+</head>
+<body>
+<div id="wrapper" class="branch_m">
+    <include file="Common:leftBar"/>
+    <div id="page-wrapper" class="gray-bg">
+        <include file="Common:topBar"/>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5 data-i18n="menu.branch_m"></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example">
+                                <thead>
+                                <tr>
+                                    <th data-i18n="branch.name"></th>
+                                    <th data-i18n="branch.member"></th>
+                                    <th data-i18n="public.remark"></th>
+                                    <th data-i18n="public.op"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <volist name="list" id="v">
+                                    <tr data-id="{$v.id}">
+                                        <td class="name">{$v.name}</td>
+                                        <td class="member">人员：{$v.users}</td>
+                                        <td class="remark">{$v.intro}</td>
+                                        <td class="text-center op">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary btn-sm edit" data-name="{$v.name}"
+                                                        data-id="{$v.id} " data-des="{$v.intro}" data-mem="{$v.users}"
+                                                        data-i18n="public.edit"></button>
+                                                <button onclick=btn_acc({$v.id}) class="btn btn-success btn-sm auth"
+                                                        data-i18n="branch.auth"></button>
+                                                <button class="btn btn-danger btn-sm delete" data-i18n="public.delete"
+                                                        data-id="{$v.id}" data-toggle="confirmation"
+                                                        data-placement="left" data-original-title="确定删除?"></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </volist>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <button class="btn btn-primary addBranch" type="button" data-i18n="branch.add"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal inmodal" id="myModal_edit" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInTop">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" data-i18n="branch.modify"></h4>
+            </div>
+            <div class="modal-body">
+                <form class="m-t" role="form">
+                    <input type="hidden" class="form-control" name="id" value="">
+                    <div class="form-group">
+                        <input name="name" type="text" class="form-control" data-i18n="[placeholder]branch.name"
+                               required="">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="des" rows="5" class="form-control"
+                                  data-i18n="[placeholder]public.remark"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="branch.member"></label>
+                        <input name="member" type="hidden" class="form-control" required="">
+                        <p name="e_mem"></p>
+                        <div class="text-center">
+                            <button class="btn btn-success btn-sm editMem" type="button"
+                                    data-i18n="branch.editMem"></button>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary btn-sm submit dosub" data-action="modifyEditAction" type="button"
+                                data-i18n="public.submit"></button>
+                        <button class="btn btn-danger btn-sm cancel" type="button" data-i18n="public.cancel"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal inmodal" id="myModal_add" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInTop">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" data-i18n="branch.add"></h4>
+            </div>
+            <div class="modal-body">
+                <form class="m-t" role="form">
+                    <input type="hidden" class="form-control" name="id" value="">
+                    <div class="form-group">
+                        <input name="name" type="text" class="form-control" data-i18n="[placeholder]branch.name"
+                               required="">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="des" rows="5" class="form-control"
+                                  data-i18n="[placeholder]public.remark"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label data-i18n="branch.member"></label>
+                        <input name="member" type="hidden" class="form-control" required="">
+                        <p data-i18n="branch.noMemb"></p>
+                        <div class="text-center">
+                            <button class="btn btn-success btn-sm editMem" type="button"
+                                    data-i18n="branch.editMem"></button>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary btn-sm submit dosub" data-action="modifyOrgAction" type="button"
+                                data-i18n="public.submit"></button>
+                        <button class="btn btn-danger btn-sm cancel" type="button" data-i18n="public.cancel"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal inmodal" id="myModal_auth" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInTop">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" data-i18n="branch.auth"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body" id="jstree_auth"></div>
+                <div class="text-center">
+                    <button id="btn-access" class="btn btn-primary btn-sm submit" type="button"
+                            data-i18n="public.submit"></button>
+                    <button class="btn btn-danger btn-sm cancel" type="button" data-i18n="public.cancel"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal inmodal" id="myModal_chooseUser" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInTop">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
+                        class="sr-only">Close</span></button>
+                <h4 class="modal-title" data-i18n="branch.chooseUser"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <div class="btn-group my-m-t-none">
+                                    <label data-i18n="menu.exchange"></label>
+                                    <select class="selectpicker" id="changefirm">
+                                        <volist name="firmlist" id="v">
+                                            <option value="{$v.id}"
+                                            <if condition="$v.isck eq 1">selected="selected"</if>
+                                            >{$v.name}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered table-hover dataTables-example1">
+                                        <thead>
+                                        <tr>
+                                            <th data-i18n="contact.name"></th>
+                                            <th data-i18n="contact.tel"></th>
+                                            <th data-i18n="public.op"></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class='showgroupuser'></tbody>
+                                        <input type="hidden" id="sh__groupid" value="">
+                                    </table>
+                                    <div class="text-center">
+                                        <button class="btn btn-primary btn-sm submit dosubuser" type="button"
+                                                data-i18n="public.submit"></button>
+                                        <button class="btn btn-danger btn-sm cancel" type="button"
+                                                data-i18n="public.cancel"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Custom and plugin javascript -->
+<script src="__JS__plugins/dataTables/datatables.min.js"></script>
+<script src="__JS__bootstrap-tooltip.js"></script>
+<script src="__JS__bootstrap-confirmation.js"></script>
+<script src="__JS__bootstrap-select.min.js"></script>
+<script>
+    function btn_acc(id) {
+        $("#btn-access").click(function () {
+            var string = "";
+            $(".jstree li").each(function (i) {
+                if ($(this).attr("aria-selected") == "true") {
+                    string += $(this).attr("id") + ",";
+                }
+            });
+            console.log(string);
+            $.ajax({
+                url: "/auth/accessSubmit",
+                type: "post",
+                data: {id: id, data: string},
+                success: function (result) {
+                    if (result['result'] == 1) {
+                        alert("授权成功");
+//                    console.log(result);
+                        location.reload();
+                    } else {console.log(result);
+                        alert("授权失败");
+                    }
+                }
+            });
+        });
+
+        $.ajax({
+            url: "/auth/access",
+            type: "post",
+            data: {groupid : id},
+            success: function (result) {
+                $('#jstree_auth').jstree({
+                    'checkbox': {
+                        'keep_selected_style': true,
+                        'real_checkboxes': true
+                    },
+                    'plugins': ['checkbox', 'types', 'dnd'],
+                    'types': {
+                        'default': {
+                            "icon": false  // 关闭默认图标
+                        }
+                    },
+                    'core': {
+                        'data': result
+                    }
+                });
+            }
+        });
+    }
+    window.myObj = {
+        $result: $('table'),
+        pageLength: 10,
+        $myModal_edit: $('#myModal_edit'),
+        $myModal_add: $('#myModal_add'),
+        $myModal_auth: $('#myModal_auth'),
+        $myModal_chooseUser: $('#myModal_chooseUser'),
+        table1: null,
+        table2: null,
+        $sub: true,
+        $subuser: true,
+        init: function () {
+            $('.selectOrg').on('change', function () {
+                location.href = '/main/group/' + $(this).val(),
+                    $.ajax({
+                        url: '/main/group',
+                        type: "get",
+                        data: {firmid: $(this).val()},
+                        success: function (result) {
+                            location.reload();
+                        }
+                    });
+            });
+            $('[data-toggle="confirmation"]').confirmation({
+                animation: true,
+                btnOkLabel: '是',
+                btnCancelLabel: '否',
+                singleton: true,
+                popout: true,
+                onConfirm: function () {
+                    var id = $(this).parentsUntil('tr').parent().attr('data-id');
+                    $('[data-toggle="confirmation"]').confirmation('hide');
+                    $.ajax({
+                        url: "/main/creategroup",
+                        type: "post",
+                        data: {groupid: id, action: 'modifyDelAction'},
+                        success: function (result) {
+                            if (result['status'] == true) {
+                                location.reload();
+                            } else {
+                                alert(result['msg']);
+                            }
+                        }
+                    });
+                }
+            });
+            $('.edit').on('click', function () {
+                var e_name = $(this).attr("data-name");
+                var e_des = $(this).attr("data-des");
+                var e_mem = $(this).attr("data-mem");
+                var gid = $(this).attr("data-id");
+                myObj.$myModal_edit.find("input[name='name']").val(e_name);
+                myObj.$myModal_edit.find("textarea[name='des']").val(e_des);
+                myObj.$myModal_edit.find("p[name='e_mem']").text(e_mem);
+                myObj.$myModal_edit.find("input[name='id']").val(gid);
+                myObj.$myModal_edit.modal('show');
+            });
+            myObj.$myModal_edit.find('.cancel').on('click', function () {
+                myObj.$myModal_edit.modal("hide");
+            });
+            $('.addBranch').on('click', function () {
+                myObj.$myModal_add.modal("show");
+            });
+            myObj.$myModal_add.find('.cancel').on('click', function () {
+                myObj.$myModal_add.modal("hide");
+            });
+            $('.auth').on('click', function () {
+                myObj.$myModal_auth.modal('show');
+            });
+            myObj.$myModal_auth.find('.submit').on('click', function () {
+                myObj.$myModal_auth.modal("hide");
+            });
+            myObj.$myModal_auth.find('.cancel').on('click', function () {
+                myObj.$myModal_auth.modal("hide");
+            });
+            $('.editMem').on('click', function () {
+                var sh_groupid = $(this).parent().parent().parent().find('input[name="id"]').val();
+                $("#sh__groupid").val(sh_groupid);
+                myObj.$myModal_chooseUser.modal('show');
+                myObj.getgroupUser();
+            });
+            myObj.$myModal_chooseUser.find('.cancel').on('click', function () {
+                myObj.$myModal_chooseUser.modal("hide");
+            });
+
+
+            $(".dosub").bind("click", function () {
+                myObj.dosub($(this));
+            });
+            $("#changefirm").bind("change", function () {
+                myObj.getgroupUser();
+            });
+            $(".dosubuser").bind("click", function () {
+                myObj.dosubuser($(this));
+            });
+        },
+        dosub: function (obj) {
+            var name = obj.parent().parent().find('input[name="name"]').val();
+            var intro = obj.parent().parent().find('textarea[name="des"]').val();
+            var groupid = obj.parent().parent().find('input[name="id"]').val();
+            var action = obj.attr("data-action");
+            if (name == '') {
+                alert("部门名称不能为空！");
+                return false;
+            }
+            if (myObj.$sub == false) {
+                return false;
+            }
+            myObj.$sub = false;
+            obj.addClass("btn_waiting");
+            $.ajax({
+                url: "/main/creategroup",
+                type: "post",
+                data: {name: name, intro: intro, action: action, groupid: groupid},
+                success: function (result) {
+                    if (result['status'] == true) {
+                        location.reload();
+                    } else {
+                        alert(result['msg']);
+                        obj.removeClass("btn_waiting");
+                        myObj.$sub = true;
+                    }
+                }
+            });
+        },
+        getgroupUser: function () {
+            var tpl = '<tr id="{ID}">' +
+                '<td class="name">{USERNAME}</td>' +
+                '<td class="tel">{TEL}</td>' +
+                '<td class="text-center op">' +
+                '<input type="checkbox" name="checkbox" {ISCK} value={ID}>' +
+                '</td>' +
+                '</tr>';
+            var $showgroupuser = $(".showgroupuser");
+            var sh_groupid = $("#sh__groupid").val();
+            var firmid = $("#changefirm").val();
+            $.ajax({
+                url: "/main/groupUser",
+                type: "post",
+                data: {firmid: firmid, groupid: sh_groupid},
+                success: function (result) {
+                    $showgroupuser.html();
+                    var hl = '';
+                    if (result['status'] == true) {
+                        $(result['msg']).each(function () {
+                            var tmp = tpl;
+                            tmp = tmp.replace(/{ID}/g, this.id);
+                            tmp = tmp.replace('{USERNAME}', this.username);
+                            tmp = tmp.replace('{TEL}', this.mobile);
+                            tmp = tmp.replace('{ISCK}', this.isck);
+                            hl += tmp;
+                        });
+                        if (myObj.table2 != null) {
+                            myObj.table2.destroy();
+                        }
+                        $showgroupuser.html(hl);
+                        myObj.table2 = $('.dataTables-example1').DataTable({
+                            info: false,
+                            lengthChange: false,
+                            pageLength: myObj.pageLength,
+                            responsive: true,
+                            searching: false
+                        });
+                    }
+                }
+            });
+        },
+        dosubuser: function (obj) {
+            if (myObj.$subuser == false) {
+                return false;
+            }
+            myObj.$subuser = false;
+            obj.addClass("btn_waiting");
+            var uids = [];
+            var sh_groupid = $("#sh__groupid").val();
+            var firmid = $("#changefirm").val();
+            obj.parent().parent().parent().find("input[name='checkbox']:checked").each(function () {
+                uids.push(this.value);
+            });
+            $.ajax({
+                url: "/main/editGroupUser",
+                type: "post",
+                data: {firmid: firmid, groupid: sh_groupid, uids: uids},
+                success: function (result) {
+                    alert(result['msg']);
+                    obj.removeClass("btn_waiting");
+                    myObj.$subuser = true;
+                }
+            })
+        }
+    };
+    myObj.init();
+</script>
+</body>
+</html>

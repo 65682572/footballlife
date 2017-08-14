@@ -1,0 +1,950 @@
+        <!-- 首页 -->
+        <title data-i18n="public.homeTitle"></title>
+        <include file="Common:matrix_header" />
+        <include file="Common:matrix_menu" />
+        <include file="Common:matrix_leftbar_common" />
+        <script src="/assets/js/monitorJS.js"></script>
+        <script src="/Public/common/js/echarts.common.min.js"></script>
+        <link href="/assets/js/switch/bootstrap-switch.css" rel="stylesheet">
+        <script src="http://webapi.amap.com/maps?v=1.3&key=b92a1d02aefaf60d15e3304938a5cdd9"></script>
+        <script src="http://webapi.amap.com/ui/1.0/main.js"></script>
+        <body onbeforeunload="return mqarrstop()">
+        <!-- 中间 -->
+        <div class="jt_monitorMain">
+            <div class="wrap-fluid">
+                <div class="container-fluid paper-wrap bevel tlbr">
+                    <div class="row">
+                        <div id="paper-top">
+                            <div class="col-lg-3 jt_monitorMainLeftBar">
+                                <h2 class="tittle-content-header">
+                                <span class="menu_a entypo-home jt_mainLeft1"></span>
+                                <span class="jt_mainLeft2">
+                                    <li class="menu_a jt_menu_a"><i class="fa fa-lg fa-angle-right"></i></li>
+                                    <li class="menu_a jt_menu_b" data-i18n="public.monitorPage"></i></li>
+                                </span>
+                                </h2>
+                                <span class="jt_funcRight jt_funcRight2">
+                                    <img id="jt_imgToggle" src="/Public/common/images/icon_showTool.png"/>
+                                </span>
+                            </div>
+                            <include file="Common:matrix_mainMiddle" />
+                            <div class="devider-vertical visible-lg jt_xuXianMarginLeft"></div>
+                            <div class="col-lg-2 jt_monitorMainRightBar">
+                                <div class="btn-group jt_qPBtnGroup">
+                                    <empty name="modulename">
+                                        <button class="btn jt_maxWidth" data-i18n="monitor.noModel"></button>
+                                    <else/>
+                                        <button class="btn">{$modulename}</button>
+                                    </empty>
+                                    <button data-i18n="[title]monitor.windowFullScreen" class="btn jt_windowQPHeight" onclick="launchFullscreen(document.getElementById('jt_videoRegion'),1);"><span class="glyphicon glyphicon-resize-full"></span></button>
+                                    <button data-i18n="[title]monitor.windowNumberFullScreen" class="btn jt_windowQPHeight" onclick="agentCall(this)"><span class="glyphicon glyphicon-fullscreen"></span></button>
+                                    <!--<button data-toggle="dropdown" class="btn dropdown-toggle jt_btn_height" type="button">-->
+                                        <!--<span class="caret"></span>-->
+                                        <!--<span class="sr-only">Toggle Dropdown</span>-->
+                                    <!--</button>-->
+                                    <!--<ul role="menu" class="dropdown-menu">-->
+                                        <!--<li>-->
+                                            <!--<a onclick="launchFullscreen(document.getElementById('paper-middle'),1);" href="#">-->
+                                                <!--<span class="entypo-doc-landscape margin-iconic"></span>全屏-->
+                                            <!--</a>-->
+                                        <!--</li>-->
+                                    <!--</ul>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 工具栏-暂时隐藏 -->
+                    <div class="jt_rightBarMSLB jt_monitorToolBar" id="jt_rightBarMSLB">
+                        <div class="jt_mSLB">
+                            <label class="jt_labelBG" data-i18n="monitor.windowLayout"></label>
+                            <div class="jt_fourMSLB">
+                                <ul class="jt_mSLB">
+                                    <li><img id="jt_hide1" src="__IMG__icon_oneGrid.png" data-i18n="[title]monitor.modelOne" /></li>
+                                    <li><img id="jt_hide2" src="__IMG__icon_fourGrid.png" data-i18n="[title]monitor.modelTwo" /></li>
+                                    <li><img id="jt_hide3" src="__IMG__icon_sixGrid.png" data-i18n="[title]monitor.modelThree" /></li>
+                                    <li><img id="jt_hide4" src="__IMG__icon_sevenGrid.png" data-i18n="[title]monitor.modelFour" /></li>
+                                    <li><img id="jt_hide5" src="__IMG__icon_nineGrid.png" data-i18n="[title]monitor.modelFive" /></li>
+                                    <li><img id="jt_hide6" src="__IMG__icon_tenGrid.png" data-i18n="[title]monitor.modelSix" /></li>
+                                    <li><img id="jt_hide7" src="__IMG__icon_twelveGrid.png" data-i18n="[title]monitor.modeSeven" /></li>
+                                    <li><img id="jt_hide8" src="__IMG__icon_thirteenGrid.png" data-i18n="[title]monitor.modelEight" /></li>
+                                    <li><img id="jt_hide9" src="__IMG__icon_sixteenGrid.png" data-i18n="[title]monitor.modelNine" /></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="paper-middle" class="monitorPage">
+                        <div class="jt_containerMain jt_mContainerMain">
+                            <div id="jt_videoRegion" class="jt_mainArea">
+                                <div class="jt_oneGrid jt_grid">
+                                    <div class="grid oneGrid oneGrid1" id="grid1"></div>
+                                </div>
+                                <div class="jt_fourGrid jt_grid">
+                                    <div class="grid fourGrid fourGrid1" id="grid2"></div>
+                                    <div class="grid fourGrid fourGrid2" id="grid3"></div>
+                                    <div class="grid fourGrid fourGrid3 fourGridQ" id="grid4"></div>
+                                    <div class="grid fourGrid fourGrid4 fourGridQ" id="grid5"></div>
+                                </div>
+                                <div class="jt_sixGrid jt_grid">
+                                    <div class="grid sixGrid sixGrid1" id="grid6"></div>
+                                    <div class="grid sixGrid sixGrid2" id="grid7"></div>
+                                    <div class="grid sixGrid sixGrid3" id="grid8"></div>
+                                    <div class="grid sixGrid sixGrid4 sixGridQ" id="grid9"></div>
+                                    <div class="grid sixGrid sixGrid5 sixGridQ" id="grid10"></div>
+                                    <div class="grid sixGrid sixGrid6 sixGridQ" id="grid11"></div>
+                                </div>
+                                <div class="jt_sevenGrid jt_grid">
+                                    <div class="grid sevenGrid sevenGrid1 sevenGridW" id="grid12"></div>
+                                    <div class="grid sevenGrid sevenGrid2" id="grid13"></div>
+                                    <div class="grid sevenGrid sevenGrid3 sevenGridW" id="grid14"></div>
+                                    <div class="grid sevenGrid sevenGrid4 sevenGridQ" id="grid15"></div>
+                                    <div class="grid sevenGrid sevenGrid5 sevenGridQ" id="grid16"></div>
+                                    <div class="grid sevenGrid sevenGrid6 sevenGridQ" id="grid17"></div>
+                                    <div class="grid sevenGrid sevenGrid7 sevenGridQ" id="grid18"></div>
+                                </div>
+                                <div class="jt_nineGrid jt_grid">
+                                    <div class="grid nineGrid nineGrid1 nineGrid1-3" id="grid19"></div>
+                                    <div class="grid nineGrid nineGrid2 nineGrid1-3" id="grid20"></div>
+                                    <div class="grid nineGrid nineGrid3 nineGrid1-3" id="grid21"></div>
+                                    <div class="grid nineGrid nineGrid4 nineGrid4-6" id="grid22"></div>
+                                    <div class="grid nineGrid nineGrid5 nineGrid4-6" id="grid23"></div>
+                                    <div class="grid nineGrid nineGrid6 nineGrid4-6" id="grid24"></div>
+                                    <div class="grid nineGrid nineGrid7 nineGrid7-9" id="grid25"></div>
+                                    <div class="grid nineGrid nineGrid8 nineGrid7-9" id="grid26"></div>
+                                    <div class="grid nineGrid nineGrid9 nineGrid7-9" id="grid27"></div>
+                                </div>
+                                <div class="jt_tenGrid jt_grid">
+                                    <div class="grid tenGrid tenGrid1" id="grid28"></div>
+                                    <div class="grid tenGrid tenGrid2 tenGrid2-3" id="grid29"></div>
+                                    <div class="grid tenGrid tenGrid3 tenGrid2-3" id="grid30"></div>
+                                    <div class="grid tenGrid tenGrid4 tenGrid4-5" id="grid31"></div>
+                                    <div class="grid tenGrid tenGrid5 tenGrid4-5" id="grid32"></div>
+                                    <div class="grid tenGrid tenGrid6 tenGrid6-7" id="grid33"></div>
+                                    <div class="grid tenGrid tenGrid7 tenGrid6-7" id="grid34"></div>
+                                    <div class="grid tenGrid tenGrid8 tenGrid8-9" id="grid35"></div>
+                                    <div class="grid tenGrid tenGrid9 tenGrid8-9" id="grid36"></div>
+                                    <div class="grid tenGrid tenGrid10"></div>
+                                </div>
+                                <div class="jt_twelveGrid jt_grid">
+                                    <div class="grid twelveGrid twelveGrid1 twelveGrid1-4" id="grid37"></div>
+                                    <div class="grid twelveGrid twelveGrid2 twelveGrid1-4" id="grid38"></div>
+                                    <div class="grid twelveGrid twelveGrid3 twelveGrid1-4" id="grid39"></div>
+                                    <div class="grid twelveGrid twelveGrid4 twelveGrid1-4" id="grid40"></div>
+                                    <div class="grid twelveGrid twelveGrid5 twelveGrid5-8" id="grid41"></div>
+                                    <div class="grid twelveGrid twelveGrid6 twelveGrid5-8" id="grid42"></div>
+                                    <div class="grid twelveGrid twelveGrid7 twelveGrid5-8" id="grid43"></div>
+                                    <div class="grid twelveGrid twelveGrid8 twelveGrid5-8" id="grid44"></div>
+                                    <div class="grid twelveGrid twelveGrid9 twelveGrid9-12" id="grid45"></div>
+                                    <div class="grid twelveGrid twelveGrid10 twelveGrid9-12" id="grid46"></div>
+                                    <div class="grid twelveGrid twelveGrid11 twelveGrid9-12" id="grid47"></div>
+                                    <div class="grid twelveGrid twelveGrid12 twelveGrid9-12" id="grid48"></div>
+                                </div>
+                                <div class="jt_thirteenGrid jt_grid">
+                                    <div class="grid thirteenGrid thirteenGrid1 thirteenGrid1-4" id="grid49"></div>
+                                    <div class="grid thirteenGrid thirteenGrid2 thirteenGrid1-4" id="grid50"></div>
+                                    <div class="grid thirteenGrid thirteenGrid3 thirteenGrid1-4" id="grid51"></div>
+                                    <div class="grid thirteenGrid thirteenGrid4 thirteenGrid1-4" id="grid52"></div>
+                                    <div class="grid thirteenGrid thirteenGrid5 thirteenGrid5_7" id="grid53"></div>
+                                    <div class="grid thirteenGrid thirteenGrid6" id="grid54"></div>
+                                    <div class="grid thirteenGrid thirteenGrid7 thirteenGrid5_7" id="grid55"></div>
+                                    <div class="grid thirteenGrid thirteenGrid8 thirteenGrid8-9" id="grid56"></div>
+                                    <div class="grid thirteenGrid thirteenGrid9 thirteenGrid8-9" id="grid57"></div>
+                                    <div class="grid thirteenGrid thirteenGrid10 thirteenGrid10-13" id="grid58"></div>
+                                    <div class="grid thirteenGrid thirteenGrid11 thirteenGrid10-13" id="grid59"></div>
+                                    <div class="grid thirteenGrid thirteenGrid12 thirteenGrid10-13" id="grid60"></div>
+                                    <div class="grid thirteenGrid thirteenGrid13 thirteenGrid10-13" id="grid61"></div>
+                                </div>
+                                <div class="jt_sixteenGrid jt_grid">
+                                    <div class="grid sixteenGrid sixteenGrid1 sixteenGrid1-4" id="grid62"></div>
+                                    <div class="grid sixteenGrid sixteenGrid2 sixteenGrid1-4" id="grid63"></div>
+                                    <div class="grid sixteenGrid sixteenGrid3 sixteenGrid1-4" id="grid64"></div>
+                                    <div class="grid sixteenGrid sixteenGrid4 sixteenGrid1-4" id="grid65"></div>
+                                    <div class="grid sixteenGrid sixteenGrid5 sixteenGrid5-8" id="grid66"></div>
+                                    <div class="grid sixteenGrid sixteenGrid6 sixteenGrid5-8" id="grid67"></div>
+                                    <div class="grid sixteenGrid sixteenGrid7 sixteenGrid5-8" id="grid68"></div>
+                                    <div class="grid sixteenGrid sixteenGrid8 sixteenGrid5-8" id="grid69"></div>
+                                    <div class="grid sixteenGrid sixteenGrid9 sixteenGrid9-12" id="grid70"></div>
+                                    <div class="grid sixteenGrid sixteenGrid10 sixteenGrid9-12" id="grid71"></div>
+                                    <div class="grid sixteenGrid sixteenGrid11 sixteenGrid9-12" id="grid72"></div>
+                                    <div class="grid sixteenGrid sixteenGrid12 sixteenGrid9-12" id="grid73"></div>
+                                    <div class="grid sixteenGrid sixteenGrid13 sixteenGrid13-16" id="grid74"></div>
+                                    <div class="grid sixteenGrid sixteenGrid14 sixteenGrid13-16" id="grid75"></div>
+                                    <div class="grid sixteenGrid sixteenGrid15 sixteenGrid13-16" id="grid76"></div>
+                                    <div class="grid sixteenGrid sixteenGrid16 sixteenGrid13-16" id="grid77"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-sm-6">
+                            <div class="nest" id="BlockquotesClose1">
+                                <div class="title-alt">
+                                    <h6 data-i18n="public.systemInfo"></h6>
+                                    <div class="titleClose">
+                                        <a class="gone" href="#BlockquotesClose1">
+                                            <span class="entypo-cancel"></span>
+                                        </a>
+                                    </div>
+                                    <div class="titleToggle">
+                                        <a class="nav-toggle-alt" href="#Blockquotes1">
+                                            <span class="entypo-up-open"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="body-nest2 Blockquotes" id="Blockquotes1">
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="nest" id="BlockquotesClose2">
+                                <div class="title-alt">
+                                    <h6 data-i18n="public.deviceStatus"></h6>
+                                    <div class="titleClose">
+                                        <a class="gone" href="#BlockquotesClose2">
+                                            <span class="entypo-cancel"></span>
+                                        </a>
+                                    </div>
+                                    <div class="titleToggle">
+                                        <a class="nav-toggle-alt" href="#Blockquotes2">
+                                            <span class="entypo-up-open"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="body-nest2 Blockquotes" id="Blockquotes2">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sb-slidebar sb-right jt_monitorMainMiddleFooter">
+                <div class="right-wrapper">
+                    <div class="row">
+                        <h3>
+                            <span>
+                                <i class="entypo-gauge"></i>
+                                &nbsp;&nbsp;MAIN WIDGET
+                            </span>
+                        </h3>
+                        <div class="col-lg-12">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="right-wrapper jt_rightMargin">
+                    <div class="row">
+                        <h3>
+                            <span><i class="entypo-chat"></i>&nbsp;&nbsp;CHAT</span>
+                        </h3>
+                        <div class="col-lg-12">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 右边开始 -->
+        <div class="sb-slidebar sb-right sb-active" id="jt_rightBarInfo">
+            <div class="row">
+                <div class="jt_rightShow">
+                    <ul class="topnav top2 menu-left-nest topList">
+                        <li>
+                            <a onclick="showmenu(this)" class="tooltip-tip title-menu-left">
+                                <span data-i18n="device.modelArea"></span>
+                            </a>
+                            <i class="icon icon-reply-all pull-right jt_goMsList" onclick="windowOpen('/Matrix/modelMsg')" data-i18n="[placeholder]public.modelManage"></i>
+                            <i data-toggle="modal" data-target="#saveMS" class="entypo-plus-squared pull-right jt_addMS" data-i18n="[placeholder]device.addModel"></i>
+                            <i data-toggle="modal" data-target="#saveModel" class="fontawesome-save pull-right jt_saveMS" data-i18n="[placeholder]device.saveModel"></i>
+                        </li>
+                        <ul id="menu5">
+                            <li>
+                                <a href="/Matrix/monitor" data-i18n="device.signOutModel"></a>
+                            </li>
+                            <volist name="modulelist" id="v">
+                                <eq name="v.id" value="$mid">
+                                    <li>
+                                        <a href="/Matrix/monitor/moduleId/{$v.id}">{$v.name}</a>
+                                    </li>
+                                <else/>
+                                    <li>
+                                        <a href="/Matrix/monitor/moduleId/{$v.id}">{$v.name}</a>
+                                    </li>
+                                </eq>
+                            </volist>
+                        </ul>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="jt_rightShow">
+                    <ul class="topnav top2 menu-left-nest topList jt_topListJL1">
+                        <li>
+                            <a onclick="showmenu(this)" class="tooltip-tip title-menu-left">
+                                <span data-i18n="device.alertLinkArea"></span>
+                            </a>
+                        </li>
+                        <ul id="menu3">
+                            <li>
+                                <a href="javascript:void(0);" data-i18n="device.noContent"></a>
+                            </li>
+                        </ul>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="jt_rightShow">
+                    <ul class="topnav top2 menu-left-nest topList jt_topListJL2">
+                        <li>
+                            <a id="rightCZArea" href="javascript:void(0);" class="tooltip-tip title-menu-left">
+                                <span data-i18n="monitor.operationArea"></span>
+                            </a>
+                        </li>
+                        <ul id="menuRight">
+                            <div class="menuRightBox">
+                                <label class="menuRighLabel" data-i18n="monitor.audioPull"></label>
+                                <div id="audioToggle" class="make-switch" data-on="primary" data-off="info">
+                                    <input type="checkbox" checked="">
+                                </div>
+                            </div>
+                            <div class="menuRightBox">
+                                <label class="menuRighLabel" data-i18n="monitor.audioPush"></label>
+                                <div id="pushToggle" class="make-switch" data-on="primary" data-off="info">
+                                    <input type="checkbox" checked="">
+                                </div>
+                            </div>
+                            <div class="menuRightBox">
+                                <label class="menuRighLabel" data-i18n="monitor.videoShot"></label>
+                                <div class="funcBox" id="videoButton">
+                                    <button onclick="funCutPic()" class="btn funcBtnArea" data-i18n="monitor.selectPosition"></button>
+                                </div>
+                            </div>
+                            <div class="menuRightBox">
+                                <label class="menuRighLabel" data-i18n="monitor.videoRecor"></label>
+                                <div id="videoToggle" class="make-switch" data-on="primary" data-off="info">
+                                    <input type="checkbox" checked="">
+                                </div>
+                            </div>
+                            <div class="menuRightBox">
+                                <label class="menuRighLabel" data-i18n="monitor.videoClear"></label>
+                                <div class="funcBox" id="videoRemove">
+                                    <button onclick="funObjRemove()" class="btn funcBtnArea" data-i18n="monitor.clearVideo"></button>
+                                </div>
+                            </div>
+                            <div class="menuRightBox">
+                                <label class="menuRighLabel" data-i18n="monitor.parameSet"></label>
+                                <div class="funcBox" id="paramSet">
+                                    <button class="btn dropdown-toggle funcBtnArea" data-toggle="dropdown" data-i18n="monitor.ToggleParame"></button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li onclick="dependMcodeS()">
+                                            <a href="javascript:void(0);" data-i18n="monitor.toggleSubCode"></a>
+                                        </li>
+                                        <li onclick="masterMcodeS()">
+                                            <a href="javascript:void(0);" data-i18n="monitor.toggleMainCode"></a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" data-i18n="monitor.customParame"></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </ul>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <script>
+            var toggleBtnSava = {open:'0',close:'1'};
+            $(document).ready(function(){
+                setTimeout(function(){
+                    $("#AudioToggle .switch-left").click(function(){
+                        if(selfDevice == undefined){
+                            publicAlertAdd({title:'提示信息',content:'请选择正在运行的窗口！',icon:'fa fa-rocket'},false);
+                            $("#audioToggle").find('div').removeClass();
+                            $("#audioToggle").find('div').addClass('switch-on switch-animate');
+                            return;
+                        }else{
+                            /* 开启音频 */
+                            funPlayAudio();
+                        }
+                    });
+                },1);
+                setTimeout(function(){
+                    $("#AudioToggle .switch-right").click(function(){
+                        if(selfDevice == undefined){
+                            publicAlertAdd({title:'提示信息',content:'请选择正在运行的窗口！',icon:'fa fa-rocket'},false);
+                            $("#audioToggle").find('div').removeClass();
+                            $("#audioToggle").find('div').addClass('switch-off switch-animate');
+                            return;
+                        }else{
+                            /* 关闭音频 */
+                            publicAlertSave({title:'提示信息',content:'暂时没有关闭音频的指令！',icon:'fa fa-rocket'},false);
+                            $("#audioToggle").find('div').removeClass();
+                            $("#audioToggle").find('div').addClass('switch-off switch-animate');
+                        }
+                    });
+                },1);
+                setTimeout(function(){
+                    $("#pushToggle .switch-left").click(function(){
+                        if(selfDevice == undefined){
+                            publicAlertAdd({title:'提示信息',content:'请选择正在运行的窗口！',icon:'fa fa-rocket'},false);
+                            $("#pushToggle").find('div').removeClass();
+                            $("#pushToggle").find('div').addClass('switch-on switch-animate');
+                            return;
+                        }else{
+                            /* 推送音频 */
+                            $("#pushToggle").find('div').removeClass();
+                            $("#pushToggle").find('div').addClass('switch-on switch-animate');
+                            pushAudioS(3);
+
+                        }
+                    });
+                },1);
+                setTimeout(function(){
+                    $("#pushToggle .switch-right").click(function(){
+                        if(selfDevice == undefined){
+                            publicAlertAdd({title:'提示信息',content:'请选择正在运行的窗口！',icon:'fa fa-rocket'},false);
+                            $("#pushToggle").find('div').removeClass();
+                            $("#pushToggle").find('div').addClass('switch-off switch-animate');
+                            return;
+                        }else{
+                            /* 关闭音频 */
+                            closeAudioS(this);
+                        }
+                    });
+                },1);
+                setTimeout(function(){
+                    $("#videoToggle .switch-left").click(function(){
+                        if(selfDevice == undefined){
+                            publicAlertAdd({title:'提示信息',content:'请选择正在运行的窗口！',icon:'fa fa-rocket'},false);
+                            $("#videoToggle").find('div').removeClass();
+                            $("#videoToggle").find('div').addClass('switch-on switch-animate');
+                            return;
+                        }else{
+                            /* 视频录制 */
+                            funStartRecord();
+                        }
+                    });
+                },1);
+                setTimeout(function(){
+                    $("#videoToggle .switch-right").click(function(){
+                        if(selfDevice == undefined){
+                            publicAlertAdd({title:'提示信息',content:'请选择正在运行的窗口！',icon:'fa fa-rocket'},false);
+                            $("#videoToggle").find('div').removeClass();
+                            $("#videoToggle").find('div').addClass('switch-off switch-animate');
+                            return;
+                        }else{
+                            /* 停止录制 */
+                            funCloseRecord();
+                        }
+                    });
+                },1);
+            })
+        </script>
+        <!-- 添加模式 -->
+		<div style="margin-top: -30px;" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="saveMS">
+		    <div class="modal-dialog modal-lg">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+		                    <span class="entypo-cancel"></span>
+		                </button>
+		                <h6 class="modal-title" data-i18n="device.addModel"></h6>
+		            </div>
+		            <div class="modal-body">
+		                <div class="compose_mail">
+		                    <div >
+		                        <div class="form-group">
+		                            <input type="text" data-i18n="[placeholder]device.addModel" id="creatGroupName" class="form-control">
+		                        </div>
+		                        <button id="addmonitormodule" class="btn" data-i18n="public.confirm"></button>
+		                        <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+		                    </div>
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+        <!-- 保存模式 -->
+        <div style="margin-top: -30px;" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="saveModel">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                            <span class="entypo-cancel"></span>
+                        </button>
+                        <h6 class="modal-title" data-i18n="device.saveModel"></h6>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" data-i18n="monitor.modelSelect"></label>
+                                <div class="col-sm-10">
+                                    <select class="filter-status form-control">
+                                        <option value="0">0</option>
+                                        <option value="0">1</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group jt_btnGroupWZ">
+                                <button id="savemonitormodule" class="btn col-sm-offset-2" data-i18n="public.confirm"></button>
+                                <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="/assets/js/switch/bootstrap-switch.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('.make-switch').bootstrapSwitch('setSizeClass', 'switch-small');
+            });
+        </script>
+        <!-- 右边结束 -->
+        <script>
+            $("#addmonitormodule").click(function(){
+                var jsonArray = JSON.stringify(mqArray);// 存入数据库前转换成字符串
+                var name = $("#creatGroupName").val();
+                if(!name){
+                    publicAlertAdd({title:'提示信息',content:'请输入模式名称！',icon:'fa fa-rocket'},false);return;
+                }
+                confirmBtnDisabledAdd($(this),'/Matrix/monitor_module',{action:'add',name:name,description:jsonArray,grid:curGrid});
+            });
+            $("#savemonitormodule").click(function(){
+                var thisHREF = document.location.href;
+                var str = thisHREF.split("/");
+                var id = str[6];
+                var jsonArray = JSON.stringify(mqArray);// 存入数据库前转换成字符串
+                confirmBtnDisabledSave($(this),'/Matrix/monitor_module',{action:'save',id:id,description:jsonArray,grid:curGrid});
+            });
+            var operation = {$operation['curGrid']?$operation['curGrid']:1};
+            curGrid = operation;
+            var moduleId = {$moduleId?$moduleId:0};
+            $(document).ready(function () {
+                if (moduleId != 0) {
+                    switch (moduleId) {
+                        case 0:
+                            break;
+                        case 1:
+                            $("#jt_videoRegion .jt_oneGrid").show();
+                            $("#jt_videoRegion .jt_fourGrid").hide();
+                            $("#jt_videoRegion .jt_sixGrid").hide();
+                            $("#jt_videoRegion .jt_sevenGrid").hide();
+                            $("#jt_videoRegion .jt_tenGrid").hide();
+                            $("#jt_videoRegion .jt_nineGrid").hide();
+                            $("#jt_videoRegion .jt_twelveGrid").hide();
+                            $("#jt_videoRegion .jt_thirteenGrid").hide();
+                            $("#jt_videoRegion .jt_sixteenGrid").hide();
+                            $('#jt_videoRegion .jt_oneGrid div').click(function(){
+                                chick2(this);
+                            });
+                            video_res(".jt_oneGrid");
+                            break;
+                        case 2:
+                            $("#jt_videoRegion .jt_oneGrid").hide();
+                            $("#jt_videoRegion .jt_fourGrid").show();
+                            $("#jt_videoRegion .jt_sixGrid").hide();
+                            $("#jt_videoRegion .jt_sevenGrid").hide();
+                            $("#jt_videoRegion .jt_tenGrid").hide();
+                            $("#jt_videoRegion .jt_nineGrid").hide();
+                            $("#jt_videoRegion .jt_twelveGrid").hide();
+                            $("#jt_videoRegion .jt_thirteenGrid").hide();
+                            $("#jt_videoRegion .jt_sixteenGrid").hide();
+                            $('#jt_videoRegion .jt_fourGrid div').click(function(){
+                                chick2(this);
+                                $('#jt_videoRegion .jt_fourGrid div').not(this).css("border","1px solid rgba(0, 250, 250, 0.8)");
+                            });
+                            video_res(".jt_fourGrid");
+                            break;
+                        case 3:
+                            $("#jt_videoRegion .jt_oneGrid").hide();
+                            $("#jt_videoRegion .jt_fourGrid").hide();
+                            $("#jt_videoRegion .jt_sixGrid").show();
+                            $("#jt_videoRegion .jt_sevenGrid").hide();
+                            $("#jt_videoRegion .jt_tenGrid").hide();
+                            $("#jt_videoRegion .jt_nineGrid").hide();
+                            $("#jt_videoRegion .jt_twelveGrid").hide();
+                            $("#jt_videoRegion .jt_thirteenGrid").hide();
+                            $("#jt_videoRegion .jt_sixteenGrid").hide();
+                            $('#jt_videoRegion .jt_sixGrid div').click(function(){
+                                chick2(this);
+                                $('#jt_videoRegion .jt_sixGrid div').not(this).css("border","1px solid rgba(0, 250, 250, 0.8)");
+                            });
+                            video_res(".jt_sixGrid");
+                            break;
+                        case 4:
+                            $("#jt_videoRegion .jt_oneGrid").hide();
+                            $("#jt_videoRegion .jt_fourGrid").hide();
+                            $("#jt_videoRegion .jt_sixGrid").hide();
+                            $("#jt_videoRegion .jt_sevenGrid").show();
+                            $("#jt_videoRegion .jt_tenGrid").hide();
+                            $("#jt_videoRegion .jt_nineGrid").hide();
+                            $("#jt_videoRegion .jt_twelveGrid").hide();
+                            $("#jt_videoRegion .jt_thirteenGrid").hide();
+                            $("#jt_videoRegion .jt_sixteenGrid").hide();
+                            $('#jt_videoRegion .jt_sevenGrid div').click(function(){
+                                chick2(this);
+                                $('#jt_videoRegion .jt_sevenGrid div').not(this).css("border","1px solid rgba(0, 250, 250, 0.8)");
+                            });
+                            video_res(".jt_sevenGrid");
+                            break;
+                        case 5:
+                            $("#jt_videoRegion .jt_oneGrid").hide();
+                            $("#jt_videoRegion .jt_fourGrid").hide();
+                            $("#jt_videoRegion .jt_sixGrid").hide();
+                            $("#jt_videoRegion .jt_sevenGrid").hide();
+                            $("#jt_videoRegion .jt_tenGrid").hide();
+                            $("#jt_videoRegion .jt_nineGrid").show();
+                            $("#jt_videoRegion .jt_twelveGrid").hide();
+                            $("#jt_videoRegion .jt_thirteenGrid").hide();
+                            $("#jt_videoRegion .jt_sixteenGrid").hide();
+                            $('#jt_videoRegion .jt_nineGrid div').click(function(){
+                                chick2(this);
+                                $('#jt_videoRegion .jt_nineGrid div').not(this).css("border","1px solid rgba(0, 250, 250, 0.8)");
+                            });
+                            video_res(".jt_nineGrid");
+                            break;
+                        case 6:
+                            $("#jt_videoRegion .jt_oneGrid").hide();
+                            $("#jt_videoRegion .jt_fourGrid").hide();
+                            $("#jt_videoRegion .jt_sixGrid").hide();
+                            $("#jt_videoRegion .jt_sevenGrid").hide();
+                            $("#jt_videoRegion .jt_tenGrid").show();
+                            $("#jt_videoRegion .jt_nineGrid").hide();
+                            $("#jt_videoRegion .jt_twelveGrid").hide();
+                            $("#jt_videoRegion .jt_thirteenGrid").hide();
+                            $("#jt_videoRegion .jt_sixteenGrid").hide();
+                            $('#jt_videoRegion .jt_tenGrid div').click(function(){
+                                chick2(this);
+                                $('#jt_videoRegion .jt_tenGrid div').not(this).css("border","1px solid rgba(0, 250, 250, 0.8)");
+                            });
+                            video_res(".jt_tenGrid");
+                            break;
+                        case 7:
+                            $("#jt_videoRegion .jt_oneGrid").hide();
+                            $("#jt_videoRegion .jt_fourGrid").hide();
+                            $("#jt_videoRegion .jt_sixGrid").hide();
+                            $("#jt_videoRegion .jt_sevenGrid").hide();
+                            $("#jt_videoRegion .jt_tenGrid").hide();
+                            $("#jt_videoRegion .jt_nineGrid").hide();
+                            $("#jt_videoRegion .jt_twelveGrid").show();
+                            $("#jt_videoRegion .jt_thirteenGrid").hide();
+                            $("#jt_videoRegion .jt_sixteenGrid").hide();
+                            $('#jt_videoRegion .jt_twelveGrid div').click(function(){
+                                chick2(this);
+                                $('#jt_videoRegion .jt_twelveGrid div').not(this).css("border","1px solid rgba(0, 250, 250, 0.8)");
+                            });
+                            video_res(".jt_twelveGrid");
+                            break;
+                        case 8:
+                            $("#jt_videoRegion .jt_oneGrid").hide();
+                            $("#jt_videoRegion .jt_fourGrid").hide();
+                            $("#jt_videoRegion .jt_sixGrid").hide();
+                            $("#jt_videoRegion .jt_sevenGrid").hide();
+                            $("#jt_videoRegion .jt_tenGrid").hide();
+                            $("#jt_videoRegion .jt_nineGrid").hide();
+                            $("#jt_videoRegion .jt_twelveGrid").hide();
+                            $("#jt_videoRegion .jt_thirteenGrid").show();
+                            $("#jt_videoRegion .jt_sixteenGrid").hide();
+                            $('#jt_videoRegion .jt_thirteenGrid div').click(function(){
+                                chick2(this);
+                                $('#jt_videoRegion .jt_thirteenGrid div').not(this).css("border","1px solid rgba(0, 250, 250, 0.8)");
+                            });
+                            video_res(".jt_thirteenGrid");
+                            break;
+                        case 9:
+                            $("#jt_videoRegion .jt_oneGrid").hide();
+                            $("#jt_videoRegion .jt_fourGrid").hide();
+                            $("#jt_videoRegion .jt_sixGrid").hide();
+                            $("#jt_videoRegion .jt_sevenGrid").hide();
+                            $("#jt_videoRegion .jt_tenGrid").hide();
+                            $("#jt_videoRegion .jt_nineGrid").hide();
+                            $("#jt_videoRegion .jt_twelveGrid").hide();
+                            $("#jt_videoRegion .jt_thirteenGrid").hide();
+                            $("#jt_videoRegion .jt_sixteenGrid").show();
+                            $('#jt_videoRegion .jt_sixteenGrid div').click(function(){
+                                chick2(this);
+                                $('#jt_videoRegion .jt_sixteenGrid div').not(this).css("border","1px solid rgba(0, 250, 250, 0.8)");
+                            });
+                            video_res(".jt_sixteenGrid");
+                            break;
+                    }
+                } else {
+                    switch (operation) {
+                        case 0:
+                            break;
+                        case 1:
+                            $("#jt_videoRegion .jt_oneGrid").show();
+                            $("#jt_videoRegion .jt_fourGrid").hide();
+                            $("#jt_videoRegion .jt_sixGrid").hide();
+                            $("#jt_videoRegion .jt_sevenGrid").hide();
+                            $("#jt_videoRegion .jt_tenGrid").hide();
+                            $("#jt_videoRegion .jt_nineGrid").hide();
+                            $("#jt_videoRegion .jt_twelveGrid").hide();
+                            $("#jt_videoRegion .jt_thirteenGrid").hide();
+                            $("#jt_videoRegion .jt_sixteenGrid").hide();
+                            $('#jt_videoRegion .jt_oneGrid div').click(function(){
+                                chick2(this);
+                            });
+                            video_res(".jt_oneGrid");
+                            break;
+                        case 2:
+                            $("#jt_videoRegion .jt_oneGrid").hide();
+                            $("#jt_videoRegion .jt_fourGrid").show();
+                            $("#jt_videoRegion .jt_sixGrid").hide();
+                            $("#jt_videoRegion .jt_sevenGrid").hide();
+                            $("#jt_videoRegion .jt_tenGrid").hide();
+                            $("#jt_videoRegion .jt_nineGrid").hide();
+                            $("#jt_videoRegion .jt_twelveGrid").hide();
+                            $("#jt_videoRegion .jt_thirteenGrid").hide();
+                            $("#jt_videoRegion .jt_sixteenGrid").hide();
+                            $('#jt_videoRegion .jt_fourGrid div').click(function(){
+                                chick2(this);
+                                $('#jt_videoRegion .jt_fourGrid div').not(this).css("border","1px solid rgba(0, 250, 250, 0.8)");
+                            });
+                            video_res(".jt_fourGrid");
+                            break;
+                        case 3:
+                            $("#jt_videoRegion .jt_oneGrid").hide();
+                            $("#jt_videoRegion .jt_fourGrid").hide();
+                            $("#jt_videoRegion .jt_sixGrid").show();
+                            $("#jt_videoRegion .jt_sevenGrid").hide();
+                            $("#jt_videoRegion .jt_tenGrid").hide();
+                            $("#jt_videoRegion .jt_nineGrid").hide();
+                            $("#jt_videoRegion .jt_twelveGrid").hide();
+                            $("#jt_videoRegion .jt_thirteenGrid").hide();
+                            $("#jt_videoRegion .jt_sixteenGrid").hide();
+                            $('#jt_videoRegion .jt_sixGrid div').click(function(){
+                                chick2(this);
+                                $('#jt_videoRegion .jt_sixGrid div').not(this).css("border","1px solid rgba(0, 250, 250, 0.8)");
+                            });
+                            video_res(".jt_sixGrid");
+                            break;
+                        case 4:
+                            $("#jt_videoRegion .jt_oneGrid").hide();
+                            $("#jt_videoRegion .jt_fourGrid").hide();
+                            $("#jt_videoRegion .jt_sixGrid").hide();
+                            $("#jt_videoRegion .jt_sevenGrid").show();
+                            $("#jt_videoRegion .jt_tenGrid").hide();
+                            $("#jt_videoRegion .jt_nineGrid").hide();
+                            $("#jt_videoRegion .jt_twelveGrid").hide();
+                            $("#jt_videoRegion .jt_thirteenGrid").hide();
+                            $("#jt_videoRegion .jt_sixteenGrid").hide();
+                            $('#jt_videoRegion .jt_sevenGrid div').click(function(){
+                                chick2(this);
+                                $('#jt_videoRegion .jt_sevenGrid div').not(this).css("border","1px solid rgba(0, 250, 250, 0.8)");
+                            });
+                            video_res(".jt_sevenGrid");
+                            break;
+                        case 5:
+                            $("#jt_videoRegion .jt_oneGrid").hide();
+                            $("#jt_videoRegion .jt_fourGrid").hide();
+                            $("#jt_videoRegion .jt_sixGrid").hide();
+                            $("#jt_videoRegion .jt_sevenGrid").hide();
+                            $("#jt_videoRegion .jt_tenGrid").hide();
+                            $("#jt_videoRegion .jt_nineGrid").show();
+                            $("#jt_videoRegion .jt_twelveGrid").hide();
+                            $("#jt_videoRegion .jt_thirteenGrid").hide();
+                            $("#jt_videoRegion .jt_sixteenGrid").hide();
+                            $('#jt_videoRegion .jt_nineGrid div').click(function(){
+                                chick2(this);
+                                $('#jt_videoRegion .jt_nineGrid div').not(this).css("border","1px solid rgba(0, 250, 250, 0.8)");
+                            });
+                            video_res(".jt_nineGrid");
+                            break;
+                        case 6:
+                            $("#jt_videoRegion .jt_oneGrid").hide();
+                            $("#jt_videoRegion .jt_fourGrid").hide();
+                            $("#jt_videoRegion .jt_sixGrid").hide();
+                            $("#jt_videoRegion .jt_sevenGrid").hide();
+                            $("#jt_videoRegion .jt_tenGrid").show();
+                            $("#jt_videoRegion .jt_nineGrid").hide();
+                            $("#jt_videoRegion .jt_twelveGrid").hide();
+                            $("#jt_videoRegion .jt_thirteenGrid").hide();
+                            $("#jt_videoRegion .jt_sixteenGrid").hide();
+                            $('#jt_videoRegion .jt_tenGrid div').click(function(){
+                                chick2(this);
+                                $('#jt_videoRegion .jt_tenGrid div').not(this).css("border","1px solid rgba(0, 250, 250, 0.8)");
+                            });
+                            video_res(".jt_tenGrid");
+                            break;
+                        case 7:
+                            $("#jt_videoRegion .jt_oneGrid").hide();
+                            $("#jt_videoRegion .jt_fourGrid").hide();
+                            $("#jt_videoRegion .jt_sixGrid").hide();
+                            $("#jt_videoRegion .jt_sevenGrid").hide();
+                            $("#jt_videoRegion .jt_tenGrid").hide();
+                            $("#jt_videoRegion .jt_nineGrid").hide();
+                            $("#jt_videoRegion .jt_twelveGrid").show();
+                            $("#jt_videoRegion .jt_thirteenGrid").hide();
+                            $("#jt_videoRegion .jt_sixteenGrid").hide();
+                            $('#jt_videoRegion .jt_twelveGrid div').click(function(){
+                                chick2(this);
+                                $('#jt_videoRegion .jt_twelveGrid div').not(this).css("border","1px solid rgba(0, 250, 250, 0.8)");
+                            });
+                            video_res(".jt_twelveGrid");
+                            break;
+                        case 8:
+                            $("#jt_videoRegion .jt_oneGrid").hide();
+                            $("#jt_videoRegion .jt_fourGrid").hide();
+                            $("#jt_videoRegion .jt_sixGrid").hide();
+                            $("#jt_videoRegion .jt_sevenGrid").hide();
+                            $("#jt_videoRegion .jt_tenGrid").hide();
+                            $("#jt_videoRegion .jt_nineGrid").hide();
+                            $("#jt_videoRegion .jt_twelveGrid").hide();
+                            $("#jt_videoRegion .jt_thirteenGrid").show();
+                            $("#jt_videoRegion .jt_sixteenGrid").hide();
+                            $('#jt_videoRegion .jt_thirteenGrid div').click(function(){
+                                chick2(this);
+                                $('#jt_videoRegion .jt_thirteenGrid div').not(this).css("border","1px solid rgba(0, 250, 250, 0.8)");
+                            });
+                            video_res(".jt_thirteenGrid");
+                            break;
+                        case 9:
+                            $("#jt_videoRegion .jt_oneGrid").hide();
+                            $("#jt_videoRegion .jt_fourGrid").hide();
+                            $("#jt_videoRegion .jt_sixGrid").hide();
+                            $("#jt_videoRegion .jt_sevenGrid").hide();
+                            $("#jt_videoRegion .jt_tenGrid").hide();
+                            $("#jt_videoRegion .jt_nineGrid").hide();
+                            $("#jt_videoRegion .jt_twelveGrid").hide();
+                            $("#jt_videoRegion .jt_thirteenGrid").hide();
+                            $("#jt_videoRegion .jt_sixteenGrid").show();
+                            $('#jt_videoRegion .jt_sixteenGrid div').click(function(){
+                                chick2(this);
+                                $('#jt_videoRegion .jt_sixteenGrid div').not(this).css("border","1px solid rgba(0, 250, 250, 0.8)");
+                            });
+                            video_res(".jt_sixteenGrid");
+                            break;
+                    }
+                }
+            });
+            /* 首页模式保存Ajax确认按钮禁用特殊处理（视频挡住提示） */
+            function confirmBtnDisabledSave(obj,url,data){
+                $(obj).attr('disabled','disabled');
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: data,
+                    async:false,
+                    success: function (result) {
+                        if(result.status != true){
+                            publicAlertSave({title:'提示信息',content:result.msg,icon:'fa fa-rocket'},false);
+                        }else{
+                            publicAlertAddS({title:'提示信息',content:result.msg,icon:'fa fa-rocket'},false);
+                        }
+                        $(obj).removeAttr('disabled');
+                    }
+                });
+            }
+            /* 首页模式保存alert警告框（视频挡住提示） */
+            function publicAlertSave(data,status){
+                var alert = {
+                    title: data.title,
+                    content: data.content,
+                    icon: data.icon,
+                    animation: 'scale',
+                    closeAnimation: 'scale',
+                    buttons: {
+                        okay: {
+                            text: '确定',
+                            btnClass: 'btn-blue',
+                            action: function () {
+                                if(status){
+                                    location.reload();
+                                }
+                            }
+                        }
+                    }
+                };
+                $.alert(alert);
+                setTimeout(function(){
+                    addFrame();
+                },1);
+            }
+            /* 首页模式添加Ajax确认按钮禁用（视频挡住提示） */
+            function confirmBtnDisabledAdd(obj,url,data){
+                $(obj).attr('disabled','disabled');
+                $.ajax({
+                    url: url,
+                    type: 'post',
+                    data: data,
+                    async:false,
+                    success: function (result) {
+                        if(result.status != true){
+                            publicAlertAdd({title:'提示信息',content:result.msg,icon:'fa fa-rocket'},false);
+                        }else{
+                            publicAlertAddS({title:'提示信息',content:result.msg,icon:'fa fa-rocket'},false);
+                        }
+                        $(obj).removeAttr('disabled');
+                    }
+                });
+            }
+            /* 首页模式添加失败、加入机构alert警告框（视频挡住提示） */
+            function publicAlertAdd(data,status){
+                var alert = {
+                    title: data.title,
+                    content: data.content,
+                    icon: data.icon,
+                    animation: 'scale',
+                    closeAnimation: 'scale',
+                    buttons: {
+                        okay: {
+                            text: '确定',
+                            btnClass: 'btn-blue',
+                            action: function () {
+                                if(status){
+                                    location.reload();
+                                }
+                            }
+                        }
+                    }
+                };
+                $.alert(alert);
+                setTimeout(function(){
+                    addFrame();
+                },1);
+            }
+            /* 首页模式添加成功alert警告框（视频挡住提示） */
+            function publicAlertAddS(data,status){
+                var alert = {
+                    title: data.title,
+                    content: data.content,
+                    icon: data.icon,
+                    animation: 'scale',
+                    closeAnimation: 'scale',
+                    buttons: {
+                        okay: {
+                            text: '确定',
+                            btnClass: 'btn-blue',
+                            action: function () {
+                                if(status){
+                                    location.reload();
+                                }else{
+                                    setTimeout(function(){
+                                        $("#saveMS").modal('hide');
+                                    },600);
+                                    setTimeout(function(){
+                                        $("#saveModel").modal('hide');
+                                    },600);
+                                    setTimeout(function(){
+                                        $("#joinOrg").modal('hide');
+                                    },600);
+                                }
+                            }
+                        }
+                    }
+                };
+                $.alert(alert);
+                setTimeout(function(){
+                    addFrame();
+                },1);
+            }
+            function publicConfirmBox(data){
+                $(".jconfirm-box").css(data);
+            }
+        </script>
+        <include file="Common:footer" />
+    </body>
+</html>

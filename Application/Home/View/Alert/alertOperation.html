@@ -1,0 +1,261 @@
+<!-- 报警运维 -->
+<html>
+<title data-i18n="alert.alertOperation"></title>
+<include file="Common:matrix_header" />
+<include file="Common:matrix_menu" />
+<include file="Common:msgFootable" />
+<script src="/Public/common/js/msgFootable.js"></script>
+<link rel="stylesheet" href="/Public/common/css/dropify.min.css">
+<script src="/Public/common/js/dropify.min.js"></script>
+<div class="jt_leftMenu2">
+    <include file="Common:alert_leftbar_public" />
+    <!-- 中间 -->
+    <div class="wrap-fluid jt_alertMain jt_basicMain jt_main">
+        <div class="container-fluid paper-wrap bevel tlbr">
+            <div class="content-wrap">
+                <div class="row">
+                    <div id="paper-top">
+                        <div class="col-sm-3">
+                            <h2 class="tittle-content-header">
+                                <i class="icon-media-record"></i>
+                                <span data-i18n="alert.alertOperation"></span>
+                            </h2>
+                        </div>
+                        <include file="Common:matrix_mainMiddle" />
+                        <div class="col-sm-2">
+                            <div class="devider-vertical visible-lg"></div>
+                            <div class="btn-group btn-wigdet pull-right visible-lg">
+                                <div class="btn">
+                                    Widget</div>
+                                <button data-toggle="dropdown" class="btn dropdown-toggle jt_dropTo">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul role="menu" class="dropdown-menu">
+                                    <li>
+                                        <a href="#">
+                                            <span class="entypo-plus-circled margin-iconic"></span>Add New
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="entypo-heart margin-iconic"></span>Favorite
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="entypo-cog margin-iconic"></span>Setting
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 jt_rowNest2">
+                    <div class="nest" id="FootableClose">
+                        <div class="title-alt">
+                            <h6 data-i18n="alert.alertOperation"></h6>
+                            <div class="titleClose">
+                                <a class="gone" href="#FootableClose">
+                                    <span class="entypo-cancel"></span>
+                                </a>
+                            </div>
+                            <div class="titleToggle">
+                                <a class="nav-toggle-alt" href="#Footable">
+                                    <span class="entypo-up-open"></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="body-nest" id="Footable">
+                            <div class="row">
+                                <div class="alertDeviceBox">
+                                    <table class="table-striped footable-res footable metro-blue" data-page-size="10">
+                                        <thead>
+                                        <tr>
+                                            <th><span data-i18n="public.number"></span></th>
+                                            <th><span data-i18n="alert.deviceName"></span></th>
+                                            <th><span data-i18n="alert.parentDevice"></span></th>
+                                            <th><span data-i18n="alert.deviceAddress"></span></th>
+                                            <th><span data-i18n="alert.deviceType"></span></th>
+                                            <th><span data-i18n="alert.signalType"></span></th>
+                                            <th><span data-i18n="alert.defenseArea"></span></th>
+                                            <th><span data-i18n="alert.status"></span></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td class="jt_hiddenTd3">1号门红外报警</td>
+                                            <td class="jt_hiddenTd3"></td>
+                                            <td class="jt_hiddenTd3"></td>
+                                            <td class="jt_hiddenTd4"></td>
+                                            <td class="jt_hiddenTd4"></td>
+                                            <td class="jt_hiddenTd3"></td>
+                                            <td class="jt_hiddenTd3">正常</td>
+                                        </tr>
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <td colspan="8">
+                                                <div class="pagination pagination-centered"></div>
+                                            </td>
+                                        </tr>
+                                        </tfoot>
+                                        <div class="btn-group">
+                                            <button class="btn alertDeviceBtn" disabled data-i18n="alert.alertDeviceTable"></button>
+                                        </div>
+                                        <div class="btn-group pull-right">
+                                            <button onclick="localEnlarge(this,'.alertDeviceBtn')" class="btn btn-primary">
+                                                <span class="entypo-resize-full"></span>
+                                                <span data-i18n="alert.enlarge"></span>
+                                            </button>
+                                            <button onclick="backInitState(this,'.alertDeviceBtn')" class="btn btn-primary">
+                                                <span class="entypo-resize-small"></span>
+                                                <span data-i18n="alert.reduction"></span>
+                                            </button>
+                                        </div>
+                                    </table>
+                                </div>
+                                <div class="alertMap">
+                                    <div class="btn-group">
+                                        <button class="btn alertMapBtn" disabled data-i18n="alert.selectMap"></button>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="file" class="dropify" name="userFile" data-allowed-file-extensions="gif png">
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row jt_infoSpecial">
+                                <div class="alertInfoBox">
+                                    <table class="table-striped footable-res footable metro-blue" data-page-size="10">
+                                        <thead>
+                                        <tr>
+                                            <th><span data-i18n="public.number"></span></th>
+                                            <th><span data-i18n="alert.alertTime"></span></th>
+                                            <th><span data-i18n="alert.alertDevice"></span></th>
+                                            <th><span data-i18n="alert.parentPosition"></span></th>
+                                            <th><span data-i18n="alert.alertType"></span></th>
+                                            <th><span data-i18n="alert.alertGrade"></span></th>
+                                            <th><span data-i18n="alert.parentDevice"></span></th>
+                                            <th><span data-i18n="alert.alertDescribe"></span></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td class="jt_hiddenTd3">2017年2月3日 10:01:03</td>
+                                            <td class="jt_hiddenTd3">长沙办公室报警主机</td>
+                                            <td class="jt_hiddenTd3">长沙办公室</td>
+                                            <td class="jt_hiddenTd4">红外入侵报警</td>
+                                            <td class="jt_hiddenTd4">提示</td>
+                                            <td class="jt_hiddenTd3"></td>
+                                            <td class="jt_hiddenTd3">长沙办公室1号报警器入侵</td>
+                                        </tr>
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <td colspan="8">
+                                                <div class="pagination pagination-centered"></div>
+                                            </td>
+                                        </tr>
+                                        </tfoot>
+                                        <div class="btn-group">
+                                            <button class="btn alertInfoBtn" disabled data-i18n="alert.alertInfoTable"></button>
+                                        </div>
+                                        <div class="btn-group pull-right">
+                                            <button onclick="localEnlarge(this,'.alertInfoBtn')" class="btn btn-primary">
+                                                <span class="entypo-resize-full"></span>
+                                                <span data-i18n="alert.enlarge"></span>
+                                            </button>
+                                            <button onclick="backInitState(this,'.alertInfoBtn')" class="btn btn-primary">
+                                                <span class="entypo-resize-small"></span>
+                                                <span data-i18n="alert.reduction"></span>
+                                            </button>
+                                        </div>
+                                    </table>
+                                </div>
+                                <div class="alertDataBox">
+                                    <div class="btn-group">
+                                        <button class="btn alertDataBtn" disabled data-i18n="alert.selectDate"></button>
+                                    </div>
+                                    <div class="case">
+                                        <div class="calendarWarp">
+                                            <label data-i18n="alert.dateSelect"></label>
+                                            <input type="text" name="dateStart" class='ECalendar' id="ECalendar_case1"  value=""/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="/Public/common/css/plugins/ecalendar/style.css"/>
+<script src="/Public/common/js/plugins/ecalendar/Ecalendar.jquery.min.js"></script>
+<script>
+    function localEnlarge(obj,className){
+        $(obj).addClass('alertObg1');
+        $(obj).animate({
+            'top': '1px'
+        });
+        $(obj).parent().children().not('button:first').addClass('alertObg1');
+        $(obj).parent().children().not('button:first').animate({
+            'top': '1px'
+        });
+        $(className).parent().addClass('alertObg3');
+        $(className).css('width','100%');
+        $(className).parent().animate({
+            'width': '79.9%'
+        },2000);
+        $(obj).parent().parent().addClass('alertObg4');
+        $(obj).parent().parent().animate({
+            'width': '100%'
+        });
+    }
+    function backInitState(obj,className){
+        $(obj).removeClass('obj1');
+        $(obj).animate({
+            'top': '0'
+        });
+        $(obj).parent().children().removeClass('alertObg1');
+        $(obj).parent().children().animate({
+            'top': '0'
+        });
+        $(className).parent().removeClass('alertObg3');
+        $(className).parent().attr('style','');
+        $(obj).parent().parent().removeClass('alertObg4');
+        $(obj).parent().parent().animate({
+            'width': '57%'
+        });
+    }
+    $(document).ready(function () {
+        $("#ECalendar_case1").ECalendar({
+            type:"time",
+            stamp:false,
+            skin:5,
+            format:"yyyy-mm-dd hh:ii",
+            callback:function(v,e)
+            {
+                $(".callback span").html(v)
+            }
+        });
+        $('.dropify').dropify({
+            messages: {
+                'default': '点击或拖拽文件到这里',
+                'replace': '点击或拖拽文件到这里来替换文件',
+                'remove':  '移除文件',
+                'error':   '对不起，你上传的文件太大了'
+            }
+        });
+    });
+</script>
+<include file="Common:footer" />
+</body>
+</html>

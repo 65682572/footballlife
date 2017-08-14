@@ -1,0 +1,101 @@
+<!-- 共享列表 -->
+<title> 共享管理 </title>
+<include file="Common:matrix_header"/>
+<include file="Common:matrix_menu"/>
+<include file="Common:matrix_leftbar_public3"/>
+<include file="Common:msgFootable"/>
+<script src="/Public/common/js/msgFootable.js"></script>
+<link rel="stylesheet" href="/Public/common/css/select2.min.css">
+<link rel="stylesheet" href="/Public/common/css/plugins/jsTree/style.min.css"/>
+<script src="__JS__plugins/jsTree/jstree.min.js"></script>
+
+<!-- 中间 -->
+<div class="wrap-fluid shareDeviceMain jt_branchMain jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span>共享管理</span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 jt_rowNest1">
+                <div class="nest" id="FootableClose">
+                    <div class="title-alt">
+                        <h6>
+                            共享操作日志管理
+                        </h6>
+                        <div class="titleClose">
+                            <a class="gone" href="#FootableClose">
+                                <span class="entypo-cancel"></span>
+                            </a>
+                        </div>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#Footable">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="Footable">
+                        <table class="table-striped footable-res footable metro-blue" data-page-size="10">
+                            <thead>
+                            <tr>
+                                <th>操作人</th>
+                                <th>共享设备</th>
+                                <th>共享的资源</th>
+                                <th>操作时间</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <foreach name="shareLog" item="v">
+                                <tr resource-data="">
+                                    <td class="jt_hiddenTd3">{$v['username']}</td>
+                                    <td class="jt_hiddenTd3">
+                                        <select>
+                                            <php>
+                                            $dearr = unserialize($v['devicename']);
+                                                foreach($dearr as $dv){
+                                            </php>
+                                            <option>{$dv['name']}</option>
+                                            <php>
+                                                }
+                                            </php>
+                                        </select>
+                                    </td>
+                                    <td class="jt_hiddenTd3">
+                                        <select>
+                                            <php>
+                                            $rearr = unserialize($v['resourcename']);
+                                            foreach($rearr as $rv){
+                                            </php>
+                                            <option>{$rv['name']}</option>
+                                            <php>
+                                                }
+                                            </php>
+                                        </select>
+                                    </td>
+                                    <td class="jt_hiddenTd3"><php>echo date('Y-m-d H:i:s',$v['time']);</php></td>
+                                </tr>
+                            </foreach>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <div class="pagination pagination-centered"></div>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

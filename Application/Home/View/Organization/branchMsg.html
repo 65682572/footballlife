@@ -1,0 +1,638 @@
+<!-- 部门管理 -->
+<title> 部门管理 </title>
+<include file="Common:matrix_header" />
+<include file="Common:matrix_menu" />
+<include file="Common:matrix_leftbar_public" />
+<link rel="stylesheet" href="/assets/js/tree/jquery.treeview.css">
+<link rel="stylesheet" href="/Public/common/css/plugins/jsTree/style.min.css" />
+<include file="Common:msgFootable" />
+<script src="/Public/common/js/msgFootable.js"></script>
+<script src="/Public/common/js/plugins/jsTree/jstree.min.js"></script>
+<!-- 中间 -->
+<div class="wrap-fluid jt_deviceType jt_branchMain jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span>部门管理</span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle" />
+                    <div class="col-sm-2">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="btn-group btn-wigdet pull-right visible-lg">
+                            <div class="btn">
+                                Widget</div>
+                            <button data-toggle="dropdown" class="btn dropdown-toggle jt_dropTo" type="button">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul role="menu" class="dropdown-menu">
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-plus-circled margin-iconic"></span>Add New
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-heart margin-iconic"></span>Favorite
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-cog margin-iconic"></span>Setting
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 jt_rowNest1">
+                <div class="nest jt_branchMiddle" id="FootableClose">
+                    <div class="title-alt">
+                        <h6>
+                            部门管理
+                        </h6>
+                        <div class="titleClose">
+                            <a class="gone" href="#FootableClose">
+                                <span class="entypo-cancel"></span>
+                            </a>
+                        </div>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#Footable">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button id="ddDeviceddBtn" class="btn btn-primary addDevice" data-toggle="modal" data-target="#addBranch">添加部门</button>
+                    </div>
+                    <!--<div class="form-group form-horizontal jt_thisJG">
+                        <label class="col-sm-8 control-label">当前机构</label>
+                        <div class="col-sm-4">
+                            <input type="text" placeholder="{$lastfirmname}" disabled class="form-control">
+                        </div>
+                    </div>-->
+                    <div class="jt_typeThead">
+                        <ul>
+                            <li>部门名称</li>
+                            <li class="jt_typeLi1">部门人员</li>
+                            <li class="jt_typeLi3">备注</li>
+                            <li class="jt_typeLi4">操作</li>
+                        </ul>
+                    </div>
+                    <div class="body-nest" id="Footable">
+                        <div class="jt_maxHeight">
+                            <!-- 循环第一级 -->
+                            <?php
+                                 foreach($list as $key => $val){
+                            ?>
+                            <ul id="browser2" class="treeview">
+                                <li class="jt_treeLi1">
+                                    <!-- 第一级 -->
+                                    <span  class="entypo-folder jt_treeLi1Span1">{$val.name}</span>
+                                    <span class="jt_treeLi1Span4">{$val.userinfo_username}</span>
+                                    <span class="jt_treeLi1Span5">{$val.intro}</span>
+                                    <span>
+                                        <div class="btn-group">
+                                            <button data-number="{$val.number}" data-parentid="{$val.parentid}" data-groupname="{$val.name}" data-groupid="{$val.id}" data-groupintro="{$val.intro}" class="btn btn-success editgroupbtn" data-toggle="modal" data-target="#branEdit">编&nbsp;辑</button>
+                                            <!--<button data-groupid="{$val.id}" class="btn btn-warning auth_rule" data-toggle="modal" data-target="#author">授&nbsp;权</button>-->
+                                            <button data-groupid="{$val.id}" class="btn btn-info membershow" data-toggle="modal" data-target="#branUser"> 成&nbsp;员</button>
+                                            <button data-groupid="{$val.id}" class="btn btn-danger delgroupbtn" id="branchMsgDel">删&nbsp;除</button>
+                                        </div>
+                                    </span>
+                                    <!-- 第二级 -->
+                                    <!-- 循环第二级 -->
+                                    <?php
+                                       foreach($val as $key1 => $val1){
+                                    if(is_array($val1)&& $key1!= 'userinfo'){
+                                    ?>
+                                    <ul class="jt_defaultNone">
+                                        <li class="jt_treeLi1">
+                                            <!-- 同级第二级 -->
+                                            <span class="entypo-folder jt_treeLi1Span2">{$val1.name}</span>
+                                            <span class="jt_treeLi1Span4">{$val1.userinfo_username}</span>
+                                            <span class="jt_treeLi1Span5">{$val1.intro}</span>
+                                            <span>
+                                                <div class="btn-group">
+                                                    <button data-number="{$val1.number}"  data-parentid="{$val1.parentid}" data-groupname="{$val1.name}" data-groupid="{$val1.id}" data-groupintro="{$val1.intro}"  class="btn btn-success editgroupbtn" data-toggle="modal" data-target="#branEdit">编&nbsp;辑</button>
+                                                    <!--<button  data-groupid="{$val1.id}" class="btn btn-warning auth_rule" data-toggle="modal" data-target="#author">授&nbsp;权</button>-->
+                                                    <button  data-groupid="{$val1.id}" class="btn btn-info membershow" data-toggle="modal" data-target="#branUser#branUser">成&nbsp;员</button>
+                                                    <button  data-groupid="{$val1.id}" class="btn btn-danger delgroupbtn" id="branchMsgDel">删&nbsp;除</button>
+                                                </div>
+                                            </span>
+                                            <!-- 第三级 -->
+                                            <!-- 循环第三级 -->
+                                            <?php
+                                            foreach($val1 as $key2 => $val2){
+                                            if(is_array($val2)&& $key2!= 'userinfo'){
+                                            ?>
+                                            <ul class="jt_defaultNone">
+                                                <li class="jt_treeLi1">
+                                                    <span class="entypo-folder jt_treeLi1Span3">{$val2.name}</span>
+                                                    <span class="jt_treeLi1Span4">{$val2.userinfo_username}</span>
+                                                    <span class="jt_treeLi1Span5">{$val2.intro}</span>
+                                                    <span>
+                                                        <div class="btn-group">
+                                                            <button data-number="{$val2.number}" data-parentid="{$val2.parentid}"  data-groupname="{$val2.name}" data-groupid="{$val2.id}" data-groupintro="{$val2.intro}" class="btn btn-success editgroupbtn" data-toggle="modal" data-target="#branEdit">编&nbsp;辑</button>
+                                                            <!--<button  data-groupid="{$val2.id}" class="btn btn-warning auth_rule" data-toggle="modal" data-target="#author">授&nbsp;权</button>-->
+                                                            <button data-groupid="{$val2.id}" class="btn btn-info membershow" data-toggle="modal" data-target="#branUser">成&nbsp;员</button>
+                                                            <button data-groupid="{$val2.id}" class="btn btn-danger delgroupbtn" id="branchMsgDel">删&nbsp;除</button>
+                                                        </div>
+                                                    </span>
+                                                    <!-- 循环第四级 -->
+                                                    <?php
+                                                    foreach($val2 as $key3 => $val3){
+                                                    if(is_array($val3)&& $key3!= 'userinfo'){
+                                                    ?>
+                                                    <ul class="jt_defaultNone">
+                                                        <li class="jt_treeLi1">
+                                                            <span class="entypo-folder jt_treeLi1Span7">{$val3.name}</span>
+                                                            <span class="jt_treeLi1Span4">{$val3.userinfo_username}</span>
+                                                            <span class="jt_treeLi1Span5">{$val3.intro}</span>
+                                                            <span>
+                                                                <div class="btn-group">
+                                                                    <button data-number="{$val3.number}"  data-parentid="{$val3.parentid}" data-groupname="{$val3.name}" data-groupid="{$val3.id}" data-groupintro="{$val3.intro}"  class="btn btn-success editgroupbtn" data-toggle="modal" data-target="#branEdit">编&nbsp;辑</button>
+                                                                    <!--<button data-groupid="{$val3.id}" class="btn btn-warning auth_rule" data-toggle="modal" data-target="#author">授&nbsp;权</button>-->
+                                                                    <button data-groupid="{$val3.id}" class="btn btn-info membershow" data-toggle="modal" data-target="#branUser">成&nbsp;员</button>
+                                                                    <button data-groupid="{$val3.id}"  class="btn btn-danger delgroupbtn" id="branchMsgDel">删&nbsp;除</button>
+                                                                </div>
+                                                            </span>
+                                                            <!-- 循环第五级(1) -->
+                                                            <?php
+                                                             foreach($val3 as $key4 => $val4){
+                                                            if(is_array($val4)&& $key4!= 'userinfo'){
+                                                            ?>
+                                                            <ul class="jt_defaultNone">
+                                                                <li class="jt_treeLi1">
+                                                                    <span class="entypo-newspaper jt_treeLi1Span8">{$val4.name}</span>
+                                                                    <span class="jt_treeLi1Span4">{$val4.userinfo_username}</span>
+                                                                    <span class="jt_treeLi1Span5">{$val4.intro}</span>
+                                                                    <span>
+                                                                        <div class="btn-group">
+                                                                            <button data-number="{$val4.number}"  data-parentid="{$val4.parentid}" data-groupname="{$val4.name}" data-groupid="{$val4.id}" data-groupintro="{$val4.intro}"  class="btn btn-success editgroupbtn" data-toggle="modal" data-target="#branEdit">编&nbsp;辑</button>
+                                                                            <!--<button data-groupid="{$val4.id}" class="btn btn-warning auth_rule" data-toggle="modal" data-target="#author">授&nbsp;权</button>-->
+                                                                            <button data-groupid="{$val4.id}" class="btn btn-info membershow" data-toggle="modal" data-target="#branUser">成&nbsp;员</button>
+                                                                            <button data-groupid="{$val4.id}" class="btn btn-danger delgroupbtn" id="branchMsgDel">删&nbsp;除</button>
+                                                                        </div>
+                                                                    </span>
+                                                                </li>
+                                                            </ul>
+                                                            <?php
+                                                                }
+                                                               }
+                                                            ?>
+                                                            <!-- 循环第五级结束(1) -->
+
+                                                        </li>
+                                                    </ul>
+                                                    <?php
+                                                        }
+                                                       }
+                                                    ?>
+                                                    <!-- 循环第四级结束 -->
+                                                </li>
+                                            </ul>
+                                            <?php
+                                                }
+                                               }
+                                            ?>
+                                            <!-- 循环第三级结束 -->
+                                        </li>
+                                    </ul>
+                                    <?php
+                                        }
+                                       }
+                                    ?>
+                                    <!-- 循环第二级结束 -->
+                                </li>
+                            </ul>
+                            <?php
+                                 }
+                            ?>
+                            <!-- 循环第一级结束 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框 -->
+<!-- 添加部门 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="addBranch">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">添加部门</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div >
+                        <div class="form-horizontal" role="form">
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">部门名称</label>
+                                <div class="col-sm-10">
+                                    <input type="text" placeholder="部门名称" id="creatGroupName" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label  class="col-sm-2 control-label">上级部门</label>
+                                <!-- 注释开始：这里的层级不要动，涉及到分类搜索功能 -->
+                                <div class="col-sm-10">
+                                    <div id="divSelect" class="div_select">
+                                        <div onclick="jt_clickDiv_select()" id="jt_changeText" class="jt_clickDiv_select">上级部门</div>
+                                        <i class="pull-right"></i>
+                                        <ul class="jt_showUl" id="jt_showUl">
+                                            <div class="jt_typeOne">
+                                                <li class="jt_htmlLi1" onclick="jt_clickLi_select(this)">上级部门</li>
+                                            </div>
+                                            <?php
+                                        foreach($tree as $k=>$v){
+                                            ?>
+                                            <div class="jt_typeOne">
+                                                <li value="{$v.id}" class="jt_htmlLi1" onclick="jt_clickLi_select(this)">{$v.number}:{$v.name}</li>
+                                                <ul>
+                                                    <?php
+                                                if(is_array($v['child'])){
+                                                 foreach($v['child'] as $k1=>$v1){
+
+                                                    ?>
+                                                    <li value="{$v1.id}" class="jt_htmlLi2" onclick="jt_clickLi_select(this)">{$v1.number}:{$v1.name}</li>
+                                                    <ul>
+                                                        <?php
+                                                     if(is_array($v1['child'])){
+                                                    foreach($v1['child'] as $k2=>$v2){
+
+                                                        ?>
+                                                        <li  value="{$v2.id}" class="jt_htmlLi3" onclick="jt_clickLi_select(this)">{$v2.number}:{$v2.name}</li>
+                                                        <ul>
+                                                            <?php
+                                                             if(is_array($v2['child'])){
+                                                            foreach($v2['child'] as $k3=>$v3){
+
+                                                            ?>
+                                                            <li  value="{$v3.id}" class="jt_htmlLi4" onclick="jt_clickLi_select(this)">{$v3.number}:{$v3.name}</li>
+                                                            <?php
+                                                        }
+                                                           }
+                                                        ?>
+                                                        </ul>
+                                                        <?php
+                                                }
+                                                   }
+                                                ?>
+                                                    </ul>
+                                                    <?php
+                                            }
+                                               }
+                                            ?>
+
+                                                </ul>
+                                            </div>
+                                            <?php
+                                       }
+                                    ?>
+                                        </ul>
+                                    </div>
+                                    <include file="Common:publicSearch" />
+                                </div>
+                                <!-- 注释结束：这里的层级不要动，涉及到分类搜索功能 -->
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">部门编号</label>
+                                <div class="col-sm-6">
+                                    <input type="text" placeholder="部门编号" id="creatGroupNumber" class="form-control">
+                                </div>
+                                <span class="jt_branchTips1">2位数阿拉伯数字</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="createGroupDesc" class="col-sm-2 control-label" >备注</label>
+                                <div class="col-sm-10">
+                                    <textarea id="createGroupDesc" class="form-control" placeholder="备注" rows="8"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group jt_btnGroupWZ">
+                                <button id="addOrg" class="btn col-sm-offset-2">确&nbsp;认</button>
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 编辑 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="branEdit">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">修改部门</h6>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">部门人员</label>
+                        <div class="col-sm-10">
+                            <button class="btn editMember " data-toggle="modal" data-target="#member">编辑成员</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">部门编号</label>
+                        <div class="col-sm-6">
+                            <input type="text" placeholder="部门编号" id="editGroupNumber" class="form-control">
+                        </div>
+                        <span class="jt_branchTips1"><i class="jt_branchTips2" id="shownumber"></i>&nbsp &nbsp2位数阿拉伯数字</span>
+                    </div>
+                    <div class="compose_mail">
+                        <div >
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">部门名称</label>
+                                <div class="col-sm-10">
+                                    <input type="text" placeholder="部门名称" id="editOrgName" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  for="editDesc" class="col-sm-2 control-label">备注</label>
+                                <div class="col-sm-10">
+                                    <textarea id="editDesc" class="form-control" placeholder="备注" rows="8"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group jt_btnGroupWZ">
+                                <button id="editTrue" class="btn col-sm-offset-2">确&nbsp;认</button>
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加成员 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="member">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">编辑成员</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <form role="form">
+                        <table class="table-striped footable-res footable metro-blue" data-page-size="6">
+                            <thead>
+                            <tr>
+                                <th>选择</th>
+                                <th>姓名</th>
+                                <th>电话</th>
+                            </tr>
+                            </thead>
+                            <tbody id="addmembertbody">
+
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <div class="pagination pagination-centered"></div>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                        <br />
+                        <button class="trueButton btn" data-dismiss="modal">确&nbsp;认</button>
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 成员按钮 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="branUser">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">部门人员</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <table class="table-striped footable-res footable metro-blue" data-page-size="10">
+                        <thead>
+                        <tr>
+                            <th>人员名称</th>
+                            <th>人员电话</th>
+                            <th data-hide="phone,tablet">备注</th>
+                        </tr>
+                        </thead>
+                        <tbody id="memberListShow">
+
+                                <tr data-id="{$v.id}">
+                                    <td>{$v.username}</td>
+                                    <td>
+                                        <a href="#">{$v.mobile}</a>
+                                    </td>
+                                    <td>{$v.intro}</td>
+                                </tr>
+
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <div class="pagination pagination-centered"></div>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="form-group jt_btnGroup">
+                    <button class="btn col-sm-offset-10">确&nbsp;认</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /MAIN EFFECT -->
+<script src="/assets/js/tree/lib/jquery.cookie.js"></script>
+<script src="/assets/js/tree/jquery.treeview.js"></script>
+<script>
+    $(function() {
+        $("#browser, #browser2").treeview({
+            animated: "fast",
+            collapsed: false,
+            unique: true,
+            persist: "cookie",
+            toggle: function() {
+                window.console && console.log("%o was toggled", this);
+            }
+        });
+        $("#browser2 .jt_treeLi1:last-child").css("border-bottom","1px solid #DDD");
+    });
+</script>
+<script>
+    /*创建部门*/
+    $("#addOrg").on('click',function () {
+        var group_number = $("#creatGroupNumber").val();
+        var group_name = $("#creatGroupName").val();
+        if(!group_name){
+            publicAlert({title:'提示信息',content:'请填写部门名称！',icon:'fa fa-rocket'},false);
+            return;
+        }
+        var group_parentid = new Array();
+        /* $("input[name='group_id']:checked").each(function () {
+         group_parentid.push($(this).val());
+         });*/
+        group_parentid.push($("#jt_changeText").attr('value'));
+        var pid = ($("#jt_changeText").attr('value'));
+        var group_intro =  $("#createGroupDesc").val();
+        if(group_parentid.length > 1){
+            publicAlert({title:'提示信息',content:'当前只能选择一个上级部门！',icon:'fa fa-rocket'},false);
+            return;
+        }
+        //获取上级部门编号
+        var number = $("#jt_changeText").text().split(':');
+        if( number.length> 1)
+        {
+            number = number[0];
+        }
+        /*if(group_parentid[0] != undefined && !group_number){
+         alert('请上传部门编号');return;
+         }*/
+        if(group_number.length > 2){
+            publicAlert({title:'提示信息',content:'填写两位数部门编号！',icon:'fa fa-rocket'},false);
+            return;
+        }
+        confirmBtnDisabled($(this),'/Organization/create_group',{group_name:group_name,pid:pid,group_parentid:group_parentid,group_intro:group_intro,group_number:group_number,number:number});
+    });
+
+
+    var groupid = '';
+    /*编辑部门*/
+    $(".editgroupbtn").on('click',function () {
+        groupid = $(this).attr('data-groupid');
+        var group_parentid = $(this).attr('data-parentid');
+        //赋值到模态框
+        $("#editOrgName").val($(this).attr('data-groupname'));
+        /*$("input[name='edit_group_id']").each(function () {
+         if( $(this).val() == group_parentid){
+         $(this).attr('checked','checked');
+         }
+         });*/
+        var pid = $(this).attr("data-parentid");
+        if(pid != 0){
+            var selectvalue = $(this).parent().parent().parent().parent().parent().children('span')[0].innerText;
+            $(".jt_clickDiv_select").text(selectvalue);
+            $(".jt_clickDiv_select").attr('value',pid);
+        }else{
+            $(".jt_clickDiv_select").text('上级部门');
+            $(".jt_clickDiv_select").attr('value',0);
+        }
+        $("#editDesc").val($(this).attr('data-intro'));
+        /*提示上级部门编号*/
+        $('#shownumber').text('');
+        $number = $(this).attr('data-number');
+        $('#editGroupNumber').val($number.substr($number.length-2));
+        if($number.substr(0,$number.length-2)){
+            $('#shownumber').text('上级部门编号:'+$number.substr(0,$number.length-2));
+        }
+    });
+    //取得用户编辑后的最新值,并确认提交
+    $('#editTrue').on('click',function () {
+        var group_parentid = new Array();
+        /* $("input[name='edit_group_id']:checked").each(function () {
+         group_parentid.push($(this).val());
+         });*/
+        group_parentid.push($("#jt_changeText1").attr('value'));
+        if(group_parentid.length > 1){
+            publicAlert({title:'提示信息',content:'当前只能选择一个上级部门！',icon:'fa fa-rocket'},false);
+            return;
+        }
+        var userid = new Array();
+        $("input[name='userid']:checked").each(function () {
+            userid.push($(this).val());
+        });
+        var group_name = $("#editOrgName").val();
+        if(!group_name) {
+        	publicAlert({title:'提示信息',content:'请填写部门名称！',icon:'fa fa-rocket'},false);
+        	return;
+        }
+        var group_intro =  $("#editDesc").val();
+        var group_number = $('#editGroupNumber').val();
+        if(!group_number){
+            publicAlert({title:'提示信息',content:'填写部门编号！',icon:'fa fa-rocket'},false);
+            return;
+        }
+        if(group_number.length > 2){
+            publicAlert({title:'提示信息',content:'填写两位数部门编号！',icon:'fa fa-rocket'},false);
+            return;
+        }
+        confirmBtnDisabled($(this),'/Organization/edit_group',{group_parentid:group_parentid,userid:userid,group_name:group_name,group_intro:group_intro,group_id:groupid,group_number:group_number});
+    });
+
+    /*当点击编辑成员时，获取当前机构下面的所有成员，并区分当前部门已存在的成员*/
+    $(".editMember").on('click',function () {
+        $.post('/Organization/get_group_user',{groupid:groupid},function (resData) {
+            $("#addmembertbody").empty();
+            var append_html = '';
+            for(var i = 0 ; i < resData.data.length; i++){
+                var is_exits = '';
+                if(resData.data[i].is_exits == true){
+                    is_exits = 'checked="checked"';
+                }
+                append_html += '<tr><td><input name="userid" value="'+resData.data[i].id+'" type="checkbox" ' + is_exits + '/></td><td>' +resData.data[i].username+ '</td><td>'+resData.data[i].mobile+'</td></tr>';
+            }
+            $("#addmembertbody").append(append_html);
+        });
+    });
+
+    /*成员*/
+   $(".membershow").on('click',function(){
+       $("#memberListShow").empty();
+       var groupid = $(this).attr('data-groupid');
+        if(!groupid){
+        	publicAlert({title:'提示信息',content:'程序异常，联系管理员！',icon:'fa fa-rocket'},false);
+        	return;
+        }
+        var url = '/Organization/memberShow';
+        $.post(url, {groupid:groupid}, function(resData){
+            if( resData.status == true ){
+                var html = '';
+                var data = resData.data;
+                for(var i = 0; i <data.length; i++){
+                    html += '<tr data-id="'+ data[i].id +'">' + '<td>'+data[i].username+'</td>' + '<td><a href="#">' + data[i].mobile + '</a></td><td>' +  data[i].intro + '</td></tr>';
+                }
+                $("#memberListShow").append(html);
+            }
+        });
+    });
+
+    /*删除*/
+    $(".delgroupbtn").on('click',function(){
+        var did = $(this).attr("data-groupid");
+        publicConfirm({title:'提示信息',content:'确定删除吗？',icon:'fa fa-rocket'},did);
+    });
+</script>
+<include file="Common:footer" />
+</body>
+</html>

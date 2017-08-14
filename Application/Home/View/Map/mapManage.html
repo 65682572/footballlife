@@ -1,0 +1,1667 @@
+<!-- 地图运维 -->
+<title data-i18n="mapOperation.mapOperation"></title>
+<include file="Common:matrix_header"/>
+<script src="__JS__plugins/datePicker/WdatePicker.js"></script>
+<script src="__JS__common.js"></script>
+<include file="Common:matrix_menu"/>
+<!-- 左菜单 -->
+<div class="jt_mapLeft1 jt_Common">
+    <div id="skin-select" class="jt_skin-select">
+        <include file="Common:logoFunc"/>
+        <div class="jt_leftBarMenu jt_mapLeft" id="jt_leftBarMenu">
+            <div class="skin-part">
+                <div id="tree-wrap">
+                    <div class="side-bar">
+                        <div class="dark">
+                            <span>
+                                <input type="text" id="searchSource" class="search rounded id_search" data-i18n="[placeholder]common.search" onkeydown="enter(search)">
+                            </span>
+                            <ul id="menu-showhide1" class="topnav top2 menu-left-nest">
+                                <ul id="menu4">
+                                    <li id="jt_inputList">
+
+                                    </li>
+                                </ul>
+                            </ul>
+                        </div>
+                        <ul id="menu-showhide3" class="topnav top2 menu-left-nest">
+                            <li>
+                                <a onClick="showmenu(this)" class="tooltip-tip title-menu-left ajax-load">
+                                    <span class="jt_mapList" data-i18n="common.mapList"></span>
+                                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                                </a>
+                            </li>
+                            <ul id="menu5">
+                                <foreach name="data" item="v">
+                                    <li>
+                                        <a href="/Map/mapManage/mapListId/{$v[id]}/mapType/{$v[map_type]}">
+                                            <i class="icon-map"></i>
+                                            <span class="span-t4"><b>{$v['map_name']}</b> ● <?php if($v['map_type'] == 1) echo '在线地图'; else echo '离线地图';?></span>
+                                        </a>
+                                    </li>
+                                </foreach>
+                            </ul>
+                        </ul>
+                        <ul id="menu-showhide2" class="topnav top2 menu-left-nest topList">
+                            <li>
+                                <a onclick="showmenu(this)" class="tooltip-tip title-menu-left ajax-load">
+                                    <span class="jt_mapList" data-i18n="common.deviceList"></span>
+                                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                                </a>
+                            </li>
+                            <ul id="menu3">
+                                <li>
+                                    <!--<div class="form-group">-->
+                                        <!--<select class="form-control" id="changelist" onchange="change_select_hide()">-->
+                                            <!--<option title="所有设备" value="0">所有设备</option>-->
+                                            <!--<volist name="typetree" id="v">-->
+                                                <!--<option title="v.name" op-name="{$v.name}" value="v.id">{$v.name}</option>-->
+                                            <!--</volist>-->
+                                        <!--</select>-->
+                                    <!--</div>-->
+                                    <div class="jt_childVolist">
+                                        <volist name="typeTree" id="s" >
+                                            <div class="jt_typeTreeList" dd-name="{$s.name}">
+                                                <img class="jt_typeImg" src="<?php echo $s['icon']?$s['icon']:'/Public/common/img/default_device_icon.png'?>" alt="{$s.name}"/>
+                                                <a class="jt_typeName" onclick="click_hide_parent('type_{$s.id}');">{$s.name}</a>
+                                            </div>
+                                            <div id="type_{$s.id}" data-name="{$s.name}" class="selectchangemenu">
+
+                                            </div>
+                                        </volist>
+                                        <div class="jt_typeTreeList" dd-name="无分类">
+                                            <img class="jt_typeImg" src="/Public/common/img/default_device_icon.png" alt="无分类"/>
+                                            <a class="jt_typeName" onclick="click_hide_parent('type_0');" data-i18n="common.notType"></a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+                <include file="Common:inputTips" />
+            </div>
+        </div>
+    </div>
+</div>
+<!--  中间 -->
+<!-- 拉取在线设备 -->
+<script src="/Public/common/js/pullDevice.js"></script>
+<script type="text/javascript">
+
+    curAction = 'mapManage';
+    //-------------
+    //  0 所有分类
+    //  1 手机
+    //  2 PC
+    //  3 矩阵
+    //  4 传感器
+    //  5 摄像头
+    //-------------
+    function findMarker(event, obj)
+    {
+        originData = $(obj).attr('id');
+        originData = originData.split('_');
+
+        console.log(originData);
+
+        event.stopPropagation();
+
+        var markers = myObj.map.getAllOverlays();
+
+        if (originData[1] == 'DEV') {  //摄像头
+            curType = 5;
+            dataStr = originData[2] + '_' + originData[3] + '_' + originData[4];
+        } else if (originData[1] == '0') {  //PC
+            curType = 2;
+            dataStr = originData[0] + '_' + originData[1];
+        } else if (originData[1] == '1') {  //手机
+            curType = 1;
+            dataStr = originData[0] + '_' + originData[1];
+        } else if (originData[1] == '4') {  //传感器
+            curType = 4;
+            dataStr = originData[0] + '_' + originData[1];
+        } else if (typeof originData[1] == 'undefined') {
+            curType = 3;
+            dataStr = originData[0];
+        }
+
+        if (typeof curType == 'undefined') {
+            myAlert('未知设备');
+            return;
+        }
+
+        for (var i = 0; i < markers.length; i++) {
+            if (dataStr == markers[i].G.extData[0] && originData[2] == markers[i].G.extData[1] && curType == 5) {
+                myObj.map.setZoomAndCenter(17, [markers[i].G.position.lng, markers[i].G.position.lat]);
+                return;
+            } else if (dataStr == markers[i].G.extData[1] && markers[i].G.extData[0] == 3 && curType == 3) {
+                myObj.map.setZoomAndCenter(17, [markers[i].G.position.lng, markers[i].G.position.lat]);
+                return;
+            } else if (dataStr == markers[i].G.extData[2] && markers[i].G.extData[0] == 1 && curType == 1) {
+                myObj.map.setZoomAndCenter(17, [markers[i].G.position.lng, markers[i].G.position.lat]);
+                return;
+            } else if (dataStr == markers[i].G.extData[1] && markers[i].G.extData[0] == 2 && curType == 2) {
+                myObj.map.setZoomAndCenter(17, [markers[i].G.position.lng, markers[i].G.position.lat]);
+                return;
+            } else if (dataStr == markers[i].G.extData[1] && markers[i].G.extData[0] == 4 && curType == 4) {
+                myObj.map.setZoomAndCenter(17, [markers[i].G.position.lng, markers[i].G.position.lat]);
+                return;
+            }
+        }
+
+        if (curType == 3) {
+
+        } else {
+            myAlert('此设备没有放置到地图！');
+        }
+    }
+</script>
+<embed id="pgAtx99999" codebase="/Uploads/pgSetup_zh_v1.28.0.msi" width="0" height="0" type="application/peergine-plugin">
+    <!--加载pg插件-->
+    <script src="__JS__PgLib.js"></script>
+    <!--加载初始化函数-->
+    <script src="__JS__PgLibinit.js"></script>
+    <script src="/assets/js/monitor_pg.js"></script>
+<script>
+    // arrSelf = new Array(); //当前操作对象数据
+    $(document).ready(function () {
+        $.post("/Matrix/get_curl", {url:'http://www.weather.com.cn/data/sk/101250101.html'},
+            function(rsdata){
+                var rsdata = JSON.parse(rsdata);
+                weatherinfo = rsdata.weatherinfo;
+                if(weatherinfo){
+                    $("#BlockquotesClose1").attr("temp",parseInt(weatherinfo.temp));
+                    $("#BlockquotesClose1").attr("sd",parseInt(weatherinfo.SD));
+                }
+            }
+        );
+        var list = {$list2};
+        var html = "";
+        if (list != null) {
+            for (var i = 0; i < list.length; i++) {
+                var wd = list[i].name.indexOf("温度");
+                var sd = list[i].name.indexOf("湿度");
+                if (list[i].state == 1) {
+                    imgsrc = "/assets/img/plus_green.png";
+                } else {
+                    imgsrc = "/assets/img/plus.png";
+                }
+
+
+                html = '<a id="' + list[i].uuid + '" data-name="' + list[i].name + '" onclick="findMarker(event, this)"><img style="width: 20px; margin-top: -4px;" src="' + imgsrc + '" /><span  onclick="click_hide(this)" style="white-space:nowrap;">' + list[i].name + '</a>';
+
+                var typeid = list[i].ppid;
+                $("#type_" + typeid).append(html);
+            }
+        }
+
+        deviceList = {$list2 ? $list2 : []};
+        //调用公共函数生成输入源列表
+        var vlist = {};
+        vlist = {$videolist2};//输入源列表全局变量，全站可用
+        //deviceList是当前用户能读取的设备列表
+        createvlist(vlist,deviceList);
+
+        var sss = $('.selectchangemenu');
+        for (var i = sss.length - 1; i >= 0; i--) {
+            var aaa = $(sss[i]).find('a');
+            if (aaa.length <=0) {
+                var ddname = $(sss[i]).attr('data-name');
+                $(sss[i]).remove();
+                if (ddname) {
+                    $("[dd-name="+ddname+"]").remove();
+                    $("[op-name="+ddname+"]").remove();
+                }
+            }
+        }
+
+    });
+</script>
+<div class="jt_mapMain jt_main">
+    <div class="wrap-fluid">
+        <div class="container-fluid paper-wrap bevel tlbr">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-lg-3 jt_mainLeftBar">
+                        <h2 class="tittle-content-header">
+                            <span class="menu_a entypo-home jt_mainLeft1"></span>
+                            <span class="jt_mainLeft2">
+                                <li class="menu_a jt_menu_a"><i class="fa fa-lg fa-angle-right"></i></li>
+                                <li class="menu_a jt_menu_b" data-i18n="mapOperation.mapOperation"></li>
+                            </span>
+                        </h2>
+                        <span class="jt_funcRight">
+                            <img id="jt_imgToggle" src="/Public/common/images/icon_showTool.png"/>
+                        </span>
+                    </div>
+                    <include file="Common:matrix_mainMiddle"/>
+                    <div class="col-lg-2">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="btn-group btn-wigdet pull-right visible-lg">
+                            <div class="btn jt_maxWidth" data-i18n="mapOperation.quickFunction"></div>
+                            <button data-toggle="dropdown" class="btn dropdown-toggle jt_btnHeight" type="button">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul role="menu" class="dropdown-menu">
+                                <li>
+                                    <a onClick="launchFullscreen(document.getElementById('allmap'),1);" href="#">
+                                        <span class="entypo-doc-landscape margin-iconic"></span>
+                                        <span data-i18n="public.fullScreen"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a id="address" href="#">
+                                        <span class="entypo-home margin-iconic"></span>
+                                        <span data-i18n="mapLayout.commonAddress"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a id="displayDevice" href="#">
+                                        <span class="entypo-eye margin-iconic"></span>
+                                        <span data-i18n="mapOperation.displayDevice"></span>
+                                    </a>
+                                </li>
+                                <li id="mapshowlist" class="jt_mapShowList">
+                                    <ul>
+                                        <li><span class="entypo-doc-landscape margin-iconic"></span><input type="radio" name="mapdck"><span class="mapshowlista displayAllDevice" data-i18n="mapOperation.allDevice"></span></li>
+                                        <li><span class="entypo-docs margin-iconic"></span><input type="radio" name="mapdck" ><span class="mapshowlista displayMobileDevice" data-i18n="mapOperation.mobileDevice"></span></li>
+                                        <li><span class="entypo-window margin-iconic"></span><input type="radio" name="mapdck"><span class="mapshowlista displayLayoutDevice" data-i18n="mapOperation.layoutDevice"></span></li>
+                                        <li><span class="entypo-monitor margin-iconic"></span><input type="radio" name="mapdck"><span class="mapshowlista displayAllComputer" data-i18n="mapOperation.terminalDevice"></span></li>
+                                    </ul>
+                                    <script type="text/javascript">
+                                        //阻止显示设备的默认隐藏行为
+                                        $('#displayDevice').bind('click',function(e){
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            $('#mapshowlist').toggle();
+                                        });
+                                        //隐藏列表的相关设置
+                                        $('.mapshowlista').bind('click',function(e){
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            if($($(this).siblings('input')[0]).prop('checked')){
+                                                $($(this).siblings('input')[0]).prop('checked',false);
+                                            }else{
+                                                $($(this).siblings('input')[0]).prop('checked',true);
+                                            };
+                                        });
+                                        $('#mapshowlist ul li').hover(function(e){
+                                            $(this).css('color','#428bca');
+                                        },function(e){
+                                            $(this).css('color','#777777');
+                                        });
+                                    </script>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
+                 class="modal fade bs-example-modal-lg jt_commonAddress" aria-hidden="true" id="modal-container">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                                <span class="entypo-cancel"></span>
+                            </button>
+                            <h4 id="myLargeModalLabel" class="modal-title" data-i18n="mapLayout.selectCommonAddress"></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="panel panel-default">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div aria-labelledby="myModalLabel" role="dialog" tabindex="-1"
+                 class="modal fade bs-example-modal-lg jt_commonAddress" aria-hidden="true" id="trackModal">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content jt_modal-body">
+                        <div class="modal-header">
+                            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                                <span class="entypo-cancel"></span>
+                            </button>
+                            <h6 class="modal-title" data-i18n="mapOperation.historyTrajectory"></h6>
+                        </div>
+                        <div class="modal-body jt_modal-body">
+                            <div class="row historyBox">
+                                <div class="jt_leftUserSelect col-md-5" id="userSelect">
+
+                                </div>
+                                <div class="jt_rightDataSelect col-md-5">
+                                    <div class="case">
+                                        <div class="calendarWarp">
+                                            <label data-i18n="mapOperation.startDate"></label>
+                                            <input type="text" name="dateStart" class='ECalendar' id="ECalendar_case1"  value=""/>
+                                        </div>
+                                        <div class="callback" style="position: relative; top: 20px;">
+                                            <span data-i18n="mapOperation.selectTime"></span>
+                                            <span></span>
+                                        </div>
+                                    </div>
+                                    <hr class="historyHrBox" />
+                                    <div class="case">
+                                        <div class="callback" style="position: relative; top: -20px;">
+                                            <span data-i18n="mapOperation.selectTime"></span>
+                                            <span></span>
+                                        </div>
+                                        <div class="calendarWarp">
+                                            <label data-i18n="mapOperation.endDate"></label>
+                                            <input type="text" name="dateEnd" class='ECalendar' id="ECalendar_case2"  value=""/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group jt_btnMargin">
+                                <button class="btn col-sm-offset-2" id="trackConfirm" data-i18n="public.confirm"></button>
+                                <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <link rel="stylesheet" href="/Public/common/css/plugins/ecalendar/style.css"/>
+            <script src="/Public/common/js/plugins/ecalendar/Ecalendar.jquery.min.js"></script>
+            <script>
+
+                $(document).ready(function () {
+
+                    $("#ECalendar_case1").ECalendar({
+                        type:"time",
+                        stamp:false,
+                        skin:5,
+                        format:"yyyy-mm-dd hh:ii",
+                        callback:function(v,e)
+                        {
+                            $(".callback span").html(v)
+                        }
+                    });
+                    $("#ECalendar_case2").ECalendar({
+                        type:"time",
+                        stamp:false,
+                        skin:1,
+                        format:"yyyy-mm-dd hh:ii",
+                        callback:function(v,e)
+                        {
+                            $(".callback span").html(v)
+                        }
+                    });
+
+                    if(window.location.pathname.split('/')[7] == 'is_skip'){
+                        var is_skip = window.location.pathname.split('/')[8];
+                        var lng_skip = window.location.pathname.split('/')[10];
+                        var lat_skip = window.location.pathname.split('/')[12];
+                        if(is_skip){
+                            jumpAddrSkip(lng_skip,lat_skip);
+                        }
+                    }
+
+                    $("#address").click(function () {
+                        $('.panel-default').empty();
+                        var wait = '<div class="panel-heading jt_initI18n" data-i18n="mapLayout.loading"></div>';
+                        setTimeout(function(){
+                            $(".jt_initI18n").i18n();
+                        },1);
+                        $('.panel-default').append(wait);
+                        $.ajax({
+                            url: '/Map/getAddress',
+                            type: 'get',
+                            success: function (result) {
+                                if (result) {
+                                    $('.panel-default').empty();
+                                    $.each(result, function (key, value) {
+                                        var html = '<div class="panel-heading">';
+                                        html += '<a onclick="jumpAddr(' + value.lng + ', ' + value.lat + ','+value.map_list_id+ ',' + value.type + ')" class="panel-title">(' + value.custom_name + ')</a>';
+                                        html += '<a class="jt_modalStyle" onclick="jumpAddr(' + value.lng + ', ' + value.lat+ ',' + value.map_list_id+ ',' + value.type + ')" class="panel-title">' + value.origin_name + '</a>';
+                                        html += '</div>';
+
+                                        $('.panel-default').append(html);
+                                    });
+                                }else{
+                                    var data_empty =  '<div class="panel-heading jt_initI18n" data-i18n="mapLayout.noAddCommonAddress"></div>';
+                                    setTimeout(function(){
+                                        $(".jt_initI18n").i18n();
+                                    },1);
+                                    $('.panel-default').empty();
+                                    $('.panel-default').append(data_empty);
+                                }
+                            }
+                        });
+                        $('#modal-container').modal({
+                            show: true,
+                            backdrop: true
+                        });
+                    });
+                });
+                function jumpAddr(lng, lat , map_list_id , map_type) {
+                    var url = window.location.pathname.split('/');
+                    if(url[4] != map_list_id){
+
+                        location.href = "/Map/mapManage"+'/mapListId/'+map_list_id+'/mapType/'+map_type+'/is_skip/'+1+'/lng/'+lng+'/lat/'+lat;
+                    }
+                    $('#modal-container').modal('hide');
+                    myObj.map.setZoomAndCenter(17, [lng, lat]);
+                }
+                function jumpAddrSkip(lng, lat ) {
+                    $('#modal-container').modal('hide');
+                    myObj.map.setZoomAndCenter(17, [lng, lat]);
+                }
+
+            </script>
+            <div class="modal fade" id="inputAddrModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel" data-i18n="mapLayout.addNewCommonAddress"></h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label" data-i18n="mapLayout.customName"></label>
+                                <input type="text" class="form-control" id="customName" value="">
+                                <input type="hidden" class="form-control" id="originName" value="">
+                            </div>
+
+                            <p id="inputAddrText"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary confirmAddAddr" data-i18n="public.confirm"></button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal" data-i18n="public.cancel"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $(".confirmAddAddr").click(function () {
+                        var originName = $('#originName').val();
+                        var customName = $('#customName').val();
+                        /*cui*/
+                        var mapListId = window.location.pathname.split('/')[4];
+                        var mapType = window.location.pathname.split('/')[6];
+                        /*cui*/
+                        if (originName == '' || customName == '') {
+                            alert('请输入自定义名称');
+                            return;
+                        }
+                        $(".confirmAddAddr").attr('disabled', 'disabled');
+                        $.ajax({
+                            url: '/Map/addAddress',
+                            type: 'post',
+                            data: {mapType:mapType,mapListId:mapListId,originName: originName, customName: customName, lng: myObj.Rlng, lat: myObj.Rlat},
+                            success: function (result) {
+                                if (result) {
+                                    myAlert('添加成功');
+                                    $('#inputAddrModal').modal('hide');
+                                    $(".confirmAddAddr").removeAttr('disabled');
+                                }
+                            }
+                        });
+                    });
+                })
+            </script>
+            <div class="jt_rightBarMSLB" id="jt_rightBarMSLB">
+                <div class="jt_mSLB">
+                    <label class="jt_labelBG" data-i18n="mapOperation.deviceType"></label>
+                    <div class="jt_fourMSLB">
+                        <div class="form-group">
+                            <?php $_a=$_GET['mapListId'];$_b=$_GET['mapType']; if (!empty($_a) && !empty($_b)) {?>
+                                <select onChange="mbar(this)" name="select" id="changeSelect" class="form-control">
+                                    <option class="jt_mapType" value="1" data-i18n="mapOperation.allDevice"></option>
+                                    <option class="jt_mapType" value="2" data-i18n="mapOperation.mobileDevice"></option>
+                                    <option class="jt_mapType" value="3" data-i18n="mapOperation.layoutDevice"></option>
+                                    <option class="jt_mapType" value="4" data-i18n="mapOperation.terminalDevice"></option>
+                                </select>
+                            <?php } else {?>
+
+                            <?php }?>
+                        </div>
+                    </div>
+                    <label class="jt_labelBG jt_labelBGMiddle" data-i18n="mapOperation.showContents"></label>
+                    <div class="jt_showMapInfo">
+                        <span class="jt_spanGroup">
+                            <input type="checkbox" id="check1" checked>
+                            <label for="check1" data-i18n="mapOperation.icon"></label>
+                        </span>
+                        <span class="jt_spanGroup">
+                            <input type="checkbox" id="check2">
+                            <label for="check2" data-i18n="mapOperation.portrait"></label>
+                        </span>
+                        <span class="jt_spanGroup">
+                            <input type="checkbox" id="check3">
+                            <label for="check3" data-i18n="mapOperation.deviceInfo"></label>
+                        </span>
+                        <span class="jt_spanGroup">
+                            <input type="checkbox" id="check4">
+                            <label for="check4" data-i18n="mapOperation.realTrajectory"></label>
+                        </span>
+                    </div>
+                    <label class="jt_labelBG col-lg-3" data-i18n="mapLayout.searchLocation"></label>
+                    <div class="jt_searchArea">
+                        <input class="form-control" id="keywordSearch" name="keywordSearch" data-i18n="[placeholder]common.searchAuto" onfocus='this.value=""'/>
+                    </div>
+                </div>
+            </div>
+            <div id="paper-middle" class="mapPage">
+                <div id="allmap">
+
+                </div>
+            </div>
+            <div>
+                <div class="col-sm-6">
+                    <div class="nest" id="BlockquotesClose1">
+                        <div class="title-alt">
+                            <h6 data-i18n="public.systemInfo"></h6>
+                            <div class="titleClose">
+                                <a class="gone" href="#BlockquotesClose1">
+                                    <span class="entypo-cancel"></span>
+                                </a>
+                            </div>
+                            <div class="titleToggle">
+                                <a class="nav-toggle-alt" href="#Blockquotes1">
+                                    <span class="entypo-up-open"></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="body-nest Blockquotes" id="Blockquotes1">
+                            <blockquote>
+
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="nest" id="BlockquotesClose2">
+                        <div class="title-alt">
+                            <h6 data-i18n="public.deviceStatus"></h6>
+                            <div class="titleClose">
+                                <a class="gone" href="#BlockquotesClose2">
+                                    <span class="entypo-cancel"></span>
+                                </a>
+                            </div>
+                            <div class="titleToggle">
+                                <a class="nav-toggle-alt" href="#Blockquotes2">
+                                    <span class="entypo-up-open"></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="body-nest Blockquotes" id="Blockquotes2">
+                            <Blockquotes>
+
+                            </Blockquotes>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 右边开始 -->
+<!--<div class="sb-slidebar sb-right jt_mapRight" id="jt_rightBarInfo">-->
+    <!--<div class="right-wrapper">-->
+        <!--<div class="row">-->
+            <!--<h3 class="entypo-gauge">-->
+                <!--<span data-i18n="common.mapList"></span>-->
+            <!--</h3>-->
+            <!--<div class="col-lg-12">-->
+
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="right-wrapper jt_rightStatus">-->
+        <!--<div class="row">-->
+            <!--<h3 class="entypo-chat">-->
+                <!--<span data-i18n="mapOperation.previewArea"></span>-->
+            <!--</h3>-->
+            <!--<div class="col-lg-12">-->
+
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<!-- ************************************************分割線************************************************** -->
+<include file="Common:footer"/>
+<!-- Custom and plugin javascript -->
+<script src="__JS__bootstrap-select.min.js"></script>
+<script src="http://webapi.amap.com/maps?v=1.3&key=b92a1d02aefaf60d15e3304938a5cdd9"></script>
+<script src="http://webapi.amap.com/ui/1.0/main.js"></script>
+<script>
+    //存摄像头的数组，全局
+    var strstr = '';
+    window.myObj = {
+        $map: $('#allmap'),
+        $tree: $('#sourceTree'),
+        jsonData: new Array(),
+        map: null,
+        myIcon_default: null,
+        myIcon_warn: null,
+        tileLayer: null,
+        lng: 0,
+        lat: 0,
+        Rlng: 0,
+        Rlat: 0,
+        formattedAddress: '',
+        mapOffset: new Object(),
+        curCamera: new Object(),
+        map_list_id: {$mapListId? $mapListId : 0},
+        map_type: {$mapType? $mapType : 1},
+        init: function () {
+            $(".jt_mapMain").css({
+                "margin": "16px 0 0 255px",
+                "width": "auto"
+            });
+            $("#allmap").css({
+                "width": "100%"
+            });
+            // 初始化地图
+            myObj.initMap();
+        },
+        initMap: function () {
+            myObj.$map.height($(window).height() * 0.6);
+            myObj.imageLayer = new AMap.ImageLayer({
+                url: '/Uploads/map/{$imgUrl}',
+                bounds: new AMap.Bounds(
+                    [63.879784, 16.951454],
+                    [140.871971, 50.275118]
+                )
+            });
+            if (myObj.map_type == 1) {
+                myObj.map = new AMap.Map('allmap', {
+                    mapStyle: 'amap://styles/7bb61daa8d71302c6807543a2f55a9db',
+                    resizeEnable: true,
+                    lang: 'zh',
+                    zoom: <?php if(!empty($operation['lastZoom']) && !empty($operation['mapListId'])) echo $operation['lastZoom']; else echo 4; ?>
+                });
+            } else if (myObj.map_type == 2) {
+                myObj.map = new AMap.Map('allmap', {
+                    resizeEnable: true,
+                    lang: 'zh_en',
+                    zoom: 3,
+                    center: [40, 40],
+                    layers: [
+                        myObj.imageLayer
+                    ]
+                });
+            }
+            AMap.plugin(['AMap.ToolBar', 'AMap.Autocomplete', 'AMap.PlaceSearch'],
+                function () {
+                    myObj.map.addControl(new AMap.ToolBar({
+                        direction: false
+                    }));
+                    var autoOptions = {
+                        input: "keywordSearch"
+                    };
+                    autocomplete = new AMap.Autocomplete(autoOptions);
+                    var placeSearch = new AMap.PlaceSearch({
+                        map: myObj.map
+                    });
+                    AMap.event.addListener(autocomplete, "select", function (e) {
+                        placeSearch.search(e.poi.name)
+                    });
+                });
+            var lastLng = <?php if(!empty($operation['lastLng']) && !empty($operation['mapListId'])) echo $operation['lastLng']; else echo 108.946609; ?>;
+            var lastLat = <?php if(!empty($operation['lastLat']) && !empty($operation['mapListId'])) echo $operation['lastLat']; else echo 34.262324; ?>;
+            myObj.map.setCenter(new AMap.LngLat(lastLng, lastLat));
+
+            // 获取map位置等信息
+            myObj.mapOffset.x1 = myObj.$map.offset().left;
+            myObj.mapOffset.y1 = myObj.$map.offset().top;
+
+            var contextMenu = new AMap.ContextMenu();
+            contextMenu.addItem("加入常用地址", function (e) {
+                var lnglatXY = [myObj.Rlng, myObj.Rlat];
+                AMap.service('AMap.Geocoder', function () {
+                    geocoder = new AMap.Geocoder({});
+                    geocoder.getAddress(lnglatXY, function (status, result) {
+                        if (status === 'complete' && result.info === 'OK') {
+                            myObj.formattedAddress = result.regeocode.formattedAddress;
+                            <?php if ($_GET['mapType'] == '1') {?>
+                            $('#inputAddrText').text('当前地址 "' + myObj.formattedAddress + '"');
+                            <?php }?>
+                            $('#originName').val(myObj.formattedAddress);
+                            $('#inputAddrModal').modal({
+                                show: true,
+                                backdrop: true
+                            });
+                        } else {
+                            myAlert('获取地址失败');
+                        }
+                    });
+                });
+            }, 1);
+            contextMenu.addItem("天气查询", function (e) {
+                var lnglatXY = [myObj.Rlng, myObj.Rlat];
+                AMap.service('AMap.Geocoder', function () {
+                    geocoder = new AMap.Geocoder({});
+                    geocoder.getAddress(lnglatXY, function (status, result) {
+                        var districtName = result.regeocode.addressComponent.district;
+                        if (status === 'complete' && result.info === 'OK') {
+                            AMap.service('AMap.Weather', function () {
+                                var weather = new AMap.Weather();
+                                weather.getLive(districtName, function (err, data) {
+                                    if (!err) {
+                                        var str = [];
+                                        str.push('<div style="color: #3366FF;">实时天气' + '</div>');
+                                        str.push('<div>城市/区：' + data.city + '</div>');
+                                        str.push('<div>天气：' + data.weather + '</div>');
+                                        str.push('<div>温度：' + data.temperature + '℃</div>');
+                                        str.push('<div>风向：' + data.windDirection + '</div>');
+                                        str.push('<div>风力：' + data.windPower + ' 级</div>');
+                                        str.push('<div>空气湿度：' + data.humidity + '</div>');
+                                        str.push('<div>发布时间：' + data.reportTime + '</div>');
+                                        var infoWin = new AMap.InfoWindow({
+                                            content: str.join(''),
+                                            offset: new AMap.Pixel(0, -20)
+                                        });
+                                        infoWin.open(myObj.map, [myObj.Rlng, myObj.Rlat]);
+                                    }
+                                });
+                            });
+                        }
+                    })
+                })
+            }, 2);
+            contextMenu.addItem("缩放至全国范围", function (e) {
+                myObj.map.setZoomAndCenter(4, [108.946609, 34.262324]);
+            }, 3);
+            contextMenu.addItem("历史轨迹", function (e) {
+                var html = '';
+                $('#userSelect').empty();
+                var wait = '<div class="panel-heading">正在加载中...</div>';
+                $('#userSelect').append(wait);
+                $.ajax({
+                    url:'/Map/allFirmUser',
+                    type:'get',
+                    success: function (result) {
+                        if(result) {
+                            $.each(result, function(key, value) {
+                                html += '<div><label><input type="checkbox" value="'+ value.id +'" />&emsp;'+ value.username+'</label></div>';
+                            });
+                            $('#userSelect').empty();
+                            $('#userSelect').append(html);
+                        }
+                    }
+                });
+                $('#trackModal').modal('show');
+            }, 3);
+
+            myObj.map.on('rightclick', function (e) {
+                contextMenu.open(myObj.map, e.lnglat);
+                contextMenuPositon = e.lnglat;
+                myObj.Rlng = e.lnglat.lng;
+                myObj.Rlat = e.lnglat.lat;
+            });
+
+            <foreach name="track" item="v" key="k">
+            <?php if (!empty($v[0] && $_GET['mapType'] == '1')) { ?>
+                var curMobile = '{$k}';
+                curMobile = curMobile.split('-');
+                curMobile = curMobile[2] + '_1';
+                var info = [];
+                info.push("<b>用户名：</b>" + '{$k}');
+                info.push("<b>设备类型：</b>" + "用户手机");
+
+                myObj.addMark(new AMap.Marker({
+                    icon: '/Public/common/img/icon_mobile_green.png',
+                    position: [{$v[0]['lng']}, {$v[0]['lat']}],
+                    extData: [1, '{$k}', curMobile]
+                }), info);
+            <?php } ?>
+            </foreach>
+
+            $.ajax({
+                url: '/Map/getMarkList',
+                type: 'post',
+                data: {map_list_id: myObj.map_list_id, device_type: '{$_GET['deviceType']}'},
+                success: function (result) {
+                    $.each(result, function (key, value) {
+                        var info = [];
+                        if (value.cam_id == 3) {
+                            $.ajax({
+                                url: '/Map/getMatrixName',
+                                type: 'post',
+                                data: {matrixId: value.info.matrixid},
+                                success: function (result) {
+                                    info.push("<b>矩阵名：</b>" + result.name);
+                                    info.push("<b>设备类型：</b>" + "矩阵");
+
+                                    myObj.addMark(new AMap.Marker({
+                                        icon: "/Public/common/img/icon_matrix_"+ (result.state == "1" ? "green" : "red") + ".png",
+                                        position: [value.lng, value.lat],
+                                        extData: [3, value.info.matrixid, result.name]
+                                    }), info);
+                                }
+                            });
+                        } else if(value.cam_id == 1) {
+                            $.ajax({
+                                url: '/Map/getMatrixName',
+                                type: 'post',
+                                data: {matrixId: value.info.matrixid},
+                                success: function (result) {
+                                    info.push("<b>设备名：</b>" + result.name);
+                                    info.push("<b>设备类型：</b>" + "用户手机");
+
+                                    myObj.addMark(new AMap.Marker({
+                                        icon: '/Public/common/img/'+ (result.state == '1' ? 'icon_mobile_green.png' : 'icon_mobile_red.png'),
+                                        position: [value.lng, value.lat],
+                                        extData: [1, value.info.matrixid, result.name]
+                                    }), info);
+                                }
+                            });
+                        } else if(value.cam_id == 4) {
+                            $.ajax({
+                                url: '/Map/getMatrixName',
+                                type: 'post',
+                                data: {matrixId: value.info.matrixid},
+                                success: function (result) {
+                                    info.push("<b>设备名：</b>" + result.name);
+                                    info.push("<b>设备类型：</b>" + "传感器");
+
+                                    var marker = new AMap.Marker({
+                                        icon: '/Public/common/img/'+ (result.state == '1' ? 'icon_smoke_green.png' : 'icon_smoke_red.png'),
+                                        position: [value.lng, value.lat],
+                                        extData: [4, value.info.matrixid, result.name]
+                                    });
+                                    myObj.addMark(marker, info);
+
+                                    <?php if(!empty($alarmId)) { ?>
+                                        if (value.info.matrixid == '{$alarmId}') {
+                                            myObj.map.setZoomAndCenter(17, [value.lng, value.lat]);
+                                            marker.setIcon('/Public/common/img/icon_smoke_yellow.png');
+                                            var str = [];
+                                            str.push('<div style="color: red;">报警信息' + '</div>');
+                                            str.push('<div>该传感器正在告警...</div>');
+                                            var infoWin = new AMap.InfoWindow({
+                                                content: str.join(''),
+                                                offset: new AMap.Pixel(0, -20)
+                                            });
+                                            infoWin.open(myObj.map, [value.lng, value.lat]);
+                                        }
+
+                                    <?php } ?>
+                                }
+                            });
+                        } else if(value.cam_id == 2) {
+                            $.ajax({
+                                url: '/Map/getMatrixName',
+                                type: 'post',
+                                data: {matrixId: value.info.matrixid},
+                                success: function (result) {
+                                    info.push("<b>设备名：</b>" + result.name);
+                                    info.push("<b>设备类型：</b>" + "用户电脑");
+                                    myObj.addMark(new AMap.Marker({
+                                        icon: '/Public/common/img/'+ (result.state == '1' ? 'icon_computer_green.png' : 'icon_computer_red.png'),
+                                        position: [value.lng, value.lat],
+                                        extData: [2, value.info.matrixid, result.name]
+                                    }), info);
+                                }
+                            });
+                        } else {
+                            $.ajax({
+                                url: '/Map/getMatrixName',
+                                type: 'post',
+                                data: {matrixId: value.info.matrixid},
+                                success: function (result) {
+                                    info.push("<b>所属矩阵：</b>" + result.name);
+//                                    info.push("<b>矩阵ID：</b>" + value.info.matrixid);
+//                                    info.push("<b>设备ID：</b>" + value.info.id);
+                                    info.push("<b>设备名称：</b>" + value.info.name);
+                                    info.push("<b>设备类型：</b>" + value.info.type);
+                                    info.push("<b>设备IP：</b>" + value.info.ip);
+
+                                    myObj.addMark(new AMap.Marker({
+                                        icon: "/Public/common/img/icon_camera_"+ (result.state == "1" ? "green" : "red") + ".png",
+                                        position: [value.lng, value.lat],
+                                        extData: [value.info.id, value.info.matrixid, value.info.ip, result.name]
+                                    }), info);
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        },
+        preview: function (videoNum, matrixid, mode) {
+            ifrId = "ifr" + videoNum;
+            if (mode == 1) {
+                embedId = 'pgAtx_DEV_' + matrixid + '_' + videoNum + '_' + 'pgAtx' + videoNum + '1';
+            }else {
+                embedId = 'pgAtx_DEV_' + matrixid + '_' + videoNum + '_0' + '_' + 'pgAtx' + videoNum + '1';
+            }
+            htmlCode = '<divEmbed id=pgAtx' + videoNum + '1 style="position: absolute; top: 100px; left: 100px; background-color: #000; width: 300px; height: 227px; z-index: 100;"><div style="width: 100%; line-height: 25px; height: 25px; cursor: pointer; background-color: #000;" id="pgAtx' + videoNum + 'showcancel"><a style="display: inline-block; color: #fff; width: 85%; cursor: move;" id="pgAtx' + videoNum + 'drag"></a><a style="display: inline-block; color: #fff;" class="glyphicon glyphicon-resize-full" id="pgAtx' + videoNum + 'full"></a><a style="color: #fff; position: absolute; right: 40px; font-size: 20px; display: none;" class="glyphicon glyphicon-resize-small" id="pgAtx' + videoNum + 'cancel"></a><a id="pgAtx' + videoNum + 'closeW" style="color: #fff; position: absolute; right: 0; top: -1px; display: inline-block; font-size: 27px;">&times;&nbsp;</a></div><embed  id=' + embedId + ' width="100%" height="100%" type="application/peergine-plugin" style="cursor: pointer;"></divEmbed>';
+            $('#paper-middle').append(htmlCode);
+            /* 预览全屏一系列操作开始，预览全屏的一些变量 */
+            var closediv = 'pgAtx' + videoNum + 'closeW';// 关闭窗口图标
+            var fullEl = 'pgAtx' + videoNum + '1';// 外层div(用来包含视频对象)
+            var fullId = 'pgAtx' + videoNum + 'full';// 全屏图标
+            var addcanceldiv = 'pgAtx' + videoNum + 'showcancel';// 操作的黑色div
+            var cancelId = 'pgAtx' + videoNum + 'cancel';// 取消全屏图标
+            var dragW = 'pgAtx' + videoNum + 'drag';// 将拖动窗口元素和全屏元素保存在变量里面
+            var dragvarel = $('#' + dragW);
+            /* 关闭窗口将字符串中相应字符去掉 */
+            $('#' + closediv).bind('click', function () {
+                $('#' + fullEl).detach();
+                var matrixid1 = matrixid;
+                var videoNum1 = videoNum;
+                var removestr = new RegExp(matrixid1 + '\_' + videoNum1, "g");
+                var str = strstr.replace(removestr, "a");
+                strstr = str;
+            });
+            var index = 1;
+            function launchFullscreen(element , value) {
+                thisSRY = value;
+                if (element.requestFullscreen) {
+                    element.requestFullscreen();
+                } else if (element.mozRequestFullScreen) {
+                    element.mozRequestFullScreen();
+                } else if (element.webkitRequestFullscreen) {
+                    element.webkitRequestFullscreen();
+                } else if (element.msRequestFullscreen) {
+                    element.msRequestFullscreen();
+                }
+            }
+            /* 绑定全屏触发事件 */
+            $('#' + fullId).bind('click', function () {
+                launchFullscreen(document.getElementById(fullEl), 4);
+                if(index % 2 != 0) {
+                    if (thisSRY == "4") {
+                        /* 地图运维预览全屏方法 */
+                        mapYWPreviewQP();
+                    }
+                }else{
+                    /* 地图运维预览退出全屏方法 */
+                    mapYWPreviewTC();
+                }
+            });
+            /* 绑定全屏退出触发事件 */
+            $('#' + cancelId).bind('click', function () {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.mozCancelFullScreen) {
+                    document.mozCancelFullScreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                }
+            });
+            /* 鼠标hover全屏图标和关闭图标 */
+            $('#' + fullId).hover(function () {
+                $('#' + fullId).css('font-size', '15px')
+            }, function () {
+                $('#' + fullId).css('font-size', '13px')
+            });
+            $('#' + closediv).hover(function () {
+                $('#' + closediv).css('font-size', '29px');
+            }, function () {
+                $('#' + closediv).css('font-size', '27px');
+            });
+            document.addEventListener("webkitfullscreenchange", function (e) {
+                if(!checkFull()){
+                    /* 地图运维预览退出全屏方法 */
+                    mapYWPreviewTC();
+                }
+            });
+            /* 监听ESC按键 */
+            function checkFull(){
+                var isFull =  document.fullscreenEnabled || window.fullScreen || document.webkitIsFullScreen || document.msFullscreenEnabled;
+                if(isFull === undefined) isFull = false;
+                return isFull;
+            }
+            /* 地图运维预览全屏方法 */
+            function mapYWPreviewQP() {
+                $('#' + fullId).css('font-size', '13px');// 全屏的图标点击后还原全屏图标大小
+                $('#' + dragW).css('width', '90%');// 拖动窗口四个字,改变拖动窗口的宽
+                $('#' + cancelId).css('display', 'inline-block');// 取消全屏显示
+                $('#' + fullEl).addClass('fullStyle');
+                var thisFullEl = document.getElementById(fullEl);
+                $(thisFullEl).parent().children().not($('#' + fullEl)).not($("#allmap")).css({'width':'0','height':'0'});
+                $('#' + closediv).css('font-size', '34px').css('top', '-4px');// 关闭图标变大
+                $('#' + fullId).css('display', 'none');// 删除全屏图标
+                var dragtext = $('#' + dragW).text();
+                $('#' + dragW).detach();// 删除拖动窗口元素
+                $('#' + addcanceldiv).prepend('<span id="addipspan" style="color:#fff;font-size:20px;">' + dragtext + '</span>');// 全屏后添加span元素
+                // 鼠标移到取消全屏图标上和关闭，取消全屏图标变化
+                $('#' + cancelId).hover(function () {
+                    $('#' + cancelId).css('font-size', '24px');
+                }, function () {
+                    $('#' + cancelId).css('font-size', '20px');
+                });
+                $('#' + closediv).hover(function () {
+                    $('#' + closediv).css('font-size', '42px');
+                }, function () {
+                    $('#' + closediv).css('font-size', '38px');
+                });
+            }
+            /* 地图运维预览退出全屏方法 */
+            function mapYWPreviewTC() {
+                $('#' + cancelId).css('display', 'none');// 取消全屏隐藏
+                $('#' + fullId).css('display', 'inline-block');// 全屏显示
+                $('#' + fullEl).removeClass('fullStyle');
+                var thisFullEl = document.getElementById(fullEl);
+                $(thisFullEl).parent().children().not($('#' + fullEl)).not($("#allmap")).css({'width':'300px','height':'227px'});
+                var dragEl = document.getElementById(fullEl);
+                var clicktop = dragEl.style.top;
+                var clickleft = dragEl.style.left;
+                $('#' + fullEl).css('top', clicktop).css('left', clickleft);
+                $('#addipspan').detach();// 取消全屏后删除添加的span元素
+                $('#' + addcanceldiv).prepend(dragvarel);// 添加拖动窗口四个字
+                $('#' + dragW).css('width', '85%');
+                $('#' + closediv).css('font-size', '24px').css('top', '-1px');// 关闭图标还原
+                $('#' + fullEl).css('width', '300px').css('height', '227px');
+                /* 将关闭的hover事件还原 */
+                $('#' + closediv).hover(function () {
+                    $('#' + closediv).css('font-size', '29px');
+                }, function () {
+                    $('#' + closediv).css('font-size', '27px');
+                });
+            }
+            /* 可拖动窗口 */
+            var posX;
+            var posY;
+            var dragEl = document.getElementById(fullEl);
+            $('#' + dragW).bind('mousedown', function (e) {
+                if (!e) e = window.event; // IE
+                posX = e.clientX - parseInt(dragEl.offsetLeft);
+                posY = e.clientY - parseInt(dragEl.offsetTop);
+                document.onmousemove = mousemove;
+                document.onselectstart = function () {
+                    return false;
+                };
+            });
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                document.onselectstart = function () {
+                    return true;
+                };
+            };
+            function mousemove(ev) {
+                if (ev == null) ev = window.event; // IE
+                $('#' + fullEl).removeClass('fullStyle');
+                dragEl.style.left = (ev.clientX - posX) + "px";
+                dragEl.style.top = (ev.clientY - posY) + "px";
+                if (parseInt(dragEl.style.left) < 0) {
+                    dragEl.style.left = 0;
+                }
+                if (parseInt(dragEl.style.top) < 0) {
+                    dragEl.style.top = 0;
+                }
+                /* 限制拖动的右边界 */
+                var dragrightedge = $('#paper-middle').width();
+                if ((parseInt(dragEl.style.left) + parseInt($('#' + fullEl).width())) > parseInt(dragrightedge)) {
+                    dragEl.style.left = parseInt(dragrightedge) - parseInt($('#' + fullEl).width());
+                }
+                /* 限制拖动的下边界 */
+                var dragbottomedge = $('#paper-middle').height();
+                if ((parseInt(dragEl.style.top) + parseInt($('#' + fullEl).height())) > parseInt(dragbottomedge)) {
+                    dragEl.style.top = parseInt(dragbottomedge) - parseInt($('#' + fullEl).height());
+                }
+                /* 预览全屏一系列操作结束 */
+            }
+            if (mode == 1 && matrixid != "") {
+                initObj.playAudio('_DEV_' + matrixid, 0, 'pgAtx_DEV_' + matrixid + '_0_pgAtx' + 0 + '1');
+                initObj.playVideo('_DEV_' + matrixid, 0, 'pgAtx_DEV_' + matrixid + '_0_pgAtx' + 0 + '1', 0);
+            } else if (videoNum != "" && matrixid != "") {
+                var id = 'pgAtx_DEV_' + matrixid + '_' + videoNum + '_0_pgAtx' + videoNum + '1';
+                var pid = 'pgAtx' + videoNum + '1';
+                var wnd = document.getElementById(id);
+                var mouseout = new mouseOI(id, pid);
+                wnd.OnExtRequest = mouseout.out;
+                initObj.playVideo('_DEV_'+matrixid, videoNum, 'pgAtx_DEV_' + matrixid + '_' + videoNum + '_0_pgAtx' + videoNum + '1', 0);
+            }
+        },
+        addMark: function (point, winInfo) {
+            point.setMap(myObj.map);
+            // 创建右键菜单
+            var markerMenu = new AMap.ContextMenu();
+            if (point.G.extData[0] == 3) {
+                var txtMenuItem = [
+                    <?php if ($_GET['mapType'] == '1') {?>
+                    {
+                        text: '坐标信息',
+                        callback: function () {
+                            var lnglatXY = [point.G.position.lng, point.G.position.lat];
+                            AMap.service('AMap.Geocoder', function () {
+                                geocoder = new AMap.Geocoder({});
+                                geocoder.getAddress(lnglatXY, function (status, result) {
+                                    if (status === 'complete' && result.info === 'OK') {
+                                        addressText = result.regeocode.formattedAddress;
+                                        var str = [];
+                                        str.push('<div style="color: #3366FF;">坐标信息' + '</div>');
+                                        str.push('<div>经度：' + point.G.position.lng + '</div>');
+                                        str.push('<div>纬度：' + point.G.position.lat + '</div>');
+                                        str.push('<div>当前地址：' + addressText + '</div>');
+                                        var infoWin = new AMap.InfoWindow({
+                                            content: str.join(''),
+                                            offset: new AMap.Pixel(0, -20)
+                                        });
+                                        infoWin.open(myObj.map, [point.G.position.lng, point.G.position.lat]);
+                                    }
+                                })
+                            });
+                        }
+                    },
+                    <?php }?>
+                    {
+                        text: '移动矩阵',
+                        callback: function () {
+                            point.setDraggable(true);
+                        }
+                    },
+                    {
+                        text: '删除矩阵',
+                        callback: function () {
+                            myConfirm('确定删除该矩阵？', function () {
+                                $.ajax({
+                                    url: '/Map/delMark',
+                                    data: 'camId=' + point.G.extData[0] + '&map_list_id=' + myObj.map_list_id + '&matrixid=' + point.G.extData[1],
+                                    success: function (result) {
+                                        if (result['status'] == 'ok') {
+                                            myObj.map.remove(point);
+                                        } else {
+                                            myAlert('删除失败！');
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                    }
+                ];
+            } else if (point.G.extData[0] == 2 || point.G.extData[0] == 4) {
+                var txtMenuItem = [
+                <?php if ($_GET['mapType'] == '1') {?>
+                    {
+                        text: '坐标信息',
+                        callback: function () {
+                        var lnglatXY = [point.G.position.lng, point.G.position.lat];
+                        AMap.service('AMap.Geocoder', function () {
+                            geocoder = new AMap.Geocoder({});
+                            geocoder.getAddress(lnglatXY, function (status, result) {
+                                if (status === 'complete' && result.info === 'OK') {
+                                    addressText = result.regeocode.formattedAddress;
+                                    var str = [];
+                                    str.push('<div style="color: #3366FF;">坐标信息' + '</div>');
+                                    str.push('<div>经度：' + point.G.position.lng + '</div>');
+                                    str.push('<div>纬度：' + point.G.position.lat + '</div>');
+                                    str.push('<div>当前地址：' + addressText + '</div>');
+                                    var infoWin = new AMap.InfoWindow({
+                                        content: str.join(''),
+                                        offset: new AMap.Pixel(0, -20)
+                                    });
+                                    infoWin.open(myObj.map, [point.G.position.lng, point.G.position.lat]);
+                                }
+                            })
+                        });
+                    }
+                    },
+                <?php }?>
+                {
+                    text: '移动设备',
+                    callback: function () {
+                    point.setDraggable(true);
+                }
+                },
+                {
+                    text: '删除设备',
+                    callback: function () {
+                    myConfirm('确定删除该设备？', function () {
+                        $.ajax({
+                            url: '/Map/delMark',
+                            data: 'camId=' + point.G.extData[0] +'&map_list_id=' + myObj.map_list_id + '&matrixid=' + point.G.extData[1],
+                            success: function (result) {
+                                if (result['status'] == 'ok') {
+                                    myObj.map.remove(point);
+                                } else {
+                                    myAlert('删除失败！');
+                                }
+                            }
+                        });
+                    });
+                }
+                }
+            ];
+            } else if (point.G.extData[0] == 1) {
+                var txtMenuItem = [
+                <?php if ($_GET['mapType'] == '1') {?>
+                    {
+                        text: '坐标信息',
+                            callback: function () {
+                        var lnglatXY = [point.G.position.lng, point.G.position.lat];
+                        AMap.service('AMap.Geocoder', function () {
+                            geocoder = new AMap.Geocoder({});
+                            geocoder.getAddress(lnglatXY, function (status, result) {
+                                if (status === 'complete' && result.info === 'OK') {
+                                    addressText = result.regeocode.formattedAddress;
+                                    var str = [];
+                                    str.push('<div style="color: #3366FF;">坐标信息' + '</div>');
+                                    str.push('<div>经度：' + point.G.position.lng + '</div>');
+                                    str.push('<div>纬度：' + point.G.position.lat + '</div>');
+                                    str.push('<div>当前地址：' + addressText + '</div>');
+                                    var infoWin = new AMap.InfoWindow({
+                                        content: str.join(''),
+                                        offset: new AMap.Pixel(0, -20)
+                                    });
+                                    infoWin.open(myObj.map, [point.G.position.lng, point.G.position.lat]);
+                                }
+                            })
+                        });
+                    }
+                    },
+                    {
+                        text: '预览',
+                            callback: function () {
+                            var data = point.G.extData[1].split('-');
+                            var testval = data[2] + '_1';
+                            var teststr = strstr.match(testval);
+                            //右键菜单隐藏
+                            $(this).parent().hide();
+                            myObj.preview(0, testval, 1);
+                            //获取IP的ajax写在这里，得到的值写在$('#data[1]'+drag).text()里面
+                            var wid = $('#'+'pgAtx'+data[1]+'drag');
+                            wid.text(point.G.extData[2]);
+
+                        }
+                    },
+                <?php }?>
+            ];
+            } else {
+                var txtMenuItem = [
+                    <?php if ($_GET['mapType'] == '1') {?>
+                    {
+                        text: '坐标信息',
+                        callback: function () {
+                            var lnglatXY = [point.G.position.lng, point.G.position.lat];
+                            AMap.service('AMap.Geocoder', function () {
+                                geocoder = new AMap.Geocoder({});
+                                geocoder.getAddress(lnglatXY, function (status, result) {
+                                    if (status === 'complete' && result.info === 'OK') {
+                                        addressText = result.regeocode.formattedAddress;
+                                        var str = [];
+                                        str.push('<div style="color: #3366FF;">坐标信息' + '</div>');
+                                        str.push('<div>经度：' + point.G.position.lng + '</div>');
+                                        str.push('<div>纬度：' + point.G.position.lat + '</div>');
+                                        str.push('<div>当前地址：' + addressText + '</div>');
+                                        var infoWin = new AMap.InfoWindow({
+                                            content: str.join(''),
+                                            offset: new AMap.Pixel(0, -20)
+                                        });
+                                        infoWin.open(myObj.map, [point.G.position.lng, point.G.position.lat]);
+                                    }
+                                })
+                            });
+                        }
+                    },
+                    <?php }?>
+                    {
+                        text: '预览',
+                        callback: function () {
+                            var data = point.G.extData[0].split('_');
+                            var testval = point.G.extData[0];
+                            var teststr = strstr.match(testval);
+                            //右键菜单隐藏
+                            $(this).parent().hide();
+                            if(teststr){
+                                alert('视频正在播放中')
+                            }else{
+                                strstr += testval;
+                                myObj.preview(data[1], point.G.extData[1]);
+                                //获取IP的ajax写在这里，得到的值写在$('#data[1]'+drag).text()里面
+                                var wid = $('#'+'pgAtx'+data[1]+'drag');
+                                wid.text(point.G.extData[2]);
+
+                            }
+                            return;
+                        }
+                    },
+                    {
+                        text: '移动摄像头',
+                        callback: function () {
+                            point.setDraggable(true);
+                        }
+                    },
+                    {
+                        text: '删除摄像头',
+                        callback: function () {
+                            myConfirm('确定删除该摄像头？', function () {
+                                $.ajax({
+                                    url: '/Map/delMark',
+                                    data: 'camId=' + point.G.extData[0] + '&map_list_id=' + myObj.map_list_id + '&matrixid=' + point.G.extData[1],
+                                    success: function (result) {
+                                        if (result['status'] == 'ok') {
+                                            myObj.map.remove(point);
+                                        } else {
+                                            myAlert('删除失败！');
+                                        }
+                                    }
+                                });
+                            });
+                        }
+                    }
+                ];
+            }
+            for (var i = 0; i < txtMenuItem.length; i++) {
+                markerMenu.addItem(txtMenuItem[i].text, txtMenuItem[i].callback, i);
+            }
+            point.on('rightclick', function (e) {
+                markerMenu.open(myObj.map, e.lnglat);
+            });
+            AMap.event.addListener(point, "dragend", function (e) {
+                point.setDraggable(false);
+                $.ajax({
+                    url: '/Map/modifyMark',
+                    type: 'post',
+                    data: {
+                        camId: point.G.extData[0],
+                        matrixid: point.G.extData[1],
+                        lng: e.lnglat.lng,
+                        lat: e.lnglat.lat,
+                        map_list_id: myObj.map_list_id
+                    },
+                    success: function (result) {
+                        if (result['status'] == 'ok') {
+                            myAlert('移动成功');
+                        } else {
+                            myAlert('移动失败！');
+                        }
+                    }
+                });
+            });
+
+            if (winInfo != undefined) {
+                var infoWindow = new AMap.InfoWindow({
+                    content: winInfo.join("<br/>")
+                });
+            }
+            AMap.event.addListener(point, 'click', function () {
+                infoWindow.open(myObj.map, point.getPosition());
+            });
+        }
+    };
+
+    myObj.init();
+
+    operation = {};
+
+    window.setInterval(function () {
+        operation = {
+            lastZoom: myObj.map.getZoom(),
+            lastLng: myObj.map.getCenter().lng,
+            lastLat: myObj.map.getCenter().lat,
+            mapListId : {$_GET[mapListId]?$_GET[mapListId]:0}
+        };
+
+        $.ajax({
+            url: '/Map/setOperation',
+            type: 'post',
+            data: {controllerPath: '{$controllerPath}', operation: operation},
+            success: function (res) {
+
+            }
+        });
+    }, 5000);
+
+
+    function starGetPoluline() {
+        timeInterval = window.setInterval(function () {
+            $.ajax({
+                url: '/Map/getPolyline',
+                type: 'get',
+                success: function (res) {
+                    if (res) {
+                        $.each(res, function(key, value){
+                            var lineArr = [];
+                            $.each(value, function(key1, value1){
+                                lineArr.push([value1.lng, value1.lat]);
+                            });
+                            setPolyline(lineArr);
+                        });
+                    }
+                }
+            });
+
+        }, 30000);
+    }
+
+    function setPolyline(lineArr) {
+
+        var polyline = new AMap.Polyline({
+            path: lineArr,            // 设置线覆盖物路径
+            strokeColor: '#3366FF',   // 线颜色
+            strokeOpacity: 1,         // 线透明度
+            strokeWeight: 2,          // 线宽
+            strokeStyle: 'solid',     // 线样式
+            strokeDasharray: [10, 5], // 补充线样式
+        });
+//        console.log(lineArr);
+        polyline.setMap(myObj.map);
+    }
+
+    /* 获取设备选择option的value值 */
+    function mbar(sobj) {
+        var selectValue = sobj.options[sobj.selectedIndex].value;
+        if (selectValue != "") {
+            if (selectValue == 1) {
+                var allMarkersObj = myObj.map.getAllOverlays();
+                $.each(allMarkersObj, function(key, value) {
+                    allMarkersObj[key].show();
+                });
+            } else if (selectValue == 2) {
+                var allMarkersObj = myObj.map.getAllOverlays();
+                $.each(allMarkersObj, function(key, value) {
+                    if (value.G.extData[0] == 1) {
+                        allMarkersObj[key].show();
+                    } else {
+                        allMarkersObj[key].hide();
+                    }
+                });
+            } else if (selectValue == 3) {
+                var allMarkersObj = myObj.map.getAllOverlays();
+                $.each(allMarkersObj, function(key, value) {
+                    if (value.G.extData[0] != 1 && value.G.extData[0] != 2 ) {
+                        allMarkersObj[key].show();
+                    } else {
+                        allMarkersObj[key].hide();
+                    }
+                });
+            } else if (selectValue == 4) {
+                var allMarkersObj = myObj.map.getAllOverlays();
+                $.each(allMarkersObj, function(key, value) {
+                    if (value.G.extData[0] == 2) {
+                        allMarkersObj[key].show();
+                    } else {
+                        allMarkersObj[key].hide();
+                    }
+                });
+            }
+        }
+    }
+
+    /* 判断地图运维url路径，判断并加入选中属性checked */
+    $(document).ready(function() {
+        var str = window.location.href;
+        var array = str.split("/");
+        var value = $("#changeSelect").children().map(function(){
+            return this;
+        }).get();
+        for(i=0; i<value.length;i++){
+            var option = value[i].value.split("/");
+            if(array[array.length-1] == option[option.length-1]){
+                $(value[i]).attr("selected",true);
+            }
+        }
+
+        $('.displayAllDevice').click(function () {
+            var allMarkersObj = myObj.map.getAllOverlays();
+            $.each(allMarkersObj, function(key, value) {
+                allMarkersObj[key].show();
+            });
+        });
+
+        $('.displayMobileDevice').click(function () {
+            var allMarkersObj = myObj.map.getAllOverlays();
+            $.each(allMarkersObj, function(key, value) {
+                if (value.G.extData[0] == 1) {
+                    allMarkersObj[key].show();
+                } else {
+                    allMarkersObj[key].hide();
+                }
+            });
+        });
+
+        $('.displayLayoutDevice').click(function () {
+            var allMarkersObj = myObj.map.getAllOverlays();
+            $.each(allMarkersObj, function(key, value) {
+                if (value.G.extData[0] != 1 && value.G.extData[0] != 2 && value.G.extData[0] != 4) {
+                    allMarkersObj[key].show();
+                } else {
+                    allMarkersObj[key].hide();
+                }
+            });
+        });
+
+        $('.displayAllComputer').click(function () {
+            var allMarkersObj = myObj.map.getAllOverlays();
+            $.each(allMarkersObj, function(key, value) {
+                if (value.G.extData[0] == 2) {
+                    allMarkersObj[key].show();
+                } else {
+                    allMarkersObj[key].hide();
+                }
+            });
+        });
+
+        $('#check1').click(function () {
+            var isChecked = $('#check1').is(':checked');
+            var allMarkersObj = myObj.map.getAllOverlays();
+            if (isChecked) {
+                $.each(allMarkersObj, function(key, value) {
+                    allMarkersObj[key].show();
+                })
+            } else {
+                $.each(allMarkersObj, function(key, value) {
+                    allMarkersObj[key].hide();
+                })
+            }
+        });
+
+        $('#check2').click(function () {
+            var isChecked = $('#check2').is(':checked');
+            if (isChecked) {
+                <foreach name="onlineMobileUserAvatar" item="v" key="k">
+                    myObj.addMark(new AMap.Marker({
+                        icon: '{$v[2]}',
+                        position: [{$v[0]}, {$v[1]}],
+                        offset: new AMap.Pixel(18, -40),
+                        extData: [1.1, '{$k}']
+                    }));
+                </foreach>
+            } else {
+                var allMarkersObj = myObj.map.getAllOverlays();
+                $.each(allMarkersObj, function(key, value) {
+                    if (value.G.extData[0] == 1.1) {
+                        allMarkersObj[key].hide();
+                    }
+                })
+            }
+        });
+
+        $('#check3').click(function () {
+            var isChecked = $('#check3').is(':checked');
+            var allMarkersObj = myObj.map.getAllOverlays();
+            if (isChecked) {
+                $.each(allMarkersObj, function (key, value) {
+
+                    if (value.G.extData[0] != 1 && value.G.extData[0] != 2 && value.G.extData[0] != 3 && value.G.extData[0] != 4) {
+                        allMarkersObj[key].setLabel({
+                            offset: new AMap.Pixel(20, 20),
+                            content: value.G.extData[3]
+                        });
+                    } else if (value.G.extData[0] == 1) {
+                        allMarkersObj[key].setLabel({
+                            offset: new AMap.Pixel(20, 20),
+                            content: value.G.extData[1]
+                        });
+                    } else {
+                        allMarkersObj[key].setLabel({
+                            offset: new AMap.Pixel(20, 20),
+                            content: value.G.extData[2]
+                        });
+                    }
+                });
+
+            } else {
+                $.each(allMarkersObj, function (key, value) {
+                    allMarkersObj[key].setLabel({
+                        content: ''
+                    });
+                });
+            }
+        });
+
+        $('#check4').click(function () {
+            var isChecked = $('#check4').is(':checked');
+            var allMarkersObj = myObj.map.getAllOverlays();
+            if (isChecked) {
+                starGetPoluline();
+            } else {
+                window.clearInterval(timeInterval);
+            }
+        });
+
+        $('#trackConfirm').click(function() {
+            var dateStart = $('#ECalendar_case1').val();
+            var dateEnd = $('#ECalendar_case2').val();
+
+            dateStart = Date.parse(new Date(dateStart)).toString();
+            dateEnd = Date.parse(new Date(dateEnd)).toString();
+
+
+            if (dateEnd > dateStart) {
+                dateStart = dateStart.substr(0,10);
+                dateEnd = dateEnd.substr(0,10);
+            } else {
+                myAlert('结束日期必须大于开始日期');
+                return;
+            }
+
+            var userInfo = [];
+            $("#userSelect input[type='checkbox']:checked").each(function () {
+                userInfo.push($(this).val());
+            });
+
+            if (userInfo.length == 0) {
+                myAlert('请选择需要查看的移动设备');
+                return;
+            }
+
+            $('#trackConfirm').attr('disabled', 'disabled');
+            $.ajax({
+                url: '/Map/searchTrack',
+                data: {userInfo: userInfo, dateStart: dateStart, dateEnd:dateEnd},
+                type: 'post',
+                success: function(result) {
+                    if(result) {
+                        $.each(result, function(key, value) {
+                            var lineArr = [];
+                            $.each(value, function(key1, value1){
+                                lineArr.push([value1.lng, value1.lat]);
+                            });
+                            setPolyline(lineArr);
+                        });
+                        $('#trackModal').modal('hide');
+
+                    } else {
+                        myAlert('没有历史轨迹数据');
+                    }
+                }
+
+            });
+        })
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!-- 地图页左菜单 -->
+<div class="jt_leftMap jt_leftMenu">
+    <div id="skin-select">
+        <div id="logo">
+            <h1>湖南竞投
+                <span>0.1</span>
+            </h1>
+        </div>
+        <a id="toggle">
+            <span class="entypo-menu"></span>
+        </a>
+        <div class="jt_leftBarMenu" id="jt_leftBarMenu">
+            <div class="skin-part">
+                <div id="tree-wrap">
+                    <div class="side-bar jt_side-bar">
+                        <div class="dark">
+                            <ul id="menu-showhide1" class="topnav top2 menu-left-nest">
+                                <ul id="menu4">
+                                    <li id="jt_inputList">
+
+                                    </li>
+                                </ul>
+                            </ul>
+                        </div>
+                        <ul id="menu-showhide2" class="topnav top2 menu-left-nest">
+                            <li>
+                                <a onclick="showmenu(this)" class="tooltip-tip title-menu-left ajax-load">
+                                    <span>输入源列表</span>
+                                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                                </a>
+                            </li>
+                            <ul id="menu3">
+                                <li>
+
+                                </li>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--拉取在线设备-->
+<script type="text/javascript">
+    function adduser(sUser){
+        html = '<a draggable="true" ondragstart="device_drag(event)"  title="' + sUser + '" id="'+sUser+'"><i class="entypo-camera"></i><span  onclick="click_hide(this)" style="white-space:nowrap;">'+ sUser + '</span></a>';
+        $("#menu3 li").append(html);
+    }
+    function deluser(sUser){
+        var userList = $("#menu3 li").find("a").each(function(){
+            var ss = $(this).find("span").text();
+            if (ss == sUser) {
+                $(this).remove();
+            }
+        });
+    }
+</script>
+<embed id="pgAtx99999" codebase="/Uploads/pgSetup_zh_v1.26.1.msi" width="0" height="0" type="application/peergine-plugin">
+
+    <!--加载pg插件-->
+    <script src="__JS__PgLib.js"></script>
+    <!--加载初始化函数-->
+    <script src="__JS__PgLibinit.js"></script>
+    <script>
+        matrixId = "_DEV_{$matrixId}";
+        var initObj = initList(matrixId);
+        initObj.pgInitialize('pgAtx99999');
+
+        function device_drag(ev) {
+            ev.dataTransfer.setData("Text", ev.target.id);
+            var dragEmt = document.getElementById(ev.target.id);
+        }
+        function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("Text");
+            var parentdata = $("#"+data).attr("matrix-id"); //获取矩阵系列号
+
+            videodataid = $("#"+data).attr("data-id");
+            videoNum = videodataid + parentdata;
+            var isplay = $("#pgAtx"+ videoNum).length;
+            if (isplay != 0) {
+                alert("此输入源已经开启播放");
+            }else{
+                ifrId = "ifr" + videoNum;
+                htmlCode = '<div><embed id="pgAtx' + videoNum + '" width="100%" height="100%" type="application/peergine-plugin"></div><iframe src="/ifrMenu.html?ifrId='+ifrId+'" id="' + ifrId + '" name="ifr" vid="'+videodataid+'" matrix-id="'+parentdata+'" style="position:absolute; z-index:2; width:25px; height:24px; top:0; right:0; visibility:visible" frameborder="0" scrolling="no" allowtransparency="true"></iframe>';
+                ev.target.innerHTML = htmlCode;
+                if (videoNum != "") {
+                    parent.$("#ctrl").attr("data-id",videodataid);
+                    parent.$("#ctrl").attr("matrix-id",parentdata);
+                    initObj.playVideo(parentdata,videodataid,'pgAtx' + videoNum);
+                    initObj.playAudio(parentdata,videodataid,'pgAtx' + videoNum);
+                }
+            }
+        }
+        function funPlayAudio(id){
+            if (id != "") {
+                initObj.playAudio(parentdata,id,'pgAtx' + id);
+            }
+        }
+        function funCutPic(id){
+            if (id != "") {
+                initObj.screenShoot("pgAtx"+id);
+            }
+        }
+        function funStartRecord(id){
+            if (id != "") {
+                initObj.recordVideo(1,"pgAtx"+id);
+            }
+        }
+        function funCloseRecord(id){
+            if (id != "") {
+                initObj.recordVideo(0,"pgAtx"+id);
+            }
+        }
+        function funObjRemove(id){
+            if (id != "") {
+                $("#pgAtx"+id).remove(); //清除embed
+                $("#pgAtx"+id).parent().remove();
+                $("#ifr"+id).remove(); //清除iframe
+            }
+        }
+        function checkok(id){
+            if (id != "") {
+                parent.$("#ifr"+id).trigger("click");
+                matrixId = parent.$("#ifr"+id).attr("matrix-id");
+                var vid = parent.$("#ifr"+id).attr("vid");
+                parent.$("#ctrl").attr("data-id",vid);
+                parent.$("#ctrl").attr("matrix-id",matrixId);
+            }
+        }
+        function max(id) {
+            $("#" + id).css("height", "100%");
+        }
+        function min(id) {
+            $("#" + id).css("height", "25px");
+        }
+        function RandomNum(Min, Max) {
+            var Range = Max - Min;
+            var Rand = Math.random();
+            if (Math.round(Rand * Range) == 0) {
+                return Min + 1;
+            } else if (Math.round(Rand * Max) == Max) {
+                index++;
+                return Max - 1;
+            } else {
+                var num = Min + Math.round(Rand * Range) - 1;
+                return num;
+            }
+        }
+    </script>

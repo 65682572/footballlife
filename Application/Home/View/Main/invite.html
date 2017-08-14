@@ -1,0 +1,92 @@
+<include file="Common:header" />
+<link href="__CSS__plugins/jsTree/style.min.css" rel="stylesheet">
+<link href="__CSS__plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
+<title data-i18n="menu.invite_m"></title>
+</head>
+<body>
+<div id="wrapper" class="invite_m">
+    <include file="Common:leftBar" />
+    <div id="page-wrapper" class="gray-bg">
+        <include file="Common:topBar" />
+        <div class="row m-t-lg">
+            <div class="col-lg-8">
+                <div class="tabs-container">
+                    <div class="tabs-left">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#tab-7" data-i18n="invite.single"></a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab-7" class="tab-pane active">
+                                <div class="panel-body">
+                                    <form class="m-t" role="form" action="inviteUserAction.php" >
+                                        <div class="form-group inviteTel">
+                                            <textarea name="tel" type="tel"  class="form-control" required="" data-i18n="[placeholder]invite.inputTel"></textarea>
+                                        </div>
+                                        <div class="btn-group m-t-lg">
+                                           <button class="btn btn-primary save" type="button" data-i18n="public.submit"></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="__JS__link.min.1.0.js"></script>
+<script src="__JS__link.utils.min.1.0.js"></script>
+<script>
+    window.myObj={
+        $form:$('form'),
+        $sub:true,
+        init:function(){
+            $('.add').on('click',function(){
+                var $html =$('<div class="form-group inviteTel">'
+                        +'   <input name="tel" type="tel"  class="form-control" required="" value="" data-i18n="[placeholder]invite.inputTel">'
+                        +'   <i class="fa fa-times-circle close"></i>'
+                        +'</div>');
+                $html.i18n().find('.close').on('click',function(){
+                    $(this).parent().remove();
+                });
+                myObj.$form.find('.btn-group').before($html);
+            });
+            $('.inviteTel .close').on('click',function(){
+                $(this).parent().remove();
+            });
+            $(".save").bind("click", function(){
+                myObj.subsingleInvite($(this));
+            });
+        },
+        subsingleInvite:function(obj){
+            var tel= $.trim($('textarea[name="tel"]').val());
+            if (tel == ''){
+                alert("没有符合规范的手机号!");
+                return false;
+            }
+            if (myObj.$sub == false){
+                return false;
+            }
+            myObj.$sub = false;
+            obj.addClass("btn_waiting");
+            $.ajax({
+                url:'/main/singleInvite',
+                type:'post',
+                async:false,
+                data:{tel:tel},
+                dataType : 'json',
+                success:function(ret){
+                    alert(ret.msg);
+                    obj.removeClass("btn_waiting");
+                    myObj.$sub = true;
+                }
+            });
+        }
+    };
+    myObj.init();
+</script>
+</body>
+</html>

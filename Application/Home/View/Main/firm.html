@@ -1,0 +1,235 @@
+<include file="Common:header" />
+<link href="__CSS__plugins/jsTree/style.min.css" rel="stylesheet">
+<title data-i18n="menu.org_m"></title>
+</head>
+<body class="org_m">
+<div id="wrapper"class="org_m">
+<include file="Common:leftBar" />
+<div id="page-wrapper" class="gray-bg">
+    <include file="Common:topBar" />
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5 data-i18n="menu.org_m">B</h5>
+                </div>
+                <div class="ibox-content" id="jstree"></div>
+                <div class="text-center">
+                    <button class="btn btn-primary createOrg" type="button" data-i18n="org.createOrg"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="modal inmodal" id="myModal_modify" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInTop">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" data-i18n="org.modify"></h4>
+            </div>
+            <div class="modal-body">
+                <form class="m-t" role="form">
+                    <input type="hidden" class="form-control" name="id" value="">
+                    <div class="form-group">
+                        <input name="name" type="text" class="form-control" data-i18n="[placeholder]createOrg.name" required="">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="des" rows="5" class="form-control" data-i18n="[placeholder]createOrg.des"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary btn-sm submit" data-channel="modifyOrgAction" type="button" data-i18n="public.submit"></button>
+                        <button class="btn btn-danger btn-sm cancel" type="button" data-i18n="public.cancel"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal inmodal" id="myModal_add" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInTop">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" data-i18n="org.add"></h4>
+            </div>
+            <div class="modal-body">
+                <form class="m-t" role="form" >
+                    <input type="hidden" class="form-control" name="id" value="">
+                    <div class="form-group">
+                        <input name="name" type="text" class="form-control" data-i18n="[placeholder]createOrg.name" required="">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="des" rows="5" class="form-control" data-i18n="[placeholder]createOrg.des"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary btn-sm submit" type="button" data-channel="addOrgAction" data-i18n="public.submit"></button>
+                        <button class="btn btn-danger btn-sm cancel" type="button" data-i18n="public.cancel"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal inmodal" id="myModal_del" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInTop">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" data-i18n="org.delete"></h4>
+            </div>
+            <div class="modal-body">
+                <form class="m-t" role="form">
+                    <input type="hidden" class="form-control" name="id" value="">
+                    <p class="tips" data-i18n="org.delTips"></p>
+                    <div class="text-center">
+                        <button class="btn btn-primary btn-sm submit" data-channel="delOrgAction" type="button" data-i18n="public.submit"></button>
+                        <button class="btn btn-danger btn-sm cancel" type="button" data-i18n="public.cancel"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal inmodal" id="myModal_create" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInTop">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" data-i18n="org.add"></h4>
+            </div>
+            <div class="modal-body">
+                <form class="m-t" role="form">
+                    <div class="form-group">
+                        <input name="name" type="text" class="form-control" data-i18n="[placeholder]createOrg.name" required="">
+                    </div>
+                    <div class="form-group">
+                        <textarea name="des" rows="5" class="form-control" data-i18n="[placeholder]createOrg.des"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-primary btn-sm submit" data-channel="createOrgAction" type="button" data-i18n="public.submit"></button>
+                        <button class="btn btn-danger btn-sm cancel" type="button" data-i18n="public.cancel"></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="__JS__bootstrap-tooltip.js"></script>
+<script src="__JS__bootstrap-confirmation.js"></script>
+<script type="text/javascript">
+    var formatfirm = {$formatfirm};
+    window.myObj={
+        $myModal_modify:$('#myModal_modify'),
+        $myModal_add:$('#myModal_add'),
+        $myModal_del:$('#myModal_del'),
+        $myModal_create:$('#myModal_create'),
+        $sub:true,
+        init:function(){
+            var jsonData = formatfirm;
+            $('#jstree').jstree({
+                'plugins' : [ 'types', 'dnd',"wholerow","contextmenu"],
+                "types": {
+                    "default" : {
+                        "icon" : 'fa fa-university'  // 关闭默认图标
+                    },
+                    'level1' : {
+                        'icon' : 'fa fa-university'
+                    },
+                    'level2' : {
+                        'icon' : 'fa fa-home'
+                    },
+                    'level3' : {
+                        'icon' : 'fa fa-database'
+                    }
+                },
+                'core' : {
+                    'data' : jsonData
+                },
+                "contextmenu": {
+                    "items": {
+                        "create": null,
+                        "rename":{
+                            "label": "Modify",
+                            "action": function (obj) {
+                                var inst = jQuery.jstree.reference(obj.reference);
+                                var clickedNode = inst.get_node(obj.reference);
+                                myObj.$myModal_modify.find('input[name="id"]').val(clickedNode.id).end().find('input[name="name"]').val(clickedNode.text);
+                                myObj.$myModal_modify.modal('show');
+                            }
+                        },
+                        "remove": null,
+                        "ccp": null,
+                        "add": {
+                            "label": "Add",
+                            "action": function (obj) {
+                                var inst = jQuery.jstree.reference(obj.reference);
+                                var clickedNode = inst.get_node(obj.reference);
+                                myObj.$myModal_add.find('input[name="id"]').val(clickedNode.id).end().modal('show');
+                            }
+                        },
+                        "delete": {
+                            "label": "Delete",
+                            "action": function (obj) {
+                                var inst = jQuery.jstree.reference(obj.reference);
+                                var clickedNode = inst.get_node(obj.reference);
+                                myObj.$myModal_del.find('input[name="id"]').val(clickedNode.id).end().modal('show');
+                            }
+                        }
+                    }
+                }
+            });
+            myObj.$myModal_modify.find('.cancel').on('click',function(){
+                myObj.$myModal_modify.modal('hide');
+            });
+            myObj.$myModal_add.find('.cancel').on('click',function(){
+                myObj.$myModal_add.modal('hide');
+            });
+            myObj.$myModal_del.find('.cancel').on('click',function(){
+                myObj.$myModal_del.modal('hide');
+            });
+            myObj.$myModal_create.find('.cancel').on('click',function(){
+                myObj.$myModal_create.modal('hide');
+            });
+            $('.createOrg').on('click',function(){
+                myObj.$myModal_create.modal('show');
+            });
+            $(".submit").bind("click", function(){
+                var action = $(this).attr("data-channel");
+                var id = $(this).parent().parent().find('input[name="id"]').val();
+                var name = $(this).parent().parent().find('input[name="name"]').val();
+                var intro = $(this).parent().parent().find('textarea[name="des"]').val();
+                if (name == ''){
+                    alert("机构名称不能为空！");
+                    return false;
+                }
+                if (myObj.$sub == false){
+                    return false;
+                }
+                myObj.$sub = false;
+                var objj = $(this);
+                objj.addClass("btn_waiting");
+                console.log(action);
+                $.ajax({
+                    url:"/main/createfirm",
+                    type:'post',
+                    data:{id:id,action:action,name:name,intro:intro},
+                    success:function(result){
+                        if(result['status'] == false){
+                            alert(result['msg']);
+                            objj.removeClass("btn_waiting");
+                            myObj.$sub = true;
+                        }else{
+                            location.reload();
+                        }
+                    }
+                });
+            });
+        }
+    };
+    myObj.init();
+</script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!-- 报警日志 -->
+<html>
+<title data-i18n="common.alertLog"></title>
+<include file="Common:matrix_header" />
+<include file="Common:matrix_menu" />
+<include file="Common:alert_leftbar_public" />
+<include file="Common:msgFootable" />
+<script src="/Public/common/js/msgFootable.js"></script>
+<!-- 中间 -->
+<div class="wrap-fluid jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span data-i18n="common.alertLog"></span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle" />
+                    <div class="col-sm-2">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="btn-group btn-wigdet pull-right visible-lg">
+                            <div class="btn">
+                                Widget</div>
+                            <button data-toggle="dropdown" class="btn dropdown-toggle jt_dropTo">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul role="menu" class="dropdown-menu">
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-plus-circled margin-iconic"></span>Add New
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-heart margin-iconic"></span>Favorite
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-cog margin-iconic"></span>Setting
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 jt_rowNest1">
+                <div class="nest" id="FootableClose">
+                    <div class="title-alt">
+                        <h6 data-i18n="common.alertLog"></h6>
+                        <div class="titleClose">
+                            <a class="gone" href="#FootableClose">
+                                <span class="entypo-cancel"></span>
+                            </a>
+                        </div>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#Footable">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="Footable">
+                        <table class="table-striped footable-res footable metro-blue" data-page-size="10">
+                            <thead>
+                            <tr>
+                                <th><span data-i18n="public.number"></span></th>
+                                <th><span data-i18n="alert.triggerDeviceName"></span></th>
+                                <th><span data-i18n="alert.triggerEventName"></span></th>
+                                <th><span data-i18n="alert.responseEventName"></span></th>
+                                <th><span data-i18n="alert.stayResponseDevice"></span></th>
+                                <th><span data-i18n="alert.status"></span></th>
+                                <th><span data-i18n="alert.result"></span></th>
+                                <th><span data-i18n="alert.triggerTime"></span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <foreach name="list" item="v">
+                                <tr>
+                                    <td class="jt_hiddenTd3 footable-first-column"></td>
+                                    <td class="jt_hiddenTd3">{$v['dname']}</td>
+                                    <td class="jt_hiddenTd4">{$v['ename']}</td>
+                                    <td class="jt_hiddenTd4">{$v['rname']}</td>
+                                    <td class="jt_hiddenTd4">{$v['destination']}</td>
+                                    <td class="jt_hiddenTd4">{$v['status']?"成功":"失败"}</td>
+                                    <td class="jt_hiddenTd4">{$v['msg']}</td>
+                                    <td class="jt_hiddenTd4">{$v['triggertime']}</td>
+                                </tr>
+                            </foreach>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="8">
+                                    <div class="pagination pagination-centered"></div>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Common:footer" />
+</body>
+</html>

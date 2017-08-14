@@ -1,0 +1,154 @@
+<include file="Common:header" />
+<link href="__CSS__plugins/iCheck/custom.css" rel="stylesheet">
+<title data-i18n="login.login"></title>
+</head>
+<body class="gray-bg" onkeydown="keyLogin();">
+<div class="middle-box text-center login loginscreen">
+    <div>
+        <div>
+            <h1 class="logo-name" data-i18n="login.name"></h1>
+        </div>
+        <h3 data-i18n="login.welcome"></h3>
+        <br/>
+        <p class="error"></p>
+        <form class="m-t form-horizontal jt_loginForm" role="form">
+            <div class="form-group">
+                <label class="control-label col-sm-3" data-i18n="login.tel"></label>
+                <div class="col-sm-9">
+                    <input name="tel" type="text" id="tel" class="form-control" data-i18n="[placeholder]login.tel" required maxlength="11" value="{$mobile}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password" class="col-sm-3 control-label" data-i18n="login.password"></label>
+                <div class="col-sm-9">
+                    <input type="password" name="password" id="password" class="form-control" data-i18n="[placeholder]login.password" required value="{$password}">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="checkbox i-checks col-sm-offset-3 col-sm-9"><label> <input type="checkbox" name="checkbox"><i></i> <span data-i18n="login.autoLogin"></span></label></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9" >
+                    <button type="button" id="login" class="btn btn-primary block full-width m-b dosub jt_loginSign" data-i18n="login.login"></button>
+                </div>
+            </div>
+            <div class="form-group jt_positionMarginTop">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <a href="/register/lostPwd" ><small data-i18n="login.forget"></small></a>
+                    <p class="text-muted text-center"><small data-i18n="login.noAccount"></small></p>
+                </div>
+            </div>
+            <div class="form-group jt_positionMarginTop">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <a class="btn btn-sm btn-white btn-block" href="/register" data-i18n="login.register"></a>
+                </div>
+            </div>
+            <br/>
+            <div class="form-group jt_positionMarginTop">
+                <div class="col-sm-offset-3 col-sm-9" >
+                    <div class="jt_downloadArea">
+                        <a href="http://www.peergine.com/download/program/v1.28.0/pgSetup_zh_v1.28.0.msi" data-i18n="login.plugins"></a>
+                        <a href="http://cloud.linkyview.com/Uploads/com.linkyview.intelligence.apk" data-i18n="login.android"></a>
+                        <a href="javascript:void(0);" data-i18n="login.ios"></a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include file="Common:change_lng" />
+<include file="Common:footer1" />
+<!-- iCheck -->
+<script src="__JS__plugins/iCheck/icheck.min.js"></script>
+<script>
+    var myObj = {
+        $tel:$('input[name="tel"]'),
+        $pwd:$('input[name="password"]'),
+        $error:$('.error'),
+        $sub:true,
+        init:function(){
+            myObj.$tel.val("{$mobile}");
+            myObj.$pwd.val("{$password}");
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green'
+            });
+            $(".dosub").bind("click", function(){
+                myObj.sub($(this));
+            });
+        },
+        check:function(){
+            var reg = /\d{11}/;
+            var result = reg.test(myObj.$tel.val());
+            if(!result){
+                myObj.$error.text('电话号码格式错误!').show();
+                return result;
+            }
+
+            var reg = /^[0-9A-Za-z]{6,20}$/;
+            var result = reg.test(myObj.$pwd.val());
+            if(!result){
+                myObj.$error.text('密码不能小于6位或大于20位!').show();
+                return result;
+            }
+
+            return true;
+        },
+        sub:function(obj){
+            var ret = myObj.check();
+            if (ret == false || myObj.$sub == false){
+                return false;
+            }
+            myObj.$sub = false;
+            obj.addClass("btn_waiting");
+            var tel = $.trim(myObj.$tel.val());
+            var password = $.trim(myObj.$pwd.val());
+            $.ajax({
+                url:'/login/login',
+                type:'post',
+                async:false,
+                data:{mobile:tel,password:password,ck:$('input[name="checkbox"]').is(':checked'),confirm:0},
+                dataType : 'json',
+                success:function(ret){
+                    if (ret['status'] == true){
+                        location.href = '/main';
+                    }else if(ret['code'] == -99){
+                        myConfirm('该用户已在IP:'+ret['data']['ip']+'，地区：'+ret['data']['location']+'登录，是否强制登录？', function () {
+                            $.ajax({
+                                url:'/login/login',
+                                type:'post',
+                                async:false,
+                                data:{mobile:tel,password:password,ck:$('input[name="checkbox"]').is(':checked'),confirm:1},
+                                dataType : 'json',
+                                success: function (result) {
+                                    if (result['status'] == true){
+                                        location.href = '/main';
+                                    } else {
+                                        myObj.$error.text(result.msg).show();
+                                        obj.removeClass("btn_waiting");
+                                        myObj.$sub = true;
+                                    }
+                                }
+                            });
+                        });
+
+                        obj.removeClass("btn_waiting");
+                        myObj.$sub = true;
+                    }else{
+                        myObj.$error.text(ret.msg).show();
+                        obj.removeClass("btn_waiting");
+                        myObj.$sub = true;
+                    }
+                }
+            });
+        }
+    };
+    myObj.init();
+    /* 回车登录 */
+    function keyLogin(){
+        if (event.keyCode==13)  //回车键的键值为13
+            document.getElementById("login").click(); //调用登录按钮的登录事件
+    }
+</script>
+</body>
+</html>

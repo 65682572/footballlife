@@ -1,0 +1,391 @@
+<!-- 设备控制 -->
+<html>
+<title> 设备控制 </title>
+<include file="Common:matrix_header" />
+<body class="jt_azMain" onload="init();">
+<div class="jt_wrapPage jt_aZWrapPage">
+    <div class="btn-group btn-wigdet pull-right visible-lg">
+
+    </div>
+    <canvas id="lk_canvas" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+    </canvas>
+    <div class="j_preview" id="test">
+
+    </div>
+    <ul id="menu-showhide2" class="topnav top2 menu-left-nest">
+        <li>
+            <a onclick="showmenu(this)" class="tooltip-tip title-menu-left ajax-load">
+                <img src="/Public/common/images/icon_androidSRY.png" alt=""/>
+                <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+            </a>
+        </li>
+        <ul id="menu3">
+            <li>
+
+            </li>
+        </ul>
+    </ul>
+</div>
+<!-- ************************************************Html代码结束************************************************** -->
+<script type="text/javascript">
+    $(document).ready(function(){
+        /* 手机端访问自动初始化 */
+        $("#lk_canvas").click(function(){
+            $(".visible-lg").css({
+                "display":"block",
+                "position":"fixed"
+            });
+        });
+        var matrix_id = "{$matrix_id}";
+        if (matrix_id=="") {
+            $("#modal-container-884435").css("display","block").addClass("in");
+        }
+        $("#closemo").click(function(){
+            $("#modal-container-884435").css("display","none").removeClass("in");
+        });
+    });
+    var matrixId = "_DEV_{$matrixId}";
+    function setInfo() {
+        var fileFive = '';
+        var fileSeven = lc.onGetFIle(7).split('/');
+        fileSeven = JSON.parse(fileSeven[1]);
+        $.each(fileSeven, function (k, v) {
+            if (v.gn == null) {
+                fileFive += v.outputId + ':' + v.inputId + ':0:0*0:0,';
+            } else {
+                fileFive += v.outputId + ':' + v.inputId + ':' + v.gn + ':0*0:0,';
+            }
+        });
+        lc.onReset(5,fileFive.substr(0, fileFive.length - 1));
+    }
+//    function max(id) {
+//        $("#" + id).css("height", "100%");
+//    }
+//    function min(id) {
+//        $("#" + id).css("height", "25px");
+//    }
+    function RandomNum(Min, Max) {
+        var Range = Max - Min;
+        var Rand = Math.random();
+        if (Math.round(Rand * Range) == 0) {
+            return Min + 1;
+        } else if (Math.round(Rand * Max) == Max) {
+            index++;
+            return Max - 1;
+        } else {
+            var num = Min + Math.round(Rand * Range) - 1;
+            return num;
+        }
+    }
+</script>
+<script src="__JS__plugins/jsTree/jstree.min.js"></script>
+<script src='//cdn.bootcss.com/socket.io/1.3.7/socket.io.js'></script>
+<!-- 初始化p2p结束 -->
+<!-- 拼接屏插件 -->
+<link rel="stylesheet" href="__CSS__lkcanvas.css">
+<script src="__JS__lkcanvasAz.js"></script>
+<!-- 初始化设备列表与拼接屏 -->
+<script>
+    window.myObj = {
+        $volumeSlide: 1,
+        $volumeValue: 100,
+        $btn_volume: $("#btn_volume"),
+        inits: function () {
+
+        }
+    };
+    myObj.inits();
+    lc = null;
+    function init() {
+        try {
+            lc = new lkCanvas("lk_canvas");// 初始化js插件 ，传入canva标签的id号
+            console.log(lc);
+            var loginCode = [0x00, 0x01, 0xff, 0xaf];// 登录矩阵的随机码
+            lc.setCode(loginCode);// 写入登录矩阵得到的随机码，随机码为二进制数组，长度为4
+            bind = lc.onGetFIle(7);
+            lc.onExt = getMes;// 指定一个回调方法，操作功能的时候通过回调返回数据
+            var type = lc.init();// 初始化js插件  success=成功
+            var input = '@{:rand(10000,99999)}/{$inputData}';
+            lc.onReset(3, input);
+            // lc.onReset(1, win);
+            showMes("type:" + type);
+        } catch (e) {
+            showMes(e);
+        }
+    }
+    /*******************************************************************
+     *指定一个回调方法，操作功能的时候通过回调返回数据
+     *@param pType  回调内容的类型   , 0:二进制数据,1=字符串数据
+     *@param    pMethod   回调内容的编号  ,>0的数字为配置文件的编号,“0x 0x”为二进制数据的功能编号
+     *@param pData  回调内容
+     */
+    function getMes(pType, pMethod, pData) {
+        if (pType == 1 && pMethod == 1) {
+            if (pData) {
+                pushconfig2(pData,1);
+            }
+        }
+        if (pType == 1 && pMethod == 2) {
+            console.log("pMethod2:"+pData);
+        }
+        if (pType == 1 && pMethod == 30) {
+            var rightId = parseInt(pData);
+            document.location='linkyview://rightId=' + rightId;
+        }
+        if (pType == 1 && pMethod == 7) {
+            var show = "";
+            if (pData) {
+                pData = pData.split("/");
+                json_pData = JSON.parse(pData[1]);
+                for (var i = 0; i < json_pData.length; i++) {
+                    if (i < json_pData.length - 1) {
+                        show += json_pData[i]['outputId'] + ":" + json_pData[i]['inputId'] + ":0:0*0:0,";
+                    } else {
+                        show += json_pData[i]['outputId'] + ":" + json_pData[i]['inputId'] + ":0:0*0:0";
+                    }
+                }
+                var showifo = "@" + show; //添加设备与窗口对应关系
+                lc.onReset(5, showifo);
+            }
+        }
+        showMes(" type:" + pType + " method:" + pMethod + "  data:" + JSON.stringify(pData), "blue");
+        if (pType == 0) {
+            showMes("转换：" + conversionStr(pData), "red");// conversionStr 转换为16进制字符串
+        }
+    }
+    function bind_video(event, num, channel) {
+        var bindstr = lc.onPlay(event, num, channel);
+    }
+    function getconfig() {
+
+    }
+    function setconfig(sdata,num){
+        num = parseInt(num);
+        lc.onReset(1, sdata[5]);
+    }
+    function pushconfig(num){
+
+    }
+    function pushconfig2(str,num){
+
+    }
+    function test() {
+
+    }
+    /***********************************
+     * win1=窗口配置文件 ，编号：1
+     * input =输入源配置文件，编号：3
+     * showito=当前显示的对应关系，编号：5
+     * ito=输入源对应窗口输出配置文件，编号7
+     * model =模式配置文件，编号：8
+     * modellx=模式定时轮巡配置文件，编号：13
+     * modelGroup =模式组轮巡配置文件，编号：19
+     *
+     */
+    function reset() {
+        var win1 = '@233/947/474/2/2/1/1/[[{"id":1,"st":0,"cl":0,"pp":"1,1","up":"10,10,473.5,237"},{"id":2,"st":0,"cl":0,"pp":"2,2","up":"473.5,10,937,237"},{"id":3,"st":0,"cl":0,"pp":"3,3","up":"10,237,473.5,464"},{"id":4,"st":0,"cl":0,"pp":"4,4","up":"473.5,237,937,464"}]';
+        lc.onReset(1, win1);
+        var input = '@{:rand(10000,99999)}/{$inputData}';
+        lc.onReset(3, input);
+
+    }
+    function showMes(pMes, pColor) {
+        var lkMes = document.getElementById("lkMes");
+        if (lkMes != null) {
+            $("#lkMes").append("<span style='display:inline-block;min-height:20px; line-height:20px; word-wrap : break-word ; color:" + pColor + "; min-width:400px; width:100%;'>" + pMes + "</span>");
+        }
+    }
+    $(function () {
+        $("body").click(function () {
+            /*******************************
+             *切换输入源例子
+             *onPlay ：切换输入源函数,需要初始化lkCanvas对象
+             *event ：鼠标对象
+             *inputId: >1为输入源id号，最大值为65536
+             *inputChannal: 0为输入源没有通道，>1为通道号最大值为256
+             *返回值[字符串]：Success=成功，其他返回值为失败原因。
+             *异步返回：切换指令和输入对应窗口关系文件
+             */
+        });
+        /* 按下键盘触发事件 */
+        $("html").keyup(function (event) {
+            var keyCode = event.keyCode;
+            showMes("keyCode:" + keyCode);
+            switch (keyCode) {
+                case 69:
+                    var rbStr = lc.onLanguage("0");
+                    showMes("设置中文:" + rbStr);
+                    break;
+                case 82:
+                    var rbStr = lc.onLanguage("1");
+                    showMes("设置英文:" + rbStr);
+                    break;
+                case 84:
+                    var rbStr = lc.onLanguage("2");
+                    showMes("设置繁体:" + rbStr);
+                    break;
+                case 49:
+                    lc.onGetFIle(1);
+                    break;
+                case 50:
+                    lc.onGetFIle(3);
+                    break;
+                case 51:
+                    lc.onGetFIle(7);
+                    break;
+                default:
+                    break;
+            }
+        });
+    });
+    /* 导入录像回放内容 */
+    function inputVideo() {
+        var videoFile = '@/idea0/2017-01-06/001/0.0.0-2.16.28[R],/idea0/2017-01-06/001/2.16.28-6.10.55[R],/idea0/2017-01-06/001/6.10.55-9.34.35[R],/idea0/2017-01-06/001/9.34.35-12.38.18[R],/idea0/2017-01-06/001/12.38.18-15.52.57[R],/idea0/2017-01-06/001/15.52.57-17.6.56[R]';
+        var inputId = 8;
+        var inputChannal = 1;
+        /*******************************************
+         *onSetReplay ： 导入录像内容的方法
+         *videoFile[字符串] ：输入源的录像内容
+         *inputId[整型]：输入源id,>1为输入源id号，最大值为65536
+         *inputChananl[整型]：输入源通道号 0=没有通道，>1为通道号，最大值为256
+         *注：
+         */
+        lc.onSetReplay(videoFile, inputId, inputChannal);
+    }
+    /***************************************
+     *控制窗口录像回放
+     *@param playType 播放类型：  1=正堂播放  、2=倒播、3=暂停、4=停止、5=播放上一个文件、6=播放下一个文件
+     *@param spped 速度  ：0=停止、1=正堂播放速度、2=2倍播放速度、3=3倍播放速度、4=倍播放速度。最大4倍速
+     *@param windowId 窗口id，>1为正常值 ，最大值为65536。作为停止命令的时候可以同时停止多个窗口回放，例：[56,32]
+     */
+    function testReplay(playType, speed, windowId) {
+        lc.onRePlay(playType, speed, windowId);
+    }
+    function clean() {
+        $("#lkMes *").remove();
+    }
+    function removetest(){
+        $.each(objList, function(i, item){
+            if(objList[i] != undefined) {
+                if(objList[i].obj.matrixInit == true) {
+                    objList[i].obj.matrixInit = false;
+                    objList[i].obj.stopVideo();
+                    objList[i].obj.pgClean(0);
+                }
+            }
+        });
+        document.getElementById("fastbtn").innerHTML = '快捷功能';
+        $("#test").children().remove();
+        $("#test").css("height","0");
+        $("#lk_canvas").show();
+        $("#j_if").attr("onclick","test();");
+    }
+    $(document).ready(function () {
+        $("#cancel_obv").click(function () {
+            $.each(objList, function(i, item){
+                if(objList[i] != undefined) {
+                    if(objList[i].obj.matrixInit == true) {
+                        objList[i].obj.matrixInit = false;
+                        objList[i].obj.stopVideo();
+                        objList[i].obj.pgClean(0);
+                    }
+                }
+            });
+            $("#test").children().remove();
+            $("#test").removeAttr("style");
+            $("#lk_canvas").show();
+            $("#j_if").attr("onclick","test();");
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".grid").click(function(){
+            parent.$("#ctrl").removeAttr("data-id");
+        });
+        $(".grid").attr({
+            "ondrop":"drop(event)",
+            "ondragover":"allowDrop(event)"
+        });
+    });
+    function sendCtrl(code){
+        var id = parent.$("#ctrl").attr("data-id");
+        var speed = parent.$("#speedSlide").attr("data-slider-value");
+        if (code > 0) {
+            var cmd = id+",0,"+code+","+speed+",0";
+        }else{
+            var cmd = id+",0,"+code+",0,0";
+        }
+        if (id > 0) {
+            objList[id].obj.ctrlSend(cmd);
+        }else{
+            alert("未选择可操作的设备！");
+        }
+    }
+</script>
+<script>
+    var uid = {:session('user_auth.uid')};
+    var uuid1 = '{$uuid}';
+    $(document).ready(function () {
+        var socket = io('{:C('SITE_URL')}:2120');
+        socket.on('connect', function(){
+            socket.emit('login', uid);
+        });
+        socket.on('new_msg', function(msg){
+            if(msg.length >100){
+
+            }else{
+                $('#app').html('<ul style="list-style-type: none;"><li><button type="button" class="close" id="uptext"></button><span class="tittle-alert entypo-info-circled"></span>' + msg + '</li></ul><i class="entypo-up-open jt_right"></i>');
+            }
+        });
+    });
+</script>
+<script>
+    $(function(){
+        var msg = '{$input}';
+        /*msg = msg.replace(/&quot;/g,'"');*/
+        var objp = JSON.parse(msg);
+        var html1 = '';
+        var html_child = '';
+        var html3 = "";
+
+        for(var index = 0 ; index<objp.length ; index++){
+            var obj = objp[index];
+                if (obj.grName != null) {
+                    var child = obj.grName.split(',');
+                    child.forEach(function (value,index) {
+                        var a = index+1;
+                        html3 = "<span style='position: relative;'><img id='jt_ifAB' src='/Public/common/images/icon_++.png' style='position: absolute; width: 10px; top: 2px; left: -28px;' /></span>";
+                        html_child += '<p class="jt_li" jt-attr="true" passid="'+a+'"' + 'data-id="' + obj.id + '" matrix-id="' + '' + '" id="' + '' + obj.id + a + '">' + '<img style="width: 20px;" src="/Public/common/images/icon_sheXT1.png" />' + '<span class="span-t4">' + value + '</span></p>';
+
+                    });
+
+                    html1 += '<a data-id="' + obj.id + '" matrix-id="' + obj.id + '" id="' + obj.id + '">' + html3 + '<img onclick="click_child_hide(this)" style="width: 20px;" src="/Public/common/images/icon_sheXT1.png" />' + '<span onclick="click_child_hide(this)" class="span-t4">' + obj.id + ':' + obj.name + '</span>' + html_child + '</a>';
+                }else{
+                    html1 += '<a jt-attr="true"' + 'data-id="' + obj.id + '" matrix-id="' + '' + '" id="' + '' + obj.id + '">' + '<img style="width: 20px;" src="/Public/common/images/icon_sheXT1.png" />' + '<span class="span-t4">' +obj.id + ':' + obj.name + '</span>' + html_child + '</a>';
+                }
+                html_child = '';
+        }
+//        console.log(html1);
+        $("#menu3 li").append(html1);
+        // 选择拼接屏窗口单机输入源播放
+        $("[jt-attr='true']").click(function(){
+            if(rightId != 0){
+                thisID = $(this).attr('id');
+                var passId = $(this).attr('passid');;
+                if (typeof passId == 'undefined') {
+                    bind_video(event, thisID, 0);
+                    document.location = 'linkyview://bindVideo=ok';
+                } else {
+                    thisID = $(this).attr('data-id');
+                    bind_video(event, thisID, passId);
+                    document.location = 'linkyview://bindVideo=ok';
+                }
+            }
+        });
+    });
+</script>
+</div>
+</body>
+</html>

@@ -1,0 +1,287 @@
+<!-- 型号/规格管理 -->
+<title data-i18n="modelGG.modelGGManage"></title>
+<include file="Common:matrix_header" />
+<include file="Common:matrix_menu" />
+<include file="Common:matrix_leftbar_public3" />
+<include file="Common:msgFootable" />
+<script src="/Public/common/js/msgFootable.js"></script>
+<!-- 中间 -->
+<div class="wrap-fluid jt_typeNumberMain jt_deviceMsg jt_branchMain jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span data-i18n="modelGG.modelGGManage"></span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle" />
+                    <div class="col-sm-2">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="btn-group btn-wigdet pull-right visible-lg">
+                            <div class="btn">
+                                Widget</div>
+                            <button data-toggle="dropdown" class="btn dropdown-toggle jt_dropTo">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul role="menu" class="dropdown-menu">
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-plus-circled margin-iconic"></span>Add New
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-heart margin-iconic"></span>Favorite
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-cog margin-iconic"></span>Setting
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 jt_rowNest1">
+                <div class="nest" id="FootableClose">
+                    <div class="title-alt">
+                        <h6 data-i18n="modelGG.modelGGManage"></h6>
+                        <div class="titleClose">
+                            <a class="gone" href="#FootableClose">
+                                <span class="entypo-cancel"></span>
+                            </a>
+                        </div>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#Footable">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="Footable">
+                        <table class="table-striped footable-res footable metro-blue" data-page-size="10">
+                            <thead>
+                            <tr>
+                                <th><span data-i18n="public.number"></span></th>
+                                <th><span data-i18n="modelGG.modelGGName"></span></th>
+                                <th data-hide="phone"><span data-i18n="deviceManage.brand"></span></th>
+                                <th><span data-i18n="modelGG.bindEvent"></span></th>
+                                <th><span data-i18n="alert.remarks"></span></th>
+                                <th><span data-i18n="public.operation"></span></th>
+                            </tr>
+                            </thead>
+                            <tbody id="markinghtml">
+                            <volist name="typedata" id="v">
+                                <tr>
+                                    <td></td>
+                                    <td>{$v.name}</td>
+                                    <td>
+                                        <a href="#">{$v.brand_name}</a>
+                                    </td>
+                                    <td>{$v.event}</td>
+                                    <td>{$v.intro}</td>
+                                    <td data-value="1">
+                                        <div class="btn-group">
+                                            <!--<button data-markingid="{$v.marking_id}" class="btn btn-success" data-toggle="modal" data-target="#addType">添&nbsp;加</button>-->
+                                            <button data-markingname="{$v.name}" data-markingId="{$v.marking_id}" data-brandId="{$v.brand_id}" data-event="{$v.event}" data-intro="{$v.intro}" class="btn btn-warning modifyClass editbtn" data-toggle="modal" data-target="#updata" data-i18n="public.modify"></button>
+                                            <button data-markingId="{$v.marking_id}" class="btn btn-danger delbtn" id="btn-typeGGDel" data-i18n="public.delete"></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="6">
+                                    <div class="pagination pagination-centered"></div>
+                                </td>
+                            </tr>
+                            </tfoot>
+                            <div class="btn-group">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#addTypeGG" data-i18n="modelGG.addModelGG"></button>
+                            </div>
+                            <div class="btn-group pull-right jt_toggle">
+                                <span data-i18n="modelGG.brandToggle"></span>
+                                <select class="jt_xzPP filter-status form-control brandData">
+
+                                    <volist name="brands" id="v">
+                                        <option value="{$v.brand_id}">{$v.name}</option>
+                                    </volist>
+                                </select>
+                            </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框 -->
+<!-- 添加型号/规格 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="addTypeGG">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title" data-i18n="modelGG.addModelGG"></h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div>
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="modelGG.modelGGName"></label>
+                            <div class="col-sm-10">
+                                <input type="text" id="addmarkingname" data-i18n="[placeholder]modelGG.modelGGName" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="common.specification"></label>
+                            <div class="col-sm-10">
+                                <select class="filter-status form-control addbrand">
+                                    <option value="0" data-i18n="modelGG.selectBrand"></option>
+                                    <volist name="brands" id="v">
+                                        <option value="{$v.brand_id}">{$v.name}</option>
+                                    </volist>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="modelGG.bindEvent"></label>
+                            <div class="col-sm-10">
+                                <input type="text" id="addevent" data-i18n="[placeholder]modelGG.bindEvent" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="alert.remarks"></label>
+                            <div class="col-sm-10">
+                                <textarea id="addintro" class="form-control" data-i18n="[placeholder]alert.remarks" rows="8"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group jt_btnGroupWZ">
+                            <button class="btn col-sm-offset-2 addmarking" data-i18n="public.confirm"></button>
+                            <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="updata">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title" data-i18n="modelGG.modifyModelGG"></h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="markingname" class="col-sm-2 control-label" data-i18n="modelGG.modelGGName"></label>
+                            <div class="col-sm-10">
+                                <input type="text" id="markingname" data-i18n="[placeholder]modelGG.modelGGName" class="form-control nametd">
+                            </div>
+                        </div>
+                       <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="deviceManage.brand"></label>
+                            <div class="col-sm-10">
+                                <select id="brand_id" class="filter-status form-control" >
+                                    <option value="0" data-i18n="deviceManage.brand"></option>
+                                    <volist name="brands" id="v">
+                                        <option bj="{$v.brand_id}" value="{$v.brand_id}">{$v.name}</option>
+                                    </volist>
+                                 </select>
+                            </div>
+                        </div>
+                        <div  class="form-group">
+                            <label for="event" class="col-sm-2 control-label" data-i18n="modelGG.bindEvent"></label>
+                            <div class="col-sm-10">
+                                <input id="event" type="text" data-i18n="[placeholder]modelGG.bindEvent" class="form-control bindetd">
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <label for="intro" class="control-label col-sm-2" data-i18n="alert.remarks"></label>
+                            <div class="col-sm-10">
+                                <textarea id="intro" class="form-control introtd" data-i18n="[placeholder]alert.remarks" rows="8"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group jt_btnGroupWZ">
+                            <button class="btn edittruebtn col-sm-offset-2" data-i18n="public.confirm"></button>
+                            <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Common:footer" />
+<script>
+    /* 这一块代码有问题，描述：（切换品牌之后值赋予、序号不显示） */
+    $(".brandData").on('change',function () {
+        var brand_id = $(this).val();
+        $.post('/SystemSet/typeNumber',{brand_id:brand_id},function (resData) {
+            $("#markinghtml").empty();
+            var html = '';
+            if(resData.status == true){
+                for(var i = 0 ; i < resData.data.length ; i++){
+                    html += '<tr><td></td><td>'+resData.data[i].name+'</td><td> <a href="#">'
+                        +resData.data[i].brand_name+'</a></td><td>'+resData.data[i].event+'</td><td>'+
+                        resData.data[i].intro+'</td><td data-value="1"><div class="btn-group">'+ '<button  data-markingId="'+resData.data[i].marking_id+'" data-event="'+resData.data[i].event+'" data-intro="'+resData.data[i].intro+'" data-brandId="'+resData.data[i].brand_id+'" data-maringname="'+resData.data[i].name+'"  class="btn btn-warning" data-toggle="modal" data-target="#updata" data-i18n="public.modify"></button>'+
+                    '<button data-markingId="'+resData.data[i].marking_id+'"  class="btn btn-danger" data-i18n="public.delete"></button> </div> </td> </tr>';
+                }
+                $("#markinghtml").append(html);
+                $('.i18_links').i18n();
+            }
+        });
+    });
+    $(".addmarking").on('click',function () {
+        var marking_intro = $("#addintro").val();
+        var marking_name = $("#addmarkingname").val();
+        var marking_event = $("#addevent").val();
+        var brand_id = $(".addbrand").val();
+        confirmBtnDisabled($(this),'/SystemSet/addmarking',{marking_intro:marking_intro,marking_name:marking_name,
+            marking_event:marking_event,brand_id:brand_id});
+    });
+
+    /*编辑*/
+   var marking_id = '';
+    $(".editbtn").on('click',function () {
+        $("#markingname").val($(this).attr('data-markingname'));
+        $("#event").val($(this).attr('data-event'));
+        $("#intro").val($(this).attr('data-intro'));
+        $("option[bj = '"+$(this).attr("data-brandId")+"']").attr('selected','selected');
+        marking_id = $(this).attr('data-markingId');
+    });
+
+    $(".edittruebtn").on('click',function () {
+        var marking_name = $("#markingname").val();
+        var marking_event = $("#event").val();
+        var marking_intro = $("#intro").val();
+        var brand_id = $("#brand_id").val();
+        confirmBtnDisabled($(this),'/SystemSet/editmarking',{marking_intro:marking_intro,marking_name:marking_name,
+            marking_event:marking_event,marking_id:marking_id,brand_id:brand_id});
+    });
+
+    $(".delbtn").on('click',function () {
+        var did = $(this).attr('data-markingId');
+        publicConfirm({title:'提示信息',content:'确定删除吗？',icon:'fa fa-rocket'},did);
+    });
+</script>
+</body>
+</html>

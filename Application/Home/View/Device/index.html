@@ -1,0 +1,348 @@
+<include file="Common:header" />
+<link href="__CSS__plugins/jsTree/style.min.css" rel="stylesheet">
+<link href="__CSS__plugins/dataTables/datatables.min.css" rel="stylesheet">
+<title data-i18n="menu.device_m"></title>
+</head>
+<body>
+<div id="wrapper" class="device_m">
+    <include file="Common:leftBar" />
+    <div id="page-wrapper" class="gray-bg">
+        <include file="Common:topBar" />
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5 data-i18n="menu.device_m"></h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered table-hover dataTables-example" >
+                                <thead>
+                                <tr>
+                                    <th data-i18n="device.name"></th>
+                                    <th data-i18n="device.order"></th>
+                                    <th data-i18n="device.ip"></th>
+                                    <th data-i18n="device.status"></th>
+                                    <th data-i18n="device.classify"></th>
+                                    <th data-i18n="public.remark"></th>
+                                    <th data-i18n="public.op"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <volist name="list" id="v">
+                                    <tr data-id="{$v.id}" data-intro="{$v.intro}" data-groupid="{$v.groupid}" data-groupname="{$v.catename}">
+                                        <td class="name">{$v.name}</td>
+                                        <td class="order">{$v.uuid}</td>
+                                        <td class="ip">{$v.ip}</td>
+                                        <td class="status">{$v.state}</td>
+                                        <td class="classify">{$v.catename}</td>
+                                        <td class="remark">{$v.intro}</td>
+                                        <td class="text-center op">
+                                            <div class="btn-group">
+                                                <button class="btn btn-primary btn-sm edit" data-i18n="public.edit"></button>
+                                                <button class="btn btn-success btn-sm manage" data-i18n="public.manage"></button>
+                                                <button class="btn btn-danger btn-sm delete" data-i18n="public.delete" data-toggle="confirmation" data-placement="left" data-original-title="确定删除?"></button>
+                                            </div>
+                                        </td>
+                                        <input type="hidden" name="configs" value='{$v.configs}'>
+                                    </tr>
+                                </volist>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                            <button class="btn btn-primary addDevice" type="button" data-i18n="device.add"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal inmodal" id="myModal_edit" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInTop">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" data-i18n="device.modify"></h4>
+                </div>
+                <div class="modal-body">
+                    <form class="m-t" role="form">
+                        <input type="hidden" class="form-control" name="id" value="">
+                        <div class="form-group">
+                            <input name="devicename" type="text" class="form-control" data-i18n="[placeholder]device.name" required="">
+                        </div>
+                        <div class="form-group">
+                            <div class="btn-group my-m-t-none">
+                                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle" id="c_default" aria-expanded="false"><span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <volist name="tagtypes" id="v">
+                                        <li data-groupid="{$v.id}" data-groupname="{$v.name}"><a>{$v.name}</a></li>
+                                    </volist>
+                                    <input type="hidden" id="editgroupid" value="0">
+                                    <input type="hidden" id="editid" value="0">
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="remark" rows="5" class="form-control" data-i18n="[placeholder]public.remark"></textarea>
+                        </div>
+                         <div class="form-group nameAndPass clearfix">
+                            <input name="name" type="text" class="form-control fl" data-i18n="[placeholder]device.username" required="">
+                            <input name="password" type="text" class="form-control fr" data-i18n="[placeholder]device.password" required="">
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-success btn-sm addUser" type="button" data-i18n="device.addUser"></button>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary btn-sm submit dosub" data-action="modifyDeviceAction" type="submit" data-i18n="public.submit"></button>
+                            <button class="btn btn-danger btn-sm cancel" type="button" data-i18n="public.cancel"></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal inmodal" id="myModal_add" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInTop">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" data-i18n="device.modify"></h4>
+                </div>
+                <div class="modal-body">
+                    <form class="m-t" role="form">
+                        <div class="form-group">
+                            <input name="devicename" type="text" class="form-control" data-i18n="[placeholder]device.name" required="">
+                        </div>
+                        <div class="form-group">
+                            <div class="btn-group my-m-t-none">
+                                <button data-toggle="dropdown" class="btn btn-default" aria-expanded="false"><span class="caret"></span></button>
+                                <ul class="dropdown-menu">
+                                    <volist name="tagtypes" id="v">
+                                        <li data-groupid="{$v.id}" data-groupname="{$v.name}"><a>{$v.name}</a></li>
+                                    </volist>
+                                    <input type="hidden" id="editgroupid" value="0">
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input name="uuid" type="text" class="form-control" data-i18n="[placeholder]device.order" required="">
+                        </div>
+                        <div class="form-group">
+                            <textarea name="remark" rows="5" class="form-control" data-i18n="[placeholder]public.remark"></textarea>
+                        </div>
+                        <div class="form-group nameAndPass clearfix">
+                            <input name="name" type="text" class="form-control fl" data-i18n="[placeholder]device.username" required="">
+                            <input name="password" type="text" class="form-control fr" data-i18n="[placeholder]device.password" required="">
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-success btn-sm addUser" type="button" data-i18n="device.addUser"></button>
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary btn-sm submit dosub" data-action="addDeviceAction" type="submit" data-i18n="public.submit"></button>
+                            <button class="btn btn-danger btn-sm cancel" type="button" data-i18n="public.cancel"></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>  
+    </div>
+    <div class="modal inmodal" id="myModal_chooseUser" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content animated bounceInTop">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" data-i18n="branch.chooseUser"></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-12 text-center userlist">
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
+<!-- Custom and plugin javascript
+<script src="__JS__plugins/dataTables/datatables.min.js"></script>
+<script src="__JS__bootstrap-tooltip.js"></script>
+<script src="__JS__bootstrap-confirmation.js"></script>
+<script type="text/javascript">
+    window.myObj={
+        $result:$('table'),
+        pageLength:10,
+        $myModal_edit:$('#myModal_edit'),
+        $myModal_add:$('#myModal_add'),
+        $myModal_chooseUser:$('#myModal_chooseUser'),
+        $sub:true,
+        init:function(){
+            $('.dataTables-example').DataTable({
+                info:false,
+                lengthChange:false,
+                pageLength: myObj.pageLength,
+                responsive: true,
+                searching:false
+            });
+            $('[data-toggle="confirmation"]').confirmation({
+                animation:true,
+                btnOkLabel:'是',
+                btnCancelLabel:'否',
+                singleton:true,
+                popout:true,
+                onConfirm:function(){
+                    var id = $(this).parentsUntil('tr').parent().attr('data-id');
+                    $('[data-toggle="confirmation"]').confirmation('hide');
+                    $.ajax({
+                        url:"/Device/delDevice",
+                        data:'id='+id,
+                        type:"post",
+                        success:function(result){
+                            alert(result.msg);
+                            if(result.status == true){
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            });
+            $('.edit').on('click',function(){
+                var oj = $(this).parentsUntil('tr').parent();
+                $(".dropdown-toggle").text(oj.attr("data-groupname"));
+                $("#editgroupid").val(oj.attr("data-groupid"));
+                $("#editid").val(oj.attr("data-id"));
+                $(".dropdown-menu li").bind("click", function(){
+                    $(".dropdown-toggle").text($(this).attr("data-groupname"));
+                    $("#editgroupid").val($(this).attr("data-groupid"));
+                });
+                var id = $(this).parentsUntil('tr').parent().attr('data-id');
+                myObj.$myModal_edit.modal('show');
+                myObj.$myModal_edit.find("input[name='id']").val(id);
+//                myObj.$myModal_edit.find("#c_default").val($(this).parent().parent().parent().find(".classify").text());
+                myObj.$myModal_edit.find("input[name='devicename']").val($(this).parent().parent().parent().find(".name").text());
+                myObj.$myModal_edit.find("textarea[name='remark']").val($(this).parent().parent().parent().find(".remark").text());
+                var configs = $(this).parent().parent().parent().find("input[name='configs']").val();
+                if (configs != ''){
+                    configs = eval("("+configs+")");
+                    myObj.$myModal_edit.find("input[name='name']").val(configs[0]['name']);
+                    myObj.$myModal_edit.find("input[name='password']").val(configs[0]['pwd']);
+                    myObj.$myModal_edit.find(".indexNameAndPass").remove();
+                    if (configs.length > 1){
+                        var tp = '';
+                        for(var ii in configs){
+                            if (ii > 0){
+                                tp += '<div class="form-group nameAndPass clearfix indexNameAndPass">'
+                                    +'<input name="name" type="text" class="form-control fl" data-i18n="[placeholder]device.username" required="" value="'+configs[ii]['name']+'">'
+                                    +'<input name="password" type="text" class="form-control fr" data-i18n="[placeholder]device.password" required="" value="'+configs[ii]['pwd']+'">'
+                                    +' <i class="fa fa-times-circle close my_close"></i></div>';
+                            }
+                        }
+                        myObj.$myModal_edit.find(".nameAndPass").after(tp);
+                        myObj.$myModal_edit.find(".indexNameAndPass").on('click',function(){
+                            $(this).remove();
+                        });
+                    }
+                }
+            });
+            myObj.$myModal_edit.find('.cancel').on('click',function(){
+                myObj.$myModal_edit.modal("hide");
+                myObj.$myModal_edit.find("input[name='id']").val(0);
+            });
+//            $('.manage').on('click',function(){
+//                // ajax获取用户
+//                var id = $(this).parentsUntil('tr').parent().attr('data-id');
+//                var configs = $(this).parent().parent().parent().find("input[name='configs']").val();
+//                if (configs != ''){
+//                    var tpp = '';
+//                    configs = eval("("+configs+")");
+//                    for(var ii in configs){
+//                        tpp += '<a href="javascript:void(0)" data-id="'+id+'">'+configs[ii]['name']+'</a>';
+//                    }
+//                    myObj.$myModal_chooseUser.find(".userlist").html(tpp);
+//                }
+//                myObj.$myModal_chooseUser.find('a').on('click',function(){
+//                    window.open('/Matrix/monitor/matrix_id/' + $(this).attr("data-id"),'_blank');
+//                });
+//                myObj.$myModal_chooseUser.modal('show');
+//            });
+            $('.manage').on('click',function(){
+                var id = $(this).parentsUntil('tr').parent().attr('data-id');
+                window.open('/Matrix/monitor/matrix_id/' + id,'_blank');
+            });
+            myObj.$myModal_edit.find('.cancel').on('click',function(){
+                myObj.$myModal_chooseUser.modal("hide");
+            });
+            $('.addDevice').on('click',function(){
+                myObj.$myModal_add.modal("show");
+            });
+            myObj.$myModal_add.find('.cancel').on('click',function(){
+                myObj.$myModal_add.modal("hide");
+            });
+            $('.addUser').on('click',function(){
+                var $html = $('<div class="form-group nameAndPass clearfix">'
+                            +'<input name="name" type="text" class="form-control fl" data-i18n="[placeholder]device.username" required="">'
+                             +'<input name="password" type="text" class="form-control fr" data-i18n="[placeholder]device.password" required="">'
+                            +' <i class="fa fa-times-circle close my_close"></i></div>');
+                $(this).parent().before($html);
+                $html.i18n().find('.close').on('click',function(){
+                    $html.remove();
+                });
+            });
+
+            myObj.$myModal_add.on('submit', function(ev){
+                ev.preventDefault();
+                myObj.sub($(this));
+            });
+            myObj.$myModal_edit.on('submit', function(ev){
+                ev.preventDefault();
+                myObj.sub($(this));
+            });
+        },
+        sub : function(obj){
+            if(myObj.$sub == false){
+                return false;
+            }
+            myObj.$sub = false;
+            var objj = obj.find(".dosub");
+            objj.addClass("btn_waiting");
+            // 异步提交的代码
+            var id = obj.find("input[name='id']").val();
+            var action = obj.find(".dosub").attr("data-action");
+            var devicename = obj.find("input[name='devicename']").val();
+            var uuid = obj.find("input[name='uuid']").val();
+            var remark = obj.find("textarea[name='remark']").val();
+            var type = obj.find("#editgroupid").val();
+            var name = [];
+            var password = [];
+            obj.find("input[name='name']").each(function(){
+                name.push($(this).val());
+            });
+            obj.find("input[name='password']").each(function(){
+                password.push($(this).val());
+            });
+            console.log('id'+':'+id+':::'+'action'+':'+action+':::'+'devicename'+':'+devicename+':::'+
+                'uuid'+':'+uuid+':::'+'remark'+':'+remark+':::'+'type'+':'+type+':::'+'name'+':'+name+':::'+'password'+':'+password
+            );return;
+            $.ajax({
+                url:'/Device/editDevice',
+                type:'post',
+                async:false,
+                data:{action:action,devicename:devicename,uuid:uuid,name:name,password:password,remark:remark,id:id,type:type},
+                dataType : 'json',
+                success:function(ret){
+                    alert(ret.msg);
+                    if (ret['status'] == true){
+                        location.reload();
+                    }else{
+                        objj.removeClass("btn_waiting");
+                        myObj.$sub = true;
+                    }
+                }
+            });
+        }
+    };
+    myObj.init();
+</script>
+</body>
+</html>
+ -->

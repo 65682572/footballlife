@@ -1,0 +1,431 @@
+<!-- 个人中心 -->
+<title> 个人中心 </title>
+<include file="Common:matrix_header" />
+<include file="Common:matrix_menu" />
+<include file="Common:matrix_leftbar_public4" />
+<include file="Common:msgFootable" />
+<link rel="stylesheet" href="/Public/common/css/cropper.min.css">
+<link rel="stylesheet" href="/Public/common/css/sitelogo.css">
+
+<!-- 中间 -->
+<div class="wrap-fluid jt_tableMain jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span>个人中心</span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle" />
+                    <div class="col-sm-2">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="btn-group btn-wigdet pull-right visible-lg">
+                            <div class="btn">
+                                Widget</div>
+                            <button data-toggle="dropdown" class="btn dropdown-toggle">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul role="menu" class="dropdown-menu">
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-plus-circled margin-iconic"></span>Add New
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-heart margin-iconic"></span>Favorite
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-cog margin-iconic"></span>Setting
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 jt_rowNest">
+                    <div class="well profile">
+                        <div class="col-sm-12">
+                            <div class="col-xs-12 col-sm-4 text-center jt_center">
+                                <ul class="list-group">
+                                    <li class="list-group-item text-left">
+                                        <span class="entypo-user"></span>&nbsp;&nbsp;Profile</li>
+                                    <li class="list-group-item text-center">
+                                    	<img class="jt_upDataTX" src="/Public/common/images/icon_updataTX.png" />
+                                        <empty name="userFace">
+                                            <img id="jt_portrait"  data-toggle="modal" data-target="#avatar-modal" src="/Public/common/images/10.jpg" class="img-circle img-responsive img-profile">
+                                        <else/>
+                                            <img id="jt_portrait"  data-toggle="modal" data-target="#avatar-modal" src="{$userFace}" class="img-circle img-responsive img-profile">
+                                        </empty>
+                                    </li>
+                                    <li class="list-group-item text-center">
+                                        <span class="pull-left">
+                                            <strong>用户等级</strong>
+                                        </span>
+                                        <div class="ratings">
+                                            <a href="#">
+                                                <span class="fa fa-star"></span>
+                                            </a>
+                                            <a href="#">
+                                                <span class="fa fa-star"></span>
+                                            </a>
+                                            <a href="#">
+                                                <span class="fa fa-star"></span>
+                                            </a>
+                                            <a href="#">
+                                                <span class="fa fa-star"></span>
+                                            </a>
+                                            <a href="#">
+                                                <span class="fa fa-star-o"></span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item text-right">
+                                        <span class="pull-left">
+                                            <strong>手机号码</strong>
+                                        </span>{$userinfo.mobile}
+                                    </li>
+                                    <li class="list-group-item text-right">
+                                        <span class="pull-left">
+                                            <strong>加入时间</strong>
+                                        </span>{$userinfo.createtime|date="Y-m-d",###}
+                                    </li>
+                                    <li class="list-group-item text-right">
+                                        <span class="pull-left">
+                                            <strong>登陆时间</strong>
+                                        </span>{$userinfo.logintime|date="Y-m-d",###}
+                                    </li>
+                                    <li class="list-group-item text-right">
+                                        <span class="pull-left">
+                                            <strong>用户昵称</strong>
+                                        </span>{$userinfo.username}
+                                    </li>
+                                    <li class="list-group-item text-right">
+                                        <span class="pull-left">
+                                            <strong>当前机构</strong>
+                                        </span>{$firm_name}
+                                    </li>
+                                    <li class="list-group-item text-right">
+                                        <span class="pull-left">
+                                            <strong>所属部门</strong>
+                                        </span>{$type}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-12 col-sm-8 profile-name">
+                                <h2>
+                                    {$userinfo.username}
+                                </h2>
+                                <hr />
+                                <h5>
+                                    <span class="entypo-arrows-ccw"></span>&nbsp;系统信息
+                                </h5>
+                                <div class="jt_downLine"></div>
+                                <table class="table footable-res footable metro-blue" data-page-size="6">
+                                    <thead>
+                                    <tr class="jt_tableXT">
+                                        <th>邀请人</th>
+                                        <th data-hide="phone,tablet">主题</th>
+                                        <th>邀请时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <volist name="list2" id="v">
+                                            <tr class="jt_tableXT">
+                                                <td>
+                                                    <a href="javascript:void(0);">{$v.username}</a>
+                                                </td>
+                                                <td>
+                                                    <a href="/user/mailboxNew?id={$v.id}">{$v.username}，邀请你加入!</a>
+                                                </td>
+                                                <td class="text-right mail-date " data-id="{$v.id}">
+                                                    <i class="pull-right icon icon-reply trueBtn"></i>
+                                                    {$v.createtime|date="Y-m-d H:i:s",###}
+                                                </td>
+                                            </tr>
+                                        </volist>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="pagination pagination-centered"></div>
+                                        </td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                                <table class="table footable-res footable metro-blue" data-page-size="6">
+                                    <thead>
+                                    <tr class="jt_tableXT">
+                                        <th>申请人</th>
+                                        <th data-hide="phone,tablet">主题</th>
+                                        <th>申请时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <volist name="list3" id="v3">
+                                            <tr class="jt_tableXT">
+                                                <td>
+                                                    <a href="javascript:void(0);">{$v3.username}</a>
+                                                </td>
+                                                <td>
+                                                    <a href="#">{$v3.username}，申请加入您的机构-{$v3.firmname}!</a>
+                                                </td>
+                                                <td class="text-right mail-date " data-id="{$v3.id}">
+                                                    <i class="pull-right icon icon-reply acceptBtn"></i>
+                                                    {$v3.createtime|date="Y-m-d H:i:s",###}
+                                                </td>
+                                            </tr>
+                                        </volist>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td colspan="5">
+                                            <div class="pagination pagination-centered"></div>
+                                        </td>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 divider text-center jt_center1">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改头像 -->
+<div id="crop-avatar">
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="avatar-modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 id="myLargeModalLabel" class="modal-title">更换头像</h6>
+            </div>
+            <div class="">
+                <form class="avatar-form">
+                    <div class="modal-body">
+                        <div class="avatar-body">
+                            <div class="avatar-upload">
+                                <input class="avatar-src" name="avatar_src" type="hidden">
+                                <input class="avatar-data" name="avatar_data" type="hidden">
+                                <label for="avatarInput" class="jt_imgUpload">图片上传</label>
+                                <button class="btn btn-danger jt_imgSelect"  type="button" onclick="$('input[id=avatarInput]').click();">请选择图片</button>
+                                <span id="avatar-name"></span>
+                                <input class="avatar-input hide" id="avatarInput" name="avatar_file" type="file"></div>
+                            <div class="row">
+                                <div class="col-md-9">
+                                    <div class="avatar-wrapper"></div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="avatar-preview preview-lg" id="imageHead"></div>
+                                </div>
+                            </div>
+                            <div class="row avatar-btns">
+                                <div class="col-md-4">
+                                    <div class="btn-group">
+                                        <button class="btn btn-danger fa fa-undo" data-method="rotate" data-option="-90" type="button" title="向左旋转90度"> 向左旋转</button>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button class="btn  btn-danger fa fa-repeat" data-method="rotate" data-option="90" type="button" title="向右旋转90度"> 向右旋转</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-5" style="text-align: right;">                               
+                                    <button class="btn btn-danger fa fa-arrows" data-method="setDragMode" data-option="move" type="button" title="移动">
+                                    <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="$().cropper(&quot;setDragMode&quot;, &quot;move&quot;)">
+                                    </span>
+                                  </button>
+                                  <button type="button" class="btn btn-danger fa fa-search-plus" data-method="zoom" data-option="0.1" title="放大图片">
+                                    <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="$().cropper(&quot;zoom&quot;, 0.1)">
+
+                                    </span>
+                                  </button>
+                                  <button type="button" class="btn btn-danger fa fa-search-minus" data-method="zoom" data-option="-0.1" title="缩小图片">
+                                    <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="$().cropper(&quot;zoom&quot;, -0.1)">
+
+                                    </span>
+                                  </button>
+                                  <button type="button" class="btn btn-danger fa fa-refresh" data-method="reset" title="重置图片">
+                                        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="$().cropper(&quot;reset&quot;)" aria-describedby="tooltip866214"></span>
+                                   </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-danger btn-block avatar-save fa fa-save" type="button" data-dismiss="modal"> 保存修改</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="/Public/common/js/cropper.min.js"></script>
+<script src="/Public/common/js/sitelogo.js"></script>
+<script src="/Public/common/js/html2canvas.min.js"></script>
+<script src="/Public/common/js/msgFootable.js"></script>
+<script type="text/javascript">
+    // $(function() {
+    //     /* 修改头像选项卡 */
+    //     $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    //         // Get the name of active tab
+    //         var activeTab = $(e.target).text();
+    //         // Get the name of previous tab
+    //         var previousTab = $(e.relatedTarget).text();
+    //         $(".active-tab span").html(activeTab);
+    //         $(".previous-tab span").html(previousTab);
+    //     });
+    // });
+
+     $('#avatarInput').on('change', function(e) {
+        var filemaxsize = 1024 * 2;//5M
+        var target = $(e.target);
+        var Size = target[0].files[0].size / 1024;
+        if(Size > filemaxsize) {
+            alert('图片过大，请重新选择!');
+            return false;
+        }
+        if(!this.files[0].type.match(/image.*/)) {
+            alert('请选择正确的图片!');
+            return false;
+        } else {
+            var filename = $("#avatar-name");
+            var texts = $("#avatarInput").val();
+            var teststr = texts;
+            testend = teststr.match(/[^\\]+\.[^\(]+/i); //直接完整文件名的
+            filename.html(testend);
+        }
+    
+    });
+
+    $(".avatar-save").on("click", function(e) {
+        e.preventDefault();
+        var img_lg = $('#imageHead');
+        if(img_lg.children().length <= 0){
+            alert('请选择图片！');
+            return false;
+        }
+        // 截图小的显示框内的内容
+        html2canvas(img_lg, {
+            allowTaint: true,
+            taintTest: false,
+            onrendered: function(canvas) {
+                canvas.id = "mycanvas";
+                //生成base64图片数据
+                var dataUrl = canvas.toDataURL("image/jpeg");
+                var newImg = document.createElement("img");
+                newImg.src = dataUrl;
+                imagesAjax(dataUrl)
+            }
+        });
+    })
+    
+    function imagesAjax(src) {
+        var data = {};
+        data.img = src;
+        $.ajax({
+            url: "/user/avatar",
+            data: data,
+            type: "POST",
+            async: false,
+            dataType: 'json',
+            success: function(re) {
+                alert(re.msg);
+                if(re.status == true) {
+                    location.href = "/user/basicSettings";
+                }
+            }
+        });
+    }
+
+    // $('#avatar-modal').on('hidden.bs.modal', function () {
+    //     $("#avatar-name").html('');
+    //     var fileobj = $('#avatarInput');
+    //     var efile = fileobj[0].files[0];
+    //     $('#avatarInput').val('');
+    //     console.log(efile);
+    //     $(".avatar-wrapper").children().remove();
+    //     $(".avatar-preview").children().remove();
+    // });
+</script>
+<script>
+    /* 接受邀请 */
+    var myObj = {
+        init:function(){
+            $(".trueBtn").bind("click", function(){
+                var id = $(this).parent().attr('data-id');
+                $.ajax({
+                    url:"/user/accpetinvite",
+                    type:"post",
+                    async:false,
+                    data:{id:id},
+                    dataType : 'json',
+                    success:function(ret){
+                        if (ret['status'] == true){
+                            alert('接受邀请成功!');
+                            location.href = "/user/basicSettings";
+                        }else{
+                            alert(ret.msg);
+                        }
+                    }
+                });
+            });
+            /* 审核申请 */
+            $(".acceptBtn").bind("click", function(){
+                var id = $(this).parent().attr('data-id');
+                //console.log(id);return;
+                $.ajax({
+                    url:"/user/accpetApply",
+                    type:"post",
+                    async:false,
+                    data:{id:id},
+                    dataType : 'json',
+                    success:function(ret){
+                        if (ret['status'] == true){
+                            alert('审核申请成功!');
+                            location.href = "/user/basicSettings";
+                        }else{
+                            alert(ret.msg);
+                        }
+                    }
+                });
+            });
+            /*上传用户图像*/
+            // $(".trueUploadFaceimg").on('click',function () {
+            //     var obj = $("#tform");
+            //     var formData = new FormData (obj);
+            //     var file = $("#file_upload");
+            //     formData.append('file_url',file[0].files[0])
+            //     var request = new XMLHttpRequest();
+            //     request.open("POST", "{:U('/user/avatar')}");
+            //     request.send(formData);
+            //     request.onload = function(oEvent) {
+            //         if (request.status == 200) {
+            //           location.reload();
+            //         } else {
+            //             console.log(12222);
+            //         }
+            //     };
+
+            // });
+        }
+    };
+    myObj.init();
+</script>
+<include file="Common:footer" />
+</body>
+</html>

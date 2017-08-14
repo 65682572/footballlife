@@ -1,0 +1,161 @@
+<!-- 权限控制 -->
+<title> 权限控制 </title>
+<include file="Common:matrix_header"/>
+<include file="Common:matrix_menu"/>
+<include file="Common:matrix_leftbar_public3"/>
+<include file="Common:msgFootable"/>
+<script src="/Public/common/js/msgFootable.js"></script>
+<!-- 中间 -->
+<div class="wrap-fluid jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span>权限控制</span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 jt_rowNest1">
+                <div class="nest" id="FootableClose">
+                    <div class="title-alt">
+                        <h6>
+                            权限控制
+                        </h6>
+                        <div class="titleClose">
+                            <a class="gone" href="#FootableClose">
+                                <span class="entypo-cancel"></span>
+                            </a>
+                        </div>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#Footable">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="Footable">
+                        <table class="table-striped footable-res footable metro-blue" data-page-size="6">
+                            <thead>
+                            <tr>
+                                <th>角色权限</th>
+                                <th>成员列表</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="jt_hiddenTd3">1</td>
+                                <td class="jt_hiddenTd3">1</td>
+                                <td class="jt_hiddenTd4">
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#authUserMsg">成员管理</button>
+                                        <button class="btn btn-warning" data-toggle="modal" data-target="#authEdit">权限编辑</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <div class="pagination pagination-centered"></div>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 成员管理 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="authUserMsg">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">成员管理</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail jt_bodyTableBox3">
+                    <table class="table-striped footable-res footable metro-blue" data-page-size="6">
+                        <thead>
+                        <tr>
+                            <th>成员列表</th>
+                            <th data-hide="phone">选择</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td><input name="select4" type="checkbox"/></td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <div class="pagination pagination-centered"></div>
+                                <span class="pull-right">
+                                    <button class="btn jt_btnColor" onclick="checkedAll('select4');">全&nbsp;选</button>
+                                    <button class="btn jt_btnColor" onclick="checkedNo('select4');">反&nbsp;选</button>
+                                </span>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="form-group jt_btnGroup">
+                    <button class="btn col-sm-offset-10">确&nbsp;认</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 权限编辑 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="authEdit">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">登录方式</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail jt_bodyTableBox3">
+                    <div class="jt_authBodyBox">
+                        <span class="jt_boxSpan">
+                            <span>PC端</span>
+                            <input class="jt_boxSpanInput" type="checkbox"/>
+                        </span>
+                        <span class="jt_boxSpan jt_boxSpan1">
+                            <span>APP全能版</span>
+                            <input class="jt_boxSpanInput" type="checkbox"/>
+                        </span>
+                        <span class="jt_boxSpan jt_boxSpan1">
+                            <span>APP简化版</span>
+                            <input class="jt_boxSpanInput" type="checkbox"/>
+                        </span>
+                    </div>
+                    <hr />
+                </div>
+                <div class="form-group jt_btnGroup">
+                    <button class="btn col-sm-offset-10">确&nbsp;认</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Common:footer"/>
+</body>
+</html>

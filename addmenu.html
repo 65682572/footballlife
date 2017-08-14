@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="/Public/common/js/jquery-2.0.3.min.js"></script>
+		<link rel="stylesheet" href="/Public/common/css/bootstrap.min.css" />
+		<style>
+            .jt_iFrame{
+				background-color: #fff !important; margin: 0 !important; padding: 1px !important; border: 1px solid #B8CBCB; text-align: left; box-shadow: 2px 2px 5px #666;
+            }
+			.jt_iFrame #j_btn li{
+            	color: black; text-decoration: none; font-family: "微软雅黑" !important;
+            }
+			.jt_iFrame #j_btn .spanWidth{
+				width:40px; height: 24px;
+			}
+            .jt_iFrame #j_btn ul li{
+				list-style-type: none; margin-left: -40px; height: 24px; line-height: 24px; cursor: pointer;
+			}
+			.jt_iFrame #j_btn li:hover{
+				background-color: #348dcd; text-decoration: none;
+			}
+			.jt_iFrame #j_btn li:hover{
+				text-decoration: none;color: #fff;
+			}
+			.funPlayAudio{
+				margin-top: 3px;
+			}
+			.jt_iFrame #j_btn .parameterSet .jt_xlHoverList{
+				display: none;
+			}
+			.jt_iFrame #j_btn .parameterSet .jt_xlHoverList .jt_xlChildList1{
+				text-align: center;
+			}
+			.jt_iFrame #j_btn .parameterSet .jt_xlHoverList .jt_xlChildList1:hover{
+				background-color: #465249;
+			}
+			.jt_iFrame #j_btn .parameterSet .jt_xlHoverList .jt_xlChildList1 span{
+				color: white;
+			}
+			.jt_iFrame #j_btn .parameterSet .jt_xlHoverList .jt_xlChildList2{
+				text-align: center; height: 21px;
+			}
+			.jt_iFrame #j_btn .parameterSet .jt_xlHoverList .jt_xlChildList2:hover{
+				background-color: #465249;
+			}
+			.jt_iFrame #j_btn .parameterSet .jt_xlHoverList .jt_xlChildList2 span{
+				color: white;
+			}
+		</style>
+	</head>
+	<body class="jt_iFrame">
+		<div id="j_btn">
+			<ul>
+				<li class="funPlayAudio" onclick="funcAudio()"><span class="spanWidth">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>拉取音频</li>
+				<li id="pushAudioLi" onclick="funcPushAudio();"><span class="spanWidth">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>推送音频</li>
+                <li id="clsAudioLi" style="color:red;display:none;" onclick="funcCloseAudio(this);"><span class="spanWidth">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>关闭音频</li>
+				<li onclick="funcCutPic();"><span class="spanWidth">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>视频截图</li>
+				<li onclick="funcStartRecord();"><span class="spanWidth">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>视频录制</li>
+				<li onclick="funcCloseRecord();"><span class="spanWidth">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>停止录制</li>
+				<li onclick="funcObjRemove();"><span class="spanWidth">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>清除视频</li>
+				<li class="parameterSet">
+					<span class="spanWidth">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>参数设置
+					<ul class="jt_xlHoverList">
+						<li onclick="dependMcode()" class="jt_xlChildList1">
+							<span>子码流</span>
+						</li>
+						<li onclick="masterMcode()" class="jt_xlChildList1">
+							<span>主码流</span>
+						</li>
+						<li onclick="ccc(this)" class="jt_xlChildList2">
+							<span>自定义</span>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</body>
+	<script>
+		function ccc(obj){
+			alert($(obj).html());
+		}
+		/* 参数设置下拉菜单 */
+	    $(".parameterSet").mouseover(function(){
+	        $(".jt_xlHoverList").show();
+			$(".parameterSet").css("height","100px");
+			window.parent.iframeHeight();
+	    });
+	    $(".parameterSet").mouseout(function(){
+	        $(".jt_xlHoverList").hide();
+			$(".parameterSet").css("height","24px");
+			$("iframe[name='ifr']",parent.document).css("height","180px");
+		});
+
+		function funcAudio(){
+		    window.parent.funPlayAudio();
+		}
+		function funcCutPic(){
+			window.parent.funCutPic();
+		}
+		function funcStartRecord(){
+			window.parent.funStartRecord();
+		}
+		function funcCloseRecord(){
+			window.parent.funCloseRecord();
+		}
+		function funcObjRemove(){
+			window.parent.funObjRemove();
+		}
+		function masterMcode(){
+			window.parent.masterMcodeS();
+		}
+		function dependMcode(){
+			window.parent.dependMcodeS();
+		}
+		function funcPushAudio(){
+			window.parent.pushAudioS(3);
+		}
+		function funcCloseAudio(obj){
+			window.parent.closeAudioS(obj);
+		}
+	</script>
+</html>

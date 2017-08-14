@@ -1,0 +1,67 @@
+<include file="Common:header" />
+</head>
+<body>
+<div id="wrapper" class="maildetail">
+    <include file="Common:leftBar" />
+    <div id="page-wrapper" class="gray-bg">
+        <include file="Common:topBar" />
+        <div class="row">
+            <div class="col-md-2 col-sm-4 col-xs-4">
+                <include file="Common:mail_leftBar" />
+            </div>
+            <div class="col-md-10 col-sm-8 col-xs-8  animated fadeInRight">
+                <div class="mail-box-header">
+                    <div class="pull-right tooltip-demo accpetinvite">
+                        <a href="javascript:void(0)" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="Reply">
+                            <i class="fa fa-reply"></i>
+                            <span style="margin-left: 5px;" data-i18n="mail.accept"></span>
+                        </a>
+                    </div>
+                    <div class="mail-tools tooltip-demo m-t-md">
+                        <h3 class="font-noraml">
+                            <span data-i18n="mail.subject"></span><span class="subject">邀请加入机构</span>
+                        </h3>
+                        <h5 class="font-noraml">
+                            <span class="pull-right font-noraml">{$info.createtime|date="Y-m-d H:i:s",###}</span>
+                            <span data-i18n="mail.from">From: </span> {$info.username}
+                        </h5>
+                    </div>
+                </div>
+                <div class="mail-box">
+                    <div class="mail-body">
+                        <p>您好，{$userinfo.username}!</p>
+                        <p>糖糖，邀请您加入{$info.firmname}，请您接受!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var id = {$info.id};
+    var myObj = {
+        init:function(){
+            $(".accpetinvite").bind("click", function(){
+                $.ajax({
+                    url:"/user/accpetinvite",
+                    type:"post",
+                    async:false,
+                    data:{id:id},
+                    dataType : 'json',
+                    success:function(ret){
+                        if (ret['status'] == true){
+                            alert('接受邀请成功!');
+                            location.href = "/user/maillist";
+                        }else{
+                            alert(ret.msg);
+                        }
+                    }
+                });
+            });
+        }
+    }
+    myObj.init();
+</script>
+</body>
+
+</html>

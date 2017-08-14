@@ -1,0 +1,95 @@
+      <div class="form-group">
+              <label class="col-sm-{$param['css_width']} control-label no-padding-right" for="form-field-2">{$param['img_mark_name']|default='上传图片'}：</label>
+              <input type="hidden" name="{$param['field']}" value="{$param['img_str']}">
+              <div class="col-sm-9">
+                <div class="col-xs-8 row">
+                 <a class="btn btn-primary btn-sm  m-2 upload_attr_picture" id="{$param['btn_name']}" type="button" href="javascript:void(0);">
+                  <span class="glyphicon glyphicon-plus-sign"></span>上传图片</a><notempty name="param.size">（ {$param['size']}）</notempty>
+                  </div>
+                  </div>
+                  </div>
+                  
+                  
+                  <div class="form-group">
+              <label class="col-sm-{$param['css_width']} control-label no-padding-right" for="form-field-2"></label>
+              <div class="col-sm-9">
+                <div class="col-xs-8 row">
+                <div class="js-{$param['btn_name']}-img-box">
+                <notempty name="imglist">
+                <foreach name="imglist" item="it">
+                <a class="left"><img style="width:{$param['show_width']|default="300px"}" src="{$it['filepath']}"/><span class="del-{$param['btn_name']}-btn" data-id="{$it['id']}">删除</span></a>
+                </foreach>
+                </notempty>
+                </div>
+                  </div>
+                  </div>
+                  </div>
+                  
+  <script src="__LIBS__/plupload-2.1.2/js/plupload.full.min.js"></script>
+  <script>
+  ;(function(window,$,undefined){
+	  
+	//上传海报图片
+	  var {$param['btn_name']}_uploader = new plupload.Uploader({
+	  	runtimes : 'html5,flash,silverlight,html4',
+	      browse_button : "{$param['btn_name']}", //触发文件选择对话框的按钮，为那个元素id
+	      file_data_name: 'inputfile',
+	      url : "{:U('Picture/upload')}", //服务器端的上传页面地址
+	      unique_names: true,
+	      filters : {
+	  		max_file_size : '10mb',
+	  		mime_types: [
+	  			{title : "Image files", extensions : "jpg,gif,png,jpeg"},
+	  			
+	  		]
+	  	},
+	      flash_swf_url : '__LIBS__/plupload-2.1.2/js/Moxie.swf', //swf文件，当需要使用swf方式进行上传时需要配置该参数
+	      silverlight_xap_url : '__LIBS__/plupload-2.1.2/js/Moxie.xap' //silverlight文件，当需要使用silverlight方式进行上传时需要配置该参数
+	  });    
+	 
+	  {$param['btn_name']}_uploader.init();
+	  
+	  {$param['btn_name']}_uploader.bind('FilesAdded',function(uploader,files){
+	  	if(uploader.files.length>0){
+	  		uploader.start();
+	  	}
+	      
+	  });
+	  
+	  {$param['btn_name']}_uploader.bind('FileUploaded',function(uploader,files,response){
+	  	var data = JSON.parse(response.response);
+	  	if(data.status == 1){
+	  		var html =  '<a class="left" data-id="'+data.data.id+'"><img style="width:{$param["show_width"]|default="300px"};" src='+data.data.filepath+'><span class="del-{$param[btn_name]}-btn" style="cursor:pointer;" data-id="'+data.data.id+'">删除</span></a>'
+	  		// var html = '<div class="col-xs-6 col-md-6"><a href="javascript:void(0);" class="" data-id="'+data.data.id+'"> <img src="'+data.data.filepath+'"  style="width:100%;"><span class="del_hai_img" data-id="'+data.data.id+'">删除<span></a></div>';
+	  		 $(".js-{$param['btn_name']}-img-box").append(html);
+	  	}
+	  	getimglist();
+	  });
+	  
+	  //图片列表
+	  function getimglist(){
+	  	var data = [];
+	  	$(".js-{$param['btn_name']}-img-box").find("a span").each(function(index,v){
+	  		var img_id = $(v).attr("data-id");
+	  		data.push(img_id);
+	  	});
+	  	console.log(data);
+	  	var str = data.toString();
+	  	$("input[name='{$param[field]}']").val(str);
+	  }
+	  
+	  $(document).on("click",".del-{$param['btn_name']}-btn",function(){
+	    var item_id = "{$param['item_id']}";
+		var img_id  = $(this).attr("data-id");
+		var model   = "{$param['model']}";
+		var field   = "{$param['field']}";
+	  	$(this).closest("a").remove();
+	  	getimglist();
+		var img_str = $("input[name='{$param[field]}']").val();
+		var url     = "/Admin/Picture/delImage"; 
+		$.get(url,{"item_id":item_id,"img_id":img_id,"img_str":img_str,"itemmodel":model,"field":field},function(result){
+		console.log(result);
+		});
+	  });
+  })(window,jQuery);
+  </script>

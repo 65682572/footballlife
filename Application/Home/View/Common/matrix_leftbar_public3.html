@@ -1,0 +1,70 @@
+<!-- 左菜单 -->
+<div class="jt_leftGYMenu jt_leftXTMenu">
+    <div id="skin-select">
+        <include file="Common:logoFunc" />
+        <div class="jt_leftBarMenu" id="jt_leftBarMenu">
+            <div class="skin-part">
+                <div id="tree-wrap">
+                    <div class="side-bar">
+                        <ul id="menu-showhide2" class="topnav top2 menu-left-nest topList">
+                            <li>
+                                <a onclick="showmenu(this)" class="tooltip-tip title-menu-left ajax-load">
+                                    <span data-i18n="common.deviceManage"></span>
+                                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                                </a>
+                            </li>
+                            <ul id="menu3">
+                                <li>
+                                    <a href="{:U('/Matrix/deviceMsg','','')}" data-i18n="common.deviceManage"></a>
+                                </li>
+                                <!--<li>-->
+                                    <!--<a class="tooltip-tip ajax-load">设备共享</a>-->
+                                    <!--<ul>-->
+                                        <!--<li>-->
+                                            <!--<a href="{:U('/Matrix/shareDevice','','')}">添加共享</a>-->
+                                        <!--</li>-->
+                                        <li>
+                                            <a href="{:U('/Matrix/shareList','','')}" data-i18n="common.shareManage"></a>
+                                        </li>
+                                        <!--<li>-->
+                                            <!--<a href="{:U('/Matrix/shareLog','','')}">共享操作日志</a>-->
+                                        <!--</li>-->
+                                    <!--</ul>-->
+                                <!--</li>-->
+                                <li>
+                                    <a>
+                                        <i class="tooltip-tip ajax-load"></i>
+                                        <a data-i18n="common.specificationManage" style="margin: -46px 0 1px 0;"></a>
+                                    </a>
+                                    <ul>
+                                        <li>
+                                            <a href="{:U('/SystemSet/specification','','')}" data-i18n="common.specification"></a>
+                                        </li>
+                                        <li>
+                                            <a href="{:U('/SystemSet/typeNumber','','')}" data-i18n="common.typeNumber"></a>
+                                        </li>
+                                        <li>
+                                            <a href="{:U('/SystemSet/editionMsg','','')}" data-i18n="common.editionManage"></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="{:U('/SystemSet/typeAdd','','')}" data-i18n="common.deviceType"></a>
+                                </li>
+                                <!--<li>-->
+                                    <!--<a href="{:U('/Matrix/authControl','','')}" data-i18n="common.authControl"></a>-->
+                                <!--</li>-->
+                                <li>
+                                    <a href="{:U('/SystemSet/deviceGroup','','')}" data-i18n="common.deviceGroup"></a>
+                                </li>
+                                <!--<li>-->
+                                    <!--<a href="javascript:void(0);" data-i18n="common.deviceAuth"></a>-->
+                                <!--</li>-->
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

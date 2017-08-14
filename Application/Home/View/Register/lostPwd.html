@@ -1,0 +1,96 @@
+<include file="Common:header" />
+<title data-i18n="forgetPwd.title"></title>
+</head>
+<body class="gray-bg">
+<div class="passwordBox fpwd">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox-content">
+                <h2 class="font-bold jt_font-bold" data-i18n="forgetPwd.title"></h2>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form class="m-t form-horizontal" role="form" action="/register/findPwd" method="post">
+                            <div class="form-group clearfix codeValition">
+                                <label class="col-sm-3 control-label" data-i18n="login.tel"></label>
+                                <div class="col-sm-9">
+                                    <input name="tel" type="tel" class="form-control" data-i18n="[placeholder]login.tel" required="" maxlength="11">
+                                    <button type="button" class="fetchCode btn btn-default jt_fetchCode" data-i18n="forgetPwd.getCode" disabled="disabled"></button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" data-i18n="forgetPwd.code"></label>
+                                <div class="col-sm-9">
+                                    <input name="code" type="tel" class="form-control" data-i18n="[placeholder]forgetPwd.code" required="" maxlength="6">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9">
+                                    <button type="submit" class="btn btn-primary block full-width m-b" data-i18n="forgetPwd.nextStep"></button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Common:change_lng" />
+<include file="Common:footer" />
+<script>
+    var myObj = {
+        $tel:$('input[name="tel"]'),
+        $code:$('input[name="code"]'),
+        $fetchCode:$('.fetchCode'),
+        $error:$('.error'),
+        init:function(){
+            myObj.$tel.on('input',function(){
+                var tel = $(this).val();
+                var reg = /\d{11}/;
+                if(reg.test(tel)){
+                    myObj.$fetchCode.removeAttr('disabled');
+                }else{
+                    myObj.$fetchCode.attr('disabled','disabled');
+                }
+            });
+            myObj.$fetchCode.on('click',function(){
+                $.ajax({
+                    url:'/Register/sendSms',
+                    type:'post',
+                    data:{mobile:myObj.$tel.val()},
+                    success:function(result){
+                        if(result['status']==true){ //进入倒计时
+                            myObj.$fetchCode.attr('disabled','disabled');
+                            myObj.countTimeDown();
+                        }else{
+                            myObj.$fetchCode.removeAttr('disabled').i18n();
+                        }
+                    }
+                });
+            });
+        },
+        check:function(){
+            if($('input[name="password"]').val() != $('input[name="password_confirm"]').val()){
+                $('input[name="password_confirm"]').val();
+                myObj.$error.text('两次输入的密码不一致!').show();
+                return false;
+            }
+            return true;
+        },
+        countTimeDown:function(){
+            var count = 60;
+            var myInteval = setInterval(function(){
+                if(count != 0){
+                    myObj.$fetchCode.text(count+'s');
+                    count--;
+                }else{
+                    clearInterval(myInteval);
+                    myObj.$fetchCode.removeAttr('disabled').i18n();
+                }
+            },1000);
+        }
+    };
+    myObj.init();
+</script>
+</body>
+</html>

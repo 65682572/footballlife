@@ -1,0 +1,71 @@
+2017-08-14 09:33:03 exception 'Think\Exception' with message '1054:Unknown column 'ratify' in 'where clause'
+ [ SQL语句 ] : SELECT a.*,b.name FROM link_chat_works a left join link_firm as b on b.id = a.creatid  WHERE ( ratify = 1 ) ' in D:\phpStudy\WWW\linkyview\ThinkPHP\Common\functions.php:102
+Stack trace:
+#0 D:\phpStudy\WWW\linkyview\ThinkPHP\Library\Think\Db\Driver.class.php(350): E('1054:Unknown co...')
+#1 D:\phpStudy\WWW\linkyview\ThinkPHP\Library\Think\Db\Driver.class.php(180): Think\Db\Driver->error()
+#2 D:\phpStudy\WWW\linkyview\ThinkPHP\Library\Think\Db\Driver.class.php(946): Think\Db\Driver->query('SELECT a.*,b.na...', false)
+#3 D:\phpStudy\WWW\linkyview\ThinkPHP\Library\Think\Model.class.php(579): Think\Db\Driver->select(Array)
+#4 D:\phpStudy\WWW\linkyview\Application\Home\Controller\ChateventController.class.php(36): Think\Model->select()
+#5 [internal function]: Home\Controller\ChateventController::onMessage('7f00000108fc000...', '{"type":"login"...')
+#6 D:\phpStudy\WWW\linkyview\Application\vendor\workerman\gateway-worker\src\BusinessWorker.php(384): call_user_func('Home\\Controller...', '7f00000108fc000...', '{"type":"login"...')
+#7 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#8 D:\phpStudy\WWW\linkyview\Application\vendor\workerman\workerman\Connection\TcpConnection.php(480): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#9 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #56)
+#10 D:\phpStudy\WWW\linkyview\Application\vendor\workerman\workerman\Events\Select.php(283): call_user_func_array(Array, Array)
+#11 D:\phpStudy\WWW\linkyview\Application\vendor\workerman\workerman\Worker.php(856): Workerman\Events\Select->loop()
+#12 D:\phpStudy\WWW\linkyview\Application\vendor\workerman\gateway-worker\src\BusinessWorker.php(190): Workerman\Worker->run()
+#13 D:\phpStudy\WWW\linkyview\Application\vendor\workerman\workerman\Worker.php(473): GatewayWorker\BusinessWorker->run()
+#14 D:\phpStudy\WWW\linkyview\Application\vendor\workerman\workerman\Worker.php(382): Workerman\Worker::runAllWorkers()
+#15 D:\phpStudy\WWW\linkyview\Application\Home\Controller\ChatController.class.php(99): Workerman\Worker::runAll()
+#16 [internal function]: Home\Controller\ChatController->start2()
+#17 D:\phpStudy\WWW\linkyview\ThinkPHP\Library\Think\App.class.php(173): ReflectionMethod->invoke(Object(Home\Controller\ChatController))
+#18 D:\phpStudy\WWW\linkyview\ThinkPHP\Library\Think\App.class.php(110): Think\App::invokeAction(Object(Home\Controller\ChatController), 'start2')
+#19 D:\phpStudy\WWW\linkyview\ThinkPHP\Library\Think\App.class.php(204): Think\App::exec()
+#20 D:\phpStudy\WWW\linkyview\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#21 D:\phpStudy\WWW\linkyview\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#22 D:\phpStudy\WWW\linkyview\index.php(34): require('D:\\phpStudy\\WWW...')
+#23 {main}
+2017-08-14 09:33:11 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-08-14 09:33:14 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-08-14 09:33:14 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-08-14 09:33:16 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-08-14 09:33:16 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-08-14 09:33:19 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-08-14 09:33:19 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-08-14 09:33:22 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-08-14 09:33:22 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-08-14 09:33:26 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-08-14 09:33:26 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-08-14 09:33:28 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-08-14 09:33:28 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-08-14 09:33:29 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-08-14 09:33:29 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-08-14 09:33:31 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-08-14 09:33:31 SendBufferToWorker fail. The connections between Gateway and BusinessWorker are not ready. See http://wiki.workerman.net/Error3 for detail
+2017-08-14 09:43:39 exception 'Think\Exception' with message '1054:Unknown column 'ratify' in 'where clause'
+ [ SQL语句 ] : SELECT a.*,b.name FROM link_chat_works a left join link_firm as b on b.id = a.creatid  WHERE ( ratify = 1 ) ' in D:\phpStudy\WWW\linkyview\ThinkPHP\Common\functions.php:102
+Stack trace:
+#0 D:\phpStudy\WWW\linkyview\ThinkPHP\Library\Think\Db\Driver.class.php(350): E('1054:Unknown co...')
+#1 D:\phpStudy\WWW\linkyview\ThinkPHP\Library\Think\Db\Driver.class.php(180): Think\Db\Driver->error()
+#2 D:\phpStudy\WWW\linkyview\ThinkPHP\Library\Think\Db\Driver.class.php(946): Think\Db\Driver->query('SELECT a.*,b.na...', false)
+#3 D:\phpStudy\WWW\linkyview\ThinkPHP\Library\Think\Model.class.php(579): Think\Db\Driver->select(Array)
+#4 D:\phpStudy\WWW\linkyview\Application\Home\Controller\ChateventController.class.php(36): Think\Model->select()
+#5 [internal function]: Home\Controller\ChateventController::onMessage('7f00000108fc000...', '{"type":"login"...')
+#6 D:\phpStudy\WWW\linkyview\Application\vendor\workerman\gateway-worker\src\BusinessWorker.php(384): call_user_func('Home\\Controller...', '7f00000108fc000...', '{"type":"login"...')
+#7 [internal function]: GatewayWorker\BusinessWorker->onGatewayMessage(Object(Workerman\Connection\AsyncTcpConnection), Array)
+#8 D:\phpStudy\WWW\linkyview\Application\vendor\workerman\workerman\Connection\TcpConnection.php(480): call_user_func(Array, Object(Workerman\Connection\AsyncTcpConnection), Array)
+#9 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #56)
+#10 D:\phpStudy\WWW\linkyview\Application\vendor\workerman\workerman\Events\Select.php(283): call_user_func_array(Array, Array)
+#11 D:\phpStudy\WWW\linkyview\Application\vendor\workerman\workerman\Worker.php(856): Workerman\Events\Select->loop()
+#12 D:\phpStudy\WWW\linkyview\Application\vendor\workerman\gateway-worker\src\BusinessWorker.php(190): Workerman\Worker->run()
+#13 D:\phpStudy\WWW\linkyview\Application\vendor\workerman\workerman\Worker.php(473): GatewayWorker\BusinessWorker->run()
+#14 D:\phpStudy\WWW\linkyview\Application\vendor\workerman\workerman\Worker.php(382): Workerman\Worker::runAllWorkers()
+#15 D:\phpStudy\WWW\linkyview\Application\Home\Controller\ChatController.class.php(99): Workerman\Worker::runAll()
+#16 [internal function]: Home\Controller\ChatController->start2()
+#17 D:\phpStudy\WWW\linkyview\ThinkPHP\Library\Think\App.class.php(173): ReflectionMethod->invoke(Object(Home\Controller\ChatController))
+#18 D:\phpStudy\WWW\linkyview\ThinkPHP\Library\Think\App.class.php(110): Think\App::invokeAction(Object(Home\Controller\ChatController), 'start2')
+#19 D:\phpStudy\WWW\linkyview\ThinkPHP\Library\Think\App.class.php(204): Think\App::exec()
+#20 D:\phpStudy\WWW\linkyview\ThinkPHP\Library\Think\Think.class.php(120): Think\App::run()
+#21 D:\phpStudy\WWW\linkyview\ThinkPHP\ThinkPHP.php(97): Think\Think::start()
+#22 D:\phpStudy\WWW\linkyview\index.php(34): require('D:\\phpStudy\\WWW...')
+#23 {main}

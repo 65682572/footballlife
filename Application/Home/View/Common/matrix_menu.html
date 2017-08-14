@@ -1,0 +1,260 @@
+<include file="Common:ifPlugin" />
+<link rel="stylesheet" href="/Public/common/css/select2.min.css">
+<script type="text/javascript">
+    mymobile = {:session('user_auth.mobile')};
+    // 做区块对应的输入源功能
+    function addElement(html,sPeer)
+    {
+        $("#"+sPeer).append(html);
+    }
+
+</script>
+<!-- 头部开始 -->
+<div class="jt_topMenu">
+    <nav role="navigation" class="navbar navbar-static-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" class="navbar-toggle" type="button">
+                    <span class="entypo-menu"></span>
+                </button>
+                <button class="navbar-toggle toggle-menu-mobile toggle-left" type="button">
+                    <span class="entypo-list-add"></span>
+                </button>
+                <div id="logo-mobile" class="visible-xs">
+                    <h1>
+                        <img src="/Public/common/images/icon_logo.png" />
+                    </h1>
+                </div>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse jt_navMenu">
+                <div id="nt-title-container" class="navbar-left running-text visible-lg">
+                    <ul id="digital-clock" class="digital jt_ul1">
+                        <li style="width: 55px;">
+                            <i class="icon icon-home"></i>
+                            <a class="jt_active" href="{:U('/Matrix/monitor','','')}" data-i18n="public.home"></a>
+                        </li>
+                    </ul>
+                    <ul id="digital-clock" class="digital jt_ul1">
+                        <li id="jt_onMouse1" style="width: 90px; text-align: center;">
+                            <i class="icon icon-mobile-portrait"></i>
+                            <a class="jt_active" href="javascript:void(0);" data-i18n="public.deviceOperation"></a>
+                            <ul class="jt_xiaLaHover jt_xiaLaHover1">
+                                <li>
+                                    <a href="{:U('/Matrix/index','','')}" data-i18n="public.deviceOperation"></a>
+                                    <img class="jt_xiaLaImg1" src="/Public/common/images/icon_xuxian.png" />
+                                    <a class="jt_xiaLaA2" href="{:U('/Matrix/deviceMsg','','')}" data-i18n="public.deviceManage"></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!--<ul id="digital-clock" class="digital jt_ul1">-->
+                        <!--<li>-->
+                            <!--<a href="/errorPage.html">-->
+                                <!--<i class="icon icon-reply-all"></i>-->
+                                <!--检索回放-->
+                            <!--</a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                    <ul id="digital-clock" class="digital jt_ul1">
+                        <li id="jt_onMouse2" style="width: 90px; text-align: center;">
+                            <i class="icon-map"></i>
+                            <a href="javascript:void(0);" data-i18n="public.mapOperation"></a>
+                            <ul class="jt_xiaLaHover jt_xiaLaHover2">
+                                <li>
+                                    <a class="jt_xiaLaA1" href="{:U('/Map/mapManage','','')}" data-i18n="public.mapOperation"></a>
+                                    <img class="jt_xiaLaImg1" src="/Public/common/images/icon_xuxian.png" />
+                                    <a class="jt_xiaLaA2" href="{:U('/Map/mapLayout','','')}" data-i18n="public.deviceLayout"></a>
+                                    <img class="jt_xiaLaImg2" src="/Public/common/images/icon_xuxian.png" />
+                                    <a class="jt_xiaLaA3" href="{:U('/Map/mapList','','')}" data-i18n="public.mapManage"></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul id="digital-clock" class="digital jt_ul1">
+                        <li id="jt_onMouse4" style="width: 90px; text-align: center;">
+                            <i class="icon icon-warning"></i>
+                            <a href="{:U('/Alert/alertOperation','','')}" data-i18n="public.alertOperation"></a>
+                        </li>
+                    </ul>
+                    <ul id="digital-clock" class="digital jt_ul1">
+                        <li style="width: 90px; text-align: center;">
+                            <i class="icon icon-graph-bar"></i>
+                            <a href="javascript:void(0);" data-i18n="public.sensorTesting"></a>
+                        </li>
+                    </ul>
+                    <!--<ul id="digital-clock" class="digital jt_ul1">-->
+                        <!--<li>-->
+                            <!--<a href="javascript:void(0);">-->
+                                <!--<i class="icon icon-information"></i>-->
+                                <!--场景应用-->
+                            <!--</a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                    <ul id="digital-clock" class="digital jt_ul1">
+                        <li id="jt_onMouse3" style="width: 90px; text-align: center;">
+                            <i class="maki-museum"></i>
+                            <a href="javascript:void(0);" data-i18n="public.systemSet"></a>
+                            <ul class="jt_xiaLaHover jt_xiaLaHover3">
+                                <li>
+                                    <a class="jt_xiaLaA1" href="{:U('/Organization/organizationMsg','','')}" data-i18n="public.organManage"></a>
+                                    <img class="jt_xiaLaImg1" src="/Public/common/images/icon_xuxian.png" />
+                                    <a class="jt_xiaLaA2" href="{:U('/Matrix/deviceMsg','','')}" data-i18n="public.deviceManage"></a>
+                                    <img class="jt_xiaLaImg2" src="/Public/common/images/icon_xuxian.png" />
+                                    <a class="jt_xiaLaA3" href="{:U('/SystemSet/pluginsLoad','','')}" data-i18n="public.systemSet"></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+<ul class="nav navbar-nav navbar-right jt_navBarRight">
+    <li>
+        <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+            <empty name="userinfo.avatar">
+                <img alt="" class="admin-pic img-circle" src="__IMG__10.jpg">{$userinfo.username}<b class="caret">
+                <else/>
+                <img alt="" class="admin-pic img-circle" src="{$userinfo.avatar}">{$userinfo.username}<b class="caret">
+            </empty>
+            </b>
+        </a>
+        <ul role="menu" class="dropdown-setting dropdown-menu jt_ul4" >
+            <li>
+                <a href="/user/basicSettings">
+                                    <span class="entypo-user">&nbsp;
+                                        <span data-i18n="public.personalInfo"></span>
+                                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="/user/updataPassWord">
+                                    <span class="entypo-vcard">&nbsp;
+                                        <span data-i18n="public.modifyPwd"></span>
+                                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="/user/updataPhoneNum">
+                                    <span class="entypo-lifebuoy">&nbsp;
+                                        <span data-i18n="public.modifyPhone"></span>
+                                    </span>
+                </a>
+            </li>
+            <li>
+                <a onclick='showModal()'>
+                                    <span class="entypo-search">&nbsp;
+                                        <span data-i18n="public.addOrgan"></span>
+                                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="{:U('/Organization/organizationMsg','','')}">
+                                    <span class="entypo-paper-plane">&nbsp;
+                                        <span data-i18n="public.toggleOrgan"></span>
+                                    </span>
+                </a>
+            </li>
+            <li>
+                <a disabled title="当前机构">
+                    <span class="entypo-users"></span>&nbsp; {$lastfirmname}
+                </a>
+            </li>
+            <hr class="jt_hrPosition" />
+            <li>
+                <a href="/login/logout">
+                                    <span class="entypo-logout">&nbsp;
+                                        <span data-i18n="public.signOut"></span>
+                                    </span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    <li class="hidden-xs">
+        <a class="toggle-left" href="#">
+            <span class="entypo-list-add"></span>
+        </a>
+    </li>
+</ul>
+<include file="Common:change_lng" />
+<!-- 加入机构 -->
+<div style="margin-top: -30px;" aria-labelledby="myModalLabel" role="dialog" class="modal fade bs-example-modal-lg" aria-hidden="true" id="joinOrg">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title" data-i18n="public.addOrgan"></h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div >
+                        <div class="form-horizontal" role="form">
+                           <div class="form-group">
+                                <label  for="firmName" class="col-sm-2 control-label" data-i18n="public.selectOrgan"></label>
+                                <div class="">
+                                    <select class="not-join-org jt_not-join-org" multiple="multiple"></select>
+                                </div>
+                           </div>
+                           <div class="form-group jt_btnGroupWZ">
+                               <button class="btn joinOrgbtn col-sm-offset-2" data-i18n="public.confirm"></button>
+                               <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/Public/common/js/select2.min.js"></script>
+<script>
+	function showModal(){
+        var optionData = '';
+        $.ajax({
+            url:"/Organization/getNotJoinOrg",
+            type:"post",
+            async:false,
+            data:{},
+            dataType : 'json',
+            success:function(ret){
+                if (ret['status'] == true){
+                    $.each(ret['data'].data,function (i,c){
+                        if($.inArray(c.id,ret['data'].alreadyJoin) >= 0){
+                            optionData += '<option value="' + c.id + '" disabled="disabled">' + c.text + '(已加入)</option>';
+                        }else if($.inArray(c.id,ret['data'].alreadyApp) >= 0){
+                            optionData += '<option value="' + c.id + '" disabled="disabled">' + c.text + '(已申请)</option>';
+                        }else{
+                            optionData += '<option value="' + c.id + '">' + c.text + '</option>';
+                        }
+                    });
+                }else{
+                    return false;
+                }
+            }
+        });
+        $('.not-join-org').html(optionData);
+        $('.not-join-org').select2({
+            placeholder: "请选择机构",
+            allowClear: true
+        });
+        $('#joinOrg').modal('show');
+    }
+    var myObj = {
+        joinFirm:function () {
+            $(".joinOrgbtn").on('click',function () {
+                var ids = $('.not-join-org').val();
+                if(!ids || ids.length <= 0){
+                    publicAlertAdd({title:'提示信息',content:'最少选择一个机构！',icon:'fa fa-rocket'},false);return;
+                }
+                confirmBtnDisabledAdd($(this),'/Organization/joinFirm',{ids:ids});
+            });
+
+        }
+    };
+    myObj.joinFirm();
+</script>

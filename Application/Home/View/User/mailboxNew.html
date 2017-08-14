@@ -1,0 +1,177 @@
+<!-- 邀请信 -->
+<title> 邀请信 </title>
+<include file="Common:matrix_header" />
+<include file="Common:matrix_menu" />
+<include file="Common:matrix_leftbar_public" />
+<!-- 中间 -->
+<div class="wrap-fluid jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span>邀请信</span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle" />
+                    <div class="col-sm-2">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="btn-group btn-wigdet pull-right visible-lg">
+                            <div class="btn">
+                                Widget</div>
+                            <button data-toggle="dropdown" class="btn dropdown-toggle">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul role="menu" class="dropdown-menu">
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-plus-circled margin-iconic"></span>Add New
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-heart margin-iconic"></span>Favorite
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-cog margin-iconic"></span>Setting
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 jt_rowNest15 jt_rowNest">
+                    <div class="well profile">
+                        <div class="col-sm-12">
+                            <div class="col-xs-12 col-sm-4 text-center jt_center">
+                                <ul class="list-group">
+                                    <li class="list-group-item text-left">
+                                        <span class="entypo-user"></span>&nbsp;&nbsp;Profile</li>
+                                    <li class="list-group-item text-center">
+                                        <img src="{$userFace}" alt="" class="img-circle img-responsive img-profile">
+                                    </li>
+                                    <li class="list-group-item text-center">
+                                        <span class="pull-left">
+                                            <strong>用户等级</strong>
+                                        </span>
+                                        <div class="ratings">
+                                            <a href="#">
+                                                <span class="fa fa-star"></span>
+                                            </a>
+                                            <a href="#">
+                                                <span class="fa fa-star"></span>
+                                            </a>
+                                            <a href="#">
+                                                <span class="fa fa-star"></span>
+                                            </a>
+                                            <a href="#">
+                                                <span class="fa fa-star"></span>
+                                            </a>
+                                            <a href="#">
+                                                <span class="fa fa-star-o"></span>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item text-right">
+                                        <span class="pull-left">
+                                            <strong>手机号码</strong>
+                                        </span>{$userinfo.mobile}
+                                    </li>
+                                    <li class="list-group-item text-right">
+                                        <span class="pull-left">
+                                            <strong>加入时间</strong>
+                                        </span>{$userinfo.createtime|date="Y-m-d",###}
+                                    </li>
+                                    <li class="list-group-item text-right">
+                                        <span class="pull-left">
+                                            <strong>登陆时间</strong>
+                                        </span>{$userinfo.logintime|date="Y-m-d",###}
+                                    </li>
+                                    <li class="list-group-item text-right">
+                                        <span class="pull-left">
+                                            <strong>用户昵称</strong>
+                                        </span>{$userinfo.username}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-xs-12 col-sm-8 profile-name">
+                                <h2>
+                                    {$userinfo.username}
+                                </h2>
+                                <hr />
+                                <div class="blog-list-content">
+                                    <h2>邀请信</h2>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan. Aliquam in felis sit amet augue.</p>
+
+                                    <p class="pull-right">
+                                        <span class="label label-success">致：</span>
+                                        <span class="label label-warning">{$userinfo.username}</span>
+                                    </p>
+                                    <ul class="list-inline">
+                                        <li>
+                                            <a href="#">
+                                                <span class="entypo-network"></span>&nbsp;主题：邀请加入机构</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <span class="entypo-chat"></span>&nbsp;糖糖，邀请您加入，请您接受!</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <span class="entypo-share"></span>&nbsp;来自：崔瀚</a>
+                                        </li>
+                                    </ul>
+                                    <hr />
+                                    <div class="btn-group jt_btnRight">
+                                        <button class="btn btn-success">接受邀请</button>
+                                        <button class="btn btn-info" onclick="javascript:history.back(-1)">返&nbsp;回</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 divider text-center jt_center1">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--接受邀请-->
+<script>
+    var id = {$info.id};
+    var myObj = {
+        init:function(){
+            $(".btn-success").bind("click", function(){
+                $.ajax({
+                    url:"/user/accpetinvite",
+                    type:"post",
+                    async:false,
+                    data:{id:id},
+                    dataType : 'json',
+                    success:function(ret){
+                        if (ret['status'] == true){
+                            alert('接受邀请成功!');
+                            location.href = "/user/maillist";
+                        }else{
+                            alert(ret.msg);
+                        }
+                    }
+                });
+            });
+        }
+    };
+    myObj.init();
+</script>
+<include file="Common:footer" />
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!-- 修改手机号码 -->
+<title> 修改手机号码 </title>
+<include file="Common:matrix_header" />
+<include file="Common:matrix_menu" />
+<include file="Common:matrix_leftbar_public4" />
+<!-- 中间 -->
+<div class="wrap-fluid jt_updataPhoneMain jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span>修改手机号码</span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle" />
+                    <div class="col-sm-2">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="btn-group btn-wigdet pull-right visible-lg">
+                            <div class="btn">
+                                Widget</div>
+                            <button data-toggle="dropdown" class="btn dropdown-toggle">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul role="menu" class="dropdown-menu">
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-plus-circled margin-iconic"></span>Add New
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-heart margin-iconic"></span>Favorite
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-cog margin-iconic"></span>Setting
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="body-nest jt_rowNest" id="Blank_Page_Content">
+                        <div class="row">
+                            <div class="col-md-12 personal-info">
+                                <div class="alert alert-info alert-dismissable">
+                                    <a class="panel-close close" data-dismiss="alert">×</a>
+                                    <i class="fa fa-coffee"></i>
+                                    输入新手机号码
+                                    <strong>.获取</strong>. 验证码，修改当前绑定手机号码.
+                                </div>
+                                <h3>手机号码绑定</h3>
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">手机号码:</label>
+                                        <div class="col-lg-8">
+                                            <input id="Phonenum" class="form-control" placeholder="手机号码" type="text">
+                                        </div>
+                                        <button  class="btn btn-success jt_vPosition">获取验证码</button>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">验证码:</label>
+                                        <div class="col-lg-8">
+                                            <input id="Verification" class="form-control" placeholder="验证码" type="text">
+                                            <span id="resStatus"></span>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-3 control-label"></label>
+                                        <div class="col-md-8">
+                                            <input class="btn btn-primary" value="确认提交" type="button">
+                                            <span></span>
+                                            <input class="btn btn-default" value="取消" type="reset">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var myObj = {
+        sentSms:function(){
+            $('.btn-success').bind('click',function(){
+                if(myObj.check("#Phonenum")){
+
+                    $.post('/user/sendSms',{tel:myObj.getTel(),type:3},function(resData){
+                        if(resData.status = true){
+                            // 待补充
+                            myObj.code = resData.code;
+                            $(".jt_vPosition").text('验证码已发');
+                            console.log(resData);
+                        }
+                    });
+                } else {
+                    // 待补充
+                    console.log('失败');
+                }
+            });
+        },
+        check:function(attributs){
+            if($(attributs).val() && $(attributs).val().match(/^[1][358][0-9]{9}$/)){
+                return true;
+            }
+            return false;
+        },
+        dounbind:function () {
+            $(".btn-primary").bind('click',function () {
+                $.post('/user/dounbind',{mobile:$("#Phonenum").val(),code:$("#Verification").val()},function(resData){
+                    if (resData['status'] == true){
+                        alert('修改成功!');
+                        location.href = '/User/updataPhoneNum';
+                    }else{
+                        alert(resData.msg);
+                    }
+                });
+            });
+
+
+        },
+        getTel:function(){
+            return $("#Phonenum").val();
+        }
+    };
+    myObj.sentSms();
+    myObj.dounbind();
+</script>
+<include file="Common:footer" />
+</body>
+</html>

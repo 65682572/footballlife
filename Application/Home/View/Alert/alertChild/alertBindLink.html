@@ -1,0 +1,529 @@
+<!-- 报警配置 -->
+<html>
+<title data-i18n="alert.alertConfig"></title>
+<include file="Common:matrix_header" />
+<include file="Common:matrix_menu" />
+<include file="Common:alert_leftbar_public" />
+<include file="Common:msgFootable" />
+<script src="/Public/common/js/msgFootable.js"></script>
+<!-- 中间 -->
+<div class="wrap-fluid jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span data-i18n="alert.alertConfig"></span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle" />
+                    <div class="col-sm-2">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="btn-group btn-wigdet pull-right visible-lg">
+                            <div class="btn">
+                                Widget</div>
+                            <button data-toggle="dropdown" class="btn dropdown-toggle jt_dropTo">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul role="menu" class="dropdown-menu">
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-plus-circled margin-iconic"></span>Add New
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-heart margin-iconic"></span>Favorite
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-cog margin-iconic"></span>Setting
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 jt_rowNest1">
+                <div class="nest" id="FootableClose">
+                    <div class="title-alt">
+                        <h6 data-i18n="alert.alertConfig"></h6>
+                        <div class="titleClose">
+                            <a class="gone" href="#FootableClose">
+                                <span class="entypo-cancel"></span>
+                            </a>
+                        </div>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#Footable">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="Footable">
+                        <table class="table-striped footable-res footable metro-blue" data-page-size="10">
+                            <thead>
+                            <tr>
+                                <th><span data-i18n="public.number"></span></th>
+                                <th><span data-i18n="alert.deviceName"></span></th>
+                                <th><span data-i18n="alert.eventName"></span></th>
+                                <th><span data-i18n="alert.responseName"></span></th>
+                                <th><span data-i18n="alert.waitResponseDevice"></span></th>
+                                <th><span data-i18n="alert.remarks"></span></th>
+                                <th><span data-i18n="alert.establishTime"></span></th>
+                                <th><span data-i18n="public.operation"></span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <foreach name="list" item="v">
+                                <tr>
+                                    <td class="jt_hiddenTd3 footable-first-column">{$v['id']}</td>
+                                    <td class="jt_hiddenTd3">{$v['devicename']}</td>
+                                    <td class="jt_hiddenTd4">{$v['eventname']}</td>
+                                    <td class="jt_hiddenTd4">{$v['rsname']}</td>
+                                    <td class="jt_hiddenTd4">{$v['destination']}</td>
+                                    <td class="jt_hiddenTd4">{$v['remark']}</td>
+                                    <td class="jt_hiddenTd4">{:date('Y-m-d H:i',$v['time'])}</td>
+                                    <td class="jt_hiddenTd4 footable-last-column">
+                                        <div class="btn-group">
+                                            <button class="btn btn-warning editBtn" data-id="{$v['id']}" data-event="{$v['event_id']}" data-destination="{$v['destination']}"
+                                            data-device="{$v['device_id']}" data-response="{$v['response_id']}" data-remark="{$v['remark']}" data-i18n="public.edit"></button>
+                                            <button data-id="{$v['id']}" class="btn btn-danger deleteBtn" data-i18n="public.delete"></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </foreach>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="8">
+                                    <div class="pagination pagination-centered"></div>
+                                </td>
+                            </tr>
+                            </tfoot>
+                            <div class="btn-group">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#addBind" data-i18n="alert.addAlertLinkage">添加报警联动</button>
+                            </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加报警设置 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg"
+     aria-hidden="true" id="addBind">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title" data-i18n="alert.addAlertSet"></h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div class="row form-horizontal">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <input onkeyup="checkSearch(this)" class="form-control" data-i18n="[placeholder]alert.tipsDeviceName" type="text"/>
+                                </div>
+                            </div>
+                            <div class="form-group" id="a_deviceLi">
+                                <div class="col-sm-12">
+                                    <ul class="jt_shareListData" id="jt_event1">
+                                        <volist name="device" id="dv">
+                                            <li><i data-id="{$dv.uuid}"></i>{$dv.name}</li>
+                                        </volist>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <input onkeyup="checkSearch(this)" class="form-control" data-i18n="[placeholder]alert.tipsEventName" type="text"/>
+                                </div>
+                            </div>
+                            <div class="form-group" id="a_eventLi">
+                                <div class="col-sm-12">
+                                    <ul class="jt_shareListData" id="jt_event2">
+                                        <volist name="event" id="ev">
+                                            <li><i data-id="{$ev.code}"></i>{$ev.name}</li>
+                                        </volist>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <input onkeyup="checkSearch(this)" class="form-control" data-i18n="[placeholder]alert.tipsResponseMode" type="text"/>
+                                </div>
+                            </div>
+                            <div class="form-group" id="a_responseLi">
+                                <div class="col-sm-12">
+                                    <ul class="jt_shareListData" id="jt_event3">
+                                        <volist name="response" id="rv">
+                                            <li><i data-id="{$rv.code}"></i>{$rv.name}</li>
+                                        </volist>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 jt_xiaLaHover" id="a_mobileDiv">
+                            <label class="col-sm-2 control-label" data-i18n="alert.responsePhone"></label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="a_mobile" data-i18n="[placeholder]alert.tipsResponsePhone" />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 jt_xiaLaHover" id="a_emailDiv">
+                            <label class="col-sm-2 control-label" data-i18n="alert.responseEmail"></label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="a_email" data-i18n="[placeholder]alert.tipsResponseEmail" />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 jt_xiaLaHover" id="a_deviceDiv">
+                            <label class="col-sm-2 control-label" data-i18n="alert.responseDevice"></label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="a_device" data-i18n="[placeholder]alert.tipsResponseDevice" />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="col-sm-2 control-label" data-i18n="alert.remarks"></label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="a_remark" data-i18n="[placeholder]alert.remarks" rows="8"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group jt_xyyModel">
+                        <button class="btn addSaveBtn" data-i18n="public.confirm"></button>
+                        <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 编辑报警设置 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg"
+     aria-hidden="true" id="editBind">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title" data-i18n="alert.editAlertSet"></h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div class="row form-horizontal">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <input onkeyup="checkSearch(this)" class="form-control" data-i18n="[placeholder]alert.tipsDeviceName" type="text"/>
+                                </div>
+                            </div>
+                            <div class="form-group" id="e_deviceLi">
+                                <div class="col-sm-12">
+                                    <ul class="jt_shareListData" id="jt_event4">
+                                        <volist name="device" id="edv">
+                                            <li><i data-id="{$edv.uuid}"></i>{$edv.name}</li>
+                                        </volist>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <input onkeyup="checkSearch(this)" class="form-control" data-i18n="[placeholder]alert.tipsEventName" type="text"/>
+                                </div>
+                            </div>
+                            <div class="form-group" id="e_eventLi">
+                                <div class="col-sm-12">
+                                    <ul class="jt_shareListData" id="jt_event5">
+                                        <volist name="event" id="eev">
+                                            <li><i data-id="{$eev.code}"></i>{$eev.name}</li>
+                                        </volist>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <input onkeyup="checkSearch(this)" class="form-control" data-i18n="[placeholder]alert.tipsResponseMode" type="text"/>
+                                </div>
+                            </div>
+                            <div class="form-group" id="e_responseLi">
+                                <div class="col-sm-12">
+                                    <ul class="jt_shareListData" id="jt_event6">
+                                        <volist name="response" id="erv">
+                                            <li><i data-id="{$erv.code}"></i>{$erv.name}</li>
+                                        </volist>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 jt_xiaLaHover" id="e_mobileDiv">
+                            <label class="col-sm-2 control-label" data-i18n="alert.responsePhone"></label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="e_mobile" data-i18n="[placeholder]alert.tipsResponsePhone" />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 jt_xiaLaHover" id="e_emailDiv">
+                            <label class="col-sm-2 control-label" data-i18n="alert.responseEmail"></label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="e_email" data-i18n="[placeholder]alert.tipsResponseEmail" />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 jt_xiaLaHover" id="e_deviceDiv">
+                            <label class="col-sm-2 control-label" data-i18n="alert.responseDevice"></label>
+                            <div class="col-sm-10">
+                                <input class="form-control" id="e_device" data-i18n="[placeholder]alert.tipsResponseDevice" />
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label class="col-sm-2 control-label" data-i18n="alert.remarks"></label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="e_remark" data-i18n="[placeholder]alert.remarks" rows="8"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <input type="hidden" id="e_id">
+                    <div class="form-group jt_xyyModel">
+                        <button class="btn btn-primary editSaveBtn" data-i18n="public.confirm"></button>
+                        <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#jt_event1 li,#jt_event2 li,#jt_event3 li,#jt_event4 li,#jt_event5 li,#jt_event6 li').on('click', function () {
+        clickIcon_ok_radio(this);
+        var id = $(this).parent().attr('id');
+        if(id == 'jt_event3' || id == 'jt_event6'){
+            var pre = 'e_';
+            if(id == 'jt_event3') pre = 'a_';
+            var val = $(this).find("i").attr('data-id');
+            setDestination(pre,val);
+        }
+    });
+    function setDestination(pre,res,isDefault,des){
+        isDefault = isDefault || 0;
+        var xs = [];
+        var yc = ['mobileDiv','emailDiv','deviceDiv'];
+        switch (res){
+            case 'sendSMS':
+                yc = ['emailDiv','deviceDiv'];
+                xs = ['mobileDiv'];
+                break;
+            case 'mobileAlert':
+                yc = ['emailDiv','deviceDiv'];
+                xs = ['mobileDiv'];
+                break;
+            case 'sendEmail':
+                yc = ['mobileDiv','deviceDiv'];
+                xs = ['emailDiv'];
+                break;
+            case 'openAlarm':
+                yc = ['mobileDiv','emailDiv'];
+                xs = ['deviceDiv'];
+                break;
+            default:
+                break;
+        }
+        $.each(yc,function (k,v){
+            $('#'+pre+v).addClass('jt_xiaLaHover');
+        });
+        $.each(xs,function (k,v){
+            $('#'+pre+v).removeClass('jt_xiaLaHover');
+        });
+        if(isDefault){
+            $.each(xs,function(k,v){
+                var desobj = v.substr(0,(v.length-3));
+                $('#'+pre+desobj).val(des);
+            });
+        }
+    }
+    function unsetDestination(pre){
+        var yc = ['mobileDiv','emailDiv','deviceDiv'];
+        $.each(yc,function (k,v){
+            $('#'+pre+v).addClass('jt_xiaLaHover');
+            var desobj = v.substr(0,(v.length-3));
+            $('#'+pre+desobj).val('');
+        });
+    }
+
+    function getCkecked(obj){
+        var ret = [];
+        var node = $(obj);
+        if(!node){
+            return ret;
+        }
+        node.each(function(){
+            var that = $(this);
+            if (that.hasClass('glyphicon-ok')) {
+                ret.push(that.attr('data-id'));
+            }
+        });
+        return ret;
+    }
+    function getRadioCkecked(obj){
+        var res = '';
+        var node = $(obj+' i.glyphicon-ok');console.log(node);
+        node.each(function(){
+            res = $(this).attr('data-id');
+        });
+        return res;
+    }
+    function setChecked(data){
+        $.each(data,function(k,v){
+            $('#'+k+' i').each(function (){
+                if($(this).attr('data-id') == v){
+                    $(this).attr("class","glyphicon glyphicon-ok");
+                }
+            });
+        });
+    }
+    function unsetChecked(data){
+        $.each(data,function(k,v){
+            $('#'+v+' i.glyphicon-ok').attr("class","");
+        });
+    }
+    $('#editBind').on('hidden.bs.modal',function(){
+        $('#e_id').val('');
+        $('#e_remark').val('');
+        unsetChecked(['e_eventLi','e_deviceLi','e_responseLi']);
+        unsetDestination('e_');
+        $('#editBind input').val("").trigger('keyup');
+    });
+    $('.editBtn').click(function (){
+        var id = $(this).attr('data-id');
+        var remark = $(this).attr('data-remark');
+        var event = $(this).attr('data-event');
+        var device = $(this).attr('data-device');
+        var response = $(this).attr('data-response');
+        var destination = $(this).attr('data-destination');
+        $('#e_id').val(id);
+        $('#e_remark').val(remark);
+        setChecked({
+            "e_eventLi":event,
+            "e_deviceLi":device,
+            "e_responseLi":response
+        });
+        setDestination('e_',response,1,destination);
+        $('#editBind').modal('show');
+    });
+
+    $('.addSaveBtn').click(function () {
+        var data = checkParam(1);
+        if(!data){
+            return;
+        }
+        confirmBtnDisabled($(this),'/Alert/saveRelation',data);
+    });
+
+    function checkParam(type){
+        if(type != 1 && type != 2) return false;
+        var pre = 'a_';
+        if(type == 2){
+            pre = 'e_';
+            var id = $('#e_id').val();
+            if(!id){
+                publicAlert({content:'无效数据'},false);
+                return false;
+            }
+        }
+        //device
+        var dataDevice = $('#'+pre+'deviceLi i.glyphicon-ok:first').attr('data-id');
+        //event
+        var dataEvent = $('#'+pre+'eventLi i.glyphicon-ok:first').attr('data-id');
+        //response
+        var dataResponse = $('#'+pre+'responseLi i.glyphicon-ok:first').attr('data-id');
+        var remark = $('#'+pre+'remark').val();
+        var destination = '';
+        if(!dataDevice){
+            publicAlert({content:'请选择设备'},false);
+            return false;
+        }
+        if(!dataEvent){
+            publicAlert({content:'请选择触发事件'},false);
+            return false;
+        }
+        if(!dataResponse){
+            publicAlert({content:'请选择响应方式'},false);
+            return false;
+        }
+        var msg = '请填写待响应的手机号码';
+        if(dataResponse == 'sendSMS' || dataResponse == 'mobileAlert'){
+            destination = $('#'+pre+'mobile').val();
+        }else if(dataResponse == 'sendEmail'){
+            destination = $('#'+pre+'email').val();
+            msg = '请填写待响应的邮箱';
+        }else if(dataResponse == 'openAlarm'){
+            destination = $('#'+pre+'device').val();
+            msg = '请选择待响应的设备';
+        }
+        if(!destination){
+            publicAlert({content:msg},false);
+            return false;
+        }
+        var res = {device:dataDevice,event:dataEvent,response:dataResponse,remark:remark,destination:destination,type:type};
+        if(type == 2){
+            res.id = id;
+        }
+        console.log(res);
+        return res;
+    }
+
+    $('.editSaveBtn').click(function () {
+        var data = checkParam(2);
+        if(!data){
+            return;
+        }
+        confirmBtnDisabled($(this),'/Alert/saveRelation',data);
+    });
+
+    $('.deleteBtn').click(function () {
+        var id = $(this).attr('data-id');
+        if(!id){
+            publicAlert({content:'无效数据'},false);
+            return false;
+        }
+        var confirm = {
+            title: '提示信息',
+            content: '你确定要删除这条报警联动么？',
+            icon: 'fa fa-rocket',
+            action: '',
+            animation: 'scale',
+            closeAnimation: 'scale',
+            buttons: {
+                确定: function () {
+                    confirmBtnDisabled($(this),'/Alert/deleteRelation',{id:id});
+                },
+                取消: function () {
+
+                }
+            }
+        };
+        $.confirm(confirm);
+    });
+</script>
+<include file="Common:footer" />
+</body>
+</html>

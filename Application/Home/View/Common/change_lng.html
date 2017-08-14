@@ -1,0 +1,48 @@
+<!-- 中文英文切换 -->
+<div class="change_lng btn-group">
+    <a class="btn btn-white set_zh"><img src="__IMG__icon_zh.png"> ZH</a>
+    <a class="btn btn-white set_en"><img src="__IMG__icon_en.png"> EN</a>
+</div>
+<script>
+    $(document).ready(function(){
+        $('.i18_links').i18n();
+    });
+    var myObjLng={
+        $btns:$('.btn'),
+        init:function(){
+            $.i18n.init({
+                resGetPath: '__LOCALS____lng__.json',
+                load: 'unspecific',
+                fallbackLng: false,
+                cookieName:'lang'
+            }, function (t){
+                $('.i18_links').i18n();
+            });
+            $('.set_zh').on('click', function (){
+                $('#ddDeviceddBtn').css("margin","10px 0 0 -35px");
+                $('.jt_typeLi1').css("left","18%");
+                $('.jt_typeLi3').css("left","37%");
+                $('.jt_typeLi4').css("left","56%");
+                $('.jt_typeLi5').css("left","72%");
+                myObjLng.$btns.removeClass("active");
+                $(this).addClass("active");
+                i18n.setLng('zh', function(){
+                    $('.i18_links').i18n();
+                });
+            });
+            $('.set_en').on('click', function (){
+                $('#ddDeviceddBtn').css("margin","10px 0 0 -63px");
+                $('.jt_typeLi1').css("left","16%");
+                $('.jt_typeLi3').css("left","34%");
+                $('.jt_typeLi4').css("left","51.5%");
+                $('.jt_typeLi5').css("left","64.4%");
+                myObjLng.$btns.removeClass("active");
+                $(this).addClass("active");
+                i18n.setLng('en', function(){
+                    $('.i18_links').i18n();
+                });
+            });
+        }
+    };
+    myObjLng.init();
+</script>

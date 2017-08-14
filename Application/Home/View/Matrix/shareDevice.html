@@ -1,0 +1,508 @@
+<!-- 共享管理 -->
+<title> 设备共享 </title>
+<include file="Common:matrix_header"/>
+<include file="Common:matrix_menu"/>
+<include file="Common:matrix_leftbar_public3"/>
+<include file="Common:msgFootable"/>
+<script src="/Public/common/js/msgFootable.js"></script>
+<link rel="stylesheet" href="/assets/js/tree/jquery.treeview.css">
+<!-- 中间 -->
+<div class="wrap-fluid jt_deviceMsg jt_branchMain jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span>设备共享</span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 jt_rowNest1">
+                <div class="nest" id="FootableClose">
+                    <div class="title-alt">
+                        <h6>
+                            设备共享
+                        </h6>
+                        <div class="titleClose">
+                            <a class="gone" href="#FootableClose">
+                                <span class="entypo-cancel"></span>
+                            </a>
+                        </div>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#Footable">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="Footable">
+                        <table class="table-striped footable-res footable metro-blue" data-page-size="6">
+                            <thead>
+                            <tr>
+                                <th>设备名称</th>
+                                <th>序列号</th>
+                                <th data-hide="phone">状态</th>
+                                <th>类型</th>
+                                <th>分组</th>
+                                <th>所属机构</th>
+                                <th>备注</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="v">
+                                <tr data-type="{$v.type}" data-fl="{$v.types}" data-name="{$v.name}" data-id="{$v.id}"
+                                    data-intro="{$v.intro}" data-groupid="{$v.groupid}"
+                                    data-username="{$v.configsarr.0.name}" data-pwd="{$v.configsarr.0.pwd}"
+                                    data-groupname="{$v.catename}">
+                                    <td title="{$v.name}" class="jt_hiddenTd3">{$v.name}</td>
+                                    <td class="jt_hiddenTd2">
+                                        <a title="{$v.uuid}" href="#">{$v.uuid}</a>
+                                    </td>
+                                    <td title="{$v.state}" class="jt_hiddenTd3">{$v.state}</td>
+                                    <td title="{$v.typesName}" class="jt_hiddenTd3">{$v.typesName}</td>
+                                    <td title="{$v.catename}" class="jt_hiddenTd3">{$v.catename}</td>
+                                    <td title="{$v.firmName}" class="jt_hiddenTd3">{$v.firmName}</td>
+                                    <td title="{$v.intro}" class="jt_hiddenTd2">{$v.intro}</td>
+                                    <td class="jt_hiddenTd4" data-value="1">
+                                        <div class="btn-group">
+                                            <button class="btn btn-warning" data-toggle="modal" data-target="#updataDevice">修&nbsp;改</button>
+                                            <button class="btn btn-danger">删&nbsp;除</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="8">
+                                    <div class="pagination pagination-centered"></div>
+                                </td>
+                            </tr>
+                            </tfoot>
+                            <div class="btn-group">
+                                <button class="btn btn-primary shareDevice" data-toggle="modal"
+                                        data-target="#shareDevice" matrix-id="{$v.id}" matrix-uuid="{$v.uuid}">添加共享
+                                </button>
+                            </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框 -->
+<!-- 添加共享 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg"
+     aria-hidden="true" id="shareDevice">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">添加共享</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#addDeviceList">添加设备、机构、用户</button>
+                            <div style="border: 1px solid #888; max-height: 200px; height: 200px; overflow-y: auto;">
+                                <div class="form-group">
+                                    <div class="col-sm-10">
+                                        <!-- 循环第一级 -->
+                                        <ul id="browser2" class="treeview">
+                                            <li class="jt_treeLi1">
+                                                <!-- 第一级 -->
+                                                <input class="checkbox" type="checkbox"/>
+                                                <span style="position: relative; top: -20px; left: 20px;" class="entypo-folder jt_treeLi1Span1">aaaaaaaaaa</span>
+                                                <!-- 第二级 -->
+                                                <!-- 循环第二级 -->
+                                                <ul style="position: relative; top: -28px;" class="jt_defaultNone">
+                                                    <li class="jt_treeLi1">
+                                                        <!-- 同级第二级 -->
+                                                        <input  class="checkbox" type="checkbox"/>
+                                                        <span style="position: relative; top: -20px; left: 20px;" class="entypo-folder jt_treeLi1Span2">bbbbbbbbbb</span>
+                                                        <!-- 第三级 -->
+                                                        <!-- 循环第三级 -->
+                                                        <ul style="position: relative; top: -28px;" class="jt_defaultNone">
+                                                            <li class="jt_treeLi1">
+                                                                <input  class="checkbox" type="checkbox"/>
+                                                                <span style="position: relative; top: -20px; left: 20px;" class="entypo-folder jt_treeLi1Span3">cccccccccc</span>
+                                                                <!-- 循环第四级 -->
+                                                                <ul style="position: relative; top: -28px;" class="jt_defaultNone">
+                                                                    <li class="jt_treeLi1">
+                                                                        <input class="checkbox" type="checkbox"/>
+                                                                        <span style="position: relative; top: -20px; left: 20px;" class="entypo-newspaper jt_treeLi1Span3">dddddddddd</span>
+                                                                    </li>
+                                                                </ul>
+                                                                <!-- 循环第四级结束 -->
+                                                            </li>
+                                                        </ul>
+                                                        <!-- 循环第三级结束 -->
+                                                    </li>
+                                                </ul>
+                                                <!-- 循环第二级结束 -->
+                                            </li>
+                                        </ul>
+                                        <!-- 循环第一级结束 -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#addResources">添加资源</button>
+                            <div style="border: 1px solid #888; max-height: 200px; height: 200px; overflow-y: auto;">
+                                <div class="form-group">
+                                    <div class="col-sm-10">
+                                        <!-- 循环第一级 -->
+                                        <ul id="browser3" class="treeview">
+                                            <li class="jt_treeLi1">
+                                                <!-- 第一级 -->
+                                                <input class="checkbox" type="checkbox"/>
+                                                <span style="position: relative; top: -20px; left: 20px;" class="entypo-folder jt_treeLi1Span1">aaaaaaaaaa</span>
+                                                <!-- 第二级 -->
+                                                <!-- 循环第二级 -->
+                                                <ul style="position: relative; top: -28px;" class="jt_defaultNone">
+                                                    <li class="jt_treeLi1">
+                                                        <!-- 同级第二级 -->
+                                                        <input  class="checkbox" type="checkbox"/>
+                                                        <span style="position: relative; top: -20px; left: 20px;" class="entypo-folder jt_treeLi1Span2">bbbbbbbbbb</span>
+                                                        <!-- 第三级 -->
+                                                        <!-- 循环第三级 -->
+                                                        <ul style="position: relative; top: -28px;" class="jt_defaultNone">
+                                                            <li class="jt_treeLi1">
+                                                                <input  class="checkbox" type="checkbox"/>
+                                                                <span style="position: relative; top: -20px; left: 20px;" class="entypo-folder jt_treeLi1Span3">cccccccccc</span>
+                                                                <!-- 循环第四级 -->
+                                                                <ul style="position: relative; top: -28px;" class="jt_defaultNone">
+                                                                    <li class="jt_treeLi1">
+                                                                        <input class="checkbox" type="checkbox"/>
+                                                                        <span style="position: relative; top: -20px; left: 20px;" class="entypo-newspaper jt_treeLi1Span3">dddddddddd</span>
+                                                                    </li>
+                                                                </ul>
+                                                                <!-- 循环第四级结束 -->
+                                                            </li>
+                                                        </ul>
+                                                        <!-- 循环第三级结束 -->
+                                                    </li>
+                                                </ul>
+                                                <!-- 循环第二级结束 -->
+                                            </li>
+                                        </ul>
+                                        <!-- 循环第一级结束 -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="form-group jt_xyyModel" style="margin-left: 2px;">
+                        <button class="btn col-sm-offset-10">确&nbsp;认</button>
+                        <button class="btn">清&nbsp;除</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加设备、机构、用户 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="addDeviceList">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">共享列表</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <table class="table-striped footable-res footable metro-blue" data-page-size="6">
+                        <thead>
+                        <tr>
+                            <th>设备名称</th>
+                            <th>状态</th>
+                            <th data-hide="phone">选择</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>长沙矩阵</td>
+                            <td>在线</td>
+                            <td><input type="checkbox"/></td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <div class="pagination pagination-centered"></div>
+                                <span class="pull-right" style="margin-right: 50px;">
+                                    <button style="color: #9EA7B3; outline: none;" class="btn">全&nbsp;选</button>
+                                    <button style="color: #9EA7B3; outline: none;" class="btn">反&nbsp;选</button>
+                                </span>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="form-group" style="margin-top: 10px;">
+                    <button class="btn col-sm-offset-10">确&nbsp;认</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加资源 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="addResources">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">资源列表</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <table class="table-striped footable-res footable metro-blue" data-page-size="6">
+                        <thead>
+                        <tr>
+                            <th>资源名称</th>
+                            <th>所属设备</th>
+                            <th data-hide="phone">选择</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>摄像头</td>
+                            <td>长沙矩阵</td>
+                            <td><input type="checkbox"/></td>
+                        </tr>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <div class="pagination pagination-centered"></div>
+                                <span class="pull-right" style="margin-right: 50px;">
+                                    <button style="color: #9EA7B3; outline: none;" class="btn">全&nbsp;选</button>
+                                    <button style="color: #9EA7B3; outline: none;" class="btn">反&nbsp;选</button>
+                                </span>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="form-group" style="margin-top: 10px;">
+                    <button class="btn col-sm-offset-10">确&nbsp;认</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- 添加共享 -->
+<!--<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg"-->
+     <!--aria-hidden="true" id="shareDevice">-->
+    <!--<div class="modal-dialog modal-lg">-->
+        <!--<div class="modal-content">-->
+            <!--<div class="modal-header">-->
+                <!--<button aria-hidden="true" data-dismiss="modal" class="close" type="button">-->
+                    <!--<span class="entypo-cancel"></span>-->
+                <!--</button>-->
+                <!--<h6 id="myLargeModalLabel" class="modal-title">共享设备</h6>-->
+            <!--</div>-->
+            <!--<div class="modal-body">-->
+                <!--<div class="compose_mail">-->
+                    <!--<div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label for="shareDeviceName" class="control-label">当前设备名称:</label>-->
+                            <!--<input type="text" placeholder="当前设备名称" id="shareDeviceName" class="form-control" disabled>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label class="control-label">共享给用户或机构:</label>-->
+                            <!--<input type="radio" name="shareOption" value="1"> 用户-->
+                            <!--<input type="radio" name="shareOption" value="2"> 机构-->
+                            <!--<input type="radio" name="shareOption" value="3"> 矩阵-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label for="searchKeywords" class="control-label">搜索用户或机构:</label>-->
+                            <!--<input type="text" placeholder="请输入用户名或机构名" id="searchKeywords" class="form-control">-->
+                            <!--<br />-->
+                            <!--<button class="btn btn-success btn-search">搜&nbsp;索</button>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label class="control-label">搜索结果:</label>-->
+                            <!--<div id="searchResult">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                            <!--<label class="control-label">共享输入源:</label><br/>-->
+                            <!--<div id="deviceList">-->
+
+                            <!--</div>-->
+                        <!--</div>-->
+
+                        <!--<button class="confirmBtn btn">确&nbsp;认</button>-->
+                        <!--<button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<script>
+    /* 业务逻辑脚本 */
+    $(document).ready(function () {
+        /* 共享设备 */
+        $('.shareDevice').on('click', function () {
+            $("#shareDeviceName").val($(this).parent().parent().parent().attr('data-name'));
+            //加载输入源
+            matrixId = $(this).attr("matrix-id");
+            var matrix_uuid = $(this).attr("matrix-uuid");
+            $('#deviceList').empty();
+            $.ajax({
+                url: "/Matrix/getDeviceList",
+                type: "post",
+                data: {matrixId: matrix_uuid},
+                success: function (result) {
+                    var html = '';
+                    if (result.status == true) {
+//                            console.log(result.data);
+                        $.each(result.data, function (key, value) {
+                            html += '<input name="checkbox" type="checkbox" value="' + value.id + '">' + value.name + '<br/>';
+                        });
+                        $('#deviceList').append(html);
+                    } else if (result.status == false) {
+                        alert(result.msg);
+                    }
+                }
+            });
+        });
+
+        $(".btn-search").on('click', function () {
+            type = $('input[name=shareOption]:checked').val();
+            var keyword = $('#searchKeywords').val();
+            if (type == undefined) {
+                alert('请选择用户或机构后再进行搜索');
+                return;
+            }
+            if (keyword == '') {
+                alert('请输入搜索关键词');
+                return;
+            }
+            $(".btn-search").addClass("btn_waiting");
+            $(".btn-search").attr("disabled", "disabled");
+            $.ajax({
+                url: "/Matrix/searchInfo",
+                type: "post",
+                data: {keyword: keyword, type: type},
+                success: function (result) {
+                    $('#searchResult').empty();
+                    if (result.status == true) {
+                        var html = '';
+                        $.each(result.data, function (key, value) {
+                            if (type == '1') {
+                                html += '<input name="checkbox" type="checkbox" value="' + value.id + '">' + value.username + '&nbsp;';
+                            } else if (type == '2') {
+                                html += '<input name="checkbox" type="checkbox" value="' + value.id + '">' + value.name + '&nbsp;';
+                            } else if (type == '3') {
+                                html += '<input name="checkbox" type="checkbox" value="' + value.id + '">' + value.name + '&nbsp;';
+                            }
+                        });
+                        $('#searchResult').append(html);
+                        $(".btn-search").removeClass("btn_waiting");
+                        $(".btn-search").removeAttr("disabled");
+                    } else {
+                        alert(result.msg);
+                        $(".btn-search").removeClass("btn_waiting");
+                        $(".btn-search").removeAttr("disabled");
+                    }
+                }
+            });
+        });
+
+
+        $(".confirmBtn").on('click', function () {
+            var searchSelected = $('#searchResult input[name=checkbox]:checked');
+            if (searchSelected.length == 0) {
+                alert('未选中任何用户或机构或矩阵');
+                return;
+            }
+            var deviceSelected = $('#deviceList input[name=checkbox]:checked');
+            if (deviceSelected.length == 0) {
+                alert('未选中任何共享输入源');
+                return;
+            }
+            $(".confirmBtn").addClass("btn_waiting");
+            $(".confirmBtn").attr("disabled", "disabled");
+            var dataSearch = [];
+            var dataDevice = [];
+            searchSelected.each(function () {
+                dataSearch.push($(this).val());
+            });
+            deviceSelected.each(function () {
+                dataDevice.push($(this).val());
+            });
+
+            $.ajax({
+                url: "/Matrix/addShareList",
+                type: "post",
+                data: {
+                    matrixId: matrixId,
+                    dataSearch: dataSearch.join(','),
+                    dataDevice: dataDevice.join(','),
+                    type: type
+                },
+                success: function (result) {
+                    if (result.status == true) {
+                        alert('添加成功');
+                        location.reload();
+                    } else {
+                        alert(result.msg);
+                    }
+                    $(".confirmBtn").removeClass("btn_waiting");
+                    $(".confirmBtn").removeAttr("disabled");
+                }
+            });
+        });
+    });
+</script>
+<script src="/assets/js/tree/jquery.treeview.js"></script>
+<script>
+    $(function() {
+        $("#browser, #browser2").treeview({
+            animated: "fast",
+            collapsed: true,
+            unique: true,
+            toggle: function() {
+                window.console && console.log("%o was toggled", this);
+            }
+        });
+//        $("#browser2 .jt_treeLi1:last-child").css("border-bottom","1px solid #DDD");
+        $("#browser, #browser3").treeview({
+            animated: "fast",
+            collapsed: true,
+            unique: true,
+            toggle: function() {
+                window.console && console.log("%o was toggled", this);
+            }
+        });
+//        $("#browser3 .jt_treeLi1:last-child").css("border-bottom","1px solid #DDD");
+    });
+</script>
+<include file="Common:footer"/>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!-- 设备控制页左菜单 -->
+<div class="jt_leftSBMenu jt_leftMenu jt_Common">
+    <div id="skin-select">
+        <include file="Common:logoFunc" />
+        <div class="jt_leftBarMenu" id="jt_leftBarMenu">
+            <div class="skin-part">
+                <div id="tree-wrap">
+                    <div class="side-bar jt_side-bar">
+                        <ul class="top2 menu-left-nest jt_top2">
+                            <li class="top2Hover">
+                                <a onclick="showmenu(this)" class="title-menu-left">
+                                    <span data-i18n="common.deviceCtr"></span>
+                                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                                </a>
+                            </li>
+                            <ul class="jt_device1">
+                                <li class="device_ctrl clearfix" id="ctrl">
+                                    <div class="tools_lefttop fl">
+                                        <div class="jt_controlArea">
+                                            <div class="jt_control1"></div>
+                                            <div class="jt_operationArea1">
+                                                <a class="jt_stop jt_triangleTopLeft jt_position1"></a>
+                                                <a class="jt_stop jt_triangleUp jt_position2"></a>
+                                                <a class="jt_stop jt_triangleTopRight jt_position3"></a>
+                                                <a class="jt_stop jt_triangleLeft jt_position4"></a>
+                                                <a class="jt_stop jt_position0"><img src="__IMG__icon_shuaXinSB.png" alt="刷新" /></a>
+                                                <a class="jt_stop jt_triangleRight jt_position5"></a>
+                                                <a class="jt_stop jt_triangleBottomLeft jt_position6"></a>
+                                                <a class="jt_stop jt_triangleDown jt_position7"></a>
+                                                <a class="jt_stop jt_triangleBottomRight jt_position8"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tools_righttop fr">
+                                        <div class="jt_control2"></div>
+                                        <div class="jt_control3"></div>
+                                        <div class="jt_control4"></div>
+                                        <div class="jt_operationArea2">
+                                            <a class="jt_span1" onclick="sendCtrl(9);">+</a><label class="jt_label1" data-i18n="common.zoom"></label><a class="jt_span2" onclick="sendCtrl(10);">-</a>
+                                            <a class="jt_span3" onclick="sendCtrl(11);">+</a><label class="jt_label2" data-i18n="common.zooming"></label><a class="jt_span4" onclick="sendCtrl(12);">-</a>
+                                            <a class="jt_span5" onclick="sendCtrl(13);">+</a><label class="jt_label3" data-i18n="common.aperture"></label><a class="jt_span6" onclick="sendCtrl(14);">-</a>
+                                        </div>
+                                    </div>
+                                    <div class="jt_speedInput">
+                                        <div class="jt_speedBG1"></div>
+                                        <label data-i18n="common.speed"></label>
+                                        <input id="speedSlide" data-slider-id="speedSlide" type="text" data-slider-min="0"
+                                               data-slider-max="24" data-slider-step="1" data-slider-value="1"/>
+                                    </div>
+                                    <div class="jt_speedInput">
+                                        <div class="jt_speedBG2"></div>
+                                        <ul>
+                                            <li><img class="jt_dengGuang" src="__IMG__icon_dengGuang.png" alt="灯光" /></li>
+                                            <li><img class="jt_yuShua" src="__IMG__icon_yuShua.png" alt="雨刷" /></li>
+                                            <li><img class="jt_juJiao" src="__IMG__icon_juJiao.png" alt="辅助聚焦" /></li>
+                                            <li><img class="jt_jingTou" src="__IMG__icon_jingTou.png" alt="镜头初始化" /></li>
+                                        </ul>
+                                    </div>
+                                    <div class="jt_config">
+                                        <div class="jt_configAdd">
+                                            <label data-i18n="common.addPreset"><a href="#"></a></label>
+                                            <select>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                            </select>
+											<img src="__IMG__icon_addYZD.png" alt="添加预置点" />
+                                        </div>
+                                        <div class="jt_configCall">
+                                            <label data-i18n="common.callPreset"><a href="#"></a></label>
+                                            <select>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                            </select>
+											<img src="__IMG__icon_callYZD.png" alt="调用预置点" />
+                                        </div>
+                                        <div class="jt_configRemove">
+                                            <label data-i18n="common.deletePreset"><a href="#"></a></label>
+                                            <select>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                            </select>
+											<img src="__IMG__icon_removeYZD.png" alt="删除预置点" />
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </ul>
+                        <div class="dark">
+                            <span>
+                                <input type="text" id="searchSource" class="search rounded id_search" data-i18n="[placeholder]common.search" onkeydown="enter(search)">
+                            </span>
+                            <ul id="menu-showhide1" class="topnav top2 menu-left-nest">
+                                <ul id="menu4">
+                                    <li id="jt_inputList">
+
+                                    </li>
+                                </ul>
+                            </ul>
+                        </div>
+                        <ul id="menu-showhide3" class="topnav top2 menu-left-nest">
+                            <li>
+                                <a onclick="showmenu(this)" class="tooltip-tip title-menu-left ajax-load">
+                                    <span data-i18n="common.deviceList"></span>
+                                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                                </a>
+                            </li>
+                            <ul id="menu3">
+                                <li>
+
+                                </li>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+                <include file="Common:inputTips" />
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        $("#speedSlide,#volumeSlide").bind("input propertychange",function(){
+            var value=$(this).val();
+            if(value){
+                $("#speedSlide,#volumeSlide").attr("data-slider-value",value);
+            }else{
+                $("#speedSlide,#volumeSlide").attr("data-slider-value","1");
+            }
+        });
+        $('#speedSlide,#volumeSlide').slider({
+            formatter: function (value) {
+                return value;
+            }
+        }).on('slide', function (slideEvt) {
+            // 当滚动时触发
+            // console.info(slideEvt);
+            // 获取当前滚动的值，可能有重复
+            // console.info(slideEvt.value);
+        }).on('change', function (e) {
+            // 当值发生改变的时候触发
+            // console.info(e);
+            // 获取旧值和新值
+            console.info(e.value.oldValue + '--' + e.value.newValue);
+        });
+        $("#jt_toggleYY").click(function(){
+            if($("#jt_toggleYY").attr("src") == "/Public/common/images/icon_volume.png"){
+                $("#jt_toggleYY").attr("src","/Public/common/images/icon_volumeJZ.png")
+            }else{
+                $("#jt_toggleYY").attr("src","/Public/common/images/icon_volume.png");
+            }
+        });
+    });
+</script>
+

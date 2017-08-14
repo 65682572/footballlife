@@ -1,0 +1,748 @@
+<!-- 分类管理 -->
+<title data-i18n="class.classManage"></title>
+<include file="Common:matrix_header" />
+<include file="Common:matrix_menu" />
+<include file="Common:matrix_leftbar_public3" />
+<link rel="stylesheet" href="/assets/js/tree/jquery.treeview.css">
+<include file="Common:msgFootable" />
+<script src="/Public/common/js/msgFootable.js"></script>
+<!-- 中间 -->
+<div class="wrap-fluid jt_deviceType jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span data-i18n="class.classManage"></span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle" />
+                    <div class="col-sm-2">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="btn-group btn-wigdet pull-right visible-lg">
+                            <div class="btn">
+                                Widget</div>
+                            <button data-toggle="dropdown" class="btn dropdown-toggle jt_dropTo">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul role="menu" class="dropdown-menu">
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-plus-circled margin-iconic"></span>Add New
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-heart margin-iconic"></span>Favorite
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-cog margin-iconic"></span>Setting
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 jt_rowNest1">
+                <div class="nest" id="FootableClose">
+                    <div class="title-alt">
+                        <h6 data-i18n="class.classManage"></h6>
+                        <div class="titleClose">
+                            <a class="gone" href="#FootableClose">
+                                <span class="entypo-cancel"></span>
+                            </a>
+                        </div>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#Footable">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="btn-group">
+                        <button id="ddDeviceddBtn" class="btn btn-primary addDevice" data-toggle="modal" data-target="#addFClass" type="button" data-i18n="class.addClass" ></button>
+                    </div>
+                    <div class="jt_typeThead">
+                        <ul>
+                            <li data-i18n="class.className"></li>
+                            <li class="jt_typeLi1" data-i18n="class.classStatus"></li>
+                            <!--<li class="jt_typeLi2">绑定事件</li>-->
+                            <li class="jt_typeLi3" data-i18n="class.classIcon"></li>
+                            <li class="jt_typeLi4" data-i18n="alert.establishTime"></li>
+                            <li class="jt_typeLi5" data-i18n="public.operation"></li>
+                        </ul>
+                    </div>
+                    <div class="body-nest" id="Footable">
+                        <div class="jt_maxHeight">
+
+                              <?php
+                                 foreach($list as $k=>$v){
+                              ?>
+                            <!-- 循环第一级 -->
+                            <ul id="browser2" class="treeview">
+                                <li class="jt_treeLi1">
+                                    <!-- 第一级 -->
+                                    <span class="entypo-folder jt_treeLi1Span1">{$v.name}</span>
+                                    <span class="jt_treeLi1Span4"><eq name="v.status" value="1">正常<else/>禁用</eq></span>
+                                    <span class="jt_treeLi1Span5"><img class="jt_treeKG" src="{$v.icon}"></span>
+                                    <span class="jt_treeLi1Span6">{$v.createtime|date='Y-m-d H:i:s',###}</span>
+                                    <span>
+                                        <div class="btn-group">
+
+                                            <button data-number="{$v.number}" data-pid="{$v.pid}" data-bindevent="{$v.bindid}" data-name="{$v.name}" data-id="{$v.id}" data-intro="{$v.intro}" data-groupid="{$v.groupid}" data-groupname="{$v.catename}" class="btn btn-warning editBtn" data-toggle="modal" data-target="#updata" id="edit" name="{$v.name}" data-i18n="public.modify"></button>
+                                            <button data-id="{$v.id}" class="btn btn-info btn-param" data-toggle="modal" data-target="#canshuSet" id="set" data-i18n="public.parame"></button>
+                                            <button data-id="{$v.id}" class="btn btn-danger btn-del" id="btn-SBTypeDel" data-i18n="public.delete"></button>
+                                        </div>
+                                    </span>
+                                    <!-- 第二级 -->
+                                    <!-- 循环第二级 -->
+                                    <?php
+                                    if(is_array($v['child'])){
+                                       foreach($v['child'] as $k1 => $v1){
+
+                                    ?>
+                                    <ul class="jt_defaultNone">
+                                        <li class="jt_treeLi1">
+                                            <!-- 同级第二级 -->
+                                            <span class="entypo-folder jt_treeLi1Span2">{$v1.name}</span>
+                                            <span class="jt_treeLi1Span4"><eq name="v1.status" value="1">正常<else/>禁用</eq></span>
+                                            <span class="jt_treeLi1Span5"><img class="jt_treeKG" src="{$v1.icon}"></span>
+                                            <span class="jt_treeLi1Span6">{$v1.createtime|date='Y-m-d H:i:s',###}</span>
+                                            <span>
+                                                <div class="btn-group">
+                                                    <button data-number="{$v1.number}" data-pid="{$v1.pid}" data-bindevent="{$v1.bindid}" data-name="{$v1.name}" data-id="{$v1.id}" data-intro="{$v1.intro}" data-groupid="{$v1.groupid}" data-groupname="{$v1.catename}"  class="btn btn-warning editBtn" data-toggle="modal" data-target="#updata" id="edit" name="{$v.name}" data-i18n="public.modify"></button>
+                                                    <button data-id="{$v1.id}" class="btn btn-info btn-param" data-toggle="modal" data-target="#canshuSet" id="set" data-i18n="public.parame">参&nbsp;数</button>
+                                                    <button data-id="{$v1.id}" class="btn btn-danger btn-del" id="btn-SBTypeDel" data-i18n="public.delete">删&nbsp;除</button>
+                                                </div>
+                                            </span>
+                                            <!-- 第三级 -->
+                                            <!-- 循环第三级 -->
+                                                <?php
+                                                if(is_array($v1['child'])){
+                                                   foreach($v1['child'] as $k3 => $v3){
+
+                                                ?>
+                                            <ul class="jt_defaultNone">
+                                                <li class="jt_treeLi1">
+                                                    <span class="entypo-newspaper jt_treeLi1Span3">{$v3.name}</span>
+                                                    <span class="jt_treeLi1Span4"><eq name="v3.status" value="1">正常<else/>禁用</eq></span>
+                                                    <span class="jt_treeLi1Span5"><img class="jt_treeKG" src="{$v3.icon}"></span>
+                                                    <span class="jt_treeLi1Span6">{$v3.createtime|date='Y-m-d H:i:s',###}</span>
+                                                    <span>
+                                                        <div class="btn-group">
+                                                            <button data-number="{$v3.number}" data-pid="{$v3.pid}" data-bindevent="{$v3.bindid}" data-name="{$v3.name}" data-id="{$v3.id}" data-intro="{$v3.intro}" data-groupid="{$v3.groupid}" data-groupname="{$v3.catename}" class="btn btn-warning editBtn" data-toggle="modal" data-target="#updata" id="edit" name="{$v.name}" data-i18n="public.modify"></button>
+                                                            <button data-id="{$v3.id}" class="btn btn-info btn-param" data-toggle="modal" data-target="#canshuSet" id="set" data-i18n="public.parame">参&nbsp;数</button>
+                                                            <button data-id="{$v3.id}" class="btn btn-danger btn-del" id="btn-SBTypeDel" data-i18n="public.delete">删&nbsp;除</button>
+                                                        </div>
+                                                    </span>
+                                                    <!-- 循环第四级 -->
+                                                    <?php
+                                                     if(is_array($v3['child'])){
+                                                   foreach($v3['child'] as $k4 => $v4){
+
+                                                    ?>
+                                                    <ul class="jt_defaultNone">
+                                                        <li class="jt_treeLi1">
+                                                            <span class="entypo-newspaper jt_treeLi1Span3 jt_treeLi1Span7">s{$v4.name}</span>
+                                                            <span class="jt_treeLi1Span4"><eq name="v3.status" value="1">正常<else/>禁用</eq></span>
+                                                            <span class="jt_treeLi1Span5"><img class="jt_treeKG" src="{$v4.icon}"></span>
+                                                            <span class="jt_treeLi1Span6">{$v4.createtime|date='Y-m-d H:i:s',###}</span>
+                                                            <span>
+                                                        <div class="btn-group">
+                                                            <button data-number="{$v4.number}" data-pid="{$v4.pid}" data-bindevent="{$v4.bindid}" data-name="{$v4.name}" data-id="{$v4.id}" data-intro="{$v4.intro}" data-groupid="{$v4.groupid}" data-groupname="{$v4.catename}" class="btn btn-warning editBtn" data-toggle="modal" data-target="#updata" id="edit" name="{$v.name}" data-i18n="public.modify"></button>
+                                                            <button data-number="{$v4.number}" data-id="{$v4.id}" class="btn btn-info btn-param" data-toggle="modal" data-target="#canshuSet" id="set" data-i18n="public.parame">参&nbsp;数</button>
+                                                            <button data-id="{$v4.id}" class="btn btn-danger btn-del" id="btn-SBTypeDel" data-i18n="public.delete">删&nbsp;除</button>
+                                                        </div>
+                                                    </span>
+                                                        </li>
+                                                    </ul>
+                                                    <?php
+                                                }
+                                               }
+                                            ?>
+                                                    <!-- 循环第四级结束 -->
+                                                </li>
+                                            </ul>
+                                            <?php
+                                                }
+                                               }
+                                            ?>
+                                            <!-- 循环第三级结束 -->
+                                        </li>
+                                    </ul>
+                                    <?php
+                                        }
+                                       }
+                                    ?>
+                                    <!-- 循环第二级结束 -->
+                                </li>
+                            </ul>
+                            <!-- 循环第一级结束 -->
+                            <?php
+                                }
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框 -->
+<!-- 添加分类 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="addFClass">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title" data-i18n="class.addClass"></h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div>
+                        <div class="form-horizontal" role="form">
+
+                            <div class="form-group">
+                                <label  for="deviceName" class="col-sm-2 control-label" data-i18n="class.className"></label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="classifyname" data-i18n="[placeholder]class.className" id="deviceName" class="form-control">
+                                    <input type="hidden" class="form-control" name="id" value="">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" data-i18n="class.parentClass"></label>
+                                <!-- 注释开始：这里的层级不要动，涉及到分类搜索功能 -->
+                                <div class="col-sm-10 jt_typeSSRelative">
+                                    <div id="divSelect1" class="div_select">
+                                        <div onclick="jt_clickDiv_select1()" id="jt_changeText1" class="jt_clickDiv_select addtypepid" data-i18n="class.parentClass"></div>
+                                        <i class="pull-right"></i>
+                                        <ul class="jt_showUl">
+                                            <div class="jt_typeOne">
+                                                <li class="jt_htmlLi1" onclick="jt_clickLi_select1(this)" data-i18n="class.parentClass"></li>
+                                            </div>
+                                            <?php
+                                                 foreach($list as $k=>$v){
+                                            ?>
+                                            <div class="jt_typeOne">
+                                                <li value="{$v.id}" is_leval="{$v.is_level}" class="jt_htmlLi1" onclick="jt_clickLi_select1(this)">{$v.number}:{$v.name}</li>
+                                                <ul>
+                                                    <?php
+                                                    if(is_array($v['child'])){
+                                                foreach($v['child'] as $k1=>$v1){
+
+                                                    ?>
+                                                    <li value="{$v1.id}" is_leval="{$v1.is_level}" class="jt_htmlLi2" onclick="jt_clickLi_select1(this)">{$v1.number}:{$v1.name}</li>
+                                                    <ul>
+                                                        <?php
+                                                         if(is_array($v1['child'])){
+                                                    foreach($v1['child'] as $k2=>$v2){
+
+                                                        ?>
+                                                        <li  value="{$v2.id}" is_leval="{$v2.is_level}" class="jt_htmlLi3" onclick="jt_clickLi_select1(this)">{$v2.number}:{$v2.name}</li>
+                                                        <?php
+                                                }
+                                                   }
+                                                ?>
+                                                    </ul>
+                                                    <?php
+                                            }
+                                               }
+                                            ?>
+
+                                                </ul>
+                                            </div>
+                                            <?php
+                                       }
+                                    ?>
+                                        </ul>
+                                    </div>
+                                    <include file="Common:publicSearch" />
+                                </div>
+                                <!-- 注释结束：这里的层级不要动，涉及到分类搜索功能 -->
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" data-i18n="class.classNumber"></label>
+                                <div class="col-sm-6">
+                                    <input type="text" data-i18n="[placeholder]class.classNumber" id="createtypenum" class="form-control">
+                                </div>
+                                <span class="jt_branchTips1" data-i18n="class.classTipsAdd"></span>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label  for="classimg" class="col-sm-2 control-label" data-i18n="class.classIcon"></label>
+                                <div class="col-sm-10">
+                                    <input type="file" name="classimg" data-i18n="[placeholder]class.classIcon" id="classimg">
+                                </div>
+                            </div>
+                            <div class="form-group jt_btnGroupWZ">
+                                <button class="addDeviceBtn btn col-sm-offset-2" data-i18n="public.confirm"></button>
+                                <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+                            </div>
+                        </div>
+                        <form enctype="multipart/form-data" method="post" name="fileinfo" id="addfrom"></form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 参数设置 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="canshuSet">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title" data-i18n="common.parameterSet"></h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <table class="table-striped footable-res footable metro-blue" data-page-size="6">
+                        <thead>
+                        <tr>
+                            <th><span data-i18n="deviceManage.parameName"></span></th>
+                            <th><span data-i18n="deviceManage.default"></span></th>
+                            <th data-hide="phone,tablet"><span data-i18n="alert.remarks"></span></th>
+                            <th data-hide="phone"><span data-i18n="public.operation"></span></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <volist name="paramlist" id="v">
+                                <tr data-id="{$v.id}">
+                                    <td>{$v.name}</td>
+                                    <td>{$v.value}</td>
+                                    <td>{$v.remarke}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            <button class="btn btn-warning" data-toggle="modal" data-target="#updataCanshu" data-i18n="public.modify"></button>
+                                            <button class="btn btn-danger" data-i18n="public.delete"></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </volist>
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <div class="pagination pagination-centered"></div>
+                            </td>
+                        </tr>
+                        </tfoot>
+                        <button class="btn btn-primary" data-toggle="modal" data-target="#addCanshu" data-i18n="deviceManage.addParame"></button>
+                    </table>
+                    <br />
+                    <button class="btn jt_btn-close" data-dismiss="modal" aria-hidden="true" data-i18n="public.close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加参数 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="addCanshu">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title" data-i18n="deviceManage.addParame"></h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="deviceManage.parameName"></label>
+                            <div class="col-sm-10">
+                                <input name="paramName" type="text" data-i18n="[placeholder]deviceManage.parameName" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="deviceManage.parameType"></label>
+                            <div class="col-sm-10">
+                                <select id="paramType" class="filter-status form-control">
+                                    <option value="0" data-i18n="deviceManage.selectType"></option>
+                                    <option value="1" data-i18n="deviceManage.byte"></option>
+                                    <option value="2" data-i18n="deviceManage.int"></option>
+                                    <option value="3" data-i18n="deviceManage.long"></option>
+                                    <option value="4" data-i18n="deviceManage.float"></option>
+                                    <option value="5" data-i18n="deviceManage.double"></option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="deviceManage.default"></label>
+                            <div class="col-sm-10">
+                               <input name="paramValue" type="text" data-i18n="[placeholder]deviceManage.default" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="deviceManage.parameExplain"></label>
+                            <div class="col-sm-10">
+                                <input name="paramDesc" type="text"  data-i18n="[placeholder]deviceManage.parameExplain" class="form-control">
+                            </div>
+                        </div> 
+                        <div class="form-group jt_btnGroupWZ">
+                            <div class="jt_btnGroupWZ">
+                                <button class="btn col-sm-offset-2 addparam" data-i18n="public.confirm"></button>
+                                <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改参数 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="updataCanshu">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title" data-i18n="class.modifyParame"></h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="deviceManage.parameName"></label>
+                            <div class="col-sm-10">
+                                <input type="text" data-i18n="[placeholder]deviceManage.parameName" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="class.parameValue"></label>
+                            <div class="col-sm-10">
+                                <input type="text" data-i18n="[placeholder]class.parameValue" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" data-i18n="deviceManage.parameExplain"></label>
+                            <div class="col-sm-10">
+                                <input type="text" data-i18n="[placeholder]deviceManage.parameExplain" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group jt_btnGroupWZ">
+                            <div class="jt_btnGroupWZ">
+                                <button class="btn col-sm-offset-2" data-i18n="public.confirm"></button>
+                                <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="updata">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title" data-i18n="class.modifyClass"></h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div>
+                        <div class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" data-i18n="class.classNumber"></label>
+                                <div class="col-sm-6">
+                                    <input type="text" data-i18n="[placeholder]class.classNumber" id="edittypenum" class="form-control">
+                                </div>
+                                <span class="jt_branchTips1">
+                                    <i class="jt_branchTips2" id="editshownumber"></i>
+                                    <span data-i18n="class.classTipsAdd"></span>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label  for="editDeviceName" class="col-sm-2 control-label" data-i18n="class.className"></label>
+                                <div class="col-sm-10">
+                                    <input type="text" data-i18n="[placeholder]class.className" id="editDeviceName"  class="form-control modifyclass">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" data-i18n="class.parentClass"></label>
+                                <!-- 注释开始：这里的层级不要动，涉及到分类搜索功能 -->
+                                <div class="col-sm-10 jt_typeSSRelative">
+                                    <div id="divSelect1" class="div_select">
+                                        <div onclick="jt_clickDiv_select1()" id="jt_changeText2" class="jt_clickDiv_select" data-i18n="class.parentClass"></div>
+                                        <i class="pull-right"></i>
+                                        <ul class="jt_showUl">
+                                            <div class="jt_typeOne">
+                                                <li class="jt_htmlLi1" onclick="jt_clickLi_select2(this)" data-i18n="class.parentClass"></li>
+                                            </div>
+                                            <?php
+                                                 foreach($list as $k=>$v){
+                                            ?>
+                                            <div class="jt_typeOne">
+                                                <li value="{$v.id}" is_leval="{$v.is_level}" class="jt_htmlLi1" onclick="jt_clickLi_select2(this)">{$v.number}:{$v.name}</li>
+                                                <ul>
+                                                    <?php
+                                                    if(is_array($v['child'])){
+                                                foreach($v['child'] as $k1=>$v1){
+
+                                                    ?>
+                                                    <li value="{$v1.id}" is_leval="{$v1.is_level}" class="jt_htmlLi2" onclick="jt_clickLi_select2(this)">{$v1.number_prefixes}{$v1.number}:{$v1.name}</li>
+                                                    <ul>
+                                                        <?php
+                                                         if(is_array($v1['child'])){
+                                                    foreach($v1['child'] as $k2=>$v2){
+
+                                                        ?>
+                                                        <li  value="{$v2.id}" is_leval="{$v2.is_level}" class="jt_htmlLi3" onclick="jt_clickLi_select2(this)">{$v2.number}:{$v2.name}</li>
+                                                        <?php
+                                                }
+                                                   }
+                                                ?>
+                                                    </ul>
+                                                    <?php
+                                            }
+                                               }
+                                            ?>
+
+                                                </ul>
+                                            </div>
+                                            <?php
+                                       }
+                                    ?>
+                                        </ul>
+                                    </div>
+                                    <include file="Common:publicSearch" />
+                                </div>
+                                <!-- 注释结束：这里的层级不要动，涉及到分类搜索功能 -->
+                            </div>
+                           <!-- <div class="form-group">
+                                <input type="text" name="mfbindevent" placeholder="绑定事件" id="bindevent" class="form-control">
+                            </div>-->
+                            <div class="form-group">
+                                <label for="classimg2" class="col-sm-2 control-label" data-i18n="class.classIcon"></label>
+                                <div class="col-sm-10">
+                                    <input type="file" name="mfclassimg" data-i18n="[placeholder]class.classIcon" id="classimg2" accept="image/*" multiple/>
+                                </div>
+                            </div>
+                            <div class="form-group jt_btnGroupWZ">
+                                <button class="editDeviceBtn btn col-sm-offset-2" data-i18n="public.confirm"></button>
+                                <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+                            </div>
+                        </div>
+                        <form enctype="multipart/form-data" method="post" name="fileinfo" id="editfrom">
+                       </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /MAIN EFFECT -->
+<script src="/assets/js/tree/lib/jquery.cookie.js"></script>
+<script src="/assets/js/tree/jquery.treeview.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $("#browser, #browser2").treeview({
+            animated: "fast",
+            collapsed: false,
+            unique: true,
+            persist: "cookie",
+            toggle: function() {
+                window.console && console.log("%o was toggled", this);
+            }
+        });
+    });
+</script>
+<script>
+    $(".addDeviceBtn").on('click',function(){
+        var id = '';
+        var action = 'addClassifyAction';
+        var classifyname = $("input[name='classifyname']").val();
+        if (!classifyname) {
+            publicAlert({title:'提示信息',content:'请输入分类名称！',icon:'fa fa-rocket'},false);return;
+        }
+        var type = $(".filter-status").val();
+        var obj = $("#addfrom");
+        var formData = new FormData (obj);
+        var file = $("#classimg");
+
+        var pid = $(".addtypepid").attr('value')=='null'?0:$(".addtypepid").attr('value');
+        var typeNumber = $("#createtypenum").val() ;
+        formData.append('action',action);
+        formData.append('id',id);
+        formData.append('classifyname',classifyname);
+        formData.append('type',type);
+        formData.append('file_url',file[0].files[0]);
+        formData.append('pid',pid);
+        formData.append('typeNumber',typeNumber);
+        var request = new XMLHttpRequest();
+        request.open("POST", "{:U('/SystemSet/type_add_ok')}");
+        request.send(formData);
+        request.onload = function(oEvent) {
+            if(oEvent.currentTarget.status == 200){
+                if(JSON.parse(oEvent.currentTarget.response).status){
+                    publicAlert({title:'提示信息',content:JSON.parse(oEvent.currentTarget.response).msg,icon:'fa fa-rocket'},true);
+                }else{
+                    $(this).attr('disabled','disabled');
+                    publicAlert({title:'提示信息',content:JSON.parse(oEvent.currentTarget.response).msg,icon:'fa fa-rocket'},false);
+                }
+            }
+        };
+    });
+    var _pid = 0;
+    $(".addSunDevice").on('click',function () {
+        _pid = $(this).attr('data-id');
+    });
+    //模态框提示上级编号
+    var p_number =0;
+    $(".addSunDevice").click(function(){
+        //获取上级部门编号
+         number = $(this).attr('data-number');
+        //提示模态框的代码
+        if(number){
+            $('#shownumber').text('上级设备分类编号:'+number);
+        }
+        p_number = number;
+    });
+
+   $(".btn-del").on('click',function () {
+       var did = $(this).attr("data-id");
+       publicConfirm({title:'提示信息',content:'确定删除吗？',icon:'fa fa-rocket'},did);
+    });
+    //赋值结束，开始获取值并执行操作
+    var id = '';
+    var p_number = 0;
+    $(".editBtn").on('click',function () {
+        id = $(this).attr("data-id");
+        $("input[name='mfbindevent']").val($(this).attr('data-bindevent'));
+        $("#editDeviceName").val($(this).attr('data-name'));
+        var pid = $(this).attr("data-pid");
+        if(pid != 0){
+            var selectvalue = $(this).parent().parent().parent().parent().parent().children('span')[0].innerText;
+            $(".jt_clickDiv_select").text(selectvalue);
+            $(".jt_clickDiv_select").attr('value',pid);
+        }else{
+            $(".jt_clickDiv_select").text('上级分类');
+            $(".jt_clickDiv_select").attr('value',0);
+        }
+        var number = $(this).attr('data-number');
+        $('#edittypenum').val(number.substr(number.length-3));
+        if(number.substr(0,number.length-3)){
+            $('#editshownumber').text('上级部门编号:'+number.substr(0,number.length-3));
+        }else{
+            $('#editshownumber').text('');
+        }
+        $("#jt_changeText2").i18n();
+    });
+    $(".editDeviceBtn").on('click',function () {
+        var action = 'editClassifyAction';
+        var editDeviceName = $("#editDeviceName").val();
+        if (!editDeviceName) {
+            publicAlert({title:'提示信息',content:'请输入分类名称！',icon:'fa fa-rocket'},false);return;
+        }
+        var type = $(".filter-status").val();
+        var bindevent = $("input[name='mfbindevent']").val();
+        var obj = $("#editfrom");
+        var formData = new FormData(obj);
+        var file = $("#classimg2");
+        var typeNumber =  $("#edittypenum").val();
+        formData.append('action',action);
+        formData.append('id',id);
+        formData.append('editDeviceName',editDeviceName);
+        formData.append('type',type);
+        formData.append('bindevent',bindevent);
+        formData.append('file_url',file[0].files[0]);
+        formData.append('pid',$("#jt_changeText2").attr('value'));
+        formData.append('typeNumber',typeNumber);
+        var request = new XMLHttpRequest();
+        request.open("POST", "{:U('/SystemSet/type_add_ok')}");
+        request.send(formData);
+        request.onload = function(oEvent) {
+            var res = JSON.parse(oEvent.currentTarget.response);
+            if (oEvent.currentTarget.status == 200) {
+                if(res.status){
+                    publicAlert({title:'提示信息',content:res.msg,icon:'fa fa-rocket'},true);
+                }else{
+                    $(this).attr('disabled','disabled');
+                    publicAlert({title:'提示信息',content:res.msg,icon:'fa fa-rocket'},false);
+                }
+            }
+        };
+    });
+
+
+
+
+   //添加分类里面的添加分类选项
+   $(".addDeviceBtn").on('click',function(){
+       $("#addclassin").click(function(){
+            $("#addclassin option").on('change',function(){
+                //没新行选择
+            });
+       });
+   });
+   //添加分类里面的修改分类选项
+   /*$(".editBtn").on('click',function (event) {
+        var curEvent = event || window.event;
+
+        var curName = curEvent.target.name;
+        $('.modifyclass').val(curName);
+        $(".modifyclassin").on('change',function(){
+            $(".editDeviceBtn").on('click',function () {
+
+            });
+        });
+
+   });*/
+/* 添加参数 */
+
+        var id = '';
+        $(".btn-param").on('click',function(){
+            id = $(this).attr("data-id");
+        });
+        $(".addparam").on('click',function(){
+            var action = 'addparam';                
+            var paramName = $("#addCanshu input[name='paramName']").val();
+            var paramValue = $("#addCanshu input[name='paramValue']").val();
+            var paramDesc = $("#addCanshu input[name='paramDesc']").val();
+            var paramType = $("#addCanshu #paramType option:selected").val();                
+            if(!id){
+                publicAlert({title:'提示信息',content:'未获取到所属父级ID',icon:'fa fa-rocket'},false);
+                return;
+            }
+            if(!paramName){
+                publicAlert({title:'提示信息',content:'请输入设备名称',icon:'fa fa-rocket'},false);
+                return;
+            }
+            confirmBtnDisabled($(this),'/Device/addParam',{id:id,action:action,paramName:paramName,paramValue:paramValue,
+                paramDesc:paramDesc,paramType:paramType});
+        });
+   /* 如果是英文，应用样式 */
+   $(document).ready(function(){
+       if($('.jt_typeLi1').text() == "Class status"){
+           $('#ddDeviceddBtn').css("margin","10px 0 0 -63px");
+           $('.jt_typeLi1').css("left","16%");
+           $('.jt_typeLi3').css("left","34%");
+           $('.jt_typeLi4').css("left","51.5%");
+           $('.jt_typeLi5').css("left","64.4%");
+       }
+   });
+</script>
+<include file="Common:footer" />
+</body>
+</html>

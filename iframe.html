@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="background:transparent;">
+<div><a href="javascript:menu();">展开</a></div>
+</body>
+<script>
+    $(document).ready(function(){
+        $("#ifr").mouseover(function(){
+            $(this).document.all.bodyframe.style.visibility='hidden';
+        });
+        $("#ifr").mouseout(function(){
+            $(this).document.all.bodyframe.style.visibility='visible';
+        });
+    });
+
+});
+
+    function menu(){
+        console.log("啊啊："+window.parent.attr("id"));
+    }
+</script>
+</html>

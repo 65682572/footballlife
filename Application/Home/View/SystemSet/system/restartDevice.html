@@ -1,0 +1,111 @@
+<!-- 重启设备 -->
+        <title> 重启设备 </title>
+        <include file="Common:matrix_header" />
+        <include file="Common:matrix_menu" />
+        <div class="jt_leftMenu1">
+            <include file="Common:matrix_leftbar_xtSet" />
+            <!-- 中间 -->
+            <div class="wrap-fluid jt_restartMain jt_basicMain jt_main">
+                <div class="container-fluid paper-wrap bevel tlbr">
+                    <div class="content-wrap">
+                        <div class="row">
+                            <div id="paper-top">
+                                <div class="col-sm-3">
+                                    <h2 class="tittle-content-header">
+                                        <i class="icon-media-record"></i>
+                                        <span>重启设备</span>
+                                    </h2>
+                                </div>
+                                <include file="Common:matrix_mainMiddle" />
+                                <div class="col-sm-2">
+                                    <div class="devider-vertical visible-lg"></div>
+                                    <div class="btn-group btn-wigdet pull-right visible-lg">
+                                        <div class="btn">
+                                            Widget</div>
+                                        <button data-toggle="dropdown" class="btn dropdown-toggle">
+                                            <span class="caret"></span>
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <ul role="menu" class="dropdown-menu">
+                                            <li>
+                                                <a href="#">
+                                                    <span class="entypo-plus-circled margin-iconic"></span>Add New
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span class="entypo-heart margin-iconic"></span>Favorite
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="#">
+                                                    <span class="entypo-cog margin-iconic"></span>Setting
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="body-nest jt_rowNest13" id="Blank_Page_Content">
+                                    <div class="row">
+                                        <div class="col-md-12 personal-info">
+                                            <div class="alert alert-info alert-dismissable">
+                                                <a class="panel-close close" data-dismiss="alert">×</a>
+                                                <i class="fa fa-coffee"></i>
+                                                点击
+                                                <strong>确定</strong>. 将重启设备.
+                                            </div>
+                                            <h3>重启设备</h3>
+                                            <div class="form-group">
+                                                <div class="col-lg-3 col-lg-offset-2">
+                                                    <button class="btn btn-success" data-toggle="modal" data-target="#restart">重启设备</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- 复位出厂值 -->
+            <div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="restart">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                                <span class="entypo-cancel"></span>
+                            </button>
+                            <h6 id="myLargeModalLabel" class="modal-title">重启设备</h6>
+                        </div>
+                        <div class="modal-body">
+                            <div class="compose_mail">
+                                <div>
+                                    <div class="form-group">
+                                        <label>是否重启设备？</label>
+                                    </div>
+                                    <button class="btn">确&nbsp;认</button>
+                                    <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            /* 进入页面自动加载复位出厂值模态框 */
+            $(document).ready(function(){
+                $('#restart').modal({
+                    show:true,
+                    backdrop:true
+                })
+            });
+        </script>
+        <include file="Common:footer" />
+    </body>
+</html>

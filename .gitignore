@@ -1,0 +1,7 @@
+.idea
+
+/Application/Common/Conf/config.php
+/Runtime/*
+/Application/Common/Conf/config.php.bak
+/.htaccess
+/.htaccess

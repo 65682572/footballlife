@@ -1,0 +1,333 @@
+<!-- 角色管理 -->
+<title> 角色管理 </title>
+<include file="Common:matrix_header" />
+<include file="Common:matrix_menu" />
+<include file="Common:matrix_leftbar_public" />
+<include file="Common:msgFootable" />
+<script src="/Public/common/js/msgFootable.js"></script>
+<script src="__JS__plugins/jsTree/jstree.min.js"></script>
+<link href="__CSS__plugins/jsTree/style.min.css" rel="stylesheet">
+<!-- 中间 -->
+<div class="wrap-fluid jt_userMain jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span>角色管理</span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle" />
+                    <div class="col-sm-2">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="btn-group btn-wigdet pull-right visible-lg">
+                            <div class="btn">
+                                Widget</div>
+                            <button data-toggle="dropdown" class="btn dropdown-toggle jt_dropTo">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul role="menu" class="dropdown-menu">
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-plus-circled margin-iconic"></span>Add New
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-heart margin-iconic"></span>Favorite
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-cog margin-iconic"></span>Setting
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 jt_rowNest1">
+                <div class="nest" id="FootableClose">
+                    <div class="title-alt">
+                        <h6>
+                            角色管理
+                        </h6>
+                        <div class="titleClose">
+                            <a class="gone" href="#FootableClose">
+                                <span class="entypo-cancel"></span>
+                            </a>
+                        </div>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#Footable">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="Footable">
+                        <table class="table-striped footable-res footable metro-blue" data-page-size="10">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>角色名称</th>
+                                <th>所属机构</th>
+                                <th data-hide="phone,tablet">备注</th>
+                                <th data-hide="phone">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <volist name="rolelist" id="v">
+                                <tr>
+                                    <td></td>
+                                    <td>{$v.name}</td>
+                                    <td>
+                                        <a href="#">{$v.firmname}</a>
+                                    </td>
+                                    <td>{$v.intro}</td>
+                                    <td data-id="{$v.id}" data-name="{$v.name}" data-intro="{$v.intro}">
+                                        <div class="btn-group">
+                                            <button class="btn btn-success auth_rule" data-id="{$v.id}" data-toggle="modal" data-target="#author">权&nbsp;限</button>
+                                            <button class="btn btn-warning roleEdit" data-id="{$v.id}" data-toggle="modal" data-target="#roleEdit">编&nbsp;辑</button>
+                                            <button class="btn btn-danger roledel" data-id="{$v.id}">删&nbsp;除</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </volist>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <div class="pagination pagination-centered"></div>
+                                </td>
+                            </tr>
+                            </tfoot>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#addRole">添加角色</button>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框 -->
+<!-- 授权 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="author">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 id="myLargeModalLabel" class="modal-title">授予权限</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <form role="form">
+                        <div class="modal-body" id="jstree_auth">
+
+                        </div>
+                        <button id="btn-access"  class="btn btn-primary btn-sm submit">确&nbsp;认</button>
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 编辑 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="roleEdit">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">编辑角色</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">角色名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="username" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">备注</label>
+                            <div class="col-sm-10 control-label">
+                                <textarea name="intro" class="form-control" placeholder="备注" rows="8"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group jt_btnGroupWZ">
+                            <button id="trueButton" class="btn col-sm-offset-2">确&nbsp;认</button>
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加角色 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="addRole">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">添加角色</h6>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal" role="form">                    
+                    <div class="form-group">
+                        <label for="createGroupDesc" class="col-sm-2 control-label">请输入角色名称</label>
+                        <div class="col-sm-10">
+                            <input id="createGroupDesc" class="form-control" placeholder="例如：部门管理员"></input>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">备注</label>
+                        <div class="col-sm-10 control-label">
+                            <textarea name="intro" class="form-control" placeholder="备注" rows="8"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group jt_btnGroupWZ">
+                        <button class="btn col-sm-offset-2" id="trueButton1">确&nbsp;认</button>
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/assets/js/tree/jquery.treeview.js"></script>
+<script>
+    $(function() {
+        $("#browser, #browser2").treeview({
+            animated: "fast",
+            collapsed: false,
+            unique: true,
+            toggle: function() {
+                window.console && console.log("%o was toggled", this);
+            }
+        });
+        $("#browser2 .jt_treeLi1:last-child").css("border-bottom","1px solid #DDD");
+    });
+</script>
+<script>
+    //添加角色
+    $("#trueButton1").on('click',function(){
+        $("#trueButton1").attr('disabled',true);
+        var name = $("#createGroupDesc").val();
+        var intro = $("#addRole textarea[name='intro']").val();
+        $.post('/Organization/role_ok', {name:name,intro:intro,action:'add'}, function(sdata) {
+            $("#trueButton1").attr('disabled',false);
+            if (sdata>0) {
+                alert('添加角色成功');
+                location.reload();
+            }else{
+                alert('添加角色失败');
+            }
+        });
+    });
+    id = '';
+    //编辑角色
+    $(".roleEdit").on('click', function() {
+        id = $(this).parent().parent().attr('data-id');
+        var dataname = $(this).parent().parent().attr('data-name');
+        var intro = $(this).parent().parent().attr('data-intro');
+        $("#username").val(dataname);
+        $("#roleEdit textarea[name='intro']").val(intro);        
+    });
+    $("#trueButton").on('click',function(){ 
+        $("#trueButton").attr('disabled',true);       
+        var name = $("#username").val();
+        var intro = $("#roleEdit textarea[name='intro']").val();
+        $.post('/Organization/role_ok', {id:id,name:name,intro:intro,action:'edit'}, function(sdata) {
+            $("#trueButton").attr('disabled',false);
+            if (sdata>0) {
+                alert('编辑角色成功');
+                location.reload();
+            }else{
+                alert('编辑角色失败');
+            }
+        });
+    });
+    //删除角色
+    $(".roledel").on('click', function() {
+        if (confirm('您确认删除吗')) {
+            id = $(this).attr('data-id');
+            $.post('/Organization/role_del', {id: id}, function(sdata) {
+                if (sdata>0) {
+                    alert('删除角色成功');
+                    location.reload();
+                }else{
+                    alert('删除角色失败');
+                }
+            });
+        }
+    });
+    /*授权*/
+    $('.auth_rule').on('click',function(){
+        id = $(this).parent().parent().attr('data-id');
+        $('#jstree_auth').data('jstree', false).empty();//jstree清空实例
+        $.ajax({
+            url: "/auth/access",
+            type: "post",
+            cache: false,
+            async: true,
+            data: {groupid : id},
+            success: function (result) {
+                $('#jstree_auth').jstree({
+                    'core': {
+                        'data': result
+                    },
+                    "checkbox": {
+                        "keep_selected_style": true,
+                        "real_checkboxes": true
+                    },
+                    'plugins': ["checkbox", 'types', 'dnd'],
+                    "types": {
+                        "default": {
+                            "icon": false  // 关闭默认图标
+                        }
+                    }
+
+                });
+            }
+        });        
+    });
+    $("#btn-access").click(function () {
+        $("#btn-access").attr('disabled',true);
+        var string = "";
+        $(".jstree li").each(function (i) {
+            if ($(this).attr("aria-selected") == "true") {
+                string += $(this).attr("id") + ",";
+            }
+        });
+        $.ajax({
+            url: "/auth/accessSubmit",
+            type: "post",
+            data: {id: id, data: string},
+            success: function (result) {
+                $("#btn-access").attr('disabled',false);
+                if (result['result'] == 1) {
+                    alert("授权成功");
+                    location.reload();
+                } else {
+                    alert("授权失败");
+                }
+            }
+        });
+    });
+</script>
+<include file="Common:footer" />
+</body>
+</html>

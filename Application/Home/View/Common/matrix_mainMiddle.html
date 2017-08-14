@@ -1,0 +1,162 @@
+<div class="col-lg-7">
+    <div class="devider-vertical visible-lg"></div>
+    <div class="tittle-middle-header">
+        <div class="alert" id="app">
+            <ul id="nt-title">
+                <li style="margin-left: -20px; border-bottom: 1px solid rgba(230, 219, 220, 0.8); box-shadow: 0 5px 2px -5px; max-width: 455px; overflow: hidden;">
+                    <button type="button" class="close" id="uptext"></button>
+                    <span class="tittle-alert entypo-info-circled"></span>
+                    <span data-i18n="common.welcomeBack"></span>
+                    <strong>{$userinfo.username}!</strong>
+                    <span data-i18n="common.lastLoginTime"></span>
+                    <span>{:date('Y-m-d H:i:s', session('lastLoginTime'))}</span>
+                </li>
+            </ul>
+            <i class="entypo-up-open jt_right"></i>
+        </div>
+    </div>
+</div>
+<script src='__JS__/socket.io.js'></script>
+<script src="/assets/js/load.js"></script>
+<script src="/assets/js/main.js"></script>
+<script>
+    (function ($) {
+        $.fn.extend({
+            notify: function (options) {
+                var settings = $.extend({ type: 'sticky', speed: 500, onDemandButtonHeight: 35 }, options);
+                return this.each(function () {
+                    var wrapper = $(this);
+                    var ondemandBtn = $('.ondemand-button');
+                    var dh = -35;
+                    var w = wrapper.outerWidth() - ondemandBtn.outerWidth();
+                    ondemandBtn.css('left', w).css('margin-top',  dh + "px" );
+                    var h = -wrapper.outerHeight();
+                    wrapper.addClass(settings.type).css('margin-top', h).addClass('visible').removeClass('hide');
+                    if (settings.type != 'ondemand') {
+                        wrapper.stop(true, false).animate({ marginTop: 0 }, settings.speed);
+                    }
+                    else {
+                        ondemandBtn.stop(true, false).animate({ marginTop: 0 }, settings.speed);
+                    }
+
+                    var closeBtn = $('.close', wrapper);
+                    closeBtn.click(function () {
+                        if (settings.type == 'ondemand') {
+                            wrapper.stop(true, false).animate({ marginTop: h }, settings.speed, function () {
+                                wrapper.removeClass('visible').addClass('hide');
+                                ondemandBtn.stop(true, false).animate({ marginTop: 0 }, settings.speed);
+                            });
+                        }
+                        else {
+                            wrapper.stop(true, false).animate({ marginTop: h }, settings.speed, function () {
+                                wrapper.removeClass('visible').addClass('hide');
+                            });
+                        }
+                    });
+                    if (settings.type == 'floated') {
+                        $(document).scroll(function (e) {
+                            wrapper.stop(true, false).animate({ top: $(document).scrollTop() }, settings.speed);
+                        }).resize(function (e) {
+                            wrapper.stop(true, false).animate({ top: $(document).scrollTop() }, settings.speed);
+                        });
+                    }
+                    else if (settings.type == 'ondemand') {
+                        ondemandBtn.click(function () {
+                            $(this).animate({ marginTop: dh }, settings.speed, function () {
+                                wrapper.removeClass('hide').addClass('visible').animate({ marginTop: 0 }, settings.speed, function () {
+
+                                });
+                            })
+                        });
+                    }
+
+                });
+
+            }
+        });
+    })(jQuery);
+    var uid = {:session('user_auth.uid')};
+    $(document).ready(function () {
+        var socket = io('{:C('SITE_URL')}:2120');
+        var mylastfirmid = {:session('lastfirmid')};
+//        console.log("我的机构："+mylastfirmid);
+        socket.on('connect', function(){
+            socket.emit('login', uid);
+        });
+        socket.on('logout', function(msg){
+            $.post('/Index/setdevicestate', {uid:msg.uid,action:'logout'}, function(sdata) {
+                // if (sdata.res == 1) {
+                //     var thisimg = $("#"+sdata.uuid).find('img').get(0);
+                //     var imgSrc = $(thisimg).attr("src");        
+                //     if (typeof(imgSrc)!="undefined") {            
+                //         if(imgSrc.indexOf("plus") >= 0){
+                //             $(thisimg).attr("src","/assets/img/plus.png");
+                //         }
+                //     }
+                // }
+            });
+            if (mylastfirmid == msg.lastfirmid) {
+                $.post('/Index/myfrimuserget', function(sdata) {
+                    $("#mychilduser").html('<span>共'+sdata.myalluser+'个子用户，在线'+sdata.myusersum+'人</span>')
+                });
+            }            
+        });
+        socket.on('login', function(msg){
+            $.post('/Index/setdevicestate', {uid:msg.uid,action:'login'}, function(sdata) {
+                // if (sdata.res == 1) {
+                //     var thisimg = $("#"+sdata.uuid).find('img').get(0);
+                //     var imgSrc = $(thisimg).attr("src");        
+                //     if (typeof(imgSrc)!="undefined") {            
+                //         if(imgSrc.indexOf("plus") >= 0){
+                //             $(thisimg).attr("src","/assets/img/plus_green.png");
+                //         }
+                //     }                    
+                // }
+            });
+            if (mylastfirmid == msg.lastfirmid) {
+                $.post('/Index/myfrimuserget', function(sdata) {
+                    $("#mychilduser").html('<span>共'+sdata.myalluser+'个子用户，在线'+sdata.myusersum+'人</span>')
+                });
+            }
+        });
+        socket.on('new_msg', function(msg){
+            if(msg.length >0 && msg.length <300){
+                $('#app').html('<ul style="list-style-type: none;"><li><button type="button" class="close" id="uptext"></button><span class="tittle-alert entypo-info-circled"></span>' + msg + '</li></ul>');
+                $('#Blockquotes1').append('<ul style="list-style-type: none;"><li><button type="button" class="close" id="uptext"></button><span class="tittle-alert entypo-info-circled"></span>' + msg + '</li></ul>');
+            }
+        });
+        socket.on('relogin', function(msg){
+            alert(msg);
+            location.reload();
+        });
+
+        socket.on('alarm', function(msg) {
+            var obj = document.getElementById('alarmAudio');
+            obj.play();
+            msg = JSON.parse(msg);
+            var confirm = {
+                title: msg.title,
+                content: msg.content,
+                animation: 'scale',
+                closeAnimation: 'scale',
+                buttons: {
+                    确定: function () {
+                        location.href = msg.url;
+                    },
+                    取消: function () {
+
+                    }
+                }
+            };
+            $.confirm(confirm);
+        });
+        socket.on('testalert', function(msg){
+            msg = JSON.parse(msg);
+            var content = '触发设备：' + msg.dname + '<br/>';
+            content += '触发事件：' + msg.ename + '<br/>';
+            content += '响应事件：' + msg.rname + '<br/>';
+            publicAlert({content: content},false);
+        });
+    });
+</script>
+<audio id="alarmAudio" src='/Public/common/wav/alarm.wav' controls="controls" loop="true" hidden="true" ></audio>

@@ -1,0 +1,84 @@
+<include file="Common:header" />
+<link href="__CSS__plugins/jsTree/style.min.css" rel="stylesheet">
+<title data-i18n="menu.p_password"></title>
+</head>
+<body>
+<div id="wrapper" class="p_info fpwd">
+    <include file="Common:leftBar" />
+    <div id="page-wrapper" class="gray-bg">
+        <include file="Common:topBar" />
+        <div class="passwordBox animated fadeInDown">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ibox-content">
+                        <h2 class="font-bold" data-i18n="fpwd.title"></h2>
+                        <p class="error"></p>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <form class="m-t" role="form">
+                                    <input name="tel" type="hidden" class="form-control"  required="">
+                                    <div class="form-group">
+                                        <input name="password" type="password" class="form-control" data-i18n="[placeholder]fpwd.passwordNew" required="">
+                                    </div>
+                                    <div class="form-group">
+                                        <input name="password_confirm" type="password" class="form-control" data-i18n="[placeholder]reg.password_cf" required="">
+                                    </div>
+                                    <button type="button" class="btn btn-primary block full-width m-b dosub" data-i18n="public.submit"></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var myObj = {
+        $sub:true,
+        init:function(){
+            $(".dosub").bind("click", function(){
+                if (myObj.check() == false || myObj.$sub == false){
+                    return false;
+                }
+                myObj.$sub = false;
+                var objj = $(this);
+                objj.addClass("btn_waiting");
+                $.ajax({
+                    url:"/user/setPwd",
+                    type:"post",
+                    async:false,
+                    data:{password:$('input[name="password"]').val(),password_confirm:$('input[name="password_confirm"]').val()},
+                    dataType : 'json',
+                    success:function(ret){
+                        if (ret['status'] == true){
+                            $('.error').text('修改成功!').show();
+                            location.href = '/User/findPwd';
+                        }else{
+                            myObj.$error.text(ret.msg).show();
+                            objj.removeClass("btn_waiting");
+                            myObj.$sub = true;
+                        }
+                    }
+                });
+            });
+        },
+        check:function(){
+            var result = ($('input[name="password"]').val() == $('input[name="password_confirm"]').val());
+            if(!result){
+                $('input[name="password_confirm"]').val('');
+                $('.error').text('两次输入的密码不一致!').show();
+                return false;
+            }
+            var result = Link.utils.ckPwd($('input[name="password"]').val());
+            if(!result){
+                $('.error').text('密码必须为8-20之间的字母+数字组合！').show();
+                return false;
+            }
+            return true;
+        }
+    };
+    myObj.init();
+</script>
+</body>
+</html>

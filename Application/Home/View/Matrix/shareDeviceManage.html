@@ -1,0 +1,518 @@
+<!-- 共享管理 -->
+<title> 共享管理 </title>
+<include file="Common:matrix_header"/>
+<include file="Common:matrix_menu"/>
+<include file="Common:matrix_leftbar_public3"/>
+<include file="Common:msgFootable"/>
+<script src="/Public/common/js/msgFootable.js"></script>
+<link rel="stylesheet" href="/Public/common/css/plugins/jsTree/style.min.css"/>
+<script src="__JS__plugins/jsTree/jstree.min.js"></script>
+<!-- 中间 -->
+<div class="wrap-fluid shareDeviceMain jt_branchMain jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span>共享管理</span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 jt_rowNest1">
+                <div class="nest" id="FootableClose">
+                    <div class="title-alt">
+                        <h6>
+                            共享管理
+                        </h6>
+                        <div class="titleClose">
+                            <a class="gone" href="#FootableClose">
+                                <span class="entypo-cancel"></span>
+                            </a>
+                        </div>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#Footable">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="Footable">
+                        <table class="table-striped footable-res footable metro-blue" data-page-size="10">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>共享机构</th>
+                                <th>共享设备</th>
+                                <th>资源列表</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <foreach name="shareList" item="v">
+                                <tr resource-data="{:implode(',', unserialize($v['resource']))}">
+                                    <td class="jt_hiddenTd3">{$v['id']}</td>
+                                    <td class="jt_hiddenTd3">{$v['firmname']?$v['firmname']:'/'}</td>
+                                    <td class="jt_hiddenTd3">{$v['devicename']?$v['devicename']:'/'}</td>
+                                    <td class="jt_hiddenTd3">
+                                        <select>
+                                            <option value ="m_54e63f333333412613e0dfce5f0bffff_26_0">192.168.2.12</option>
+                                            <option value ="m_54e63f333333412613e0dfce5f0bffff_26_0">192.168.2.13</option>
+                                        </select>
+                                    </td>
+                                    <td class="jt_hiddenTd4">
+                                        <div class="btn-group">
+                                            <button data-toggle="modal" data-target="#modifyResources" disabled="ture" 
+                                                    class="btn btn-warning resourceModify" resource-id="{$v['id']}">加载中...
+                                            </button>
+                                            <button class="btn btn-danger resourceDelete" id="btn-resourceDelete" resource-id="{$v['id']}">删&nbsp;除</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </foreach>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <div class="pagination pagination-centered"></div>
+                                </td>
+                            </tr>
+                            </tfoot>
+                            <div class="btn-group">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#shareDevice">添加共享</button>
+                            </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加共享 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg"
+     aria-hidden="true" id="shareDevice">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">添加共享</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="btn-group">
+                                <button class="btn btn-primary addDevice" data-toggle="modal"
+                                        data-target="#addDevice">
+                                    添加设备
+                                </button>
+                                <button class="btn btn-primary addOrganization" data-toggle="modal"
+                                        data-target="#addOrganization">添加机构
+                                </button>
+                            </div>
+                            <div class="jt_bodyBox">
+                                <div class="form-group">
+                                    <div class="col-sm-10">
+                                        <div id="divSelect3" class="div_select">
+                                            <ul class="jt_showUl" id="jt_showUl">
+                                                <div class="jt_typeOne">
+                                                    <li class="jt_htmlLi1">设备</li>
+                                                    <ul id="device">
+
+                                                    </ul>
+                                                    <li class="jt_htmlLi1">机构</li>
+                                                    <ul id="organization">
+
+                                                    </ul>
+                                                </div>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-primary addResourcesToList" data-toggle="modal"
+                                    data-target="#addResources">添加资源
+                            </button>
+                            <div class="jt_bodyBox">
+                                <div class="form-group">
+                                    <div class="col-sm-10" id="resource">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="form-group jt_xyyModel">
+                        <button class="btn allConfirm">确&nbsp;认</button>
+                        <button class="btn">清&nbsp;除</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加设备 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg"
+     aria-hidden="true" id="addDevice">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">设备列表</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail jt_bodyTableBox1">
+                    <table class="table-striped footable-res footable metro-blue" data-page-size="10">
+                        <thead>
+                        <tr>
+                            <th>设备名称</th>
+                            <th data-hide="phone">选择</th>
+                        </tr>
+                        </thead>
+                        <tbody id="deviceInner">
+
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <div class="pagination pagination-centered"></div>
+                                <span class="pull-right">
+                                    <button class="btn jt_btnColor" onclick="checkedAll('select1');">全&nbsp;选</button>
+                                    <button class="btn jt_btnColor" onclick="checkedNo('select1');">反&nbsp;选</button>
+                                </span>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="form-group jt_btnGroup">
+                    <button class="btn deviceSelectConfirm">确&nbsp;认</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加机构 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg"
+     aria-hidden="true" id="addOrganization">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">机构列表</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail jt_bodyTableBox2">
+                    <table class="table-striped footable-res footable metro-blue" data-page-size="10">
+                        <thead>
+                        <tr>
+                            <th>机构名称</th>
+                            <th data-hide="phone">选择</th>
+                        </tr>
+                        </thead>
+                        <tbody id="orgInner">
+
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <div class="pagination pagination-centered"></div>
+                                <span class="pull-right">
+                                    <button class="btn jt_btnColor" onclick="checkedAll('select2');">全&nbsp;选</button>
+                                    <button class="btn jt_btnColor" onclick="checkedNo('select2');">反&nbsp;选</button>
+                                </span>
+                            </td>
+                        </tr>
+                        </tfoot>
+                        <div class="form-group">
+                            <input class="search" type="text" value="" placeholder="输入后回车搜索机构..."
+                                   onkeydown="enter(searchOrg)">
+                        </div>
+                    </table>
+                </div>
+                <div class="form-group jt_btnGroup">
+                    <button class="btn orgSelectConfirm">确&nbsp;认</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加资源 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg"
+     aria-hidden="true" id="addResources">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">资源列表</h6>
+            </div>
+            <!-- 注释开始：这里的层级不要动，涉及到通用jsTree全选反选功能 -->
+            <div class="modal-body">
+                <div class="compose_mail jt_bodyTableBox3">
+                    <div class="modal-body" id="deviceTree">
+
+                    </div>
+                </div>
+                <div class="form-group jt_btnGroup">
+                    <button class="btn jt_btnColor" onclick="checkedAllTree(this)">全&nbsp;选</button>
+                    <button class="btn jt_btnColor" onclick="checkedNoTree(this)">反&nbsp;选</button>
+                    <button class="btn resourceConfirm">确&nbsp;认</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                </div>
+            </div>
+            <!-- 注释结束：这里的层级不要动，涉及到通用jsTree全选反选功能 -->
+        </div>
+    </div>
+</div>
+<!-- 权限资源 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg"
+     aria-hidden="true" id="modifyResources">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">资源列表</h6>
+            </div>
+            <!-- 注释开始：这里的层级不要动，涉及到通用jsTree全选反选功能 -->
+            <div class="modal-body">
+                <div class="compose_mail jt_bodyTableBox3">
+                    <div class="modal-body" id="modifyTree">
+
+                    </div>
+                </div>
+                <div class="form-group jt_btnGroup">
+                    <button class="btn jt_btnColor" onclick="checkedAllTree(this)">全&nbsp;选</button>
+                    <button class="btn jt_btnColor" onclick="checkedNoTree(this)">反&nbsp;选</button>
+                    <button class="btn resourceModifyConfirm">确&nbsp;认</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                </div>
+            </div>
+            <!-- 注释结束：这里的层级不要动，涉及到通用jsTree全选反选功能 -->
+        </div>
+    </div>
+</div>
+<script>
+    resTree = []; //原始资源树数据
+    function searchOrg() {
+        var keyword = $('.search').val();
+        if (keyword != '') {
+            $('#orgInner').empty();
+            var wait = '<div class="panel-heading">搜索机构中...</div>';
+            $('#orgInner').append(wait);
+            $.ajax({
+                url: '/Matrix/searchOrg',
+                type: 'post',
+                data: {keyword: keyword},
+                success: function (result) {
+                    var html = '';
+                    if (result.status == true) {
+                        $.each(result.data, function (key, value) {
+                            html += '<tr><td>' + value.name + '</td><td><input org-name="' + value.name + '" name="select2" value="' + value.id + '" type="checkbox"/></td></tr>';
+                        });
+                        $('#orgInner').empty();
+                        $('#orgInner').append(html);
+                    } else if (result.status == false) {
+                        publicAlert({title:'提示信息',content:result.msg,icon:'fa fa-rocket'},false);
+                        $('#orgInner').empty();
+                    }
+                }
+            });
+        } else {
+            publicAlert({title:'提示信息',content:'请输入搜索关键词',icon:'fa fa-rocket'},false);
+        }
+    }
+
+    function addshareTree(){
+        //新增共享时的原始树
+        $('#deviceTree').jstree({
+            'checkbox': {
+                'real_checkboxes': true
+            },
+            'plugins': ['checkbox', 'types', 'sort'],
+            'types': {
+                'default': {
+                    "icon": false  // 关闭默认图标
+                }
+            },
+            'core': {
+                'data': resTree
+            }
+        });
+    }
+
+    function editshareTree(){
+        //编辑共享时的原始树
+        $('#modifyTree').jstree({
+            'checkbox': {
+                'real_checkboxes': true
+            },
+            'plugins': ['checkbox', 'types', 'sort'],
+            'types': {
+                'default': {
+                    "icon": false  // 关闭默认图标
+                }
+            },
+            'core': {
+                'data': resTree
+            }
+        });
+    }
+
+    //ajax请求原始树数据
+    function resTree2(){        
+        $.ajax({
+            url: '/Matrix/getDeviceListForShareDevice',
+            type: 'get',
+            success: function (result) {
+                resTree = result;
+                $('#deviceTree').empty();
+                if (resTree) {
+                    $("[data-target='#modifyResources']").attr('disabled',false).text('修 改');
+                    addshareTree();
+                    editshareTree();
+                }
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        resourceInit = 0;
+        resourceModifyInit = 0;
+        curId = 0;
+        dataDevice = []; //设备数据
+        dataOrg = []; //机构数据
+        resData = []; //资源数据
+        resTree2();
+        $('.addDevice').click(function () {
+            $('#deviceInner').empty();
+            var wait = '<div class="panel-heading">读取设备中...</div>';
+            $('#deviceInner').append(wait);
+            $.ajax({
+                url: '/Matrix/getDeviceListForAddDevice',
+                type: 'get',
+                success: function (result) {
+                    var html = '';
+                    if (result.status == true) {
+                        $.each(result.data, function (key, value) {
+                            html += '<tr><td>' + value.name + '</td><td><input device-name="' + value.name + '" name="select1" value="' + value.id + '" type="checkbox"/></td></tr>';
+                        });
+                        $('#deviceInner').empty();
+                        $('#deviceInner').append(html);
+                    } else if (result.status == false) {
+                        publicAlert({title:'提示信息',content:result.msg,icon:'fa fa-rocket'},false);
+                    }
+                }
+            });
+        });
+        $('.deviceSelectConfirm').click(function () {
+            $('#device').empty();
+            var html = '';
+            var deviceSelected = $('#deviceInner input[name=select1]:checked');
+            deviceSelected.each(function () {
+                dataDevice.push($(this).val());
+            });
+
+            deviceSelected.each(function () {
+                html += '<li class="jt_htmlLi2">' + $(this).attr('device-name') + '</li>';
+            });
+
+            $('#device').empty();
+            $('#device').append(html);
+            $('#addDevice').modal('hide');
+        });
+        $('.orgSelectConfirm').click(function () {
+            var html = '';
+            var orgSelected = $('#orgInner input[name=select2]:checked');
+
+            orgSelected.each(function () {
+                dataOrg.push($(this).val());
+            });
+
+            orgSelected.each(function () {
+                html += '<li class="jt_htmlLi2">' + $(this).attr('org-name') + '</li>';
+            });
+
+            $('#organization').empty();
+            $('#organization').append(html);
+            $('#addOrganization').modal('hide');
+        });
+
+        $('.resourceConfirm').click(function () {
+            $('#resource').empty();
+            var html = '';
+            var resDataObj = $('#deviceTree').jstree(true).get_bottom_selected(true);
+            resData = $('#deviceTree').jstree(true).get_bottom_selected();
+            $.each(resDataObj, function (key, value) {
+                html += '<div>' + value.text + '</div>';
+            });
+
+            $('#resource').append(html);
+            $('#addResources').modal('hide');
+        });
+
+        $('.allConfirm').click(function () {
+            confirmBtnDisabled($(this),'/Matrix/addShareList',{dataDevice: dataDevice, dataOrg: dataOrg, resData: resData});
+        });
+
+        $('.modifyConfirm').click(function () {
+            var resourceStr = $(this).parent().parent().parent().attr('resource-data');
+            resourceStr = resourceStr.split(',');
+            $.each(resourceStr, function (key, value) {
+                $('#deviceTree').jstree("check_node", $('#' + value));
+            })
+        });
+
+        $('.resourceModify').click(function () {
+            curId = $(this).attr('resource-id');
+            $.ajax({
+                url: '/Matrix/getResource',
+                type: 'post',
+                data: {id: curId},
+                success: function (result) {
+                    if (result.status == true) {
+                        $.each(result.data, function (key, value) {
+                            $('#modifyTree').jstree("select_node", $('#' + value + '_anchor'));
+                            // var ssid = value + "_anchor";
+                            // console.log($("#"+ssid));
+                            // $("#"+ssid).attr('className','jstree-clicked');
+                        })
+                    } else {
+                        alert(result.msg);
+                    }
+                }
+            });
+        });
+
+        $('.resourceModifyConfirm').click(function () {
+            var dataModify = $('#modifyTree').jstree(true).get_bottom_selected();
+            confirmBtnDisabled($(this),'Matrix/editShareList',{id: curId, resource: dataModify})
+        });
+
+        $('.resourceDelete').click(function () {
+            publicConfirm({title:'提示信息',content:'确定删除吗？',icon:'fa fa-rocket'});
+        });
+    });
+
+</script>
+<include file="Common:footer"/>
+</body>
+</html>

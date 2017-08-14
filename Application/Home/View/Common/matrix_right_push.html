@@ -1,0 +1,73 @@
+			<!-- 右边菜单 -->
+			<div class="jt_rightBarInfo" id="jt_rightBarInfo">
+				<div class="jt_rightBarOne">
+					<div class="jt_one">
+						<label>警点</label>&nbsp;
+						<select name="" id="">
+							<option value="1">1</option>
+							<option value="2">2</option>
+						</select>
+						<div class="btn btn-xs btn-default">消警</div>
+						<div class="btn btn-xs btn-default">设防</div>
+						<div class="btn btn-xs btn-default">撤防</div>
+					</div>
+				</div>
+				<div class="jt_rightBarTwo">
+					<div class="jt_two">
+						<label>状态显示</label>
+						<div class="jt_twoState jt_twoYouJing">有警
+							<span class="jt_round jt_twoRedRound"></span>
+						</div>
+						<div class="jt_twoState jt_twoWuJing">无警
+							<span class="jt_round jt_twoGreenRound"></span>
+						</div>
+						<div class="jt_twoState jt_twoCheFang">撤防
+							<span class="jt_round jt_twoWhiteRound"></span>
+						</div>
+					</div>
+				</div>
+				<div class="jt_rightBarThree">
+					<div class="jt_three">
+						<label>警点列表</label>
+						<div class="jt_threeList" style="margin-left: -39px;">
+							<ul>
+								<li>1-8&nbsp;&nbsp;&nbsp;&nbsp;</li>
+								<li>9-16&nbsp;&nbsp;</li>
+								<li>17-24</li>
+								<li>25-32</li>
+								<li>33-40</li>
+								<li>41-49</li>
+								<li>50-57</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<script>
+					$(document).ready(function(){
+						/* 动态添加元素并添加警点列表圆的类名 */
+						var list = $(".jt_threeList ul li");
+						var a = $("<a class='jt_threeWhiteRound'></a>");
+						for( i = 0; i < list.length + 1; i ++ ){
+							list.append(a);
+						}
+					});
+				</script>
+				<div class="jt_rightBarFour">
+					<div class="jt_four">
+						<label>模式列表</label>
+						<div class="jt_fourList">
+							<ul>
+								<li><img src="__IMG__icon_oneGrid.png" alt="模式一" /></li>
+								<li><img src="__IMG__icon_fourGrid.png" alt="模式二" /></li>
+								<li><img src="__IMG__icon_sixGrid.png" alt="模式二" /></li>
+								<li><img src="__IMG__icon_sevenGrid.png" alt="模式二" /></li>
+								<li><img src="__IMG__icon_nineGrid.png" alt="模式二" /></li>
+								<li><img src="__IMG__icon_tenGrid.png" alt="模式二" /></li>
+								<li><img src="__IMG__icon_twelveGrid.png" alt="模式二" /></li>
+								<li><img src="__IMG__icon_thirteenGrid.png" alt="模式二" /></li>
+								<li><img src="__IMG__icon_sixteenGrid.png" alt="模式二" /></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>

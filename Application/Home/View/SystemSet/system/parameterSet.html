@@ -1,0 +1,172 @@
+<!-- 参数设置 -->
+<title> 参数设置 </title>
+<include file="Common:matrix_header" />
+<include file="Common:matrix_menu" />
+<div class="jt_leftMenu2">
+    <include file="Common:matrix_leftbar_public4" />
+    <include file="Common:msgFootable" />
+    <script src="/Public/common/js/msgFootable.js"></script>
+    <!-- 中间 -->
+    <div class="wrap-fluid jt_parameterMain jt_basicMain jt_main">
+        <div class="container-fluid paper-wrap bevel tlbr">
+            <div class="content-wrap">
+                <div class="row">
+                    <div id="paper-top">
+                        <div class="col-sm-3">
+                            <h2 class="tittle-content-header">
+                                <i class="icon-media-record"></i>
+                                <span>参数设置</span>
+                            </h2>
+                        </div>
+                        <include file="Common:matrix_mainMiddle" />
+                        <div class="col-sm-2">
+                            <div class="devider-vertical visible-lg"></div>
+                            <div class="btn-group btn-wigdet pull-right visible-lg">
+                                <div class="btn">
+                                    Widget</div>
+                                <button data-toggle="dropdown" class="btn dropdown-toggle jt_dropTo">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul role="menu" class="dropdown-menu">
+                                    <li>
+                                        <a href="#">
+                                            <span class="entypo-plus-circled margin-iconic"></span>Add New
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="entypo-heart margin-iconic"></span>Favorite
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="entypo-cog margin-iconic"></span>Setting
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 jt_rowNest2">
+                    <div class="alert alert-info alert-dismissable jt_alert">
+                        <a class="panel-close close" data-dismiss="alert">×</a>
+                        <i class="fa fa-coffee"></i>
+                        通过以下
+                        <strong>设置</strong>. 修改报警、短信、邮件等参数.
+                    </div>
+                    <div class="nest" id="FootableClose">
+                        <div class="title-alt">
+                            <h6>
+                                参数设置
+                            </h6>
+                            <div class="titleClose">
+                                <a class="gone" href="#FootableClose">
+                                    <span class="entypo-cancel"></span>
+                                </a>
+                            </div>
+                            <div class="titleToggle">
+                                <a class="nav-toggle-alt" href="#Footable">
+                                    <span class="entypo-up-open"></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="body-nest" id="Footable">
+                            <div class="jt_canShuBtnArea">
+                                <div class="btn-group pull-right">
+                                    <button class="btn btn-info"><i class="icon icon-clockwise"></i>&nbsp;刷新缓存</button>
+                                    <button class="btn btn-success" data-toggle="modal"><i class="icon icon-checkmark"></i>&nbsp;确&nbsp;定</button>
+                                    <button class="btn btn-warning"><i class="icon icon-cross"></i>&nbsp;取&nbsp;消</button>
+                                </div>
+                            </div>
+                            <div class="jt_canShuSetArea1">
+                                <span class="jt_canShuZD">报警参数</span>
+                                <div class="form-group jt_canShuGroup1">
+                                    <span class="control-label jt_canShuLabel1">报警流程</span>
+                                    <div>
+                                        <select class="filter-status form-control jt_canShuShuRu1">
+                                            <option>广播转发</option>
+                                            <option>2</option>
+                                        </select>
+                                    </div>
+                                    <img class="jt_canShuImg" src="/Public/common/images/icon_labaY.png" />
+                                </div>
+                            </div>
+                            <br />
+                            <div class="jt_canShuSetArea2">
+                                <span class="jt_canShuZD">短信参数</span>
+                                <div class="form-group jt_canShuGroup1">
+                                    <span class="control-label jt_canShuLabel1">调用地址</span>
+                                    <div>
+                                        <input type="text" placeholder="http://xy.star-netsecurity.com/servlet/smsSend" class="form-control jt_canShuShuRu1">
+                                    </div>
+                                </div>
+                                <div class="jt_canShuGroup2">
+                                    <span class="control-label jt_canShuLabel1">用户名</span>
+                                    <div>
+                                        <input type="text" placeholder="用户名" class="form-control jt_canShuInput1">
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="control-label jt_canShuLabel2">密码</span>
+                                    <div>
+                                        <input type="password" placeholder="密码" class="form-control jt_canShuInput2">
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="jt_canShuSetArea2">
+                                <span class="jt_canShuZD">邮件参数</span>
+                                <div class="form-group jt_canShuGroup1">
+                                    <span class="control-label jt_canShuLabel1">邮件服务器</span>
+                                    <div>
+                                        <input type="text" placeholder="110.90.119.100" class="form-control jt_canShuShuRu1">
+                                    </div>
+                                    <img class="jt_canShuImg" src="/Public/common/images/icon_labaY.png" />
+                                </div>
+                                <div class="jt_canShuGroup3">
+                                    <span class="control-label jt_canShuLabel1">用户名</span>
+                                    <div>
+                                        <input type="text" placeholder="用户名" class="form-control jt_canShuInput1">
+                                    </div>
+                                </div>
+                                <div>
+                                    <span class="control-label jt_canShuLabel2">密码</span>
+                                    <div>
+                                        <input type="password" placeholder="密码" class="form-control jt_canShuInput2">
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="jt_canShuSetArea2">
+                                <span class="jt_canShuZD">其他参数</span>
+                                <div class="form-group jt_canShuGroup1">
+                                    <span class="control-label jt_canShuLabel1">日志保留天数</span>
+                                    <div>
+                                        <input type="text" placeholder="90" class="form-control jt_canShuShuRu1">
+                                    </div>
+                                </div>
+                                <div class="jt_canShuGroup2">
+                                    <span class="control-label jt_canShuLabel1">数据库备份路径</span>
+                                    <div>
+                                        <input type="text" placeholder="D:\数据库备份\" class="form-control jt_canShuShuRu1">
+                                    </div>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="jt_canShuGJArea">
+                                <span class="jt_canShuGJSpan">高级选项</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Common:footer" />
+</body>
+</html>

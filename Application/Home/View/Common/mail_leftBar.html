@@ -1,0 +1,21 @@
+<div class="ibox float-e-margins">
+    <div class="ibox-content mailbox-content">
+        <div class="file-manager">
+            <div class="space-25"></div>
+            <ul class="category-list mail_menu" style="padding: 0">
+                <li class="menu_mail_invite active"><a href="#"> <i class="fa fa-circle text-navy"></i><span data-i18n="mail.invite"></span><span class="label label-warning pull-right">{$count}</span></a></li>
+                <li class="menu_mail_warn"><a href="#"> <i class="fa fa-circle text-danger"></i><span data-i18n="mail.warn"></span><span class="label label-warning pull-right">0</span></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    window.myObj3={
+        init:function(){
+          var href = top.location.href;
+          var suffix = href.substr(href.lastIndexOf('/')+1);
+          $('.mail_menu li').removeClass('active').filter('.menu_mail_'+suffix).addClass('active');
+        }
+    };
+    myObj3.init();
+</script>

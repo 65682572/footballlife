@@ -1,0 +1,90 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element">
+                    <a href="/user/personal">
+                        <img alt="image" class="img-circle" src="{$userinfo.avatar}" style="width:80px;height:80px"/>
+                        <span class="block m-t-xs"><strong class="font-bold">{$userinfo.username}</strong></span>
+                    </a>
+                    <a href="javascript:void(0)" onclick="myObj2.showOrg()">
+                        <span class="clear">
+                            <span class="text-muted text-xs block">{$firminfo.name}<i class="fa fa-exchange text-navy"></i></span>
+                        </span>
+                    </a>
+                </div>
+                <div class="logo-element">
+                    <a href="javascript:void(0)" onclick="myObj2.showOrg()">
+                        {$firminfo.name}<i class="fa fa-exchange text-navy"></i>
+                    </a>
+                </div>
+            </li>
+            <li class="menu_first_level active">
+                <a href="javascript:void(0)">
+                    <i class="fa fa-lg fa-gear"></i>
+                    <span class="nav-label" data-i18n="menu.setting"></span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse">
+                    <li id="menu_firm"><a href="/main/firm" data-i18n="menu.org_m"></a></li>
+                    <li id="menu_group"><a href="/main/group" data-i18n="menu.branch_m"></a></li>
+                    <li id="menu_user"><a href="/main/user" data-i18n="menu.user_m"></a></li>
+                    <li id="menu_invite"><a href="/main/invite" data-i18n="menu.invite_m"></a></li>
+                    <li id="menu_authsort"><a href="/main/authsort" data-i18n="menu.auth_m"></a></li>
+                </ul>
+            </li>
+            <li class="menu_first_level">
+                <a href="javascript:void(0)">
+                    <i class="fa fa-lg fa-user"></i>
+                    <span class="nav-label" data-i18n="menu.p_setting"></span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse">
+                    <li id="menu_personal"><a href="/user/personal" data-i18n="menu.p_basic"></a></li>
+                    <li id="menu_modifypassword"><a href="/user/modifypassword" data-i18n="menu.p_password"></a></li>
+                    <li id="menu_unbind"><a href="/user/unbind" data-i18n="menu.p_unbind"></a></li>
+                </ul>
+            </li>
+<!--             <li class="menu_first_level" id="menu_Device">
+                <a href="/Device"><i class="fa fa-desktop"></i> <span class="nav-label" data-i18n="menu.device_m"></span></a>
+            </li> -->
+            <li class="menu_first_level">
+                <a href="javascript:void(0)">
+                    <i class="fa fa-desktop"></i>
+                    <span class="nav-label" data-i18n="menu.device_m"></span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse">
+                    <li id="device_classify"><a href="/Device/classify" data-i18n="device.classify"></a></li>
+                    <li id="menu_device_m"><a href="/Device" data-i18n="menu.device_m"></a></li>
+                </ul>
+            </li>
+            <li class="menu_first_level">
+                <a href="javascript:void(0)">
+                    <i class="fa fa-lg fa-map-marker"></i>
+                    <span class="nav-label" data-i18n="menu.map" style="margin-left: 4px;"></span>
+                    <span class="fa arrow"></span>
+                </a>
+                <ul class="nav nav-second-level collapse">
+                    <li id="menu_mapi"><a href="/Map/mapi" data-i18n="menu.map_import"></a></li>
+                    <li id="menu_mapm"><a href="/Map/mapm" data-i18n="menu.map_manage"></a></li>
+                </ul>
+            </li>
+            <li class="menu_first_level">
+                <a href="/Statistic"><i class="fa fa-bar-chart-o"></i> <span class="nav-label" data-i18n="menu.statistic"></span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInLeft">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" data-i18n="menu.exchange"></h4>
+            </div>
+            <div class="modal-body" id="jstree1"></div>
+        </div>
+    </div>
+</div>
+<script src="__JS__plugins/jsTree/jstree.min.js"></script>

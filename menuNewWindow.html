@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="Public/common/js/PgLib.js"></script>
+<script type="text/javascript" src="Public/common/js/PgLibinit.js"></script>
+<title></title>
+</head>
+<body>
+	<div class="menuNewWindow">
+		
+	</div>
+</body>
+<embed id="pgAtx99999" codebase="/Uploads/pgSetup_zh_v1.28.0.msi" width="0" height="0" type="application/peergine-plugin">
+<script type="text/javascript">
+	//分解url查询字符串
+	mymobile = 1;
+	var newWindowstr = window.location.toString().split("?")[1].split("&");
+	var windownum = newWindowstr[0].split("=")[1];
+	var windowid = newWindowstr[1].split("=")[1];
+	var winfid = '_DEV_'+windowid;
+    var initObj = initList(winfid);
+    initObj.pgInitialize('pgAtx99999');
+    
+	var newWindowcode = '<embed  id="pgAtx' + windowid + '" width="100%" height="100%" type="application/peergine-plugin" style="cursor:pointer;">';
+	var newWindowtitle = '';
+	document.title = newWindowtitle;
+	$('.menuNewWindow')[0].innerHTML = newWindowcode;
+	if (windownum != "" && windowid != "") {
+	    initObj.playVideo('_DEV_'+windowid, windownum, 'pgAtx' + windownum, 0);
+		
+	}
+</script>
+</html>

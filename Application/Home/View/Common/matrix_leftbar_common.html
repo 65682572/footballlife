@@ -1,0 +1,235 @@
+<!-- 首页监控页左菜单 -->
+<div class="jt_leftMenu jt_Common">
+    <div id="skin-select">
+        <include file="Common:logoFunc" />
+        <div class="jt_leftBarMenu" id="jt_leftBarMenu">
+            <div class="skin-part">
+                <div id="tree-wrap">
+                    <div class="side-bar jt_side-bar">
+                        <ul class="top2 menu-left-nest jt_top2">
+                            <li class="top2Hover">
+                                <a onclick="showmenu(this)" class="title-menu-left">
+                                    <span data-i18n="common.deviceCtr"></span>
+                                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                                </a>
+                            </li>
+                            <ul class="jt_device1">
+                                <li class="device_ctrl clearfix" id="ctrl">
+                                    <div class="tools_lefttop fl">
+                                        <div class="jt_controlArea">
+                                            <div class="jt_control1"></div>
+                                            <div class="jt_operationArea1">
+                                                <a class="jt_stop jt_triangleTopLeft jt_position1"></a>
+                                                <a class="jt_stop jt_triangleUp jt_position2"></a>
+                                                <a class="jt_stop jt_triangleTopRight jt_position3"></a>
+                                                <a class="jt_stop jt_triangleLeft jt_position4"></a>
+                                                <a class="jt_stop jt_position0"><img src="__IMG__icon_shuaXinSB.png" alt="刷新" /></a>
+                                                <a class="jt_stop jt_triangleRight jt_position5"></a>
+                                                <a class="jt_stop jt_triangleBottomLeft jt_position6"></a>
+                                                <a class="jt_stop jt_triangleDown jt_position7"></a>
+                                                <a class="jt_stop jt_triangleBottomRight jt_position8"></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tools_righttop fr">
+                                        <div class="jt_control2"></div>
+                                        <div class="jt_control3"></div>
+                                        <div class="jt_control4"></div>
+                                        <div class="jt_operationArea2">
+                                            <a class="jt_span1" onclick="sendCtrl(9);">+</a><label class="jt_label1" data-i18n="common.zoom"></label><a class="jt_span2" onclick="sendCtrl(10);">-</a>
+                                            <a class="jt_span3" onclick="sendCtrl(11);">+</a><label class="jt_label2" data-i18n="common.zooming"></label><a class="jt_span4" onclick="sendCtrl(12);">-</a>
+                                            <a class="jt_span5" onclick="sendCtrl(13);">+</a><label class="jt_label3" data-i18n="common.aperture"></label><a class="jt_span6" onclick="sendCtrl(14);">-</a>
+                                        </div>
+                                    </div>
+                                    <div class="jt_speedInput">
+                                        <div class="jt_speedBG1"></div>
+                                        <label data-i18n="common.speed"></label>
+                                        <input id="speedSlide" data-slider-id="speedSlide" type="text" data-slider-min="0"
+                                               data-slider-max="24" data-slider-step="1" data-slider-value="1"/>
+                                    </div>
+                                    <div class="jt_speedInput">
+                                        <div class="jt_speedBG2"></div>
+                                        <ul>
+                                            <li><img class="jt_dengGuang" src="__IMG__icon_dengGuang.png" title="灯光" alt="灯光" /></li>
+                                            <li><img class="jt_yuShua" src="__IMG__icon_yuShua.png" title="雨刷" alt="雨刷" /></li>
+                                            <li><img class="jt_juJiao" src="__IMG__icon_juJiao.png" title="辅助聚焦" alt="辅助聚焦" /></li>
+                                            <li><img class="jt_jingTou" src="__IMG__icon_jingTou.png" title="镜头初始化" alt="镜头初始化" /></li>
+                                        </ul>
+                                    </div>
+                                    <div class="jt_config">
+                                        <div class="jt_configAdd">
+                                            <label data-i18n="common.addPreset"><a href="#"></a></label>
+                                            <select>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                            </select>
+											<img src="__IMG__icon_addYZD.png" alt="添加预置点" />
+                                        </div>
+                                        <div class="jt_configCall">
+                                            <label data-i18n="common.callPreset"><a href="#"></a></label>
+                                            <select>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                            </select>
+											<img src="__IMG__icon_callYZD.png" alt="调用预置点" />
+                                        </div>
+                                        <div class="jt_configRemove">
+                                            <label data-i18n="common.deletePreset"><a href="#"></a></label>
+                                            <select>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                            </select>
+                                            <img src="__IMG__icon_removeYZD.png" alt="删除预置点" />
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </ul>
+                        <div class="dark">
+                            <span>
+                                <input type="text" id="searchSource" class="search rounded id_search" data-i18n="[placeholder]common.search" onkeydown="enter(search)">
+                            </span>
+                            <ul id="menu-showhide1" class="topnav top2 menu-left-nest">
+                                <ul id="menu4">
+                                    <li id="jt_inputList">
+
+                                    </li>
+                                </ul>
+                            </ul>
+                        </div>
+                        <ul id="menu-showhide3" class="topnav top2 menu-left-nest">
+                            <li>
+                                <a onClick="showmenu(this)" class="tooltip-tip title-menu-left ajax-load">
+                                    <span class="jt_mapList" data-i18n="common.mapList"></span>
+                                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                                </a>
+                            </li>
+                            <ul id="menu5">
+                                <foreach name="mapList" item="v">
+                                    <li>
+                                        <a ondblclick="mapToGrid(this)" href="#" data-maplistid="{$v[id]}" data-type="{$v[map_type]}">
+                                            <i class="icon-map"></i>
+                                            <span class="span-t4"><b>{$v['map_name']}</b> ● <?php if($v['map_type'] == 1) echo '在线地图'; else echo '离线地图';?></span>
+                                        </a>
+                                    </li>
+                                </foreach>
+                            </ul>
+                        </ul>
+                        <ul id="menu-showhide2" class="topnav top2 menu-left-nest topList">
+                            <li>
+                                <a onclick="showmenu(this)" class="tooltip-tip title-menu-left ajax-load">
+                                    <span data-i18n="common.deviceList"></span>
+                                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                                </a>
+                            </li>
+                            <ul id="menu3">
+                                <li>
+                                    <div class="form-group">
+                                        <select class="form-control" id="changelist" onchange="change_select_hide()">
+                                            <option title="所有设备" value="0">所有设备</option>
+                                            <volist name="typetree" id="v">
+                                                <option title="v.name" op-name="{$v.name}" value="v.id">{$v.name}</option>
+                                            </volist>
+                                        </select>
+                                    </div>
+                                    <div class="jt_childVolist">
+                                        <volist name="typetree" id="s" >
+                                                <div class="jt_typeTreeList" dd-name="{$s.name}">
+                                                    <img class="jt_typeImg" src="<?php echo $s['icon']?$s['icon']:'/Public/common/img/default_device_icon.png'?>" alt="{$s.name}"/>
+                                                    <a class="jt_typeName" onclick="click_hide_parent('type_{$s.id}');">{$s.name}</a>
+                                                </div>
+                                                <div id="type_{$s.id}" data-name="{$s.name}" class="selectchangemenu">
+
+                                                </div>
+                                        </volist>
+                                        <div class="jt_typeTreeList" dd-name="无分类">
+                                            <img class="jt_typeImg" src="/Public/common/img/default_device_icon.png" alt="无分类"/>
+                                            <a class="jt_typeName" onclick="click_hide_parent('type_0');" data-i18n="common.notType"></a>
+                                        </div>
+                                        <div id="type_0" data-name="无分类" class="selectchangemenu">
+
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+                <include file="Common:inputTips" />
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 拉取在线设备 -->
+<script type="text/javascript">
+    //双击输入源触发视频播放或折线图等相关操作
+    function doubleclick(obj){
+        var ss = $(obj).attr("id");
+        editVedio(ss);
+    }
+</script>
+<script type="text/javascript">
+    vlistArray = {$videolist2};(vlistArray == null) ? vlistArray=[] : vlistArray={$videolist2};//当前输入源数组
+    var username = "{$username}";
+</script>
+<!-- 拉取在线设备 -->
+<script src="/Public/common/js/pullDevice.js"></script>
+<!--加载pg插件-->
+<script src="__JS__PgLib.js?ver=001"></script>
+<!--加载初始化函数-->
+<script src="__JS__PgLibinit.js?ver=001"></script>
+<!--加载monitor功能函数-->
+<script src="/assets/js/monitor_pg.js?ver=001"></script>
+<embed id="pgAtx99999" codebase="/Uploads/pgSetup_zh_v1.28.0.msi" width="0" height="0" type="application/peergine-plugin">
+
+    <script>
+    deviceList = {$list2};
+    if (deviceList == null) {
+        deviceList = [];
+    }
+        $(document).ready(function () {  
+            //生成设备列表
+            addDeviceList(deviceList);
+            //调用公共函数生成输入源列表
+            var vlist = {};
+            vlist = {$videolist2};//输入源列表全局变量，全站可用
+            //生成输入源列表，deviceList是当前用户能读取的设备列表
+            createvlist(vlist,deviceList);
+            //生成共享输入源列表
+            var sharelist = {};
+            sharelist = {$sharelist};//共享输入源列表全局变量，全站可用
+            var usermobile = {$usermobile};
+            createsharelist(sharelist,deviceList,usermobile);
+
+            //生成待还原的数据
+            var str = {$mymonitor};
+            if (str != null) {
+                var timestamp = new Date().getTime();
+                mqArray = eval(str.description);
+                for (var i = 0; i < mqArray.length; i++) {
+                    mqArray[i].state = 0;
+                    mqArray[i].res = 0;
+                    mqArray[i].timestamp = timestamp;
+                }
+            }
+            setInterval("printMQArrError()", 2000); //定时处理设备连接及重连
+
+            //移除空分类
+            var sss = $('.selectchangemenu');
+            for (var i = sss.length - 1; i >= 0; i--) {
+                var aaa = $(sss[i]).find('a');
+                if (aaa.length <=0) {
+                    var ddname = $(sss[i]).attr('data-name');
+                    $(sss[i]).remove();
+                    if (ddname) {
+                        $("[dd-name="+ddname+"]").remove();
+                        $("[op-name="+ddname+"]").remove();
+                    }
+                }
+            }
+            var typeIf = document.getElementById('changelist').options;
+            if(typeIf.length <= 1){
+                $($(typeIf)[0]).text('暂无可用设备');
+            }
+        });
+    </script>

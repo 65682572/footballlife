@@ -1,0 +1,68 @@
+/*@import url(http://fonts.useso.com/css?family=Roboto:300,400,700);*/
+*,
+*:after,
+*::before {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+}
+
+body {
+	background: #34495e;
+}
+
+.container > header {
+	color: #fff;
+	font-family: 'Roboto', Arial, sans-serif;
+	margin: 0 auto;
+	padding: 2em 2em;
+	padding-left: 370px;
+	background: rgba(0,0,0,0.05);
+}
+.container > header h1 span{font-family: "微软雅黑"}
+.container > header p{font-family: "微软雅黑";color: #fff;}
+.container > header p a{color: #fff;text-decoration: none;}
+.container > header p a:hover{color: #fff;text-decoration: underline;}
+.container > header p a:active{color: #fff;text-decoration: none;}
+.htmleaf-demo{
+	position: absolute;
+	margin: 0 auto;
+	left: 25em;
+	top: 10em;
+}
+#river{
+	width: 423px; 
+	height: 213px; 
+	z-index: 1; 
+	position: absolute; 
+	left: 100px; 
+	top: 100px; 
+	background:url(../img/1.png) 0 0 no-repeat;
+}
+#space{
+	width: 423px; 
+	height: 213px; 
+	z-index: 2; 
+	position: absolute; 
+	left: 100px; 
+	top: 350px; 
+	background:url(../img/2.png) 0 0 no-repeat;
+}
+#storm{
+	width: 423px; 
+	height: 213px;
+	z-index: 3; 
+	position: absolute; 
+	left: 550px; 
+	top: 350px; 
+	background:url(../img/3.png) 0 0 no-repeat;
+}
+#draggable{
+	width: 128px; 
+	height: 128px; 
+	z-index: 4; 
+	position: absolute; 
+	left: 700px; 
+	top: 150px; 
+	background: url(../img/little_gray_15.png) 0 0 no-repeat;
+}

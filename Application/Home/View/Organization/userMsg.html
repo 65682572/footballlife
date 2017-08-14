@@ -1,0 +1,791 @@
+<!-- 用户管理 -->
+<title> 用户管理 </title>
+<include file="Common:matrix_header" />
+<include file="Common:matrix_menu" />
+<include file="Common:matrix_leftbar_public" />
+<include file="Common:msgFootable" />
+<script src="/Public/common/js/msgFootable.js"></script>
+<script src="__JS__plugins/jsTree/jstree.min.js"></script>
+<link href="__CSS__plugins/jsTree/style.min.css" rel="stylesheet">
+<link rel="stylesheet" href="/assets/js/tree/jquery.treeview.css">
+<link rel="stylesheet" href="/Public/common/css/dropify.min.css">
+<script src="/Public/common/js/dropify.min.js"></script>
+<script src="__JS__link.min.1.0.js?v=<?php echo time();?>"></script>
+<script src="__JS__link.utils.min.1.0.js?v=<?php echo time();?>"></script>
+<!-- 中间 -->
+<div class="wrap-fluid jt_userMain jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span>用户管理</span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle" />
+                    <div class="col-sm-2">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="btn-group btn-wigdet pull-right visible-lg">
+                            <div class="btn">
+                                Widget</div>
+                            <button data-toggle="dropdown" class="btn dropdown-toggle jt_dropTo" type="button">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul role="menu" class="dropdown-menu">
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-plus-circled margin-iconic"></span>Add New
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-heart margin-iconic"></span>Favorite
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-cog margin-iconic"></span>Setting
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 jt_rowNest1">
+                <div class="nest" id="FootableClose">
+                    <div class="title-alt">
+                        <h6>
+                            用户管理
+                        </h6>
+                        <div class="titleClose">
+                            <a class="gone" href="#FootableClose">
+                                <span class="entypo-cancel"></span>
+                            </a>
+                        </div>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#Footable">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="Footable">
+                        <table class="table-striped footable-res footable metro-blue" data-page-size="6">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>姓名</th>
+                                <th>手机</th>
+                                <th>所属部门</th>
+                                <th>登陆方式</th>
+                                <th data-hide="phone,tablet">备注</th>
+                                <th data-hide="phone">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="list" id="v">
+                                <tr>
+                                    <td>{$i}</td>
+                                    <td>{$v.username}</td>
+                                    <td>{$v.mobile}</td>
+                                    <td>{$v.gname|default="无部门"}</td>
+                                    <td><if condition="($v.loginplatform eq 1)">PC端
+                                        <elseif condition="$v.loginplatform eq 2"/>IOS端
+                                        <elseif condition="$v.loginplatform eq 2"/>安卓端
+                                        <else />无
+                                    </if></td>
+                                    <td>{$v.intro}</td>
+                                    <td data-value="1">
+                                        <div class="btn-group">
+                                            <button data-username='{$v.username}' data-mobile='{$v.mobile}' data-gname='{$v.gname}' data-status='{$v.status}'
+                                                    data-filepath='{$v.filepath}' data-address="{$v.address}" data-intro='{$v.intro}'
+                                                    data-email="{$v.email}" data-createtime='{$v.createtime|date="Y-m-d H:i:s",###}'
+                                                    class="btn btn-info" onclick="viewP(this)">详&nbsp;情</button>
+                                            <button data-id='{$v.id}' data-username='{$v.username}' data-mobile='{$v.mobile}' data-gname='{$v.gname}' data-status='{$v.status}'
+                                                    data-filepath='{$v.filepath}' firmid="{$firmid}" data-gid='{$v.gid}' data-createtime='{$v.createtime}'
+                                                    data-intro='{$v.intro}' class="btn btn-warning editButton" data-target="#userEdit">编&nbsp;辑</button>
+                                            <button data-userid="{$v.userid}" data-toggle="modal" data-target="#setrole"  class="btn btn-primary auth_rule">角&nbsp;色</button>
+                                            <button data-delid ='{$v.id}' class="btn delbtn btn-danger">删&nbsp;除</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="7">
+                                    <div class="pagination pagination-centered"></div>
+                                </td>
+                            </tr>
+                            </tfoot>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#addUser">邀请用户</button>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#newUser">新增用户</button>
+                            <button class="btn btn-primary" firmid="{$firmid}" firmname="{$firmname}" onclick="addLotUser(this)">批量导入用户</button>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 批量导入用户 -->
+<div aria-labelledby="myModalLabel" role="dialog" class="modal fade bs-example-modal-lg" aria-hidden="true" id="batchAddUser">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">批量导入用户</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div >
+                        <div class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label  for="relatefirm" class="col-sm-2 control-label">机构名称</label>
+                                <div class="col-sm-10">
+                                    <input type="text" placeholder="机构名称" id="relatefirm" class="form-control" readonly="true">
+                                    <input type="hidden" id="relateFirmid">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label  for="showmoban" class="col-sm-2 control-label">格式详情</label>
+                                <div class="col-sm-10">
+                                    <p class="form-control-static">
+                                        <a href="javascript:void(0);" id="showmoban" target="_blank">
+                                            请按照表格的排版方式罗列数据
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">文件上传</label>
+                                <div class="col-sm-10">
+                                    <input type="file" class="dropify" name="userFile" data-allowed-file-extensions="xls xlsx">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn adduserbtn col-sm-offset-2">确&nbsp;认</button>
+                                <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 模态框 -->
+<!-- 详情 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="userView">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">用户详情</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">用户名</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static" id="v_username">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">手机号码</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static" id="v_mobile">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">所属部门</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static" id="v_gname">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">状态</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static" id="v_status">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">头像</label>
+                            <div class="col-sm-10" id="v_avatar">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">地址</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static" id="v_address">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">邮箱</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static" id="v_email">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">创建时间</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static" id="v_createtime">
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">备注</label>
+                            <div class="col-sm-10">
+                                <p class="form-control-static" id="v_intro">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 编辑 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="userEdit">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">修改用户</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <input type="hidden" id="e_firmid">
+                            <label class="col-sm-2 control-label">用户名</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="e_username" class="form-control">
+                                <input type="hidden" id="e_userid">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">手机号</label>
+                            <div class="col-sm-10">
+                                <input type="text" id="e_mobile" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">部门</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="e_groupname" readonly="readonly" class="form-control">
+                                <input type="hidden" id="e_group">
+                            </div>
+                            <div class="col-sm-2">
+                                <button class="btn btn-primary" onclick="groupTreeShow()">选择</button>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">备注</label>
+                            <div class="col-sm-10 control-label">
+                                <textarea id="e_intro" class="form-control" placeholder="备注" rows="8"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group jt_btnGroupWZ">
+                            <button id="trueButton" class="btn btn-primary col-sm-offset-2">确&nbsp;认</button>
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 新增用户 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="newUser">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">邀请用户</h6>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label  for="n_firmname" class="col-sm-2 control-label">机构名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" placeholder="机构名称" id="n_firmname" class="form-control" readonly="true" value="{$firmname}">
+                            <input type="hidden" id="n_firmid" value="{$firmid}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="n_username" class="col-sm-2 control-label">用户名</label>
+                        <div class="col-sm-10">
+                            <input type="text" placeholder="用户名" id="n_username" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="n_mobile" class="col-sm-2 control-label">手机号码</label>
+                        <div class="col-sm-10">
+                            <input type="text" placeholder="手机号码" id="n_mobile" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="n_password" class="col-sm-2 control-label">密码</label>
+                        <div class="col-sm-10">
+                            <input type="password" placeholder="密码" id="n_password" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="n_repassword" class="col-sm-2 control-label">确认密码</label>
+                        <div class="col-sm-10">
+                            <input type="password" placeholder="确认密码" id="n_repassword" class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="form-group jt_btnGroupWZ">
+                        <button class="btn btn-primary col-sm-offset-2" id="newUserBtn">确&nbsp;认</button>
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 邀请用户 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="addUser">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">邀请用户</h6>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="createGroupDesc" class="col-sm-2 control-label">请输入手机号码，多个用户请用逗号隔开‘,’</label>
+                        <div class="col-sm-10">
+                            <textarea id="createGroupDesc" class="form-control" placeholder="例如：15122223333,15211114444,15355556666" rows="8"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group jt_btnGroupWZ">
+                        <button class="btn col-sm-offset-2" id="trueButton1">确&nbsp;认</button>
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 授予角色 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="setrole">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 id="myLargeModalLabel" class="modal-title">授予角色</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div role="form">
+                        <div class="modal-body" id="jstree_role">
+
+                        </div>
+                        <div class="form-group">
+                            <button class="btn jt_btnColor" onclick="checkedAllTree(this)">全&nbsp;选</button>
+                            <button class="btn jt_btnColor" onclick="checkedNoTree(this)">反&nbsp;选</button>
+                            <button id="btn-access"  class="btn btn-primary btn-sm submit">确&nbsp;认</button>
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--部门选择-->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg"
+     aria-hidden="true" id="groupselect">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">部门列表</h6>
+            </div>
+            <!-- 注释开始：这里的层级不要动，涉及到通用jsTree全选反选功能 -->
+            <div class="modal-body">
+                <div class="compose_mail jt_bodyTableBox3">
+                    <input type="hidden" id="modifyid">
+                    <div class="modal-body" id="grouptree">
+                    </div>
+                </div>
+                <div class="form-group jt_btnGroup">
+                    <button class="btn btn-primary" onclick="groupSelect()">确&nbsp;认</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                </div>
+            </div>
+            <!-- 注释结束：这里的层级不要动，涉及到通用jsTree全选反选功能 -->
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" href="/Public/common/css/plugins/jsTree/style.min.css" />
+<script src="__JS__plugins/jsTree/jstree.min.js"></script>
+<script>
+    $(document).ready(function(){
+        var protocol = window.location.protocol;
+        var host = window.location.host;
+        var url = protocol + '//' + host + '/Uploads/moban.xlsx';
+        $('#showmoban').attr('href',url);
+        //获取部门树
+        $.ajax({
+            url: '/Organization/getGroupTree',
+            type: 'get',
+            success: function (result) {
+                if (result) {
+                    if(result.status == true){
+                        groupTree(result.data);
+                    }else{
+                        $("#grouptree").html('无部门信息，请先添加部门');
+                    }
+                }else{
+                    $("#grouptree").html('部门资源加载失败');
+                }
+            }
+        });
+    });
+    function groupTree(resTree){
+        $('#grouptree').jstree({
+            'checkbox': {
+                'real_checkboxes': true
+            },
+            'plugins': ['checkbox', 'types'],
+            'types': {
+                'default': {
+                    "icon": false  // 关闭默认图标
+                }
+            },
+            'core': {
+                'data': resTree
+            }
+        });
+    }
+    function groupTreeShow(){
+        var egroup = $('#e_group').val();
+        if(egroup){
+            $('#grouptree').jstree('select_node',egroup.split(','));
+        }
+        $('#groupselect').modal('show');
+    }
+    $('#groupselect').on('hidden.bs.modal', function () {
+        $('#grouptree').jstree('uncheck_all');
+    });
+
+    function groupSelect(){
+        var gids = [];
+        var gnames = [];
+        var resDataObj = $('#grouptree').jstree(true).get_bottom_selected(true);
+        $.each(resDataObj, function (key, value) {
+            gids.push(value.id);
+            gnames.push(value.text);
+        });
+        $('#e_group').val(gids.join(','));
+        $('#e_groupname').val(gnames.join(','));
+        $('#groupselect').modal('hide');
+    }
+    var isInit = false;
+    var dropifyObj = null;
+    function addLotUser(obj){
+        var fid = $(obj).attr('firmid');//console.log(fid);
+        var fname = $(obj).attr('firmname');//console.log(fname);
+        $('#relateFirmid').val(fid);
+        $('#relatefirm').val(fname);
+        if(!isInit){
+            dropifyObj = $('.dropify').dropify({
+                messages: {'default': '点击选择EXCEL文件，只支持xls或xlsx格式','replace': '点击更换文件','remove':  '移除','error':   '上传失败'},
+                error: {'fileSize': '文件大小不能超过({{ value }}).','fileExtension': '只支持({{ value }}格式).'}
+            });
+            dropifyObj = dropifyObj.data('dropify');
+        }
+        $('#batchAddUser').modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+    }
+    $('#batchAddUser').on('hidden.bs.modal', function () {
+        $('#relateFirmid').val('');
+        $('#relatefirm').val('');
+        var fileobj = $('input[name="userFile"]');
+        var efile = fileobj[0].files[0];
+        fileobj.val('');
+        dropifyObj.destroy();
+        dropifyObj.init();
+    });
+
+    function checkParam(){
+        var ret = {check:false,error:""};
+        var firmid = $('#n_firmid').val();
+        var username = $('#n_username').val();
+        var mobile = $('#n_mobile').val();
+        var password = $('#n_password').val();
+        var repassword = $('#n_repassword').val();
+        if(!firmid){
+            ret.error = '无所属机构';
+            return ret;
+        }
+        if(!username){
+            ret.error = '请填写用户名';
+            return ret;
+        }
+        if(!mobile){
+            ret.error = '请填写手机号码';
+            return ret;
+        }
+        if(!password){
+            ret.error = '请设置密码';
+            return ret;
+        }
+        if(!repassword){
+            ret.error = '请填写确认密码';
+            return ret;
+        }
+        if(!Link.utils.isMobile(mobile)){
+            ret.error = '电话号码格式错误';
+            return ret;
+        }
+        if(!Link.utils.ckPwd(password)){
+            ret.error = '密码必须为8-20之间的字母+数字组合';
+            return ret;
+        }
+        if(password != repassword){
+            ret.error = '两次输入的密码不一致';
+            return ret;
+        }
+        ret.check = true;
+        return ret;
+    }
+    $('#newUserBtn').on('click',function(){
+        var firmid = $('#n_firmid').val();
+        var username = $('#n_username').val();
+        var mobile = $('#n_mobile').val();
+        var password = $('#n_password').val();
+        var check = checkParam();//console.log(check);
+        if(!check.check){
+            publicAlert({
+                title: '提示信息',
+                content: '<div style="color:red">'+check.error+'</div>',
+                icon: 'fa fa-rocket'
+            },false);
+            return false;
+        }else{
+            confirmBtnDisabled($(this),'/Organization/newUser',{firmid:firmid,username:username,mobile:mobile,password:password},true);
+        }
+    });
+</script>
+<script>
+    /* 业务逻辑脚本 */
+    var myObj1 = {
+        userinvite:function () {
+            $("#trueButton1").on('click',function () {
+                var tel= $.trim($('#createGroupDesc').val());
+                if (tel == ''){
+                    alert("没有符合规范的手机号!");
+                    return false;
+                }
+                confirmBtnDisabled($(this),'/Organization/singleInvite',{tel:tel},false);
+            });
+        }
+    };
+    myObj1.userinvite();
+    $('#userEdit').on('hidden.bs.modal',function(){
+        $('#e_userid').val('');
+        $('#e_username').val('');
+        $('#e_mobile').val('');
+        $('#e_group').val('');
+        $('#e_groupname').val('');
+        $('#e_intro').val('');
+    });
+    $('#userView').on('hidden.bs.modal',function(){
+        $('#userView p').html('');
+        $('#v_avatar').html('');
+    });
+    function viewP(obj){
+        $('#v_username').html($(obj).attr('data-username'));
+        $('#v_mobile').html($(obj).attr('data-mobile'));
+        var gn = $(obj).attr('data-gname');
+        gn = gn ? gn : '无部门';
+        $('#v_gname').html(gn);
+        var ad = $(obj).attr('data-address');
+        ad = ad != 'null' ? ad : '';
+        $('#v_address').html(ad);
+        $('#v_email').html($(obj).attr('data-email'));
+        $('#v_intro').html($(obj).attr('data-intro'));
+        $('#v_createtime').html($(obj).attr('data-createtime'));
+        var avatapath = $(obj).attr('data-filepath');
+        var h = avatapath ? '<img id="v_avatar" class="admin-pic img-circle" src="'+avatapath+'">' : "<p class='form-control-static'>无</p>";
+        $('#v_avatar').html(h);
+        $('#v_status').html($(obj).attr('data-status')?'启用':'禁用');
+        $('#userView').modal('show');
+    }
+    /* 业务逻辑模块脚本 editButton 事件用来初始化赋值，供下面的trueButton确认事件处理 */
+    var myObj = {
+        editUser:function () {
+            $(".editButton").on('click',function () {
+                $('#e_firmid').val($(this).attr('firmid'));
+                $('#e_userid').val($(this).attr('data-id'));
+                $('#e_username').val($(this).attr('data-username'));
+                $('#e_mobile').val($(this).attr('data-mobile'));
+                $('#e_group').val($(this).attr('data-gid'));
+                $('#e_groupname').val($(this).attr('data-gname'));
+                $('#e_intro').val($(this).attr('data-intro'));
+                $('#userEdit').modal('show');
+            });
+            $("#trueButton").on('click',function(){
+                var firmid = $('#e_firmid').val();
+                var userid = $('#e_userid').val();
+                var username = $('#e_username').val();
+                var mobile = $('#e_mobile').val();
+                var group = $('#e_group').val();
+                var intro = $('#e_intro').val();
+                if(!firmid || !userid){
+                    publicAlert({title:'提示信息',content:'无效用户',icon:'fa fa-rocket'},false);
+                    return;
+                }
+                if(!username){
+                    publicAlert({title:'提示信息',content:'请填写姓名',icon:'fa fa-rocket'},false);
+                    return;
+                }
+                if(!mobile){
+                    publicAlert({title:'提示信息',content:'请填写手机号码',icon:'fa fa-rocket'},false);
+                    return;
+                }
+                confirmBtnDisabled($(this),'/Organization/edituser',{firmid:firmid,userid:userid,username:username,mobile:mobile,group:group,intro:intro},true);
+            });
+        },
+        delUser:function () {
+            $(".delbtn").on('click',function () {
+                var uid = $(this).attr('data-delid');
+                $res = confirm("确定删除？");
+                if($res == true){
+                    confirmBtnDisabled($(this),'/Organization/deluser',{userid:uid});
+                }
+            });
+        },
+        userSave:function () {
+            $(".adduserbtn").on('click',function (e) {
+                e.preventDefault();
+                var formData = new FormData($('#mo'));
+                var fid = $('#relateFirmid').val();
+                var fileobj = $('input[name="userFile"]');
+                var efile = fileobj[0].files[0];
+                if(!efile){
+                    publicAlert({title:'提示信息',content:'请选择导入的文件！',icon:'fa fa-rocket'},false);
+                    return false;
+                }
+                formData.append('fid',fid);
+                formData.append('efile',efile);
+                var that = $(this);
+                that.text('文件导入中，请勿关闭窗口！');
+                that.attr('disabled','disabled');
+                $.ajax({
+                    url:"/Organization/batchAddUser",
+                    type:"post",
+                    async:false,
+                    data:formData,
+                    processData:false,
+                    contentType:false,
+                    success:function(ret){
+                        that.removeAttr('disabled');
+                        that.text('确认');
+                        publicAlert({title:'提示信息',content:ret.msg,icon:'fa fa-rocket'},ret['status']);
+                    }
+                });
+            });
+        }
+    };
+    myObj.editUser();
+    myObj.delUser();
+    myObj.userSave();
+</script>
+<script type="text/javascript">
+    /*授予角色*/
+    var id = '';
+    $('.auth_rule').on('click',function(){
+        id = $(this).attr('data-userid');
+        $('#jstree_role').data('jstree', false).empty();//jstree清空实例
+        $.ajax({
+            url: "/Organization/rolelist_ajax",
+            type: "post",
+            cache: false,
+            async: true,
+            data: {userid : id},
+            success: function (result) {
+                console.log(result)
+                $('#jstree_role').jstree({
+                    'core': {
+                        'data': result
+                    },
+                    "checkbox": {
+                        "keep_selected_style": true,
+                        "real_checkboxes": true
+                    },
+                    'plugins': ["checkbox", 'types', 'dnd'],
+                    "types": {
+                        "default": {
+                            "icon": false  // 关闭默认图标
+                        }
+                    }
+
+                });
+            }
+        });
+    });
+    $("#btn-access").click(function () {
+        $("#btn-access").attr('disabled',true);
+        var string = "";
+        $(".jstree li").each(function (i) {
+            if ($(this).attr("aria-selected") == "true") {
+                string += $(this).attr("id") + ",";
+            }
+        });
+        $.ajax({
+            url: "/Organization/rolebind",
+            type: "post",
+            data: {userid: id, data: string},
+            success: function (result) {
+                $("#btn-access").attr('disabled',false);
+                if (result >= 1) {
+                    alert("授予角色成功");
+                    location.reload();
+                } else {
+                    alert("授予角色失败");
+                }
+            }
+        });
+    });
+</script>
+<include file="Common:footer" />
+</body>
+</html>

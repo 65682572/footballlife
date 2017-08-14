@@ -1,0 +1,348 @@
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>mylife-chat</title>
+  <!-- <link href="/chat/css/bootstrap.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="/assets/css/bootstrap.css">
+  <link href="/chat//css/style.css" rel="stylesheet">
+  
+  <script type="text/javascript" src="/chat/js/swfobject.js"></script>
+  <script type="text/javascript" src="/chat/js/web_socket.js"></script>
+  <!-- <script type="text/javascript" src="/chat/js/jquery.min.js"></script> -->
+  <script src="__JS__jquery-2.1.1.js"></script>
+  <script src="__JS__bootstrap.min.js"></script>
+  <script src="__JS__plugins/slider/bootstrap-slider.js"></script>
+
+  <script type="text/javascript">
+    if (typeof console == "undefined") {    this.console = { log: function (msg) {  } };}
+    // 如果浏览器不支持websocket，会使用这个flash自动模拟websocket协议，此过程对开发者透明
+    WEB_SOCKET_SWF_LOCATION = "/chat/swf/WebSocketMain.swf";
+    // 开启flash的websocket debug
+    WEB_SOCKET_DEBUG = true;
+    var ws, name, client_list={};
+    name = "{$username}";
+    uid = "{$uid}";
+
+    // 连接服务端
+    function connect() {
+       // 创建websocket
+       ws = new WebSocket("ws://"+document.domain+":7272");
+       console.log(ws);
+       // 当socket连接打开时，输入用户名
+       ws.onopen = onopen;
+       // 当有消息时根据消息类型显示不同信息
+       ws.onmessage = onmessage; 
+       ws.onclose = function() {
+        console.log("连接关闭，定时重连");
+          connect();
+       };
+       ws.onerror = function() {
+        console.log("出现错误");
+       };
+    }
+
+    // 连接建立时发送登录信息
+    function onopen()
+    {
+        if(!name)
+        {
+            show_prompt();
+        }
+        // 登录
+        var login_data = '{"type":"login","client_name":"'+name.replace(/"/g, '\\"')+'","room_id":"<?php echo isset($_GET['room_id']) ? $_GET['room_id'] : 1?>"}';
+        console.log("websocket握手成功，发送登录数据:"+login_data);
+        ws.send(login_data);
+    }
+
+    // 服务端发来消息时
+    function onmessage(e)
+    {
+        console.log(e.data);
+        var data = eval("("+e.data+")");
+        if (data['type'] == undefined) {
+          console.log('test');
+        }
+        switch(data['type']){
+            // 服务端ping客户端
+            case 'ping':
+                // ws.send('{"type":"pong"}');
+                break;;
+            // 登录 更新用户列表
+            case 'login':
+                //{"type":"login","client_id":xxx,"client_name":"xxx","client_list":"[...]","time":"xxx"}
+                say(data['client_id'], data['client_name'],  data['client_name']+' 加入了房间'+data['room_id'], data['time']);
+                var clientid = data['client_id'];
+                $.post('Mylife/bind', {client_id: clientid}, function(data){}, 'json');
+                if(data['client_list'])
+                {
+                    client_list = data['client_list'];
+                }
+                else
+                {
+                    client_list[data['client_id']] = data['client_name']; 
+                }
+                flush_client_list();
+                console.log(data['client_name']+"登录成功");
+                break;
+            // 发言
+            case 'say':
+                //{"type":"say","from_client_id":xxx,"to_client_id":"all/client_id","content":"xxx","time":"xxx"}
+                say(data['from_client_id'], data['from_client_name'], data['content'], data['time']);
+                break;
+            // 我的工作
+            case 'mywork':
+                //{"type":"say","from_client_id":xxx,"to_client_id":"all/client_id","content":"xxx","time":"xxx"}
+                mywork(data['from_client_id'], data['from_client_name'], data['content'], data['time']);
+                break;
+            // 比赛结果
+            case 'mycontest':
+                //{"type":"say","from_client_id":xxx,"to_client_id":"all/client_id","content":"xxx","time":"xxx"}
+                mycontest(data);
+                break;
+            // 用户退出 更新用户列表
+            case 'logout':
+                //{"type":"logout","client_id":xxx,"time":"xxx"}
+                say(data['from_client_id'], data['from_client_name'], data['from_client_name']+' 退出了', data['time']);
+                delete client_list[data['from_client_id']];
+                flush_client_list();
+        }
+    }
+
+    // 输入姓名
+    function show_prompt(){  
+        name = prompt('输入你的名字：', '');
+        if(!name || name=='null'){  
+            name = '游客';
+        }
+    }  
+
+    // 提交对话
+    function onSubmit() {
+      var input = document.getElementById("textarea");
+      var to_client_id = $("#client_list option:selected").attr("value");
+      var to_client_name = $("#client_list option:selected").text();
+      ws.send('{"type":"say","to_client_id":"'+to_client_id+'","to_client_name":"'+to_client_name+'","content":"'+input.value.replace(/"/g, '\\"').replace(/\n/g,'\\n').replace(/\r/g, '\\r')+'"}');
+      input.value = "";
+      input.focus();
+    }
+
+    //开始工作
+    function startworks(){
+      // $.post('Mylife/mywork',{name:name},function(data){}, 'json');
+      ws.send('{"type":"mywork","uid":'+uid+'}');
+    }
+
+    //开始工作
+    function stoptworks(){
+      // $.post('Mylife/mywork',{name:name},function(data){}, 'json');
+      ws.send('{"type":"mywork","uid":'+uid+',"stop":"1"}');
+    }
+
+    // 刷新用户列表框
+    function flush_client_list(){
+      var client_list_slelect = $("#client_list");
+      client_list_slelect.empty();
+      client_list_slelect.append('<option value="all" id="cli_all">所有人</option>');
+      for(var p in client_list){
+            $("#userlist ul").append('<li id="'+p+'">'+client_list[p]+'</li>');
+            client_list_slelect.append('<option value="'+p+'">'+client_list[p]+'</option>');
+        }
+      $("#client_list").val(select_client_id);
+    }
+
+    // 发言
+    function say(from_client_id, from_client_name, content, time){
+      $("#dialog").append('<div class="speech_item"><img src="/chat/img/face_default.jpg" class="user_icon" /> '+from_client_name+' <br> '+time+'<div style="clear:both;"></div><p class="triangle-isosceles top">'+content+'</p> </div>');
+    }
+
+    // 工作
+    function mywork(from_client_id, from_client_name, content, time){
+      getuserinfo()
+      $("#mywork").append('<div class="speech_item"> 渡鸦：'+time+'<div style="clear:both;"></div><p class="triangle-isosceles top">'+content+'</p> </div>');
+    }
+
+    // 实况
+    function mycontest(data){
+      if (data['group'] == 'm') {
+        $("#contestatlast").append('<p class="triangle-isosceles top">'+data["content"]+'</p>');
+      }
+      if (data['group'] == 'e') {
+        $("#contestatlast").append('<p class="triangle-isosceles redjb top">'+data["content"]+'</p>');
+      }
+      if (data["m"]>=0 && data["e"]>=0) {
+        // var html = '本队<p size="5" color="#FF0000">'+m+'</p> 敌队<p size="5" color="#FF0000">'+e+'</p>';
+        var html2 = '本队：'+data["m"]+' 敌队：'+data["e"];
+        $("#contestatlast h2").html(html2);
+      }      
+    }
+
+    //更新个人资料
+    function getuserinfo(){
+      $.get('Mylife/userinfoAjax', function(sdata){
+        $("#myene").html(sdata.ene);
+        $("#mymoney").html(sdata.money);
+      });
+    }
+
+    $(function(){
+      select_client_id = 'all';
+      $("#client_list").change(function(){
+           select_client_id = $("#client_list option:selected").attr("value");
+      });
+    });
+  </script>
+</head>
+<body onload="connect();">
+    <div class="container-fluid">
+      <div class="row clearfix">
+          <div class="col-md-1 column">
+          </div>
+          <div class="col-md-6 column">
+             <div class="thumbnail">
+                 <div class="caption" id="dialog"></div>
+             </div>
+             <form onsubmit="onSubmit(); return false;">
+                  <select style="margin-bottom:8px" id="client_list">
+                        <option value="all">所有人</option>
+                    </select>
+                    <textarea class="textarea thumbnail" id="textarea"></textarea>
+                    <div class="say-btn"><input type="submit" class="btn btn-default" value="发表" /></div>
+               </form>
+               <div>
+               &nbsp;&nbsp;&nbsp;&nbsp;<b>房间列表:</b>（当前在&nbsp;房间<?php echo isset($_GET['room_id'])&&intval($_GET['room_id'])>0 ? intval($_GET['room_id']):1; ?>）<br>
+               &nbsp;&nbsp;&nbsp;&nbsp;<a href="?room_id=1">房间1</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="?room_id=2">房间2</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="?room_id=3">房间3</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="?room_id=4">房间4</a>
+               <br><br>
+               </div>
+          </div>
+          <div class="col-md-3 column">
+            <div class="thumbnail">
+               <div class="caption" style="height: 200px" id="userinfo"><h4>我的属性</h4><ul>
+                 精力：<p id="myene">{$userinfo.ene}</p>
+                 金币：<p id="mymoney"> {$userinfo.money}</p>
+
+               </ul></div>
+            </div>
+             <div class="thumbnail">
+                 <div class="caption yslide" id="userlist"><h4>在线用户</h4><ul></ul></div>
+             </div>
+            <div class="thumbnail">
+              <div class="caption yslide" style="height: 335px" id="mywork"></div>
+              <button onclick="startworks();">开工</button>
+              <button data-toggle="modal" data-target="#contest_1">练习赛</button>
+            </div>
+          </div>
+      </div>
+    </div>
+    <!-- 位置选择模态框（Modal） -->
+    <div class="modal fade" id="contest_1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">选择位置</h4>
+                </div>
+                <div class="modal-body">
+                  <label class="col-sm-2 control-label">位置：</label>
+                  <select id="myType" class="filter-status form-control">
+                      <option value="1" data-i18n="deviceManage.byte">1</option>
+                      <option value="2" data-i18n="deviceManage.int">2</option>
+                      <option value="3" data-i18n="deviceManage.long">3</option>
+                      <option value="4" data-i18n="deviceManage.float">4</option>
+                      <option value="5" data-i18n="deviceManage.double">5</option>
+                      <option value="6" data-i18n="deviceManage.double">6</option>
+                      <option value="7" data-i18n="deviceManage.double">7</option>
+                      <option value="8" data-i18n="deviceManage.double">8</option>
+                      <option value="9" data-i18n="deviceManage.double">9</option>
+                      <option value="10" data-i18n="deviceManage.double">10</option>
+                      <option value="11" data-i18n="deviceManage.double">11</option>
+                  </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary contest_firest">匹配</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    <!-- 阵容匹配模态框（Modal） -->
+    <div class="modal fade" id="contest_2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">阵容</h4>
+                </div>
+                <div class="modal-body">
+                  <div style="width: 99%;">
+                    <label>我方：</label>
+                    <ul id="mygroup"></ul>
+                  </div>
+                  <div style="width: 99%;">
+                    <label>对方：</label>
+                    <ul id="eqgroup"></ul>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" class="btn btn-primary contest_second" data-toggle="modal" data-target="#contest_2">进场</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    <!-- 计算结果模态框（Modal） -->
+    <div class="modal fade" id="contest_3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">比赛结果</h4>
+                </div>
+                <div class="modal-body">
+                  <div style="width: 100%" id="contestatlast"><h2>比赛进行中......</h2></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <!-- <button type="button" class="btn btn-primary contest_firest" data-toggle="modal" data-target="#contest_2">进场</button> -->
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+    <script type="text/javascript">
+      thiscontest = [];
+      $('.contest_firest').click(function() {
+        var myplace = $("#contest_1 #myType option:selected").val();
+        //var paramName = $("#addCanshu input[name='paramName']").val();
+        $.post('/Mylife/contestFirest', {myplace: myplace,action: 'firest'}, function(sdata) {
+          if (sdata.status == undefined) {
+            thiscontest = sdata;
+            var myhtml = "";
+            var eqhtml = "";            
+            for (var i = 0; i < sdata.length; i++) {
+              if (sdata[i]['group'] == 'm') {
+              myhtml += "<li>"+sdata[i]['username']+"</li>";
+              $('#contest_2 #mygroup').html(myhtml);
+              }else{
+                eqhtml += "<li>"+sdata[i]['username']+"</li>";
+                $('#contest_2 #eqgroup').html(eqhtml);
+              }            
+            }
+            $('#contest_1').modal('hide');
+            $('#contest_2').modal('show');
+          }else{
+            alert(sdata.msg);
+            $('#contest_1').modal('hide');
+          }
+        });        
+      });
+
+      $('.contest_second').click(function() {
+        $('#contest_3 #contestatlast').html("<h2>比赛进行中......</h2>");
+        $.post('/Mylife/contestSecond', function(sdata) {
+          $('#contest_3 #contestatlast').append("<h2>"+sdata.msg+"</h2>");          
+          $('#contest_3').modal('show');
+          getuserinfo();
+          console.log(sdata);
+        });
+      });
+    </script>
+</body>
+</html>

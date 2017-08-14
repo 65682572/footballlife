@@ -1,0 +1,45 @@
+<!-- 左菜单 -->
+<div class="jt_leftGYMenu jt_leftXTMenu">
+    <div id="skin-select">
+        <include file="Common:logoFunc" />
+        <div class="jt_leftBarMenu" id="jt_leftBarMenu">
+            <div class="skin-part">
+                <div id="tree-wrap">
+                    <div class="side-bar">
+                        <ul id="jt_showhide2" class="topnav top2 menu-left-nest jt_weizhi">
+                            <li>
+                                <a onclick="showmenu(this)" class="tooltip-tip title-menu-left ajax-load">
+                                    <span data-i18n="common.systemSet"></span>
+                                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                                </a>
+                            </li>
+                            <ul id="menu-showhide2">
+                                <li>
+                                    <a href="javascript:void(0);" data-i18n="common.systemModular"></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" data-i18n="common.interfaceSet"></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" data-i18n="common.dataBaseManage"></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" data-i18n="common.serverManage"></a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" data-i18n="common.templateStyle"></a>
+                                </li>
+                                <li>
+                                    <a href="{:U('/SystemSet/parameterSet','','')}" data-i18n="common.parameterSet"></a>
+                                </li>
+                                <li>
+                                    <a href="{:U('/SystemSet/pluginsLoad','','')}" data-i18n="common.pluginDownLoad"></a>
+                                </li>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

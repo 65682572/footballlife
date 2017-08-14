@@ -1,0 +1,143 @@
+<!-- 在线地图 -->
+<title> 在线地图 </title>
+<include file="Common:matrix_header"/>
+<script src="__JS__common.js"></script>
+<include file="Common:matrix_menu"/>
+<!-- 左菜单 -->
+<div class="jt_mapLeft1">
+    <div id="skin-select">
+        <include file="Common:logoFunc" />
+        <div class="jt_leftBarMenu jt_mapLeft1" id="jt_leftBarMenu">
+            <div class="skin-part">
+                <div id="tree-wrap">
+                    <div class="side-bar jt_setSide">
+                        <ul id="menu-showhide1" class="topnav top2 menu-left-nest">
+                            <li>
+                                <a onclick="showmenu(this)" class="tooltip-tip title-menu-left ajax-load">
+                                    <span class="jt_mapList">地图设置</span>
+                                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                                </a>
+                            </li>
+                            <ul id="menu3">
+                                <li>
+                                    <a href="{:U('/Map/mapList','','')}">
+                                        <span class="span-t4">我的地图</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{:U('/Map/mapSetting','','')}">
+                                        <span class="span-t4">添加地图</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{:U('/Map/addAddress','','')}">
+                                        <span class="span-t4">常用地址</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  中间 -->
+<div class="wrap-fluid jt_mapSetMain jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span>添加地图</span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle"/>
+                    <div class="col-sm-2">
+                        <div class="devider-vertical visible-lg"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-wrap">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="nest">
+                            <div class="title-alt">
+                                <h6>
+                                    管理常用地址
+                                </h6>
+                            </div>
+                            <section id="flip-scroll">
+                                <table class="table table-bordered table-striped cf">
+                                    <thead class="cf">
+                                    <tr>
+                                        <th class="numeric">地图名称</th>
+                                        <th class="numeric">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <foreach name="data" item="v">
+                                            <tr>
+                                                <td>{$v['add_name']}</td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <a href="/Map/delAddress/id/{$v['id']}">
+                                                            <button class="btn btn-danger btn-control">删&nbsp;除</button>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </foreach>
+                                    </tbody>
+                                </table>
+                            </section>
+                        </div>
+                        <div class="nest" id="validationClose">
+                            <div class="title-alt">
+                                <h6>
+                                    添加常用地址</h6>
+                                <div class="titleClose">
+                                    <a class="gone" href="#validationClose">
+                                        <span class="entypo-cancel"></span>
+                                    </a>
+                                </div>
+                                <div class="titleToggle">
+                                    <a class="nav-toggle-alt" href="#validation">
+                                        <span class="entypo-up-open"></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="body-nest" id="validation">
+                                <div class="form_center">
+                                    <form action="" method="post" id="contact-form" class="form-horizontal"
+                                          novalidate="novalidate">
+                                        <fieldset>
+                                            <div class="control-group">
+                                                <label class="control-label" for="addressName">常用地址</label>
+                                                <div class="controls">
+                                                    <input type="text" class="form-control" name="addressName" id="addressName">
+                                                </div>
+                                            </div>
+                                            <div class="form-actions" style="margin:20px 0 0 0;">
+                                                <button type="submit" class="btn btn-primary">提&nbsp;交</button>
+                                                <button type="reset" class="btn">清&nbsp;空</button>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Common:footer"/>
+<!-- Custom and plugin javascript -->
+<script src="__JS__bootstrap-select.min.js"></script>
+</body>
+</html>

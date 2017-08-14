@@ -1,0 +1,42 @@
+<include file="Common:header" />
+</head>
+<body>
+<div id="wrapper" class="mailbox">
+    <include file="Common:leftBar" />
+    <div id="page-wrapper" class="gray-bg">
+        <include file="Common:topBar" />
+        <div class="row">
+            <div class="col-md-2 col-sm-4 col-xs-4">
+                <include file="Common:mail_leftBar" />
+            </div>
+            <div class="col-md-10 col-sm-8 col-xs-8  animated fadeInRight">
+                <div class="mail-box-header clearfix">
+                    <h2 class="fl">
+                        <span data-i18n="mail.invite"></span><span class="num">({$count})</span>
+                    </h2>
+                    <div class="mail-tools tooltip-demo">
+                        <div class="btn-group pull-right">
+                            <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i></button>
+                            <button class="btn btn-white btn-sm"><i class="fa fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="mail-box">
+                    <table class="table table-hover table-mail">
+                        <tbody>
+                        <volist name="list" id="v">
+                            <tr class="unread">
+                                <td class="mail-ontact"><a href="/user/mailbox/{$v.id}">{$v.username}</a></td>
+                                <td class="mail-subject"><a href="/user/mailbox/{$v.id}">邀请你加入{$v.firmname}!</a></td>
+                                <td class="text-right mail-date">{$v.createtime|date="Y-m-d H:i:s",###}</td>
+                            </tr>
+                        </volist>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

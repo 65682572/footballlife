@@ -1,0 +1,3671 @@
+/* 重置 */
+html, body {
+    margin: 0;
+    height: 100%;
+    font-size : 62.5%;
+    font-family: "微软雅黑" !important;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+label {
+    font-weight: normal;
+}
+
+h3 {
+    margin: 0;
+}
+
+/* 弹层 */
+.myDialog {
+    width: 25%;
+}
+
+#menuGroup .menuUl{*
+	text-align: center;
+}
+
+.public_dialog {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.public_dialog .title_dlg {
+    padding: 5px 10px;
+}
+
+.public_dialog .content_dlg {
+    position: relative;
+    padding: 10px 15px 20px;
+    text-align: center;
+    border-bottom: solid 1px #bfbfbf;
+}
+
+.public_dialog .btns_dlg {
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+}
+
+.public_dialog .btns_dlg a {
+    display: block;
+    width: 100%;
+    float: left;
+    color: #72b9ef;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.public_dialog .btns_dlg a:active {
+    background-color: #e8e8e8;
+}
+
+.public_dialog .btns_dlg a + a {
+    border-left: solid 1px #bfbfbf;
+}
+
+.public_dialog .warning {
+    display: none;
+    width: 15px;
+    position: absolute;
+    bottom: 20px;
+    right: 0;
+}
+
+/* 公用 */
+.hot_block {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+}
+
+.myFooter {
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.error {
+    font-size: 1.2em;
+    color: red;
+    display: none;
+    text-align: center;
+}
+
+.change_lng {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 2em;
+}
+
+.change_lng .btn {
+    padding: 2px !important;
+    min-height: auto !important;
+}
+
+.nav .change_lng {
+    position: static;
+}
+
+.nav .change_lng a {
+    font-size: 1em;
+!important;
+}
+
+.codeValition input[type="tel"] {
+    float: left;
+    width: 68%;
+}
+
+.codeValition .fetchCode {
+    float: right;
+    width: 30%;
+    text-align: center;
+}
+
+.inviteReg {
+    padding-top: 100px;
+}
+
+.theme-config {
+    display: none;
+}
+
+.navbar-top-links .personal {
+    display: none;
+}
+
+.my-m-t-none {
+    margin-top: 0 !important;
+}
+
+.jstree {
+    font-size: 1.6em;
+}
+
+.btn-wlg {
+    width: 100px !important;
+}
+
+.btn-wxlg {
+    width: 200px !important;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.fr .j_marginTable {
+    margin-top: 1px;
+}
+
+.device_index .windowCtrl {
+    margin-top: 8px;
+}
+
+.btn_waiting {
+    background-image: url(./../images/loading.gif);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 1.5rem
+}
+
+i.my_close {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 1.8em;
+}
+
+.sliderValue {
+    margin-left: 8px;
+    width: 14px;
+    text-align: center;
+    margin-top: 1px;
+}
+
+.myBorderPanel {
+    border: solid 1px #2F4050;
+    box-shadow: 2px 2px 3px #2F4050;
+    border-radius: 2px
+}
+
+.rotate90 {
+    transform: rotate(90deg);
+    -ms-transform: rotate(90deg);  Internet Explorer 9
+    -moz-transform: rotate(90deg); /* Firefox */
+    -webkit-transform: rotate(90deg); /* Safari 和 Chrome */
+    -o-transform: rotate(90deg); /* Opera */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+}
+
+.rotate180 {
+    transform: rotate(180deg);
+    -ms-transform: rotate(180deg); /* Internet Explorer 9*/
+    -moz-transform: rotate(180deg); /* Firefox */
+    -webkit-transform: rotate(180deg); /* Safari 和 Chrome */
+    -o-transform: rotate(180deg); /* Opera */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+}
+
+.rotate270 {
+    transform: rotate(270deg);
+    -ms-transform: rotate(270deg); /* Internet Explorer 9*/
+    -moz-transform: rotate(270deg); /* Firefox */
+    -webkit-transform: rotate(270deg); /* Safari 和 Chrome */
+    -o-transform: rotate(270deg); /* Opera */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+
+/* 颜色背景 */
+.bg_global {;
+    background-color: #2F4050 !important
+}
+
+.red {
+    color: red
+}
+
+.green {
+    color: green
+}
+
+.gray {
+    color: gray
+}
+
+/* 重构 */
+.dropdown-messages li {
+    position: relative
+}
+
+.dropdown-messages li a {
+    padding: 0 !important
+}
+
+.dropdown-messages li a:hover, .dropdown-messages li a:active {
+    background: transparent
+}
+
+.dropdown-messages li .media-body {
+    display: inline-block;
+    margin-left: 5px;
+    width: 80%
+}
+
+.dropdown-messages li .media-body p {
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0
+}
+
+.bootstrap-select {
+    margin-left: 5px !important
+}
+
+.device_nav_h .navbar-static-top {
+    margin-bottom: 0;
+    background: #2f4050 url(../images/header-profile.png) repeat-x left top !important
+}
+
+.device_nav_h h2.welcome {
+    width: 15%;
+    float: left;
+    font-size: 2.9em;
+    color: #fff;
+    text-align: center
+}
+
+.device_nav_h .nav.navbar-left li:last-child {
+    margin-right: 0 !important
+}
+
+.device_nav_h ul.navbar-left > li > a {
+    color: #fff
+}
+
+.device_nav_h ul.navbar-left > li {
+    text-align: center
+}
+
+/* width: 20% !important; */
+.device_nav_h ul.navbar-left > li.active, .device_nav_h ul.navbar-left > li:hover {
+    border-left: none
+}
+
+.device_nav_h ul.navbar-left > li.active a, .device_nav_h ul.navbar-left > li.open a, .device_nav_h ul.navbar-left > li > a:hover, .device_nav_h ul.navbar-left > li > a:focus {
+    color: #2f4050 !important;
+    background: #fff !important
+}
+
+.device_nav_v ul > li.active {
+    border-left: none !important
+}
+
+.slider-selection {
+    background: #BABABA !important
+}
+
+.md-skin .ibox-title, .md-skin .ibox-content {
+    border-style: solid solid none !important
+}
+
+.md-skin input {
+    border: solid 1px #e7eaec
+}
+
+.anchorBL {
+    display: none
+}
+
+
+
+/* modal */
+.modal button.btn {
+    margin-right: 10px !important;
+    width: 100px
+}
+
+.modal .tips {
+    font-size: 2em;
+}
+
+#myModal_clipImage label {
+    margin: 10px auto;
+    width: 100px
+}
+
+#myModal_clipImage .previewImg img {
+    border-radius: 50%
+}
+
+#myModal_add .addBranch {
+    width: 100px
+}
+
+#myModal_chooseUser .selectOrg_foruser {
+    margin-right: 10px
+}
+
+/*personal*/
+.personal .photo {
+    display: block;
+    position: relative;
+    text-align: center
+}
+
+.personal .photo img {
+    width: 80px
+}
+
+.personal .photo i {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    margin-left: 25px;
+    color: #1ab394
+}
+
+.personal form p {
+    width: 85%;
+    float: right
+}
+
+.personal form input, .personal form textarea {
+    display: none;
+    width: 85%;
+    float: right
+}
+
+.personal form .confirm {
+    display: none
+}
+
+.cropArea {
+    background: #E4E4E4;
+    overflow: hidden;
+    width: 500px;
+    height: 350px;
+    margin: 0 auto
+}
+
+.p_info .passwordBox {
+    padding: 20px
+}
+
+/* 机构管理 */
+.org_m button.createOrg {
+    margin-top: 20px
+}
+
+/* 邀请用户 */
+.invite_m .fileinput {
+    display: block !important
+}
+
+.invite_m .tab-content button {
+    width: 100px
+}
+
+.invite_m .tab-content button:nth-child(even) {
+    margin-left: 10px !important
+}
+
+.invite_m .panel-body {
+    text-align: center
+}
+
+.invite_m .inviteTel {
+    position: relative
+}
+
+/* 邮件 */
+.mailbox .mail-box {
+    margin: 0
+}
+
+.mailbox .table-mail {
+    table-layout: fixed
+}
+
+.mailbox .category-list li + li {
+    border-top: 1px solid #e7eaec
+}
+
+.mailbox .category-list li {
+    padding: 0 5px
+}
+
+.mailbox .category-list li.active {
+    background: #dfdfdf
+}
+
+.maildetail .accept {
+    display: none
+}
+
+/* 设备管理 */
+.j_float {
+    float: left;
+}
+
+.device_m .nameAndPass {
+    position: relative
+}
+
+.device_m .nameAndPass input {
+    width: 49%
+}
+
+.device_m .addUser {
+    margin-bottom: 20px !important
+}
+
+.device_m #myModal_chooseUser .modal-body a {
+    display: block;
+    padding: 5px;
+    font-size: 1.6em;
+}
+
+/*设备管理首页*/
+
+.j_input{
+    margin: 0 0 15px 4.1%;
+}
+
+.j_input input{
+    margin-left: 2%;
+}
+
+.j_preview{
+    margin: 10px 6%;
+    width: 954px;
+    height: 479px;
+    border: 2px solid yellow;
+    background-color: black;
+    position: relative;
+    display: none;
+}
+
+.j_preview div{
+	background-color: #55585B;
+}
+
+.device_index #searchSource {
+    margin: 0 auto;
+    display: block;
+    padding: 4px;
+    border-radius: 4px;
+    border: 1px solid silver
+}
+
+.device_index #sourceTree a {
+    padding: 0 !important;
+    font-size: 1.2em;
+}
+
+.device_index #sourceTree .jstree-hovered, .device_index #sourceTree .jstree-clicked {
+    background: none;
+    box-shadow: none
+}
+
+.device_index .modal-body {
+    padding: 15px !important
+}
+
+.device_index .mainWindow {
+    width: 1084px;
+    height: 100%;
+}
+
+/* width: 84%;height:100% */
+.device_index .mainWindows {
+    width: 90%;
+    height: 100%;
+    /*margin-left: 5%;*/
+}
+
+.device_index .mainWindow .toolBar {
+    padding: 5px
+}
+
+.device_index .mainWindow .toolBar > div {
+    margin-right: 20px
+}
+
+.device_index .mainWindow .toolBar label, .device_index .mainWindow .toolBar span.sliderValue {
+    color: #fff;
+    margin-top: 9px;
+}
+
+/* 10 */
+.device_index .mainWindow .toolBar .bootstrap-select {
+    width: 50px !important
+}
+
+.device_index .mainWindow .toolBar .btn_volume {
+    font-size: 2em;
+    color: #fff;
+    margin-right: 15px;
+    margin-top: 5px;
+}
+
+.device_index .mainWindow .toolBar .btn_volume span {
+    display: none;
+    position: absolute;
+    top: 3px;
+    right: -12px;
+    font-size: 1.3em;
+    color: red
+}
+
+.device_index .mainWindow .toolBar #volumeSlide {
+    margin-top: -3px;
+    width: 120px
+}
+
+.device_index .mainWindow .canvas {
+    margin: 10px 6%;
+    width: 954px;
+}
+
+/* margin: 10px 4.6%;width: 91%; */
+.device_index .mainWindows .canvas {
+    border: 2px solid yellow;
+    background-color: #5A5D60;
+    margin: 7px 0px 5px 9px;
+    width: 98% !important;
+    height: 395px !important;
+}
+
+/* margin:10px 6%; width */
+.device_index .mainWindow .bottomBar {
+    border-top: solid 1px #666;
+    font-size: 1.2em;
+    color: black
+}
+
+.device_index .mainWindow .bottomBar h3, .device_index .mainWindow .bottomBar p {
+    margin: 0;
+    font-size: 0.9em;
+    font-weight: normal;
+}
+
+.device_index .mainWindow .bottomBar p {
+    text-indent: 1em
+}
+
+.device_index .mainWindow .bottomBar .log {
+    padding: 5px;
+    background-color: #ababab;
+    width: 60%;
+    height: 100px;
+    overflow-y: auto
+}
+
+.device_index .mainWindow .bottomBar .status, .device_index .mainWindow .bottomBar .warn {
+    width: 20%
+}
+
+.device_index .mainWindow .bottomBar .warn {
+    border-left: solid 1px #666
+}
+
+.device_index .mainWindow .bottomBar .warn > div {
+    padding: 5px;
+    text-align: center;
+}
+
+.device_index .mainWindow .bottomBar .warn .bootstrap-select {
+    width: 60px !important
+}
+
+.device_index .mainWindow .bottomBar .warn button {
+    margin: 5px 0 5px 10px;
+}
+
+.device_index .mainWindow .bottomBar .title {
+    padding: 5px;
+    text-align: center;
+    border-bottom: solid 1px #666
+}
+
+.device_index .modeList {
+    width: 15%;
+    height: 100% !important;
+}
+
+.device_index .modeList .title {
+    padding: 5px;
+    text-align: center;
+    border-bottom: solid 1px #666;
+    font-size: 1.2em;
+    color: #fff
+}
+
+.device_index .modeList ul {
+    overflow: auto
+}
+
+.device_index .volumeCtrl .j_label {
+    position: relative;
+    top: -1px;
+}
+
+.device_index .bottomBar .j_iStyle {
+    font-size: 0.9em;
+}
+
+.device_index .bottomBar .j_btns {
+    margin-left: 20px !important;
+}
+
+/* 设备控制 */
+.device_ctrl {
+    padding: 0 15px;
+    color: #000;
+    font-size: 12px;
+}
+
+.device_ctrl .bg_btn {
+    background: url(../images/bg_btn.png) no-repeat;
+    background-size: 100% 100%
+}
+
+.device_ctrl label {
+    color: #000;
+    margin-bottom: 0;
+    font-weight: normal;
+    font-size: 12px;
+}
+
+.device_ctrl table {
+    width: 100%;
+    border: none;
+    text-align: center
+}
+
+.device_ctrl table td {
+    width: 33%;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    vertical-align: middle;
+    color: #999;
+    font-size: 18px;
+}
+
+.device_ctrl table td:hover {
+    color: #38449a
+}
+
+.device_ctrl .tools_lefttop {
+    width: 100px;
+    height: 96px;
+    /*background: url(../images/bg_table.png) no-repeat;*/
+    background-size: 100% 100%
+}
+
+.device_ctrl .tools_righttop {
+    width: 80px
+}
+
+.device_ctrl .tools_righttop .bg_assist {
+    background-size: 100% auto
+}
+
+.device_ctrl .tools_righttop .bg_assist td {
+    line-height: 29px
+}
+
+.device_ctrl .speedCtrl {
+    height: 30px;
+    line-height: 25px;
+    padding: 0 5px;
+    margin: 10px 0
+}
+
+.device_ctrl .speedCtrl label {
+    width: 34px
+}
+
+.device_ctrl #speedSlide {
+    width: 121px !important
+}
+
+.device_ctrl .sceneCtrl {
+    width: 100%
+}
+
+.device_ctrl .sceneCtrl td {
+    width: 25%
+}
+
+.device_ctrl .preCtrl {
+    margin-top: 10px
+}
+
+.device_ctrl .preCtrl li {
+    margin-bottom: 5px
+}
+
+.device_ctrl .preCtrl label {
+    width: 58px
+}
+
+.device_ctrl .preCtrl .bootstrap-select {
+    width: 100px !important
+}
+
+.device_ctrl .preCtrl .dropdown-menu > li > a {
+    padding: 0 !important;
+    padding-left: 45px !important;
+    line-height: auto !important
+}
+
+.device_ctrl .preCtrl li label.fa {
+    display: inline-block;
+    background-color: #2f4050;
+    color: #fff;
+    width: 21px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 4px;
+    position: relative;
+    top: 1px;
+}
+
+/*设置时间*/
+.device_setting_time .btns {
+    padding-left: 120px
+}
+
+/*设置显示效果*/
+.device_setting_effect .item label {
+    width: 120px
+}
+
+.device_setting_effect .item .bootstrap-select {
+    width: 100px !important
+}
+
+/*窗口号显示*/
+.device_setting_wn label {
+    width: 120px
+}
+
+.device_setting_wn input[type="color"] {
+    width: 25px
+}
+
+.device_setting_wn .bootstrap-select {
+    width: 100px !important;
+    margin-left: 0 !important
+}
+
+.device_setting_wn input[type="radio"].m-l {
+    margin-left: 15px !important
+}
+
+.device_setting_wn button {
+    margin-left: 120px
+}
+
+/*输出显示设置*/
+.device_setting_output h4 {
+    margin-top: 15px
+}
+
+.device_setting_output .item {
+    padding-left: 20px
+}
+
+.device_setting_output label {
+    width: 70px
+}
+
+.device_setting_output .sliderValue {
+    display: inline-block;
+    width: 20px;
+    text-align: center;
+    border: solid 1px #C8C8CB;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12)
+}
+
+.device_setting_output button {
+    margin-left: 160px
+}
+
+/*窗口码流设置*/
+.device_setting_codestream label {
+    width: 60px
+}
+
+.device_setting_codestream button {
+    margin-left: 140px
+}
+
+/*音频输出设置*/
+.device_setting_audio .bootstrap-select {
+    width: 100px !important
+}
+
+.device_setting_audio input[type="checkbox"] {
+    width: 20px;
+    height: 20px
+}
+
+.device_setting_audio table {
+    width: 100%
+}
+
+.device_setting_audio th, .device_setting_audio td {
+    padding: 5px;
+    vertical-align: middle;
+    text-align: center
+}
+
+.device_setting_audio button {
+    margin-bottom: 0 !important
+}
+
+/* 系统维护 */
+.device_setting_maintain .bootstrap-select {
+    width: 100px !important
+}
+
+/* 网络设置 */
+.device_setting_network .item {
+    margin: 5px 0;
+}
+
+.device_setting_network .item label {
+    width: 150px
+}
+
+.device_setting_network .item .bootstrap-select {
+    margin-left: 0 !important;
+    width: 158px !important
+}
+
+/* SDK设置 */
+.device_setting_sdk button {
+    margin-left: 110px
+}
+
+/* 平台设置 */
+.device_setting_platform .item {
+    margin: 5px 0;
+}
+
+.device_setting_platform .item label {
+    width: 80px
+}
+
+.device_setting_platform button {
+    margin-left: 110px
+}
+
+/* 串口配置 */
+.device_setting_serial .item label {
+    width: 80px
+}
+
+.device_setting_serial .item .bootstrap-select {
+    margin-left: 0 !important;
+    width: 158px !important
+}
+
+.device_setting_serial .btns {
+    padding-left: 105px
+}
+
+/* 流媒体设置 */
+.device_setting_stream .item .bootstrap-select {
+    margin-left: 0 !important;
+    width: 158px !important
+}
+
+.device_setting_stream button {
+    margin-left: 150px
+}
+
+/* 报警点设置 */
+.device_setting_alarm1 .item {
+    margin: 5px
+}
+
+.device_setting_alarm1 .item label {
+    width: 100px
+}
+
+.device_setting_alarm1 .item .bootstrap-select {
+    margin-left: 0 !important;
+    width: 158px !important
+}
+
+.device_setting_alarm1 .btns {
+    padding-left: 140px
+}
+
+/* 系统激活 */
+.device_setting_activate label {
+    width: 100px
+}
+
+/* 系统升级 */
+.device_setting_upgrade .item p {
+    margin: 5px 0;
+}
+
+.device_setting_upgrade button {
+    margin-left: 90px
+}
+
+/* 配置数据 */
+.device_setting_data .item p {
+    margin: 5px 0;
+}
+
+.device_setting_data button {
+    margin-left: 90px
+}
+
+/* 系统信息 */
+.device_setting_sysinfo label {
+    width: 120px
+}
+
+.device_setting_sysinfo .item {
+    margin: 5px 0
+}
+
+/* 输入源原理 */
+.device_input_m table {
+    text-align: center
+}
+
+/* 电子地图导入 */
+.map_i #preview {
+    height: 200px;
+    display: none
+}
+
+.map_i .btn_choose {
+    position: relative
+}
+
+.map_i .passwordBox {
+    padding: 20px
+}
+
+.map_i .btn_choose input {
+    position: absolute;
+    font-size: 2.5em;
+    width: 100px;
+    left: 50%;
+    margin-left: -50px;
+    opacity: 0;
+    filter: alpha(opacity=0)
+}
+
+/* 电子地图管理 */
+.map_m .orgTree {
+    width: 20%;
+}
+
+.map_m .orgTree .modal-body {
+    padding-left: 0 !important;
+    padding-top: 0 !important
+}
+
+.map_m .orgTree .bootstrap-select {
+    width: 80% !important
+}
+
+.map_m #map {
+    width: 75%
+}
+
+@media (max-width: 768px) {
+    .navbar-top-links .personal {
+        display: block
+    }
+
+    .navbar-top-links .welcome-message {
+        display: none
+    }
+
+    .navbar-top-links li a {
+        padding: 5px
+    }
+
+    .count-info .label {
+        top: -5px;
+        right: -5px
+    }
+
+    .personal .panel {
+        width: 100%
+    }
+
+    .cropArea {
+        width: 300px;
+        height: 220px
+    }
+
+    .myDialog {
+        width: 60%
+    }
+
+    .navbar-top-links li a {
+        min-height: auto
+    }
+}
+
+/* 头部菜单区域 */
+.j_btn-myDanger {
+    float: right;
+    margin: 13px 2% 0 0;
+}
+
+/*.j_times {
+    border: none !important;
+    width: 155px;
+    outline: none;
+    background-color: #273A4A;
+    color: white;
+    margin-top: 20px;
+}*/
+
+/* 设备列表 */
+.j_eqUl {
+    max-height: 745px;
+    max-width: 205px;
+    cursor: pointer;
+    overflow-y: scroll;
+}
+
+.md-skin .nav-second-level li a {
+    padding: 0 10px 7px 25px;
+    font-family: 微软雅黑;
+}
+
+.md-skin .nav-second-level li p {
+    padding: 0 10px 7px 25px;
+}
+
+/* 模式列表 */
+.j_modeList {
+    overflow: hidden;
+}
+
+.j_modeList p {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 1.2em;
+    border-bottom: 1px solid #AAB0B7;
+    box-shadow: 0 2px 5px 0 #AAB0B7;
+}
+
+.j_modeListUl li {
+    text-align: center;
+    cursor: default;
+}
+
+/* 报警联动 */
+.md-skin .ibox-title, .md-skin .ibox-content {
+    width: 60em;
+}
+
+.j_table thead th {
+    text-align: center;
+}
+
+.j_table tbody tr td {
+    text-align: center;
+    width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.float-e-margins .btn {
+    margin-bottom: 2px;
+}
+
+.float-e-margins .ibox-content .j_item {
+    margin-top: 5px;
+}
+
+.j_margins .btn {
+    margin-bottom: 10px;
+}
+
+/* 实时监测 */
+.j_canvas {
+    width: 171.5%;
+    height: 400px;
+    margin: 22% 0;
+}
+
+/* 回放与播放 */
+.j_time {
+    position: relative;
+}
+
+.j_time .j_selectTime {
+    float: left;
+    line-height: 21px;
+    margin-left: 22%;
+}
+
+.j_time .form_datetime input {
+    line-height: 23px;
+    padding-left: 10px;
+    margin-top: 3px;
+}
+
+.j_time .form_datetime span {
+    margin-left: -30px;
+}
+
+.clearBoth {
+    clear: both;
+}
+
+.j_time .j_list {
+    position: relative;
+    top: -10px;
+}
+
+.j_time .j_radio1 {
+    position: absolute;
+    top: -27px;
+    left: 56%; /* 52 */
+}
+
+.j_time .j_radio2 {
+    position: absolute;
+    top: -27px;
+    left: 63%; /* 60 */
+}
+
+.j_time form .btn-primary {
+    position: absolute;
+    top: 4px; /* 5 */
+    left: 70%;
+    width: 8%;
+}
+
+/*.j_ulLi ul {
+    height: 72px;
+    overflow-y: scroll;
+}*/
+
+.myBorderPanel hr {
+    border: 1px solid #2F4050;
+    margin-bottom: 5px;
+    margin-top: -7px;
+}
+
+.myBorderPanel canvas {
+    border: 2px solid yellow;
+}
+
+.myBorderPanel .bottomBar .j_backStyle input {
+    margin: 20px auto;
+    width: 160px;
+    font-size: 0.8em;
+    outline: none;
+}
+
+.myBorderPanel .bottomBar .j_button {
+    margin-left: -10px;
+}
+
+/* 地图运维 */
+.j_size {
+    font-size: 1.1em;
+}
+
+.j_slt {
+
+}
+
+.j_leftBar {
+    position: relative;
+    padding-top: 20px;
+}
+
+.j_leftBar .active a {
+    text-align: center;
+}
+
+.j_leftBar .fl {
+    background: none;
+}
+
+.j_leftBar .fl .j_slt {
+    border: 1px solid gray;
+    border-left: none;
+    margin-left: -15px;
+    text-align: center;
+    width: 120px;
+}
+
+.j_leftBar .fr .j_mc {
+    border: 1px solid gray;
+    border-right: none;
+    margin-left: -6px;
+    text-align: center;
+    width: 101px;
+}
+
+.j_rightBar .j_dtmc {
+    padding: 15px;
+}
+
+.j_rightBar .j_container {
+    border: 1px solid #034C50;
+    height: 550px;
+    width: 100%;
+    word-wrap: break-word;
+    overflow: scroll;
+}
+
+.j_rightBar .j_c_bottom {
+    margin-left: 20px;
+    margin-top: 10px;
+    position: relative;
+}
+
+.j_rightBar .j_c_bottom .j_span1 {
+    margin-left: 1%;
+}
+
+.j_rightBar .j_c_bottom .j_span2 {
+    margin-left: 4%;
+}
+
+.j_rightBar .j_c_bottom .j_c_b_range {
+    border: none;
+    display: inline;
+    width: 15%;
+    position: absolute;
+    top: 3px;
+}
+
+.j_rightBar .j_c_bottom .btn-primary {
+    position: absolute;
+    left: 83%;
+}
+
+.j_rightBar .j_c_bottom .btn-warning {
+    position: absolute;
+    left: 90%;
+}
+
+.j_hover {
+    background-color: papayawhip;
+}
+
+/* 地图设置 */
+.j_navContainer {
+    position: relative;
+    padding: 50px 0;
+}
+
+.j_navContainer select {
+    border-radius: 5px;
+    width: 24%;
+    height: 30px;
+    position: absolute;
+    left: 76%;
+}
+
+.j_navContainer hr {
+    border: 1px solid gray;
+}
+
+.j_navContainer .j_CTable {
+    height: 100%;
+    border: 1px solid gray;
+}
+
+#j_table #tbody1 td {
+    max-width: 40px;
+}
+
+.j_navContainer button {
+    width: 12%;
+}
+
+#j_table #tbody1 tr .j_tdWidth {
+    width: 145px;
+}
+
+#j_table #tbody1 tr td:first-child {
+    width: 43px;
+    text-align: center;
+}
+
+.j_modalWidth {
+    width: 65%;
+}
+
+.j_modalWidth .j_label1 {
+    margin: 0 0 18px 10%;
+}
+
+.j_modalWidth .j_label2 {
+    margin: 0 0 18px 20%;
+}
+
+.j_modalWidth input {
+    width: 200px;
+    height: 30px;
+}
+
+.j_modalWidth .j_addContainer {
+    width: 100%;
+    height: 400px;
+    border-bottom: 1px solid gray;
+    margin-bottom: 20px;
+}
+
+.j_modalWidth .j_addContainer .j_add_left {
+    width: 25%;
+    float: left;
+    height: 380px;
+    border: 2px solid #E7EAEC;
+    box-shadow: 0 0 30px #E7EAEC;
+}
+
+.j_modalWidth .j_addContainer .j_add_left label {
+    width: 100%;
+    padding: 10px;
+    float: left;
+    border-bottom: 1px solid #E7EAEC;
+    text-align: center;
+    font-size: 1.2em;
+}
+
+.j_modalWidth .j_addContainer .j_add_right {
+    width: 73%;
+    float: right;
+    height: 380px;
+    border: 2px solid #E7EAEC;
+    box-shadow: 0 0 30px #E7EAEC;
+}
+
+.j_modalWidth .j_function .j_btnLeft1 {
+    margin-left: 10%;
+}
+
+.j_modalWidth .j_function .j_btnLeft2 {
+    margin-left: 45%;
+}
+
+/* 下拉菜单 */
+.j_dropdown-menu {
+    position: fixed !important;
+    min-width: 100% !important;
+    top: 34px !important;
+    z-index: 99999;
+}
+
+/* 监控页 */
+.device_index .j_menu ul {
+    margin: 0 8%;
+}
+
+.device_index .j_menu ul li {
+    padding: 10px;
+    float: left;
+    color: white;
+    cursor: pointer;
+}
+.device_nav_v{
+	font-size: 2.3em;
+}
+.device_index .j_menu ul li:hover {
+    background-color: white;
+    color: black;
+}
+/* 模式列表 */
+.device_index .j_ulLi label {
+    float: left;
+    margin: -3px 0 0 9.5%;
+    color: black;
+    font-size: 2.3em;
+}
+/* 模板图标 */
+.device_index .j_ulLi .j_mslb li img{
+	float: left;
+    margin: -3px 0 0 2%;
+    cursor: pointer;
+}
+
+.device_index .j_footing .j_userName {
+    padding: 15px 50px;
+    float: left;
+}
+
+.device_index .j_footing .j_sxPage {
+    margin: 11px 0 0 10%;
+}
+
+.device_index .j_footing .j_sxPage .span1 {
+    margin-left: 30%;
+    cursor: pointer;
+}
+
+.device_index .j_footing .j_sxPage .span2 {
+    margin-left: 5%;
+    cursor: pointer;
+}
+
+/* 监控区 */
+.device_index .j_hr {
+    border: 1px solid black;
+    margin-top: 33px;
+}
+/* 主页显示频 */
+.device_index #j_videoRegion {
+    background-color: black;
+    border: 2px solid yellow;
+    width: 94.8%;
+    height: 662px;
+    margin: 5px 0 5px 2.6%;
+}
+.device_index #j_videoRegion .j_video {
+    border: 2px solid yellow;
+    background-color: #5A5D60;
+    margin: 7px 0 3px 1.1%;
+    width: 98% !important;
+    height: 425px !important;
+}
+/* div+css定义好的格子 */
+.j_grid{
+	width: 97.6%;
+    height: 642px;
+    background-color: #5A5D60;
+    position: relative;
+    top: 8px;
+    left: 1.2%;
+}
+.grid{
+	border: 2px solid yellow;
+	position: absolute;
+}
+/* 1格 */
+.oneGrid1{
+	width: 100.2%;
+	height: 644px;
+	top: -1px;
+	left: -1px;
+}
+/* 4格 */
+.fourGrid1{
+	width: 50%;
+    height: 322px;
+    top: -1px;
+    left: -1px;
+}
+.fourGrid2{
+    width: 50.2%;
+    height: 322px;
+    top: -1px;
+    left: 49.9%;
+}
+.fourGrid3{
+    width: 50%;
+    height: 322px;
+    top: 321px;
+    left: -1px;
+}
+.fourGrid4{
+    width: 50.2%;
+    height: 322px;
+    top: 321px;
+    left: 49.9%;
+}
+/* 6格 */
+.sixGrid1{
+    width: 69.3%;
+    height: 400px;
+    top: -1px;
+    left: -1px;
+}
+.sixGrid2{
+    width: 30.9%;
+    height: 200px;
+    top: -1px;
+    left: 69.2%;
+}
+.sixGrid3{
+    width: 30.9%;
+    height: 200px;
+    top: 199px;
+    left: 69.2%;
+}
+.sixGrid4{
+    width: 34.6%;
+    height: 244px;
+    top: 399px;
+    left: -1px;
+}
+.sixGrid5{
+    width: 34.7%;
+    height: 244px;
+    top: 399px;
+    left: 34.5%;
+}
+.sixGrid6{
+    width: 30.9%;
+    height: 244px;
+    top: 399px;
+    left: 69.2%;
+}
+/* 7格 */
+.sevenGrid1{
+    width: 23%;
+    height: 200px;
+    top: -1px;
+    left: -1px;
+}
+.sevenGrid2{
+    width: 77.2%;
+    height: 400px;
+    top: -1px;
+    left: 22.9%;
+}
+.sevenGrid3{
+    width: 23%;
+    height: 200px;
+    top: 199px;
+    left: -1px;
+}
+.sevenGrid4{
+    width: 23%;
+    height: 244px;
+    top: 399px;
+    left: -1px;
+}
+.sevenGrid5{
+    width: 25.8%;
+    height: 244px;
+    top: 399px;
+    left: 22.9%;
+}
+.sevenGrid6{
+    width: 25.8%;
+    height: 244px;
+    top: 399px;
+    left: 48.7%;
+}
+.sevenGrid7{
+    width: 25.6%;
+    height: 244px;
+    top: 399px;
+    left: 74.5%;
+}
+/* 9格 */
+.nineGrid1{
+	width: 33.5%;
+    height: 215px;
+    top: -1px;
+    left: -1px;
+}
+.nineGrid2{
+    width: 33.1%;
+    height: 215px;
+    top: -1px;
+    left: 33.4%;
+}
+.nineGrid3{
+    width: 33.65%;
+    height: 215px;
+    top: -1px;
+    left: 66.45%;
+}
+.nineGrid4{
+    width: 33.5%;
+    height: 215px;
+    top: 214px;
+    left: -1px;
+}
+.nineGrid5{
+    width: 33.1%;
+    height: 215px;
+    top: 214px;
+    left: 33.4%;
+}
+.nineGrid6{
+	width: 33.65%;
+	height: 215px;
+    top: 214px;
+    left: 66.45%;
+}
+.nineGrid7{
+    width: 33.5%;
+    height: 214px;
+    top: 429px;
+    left: -1px;
+}
+.nineGrid8{
+    width: 33.1%;
+    height: 214px;
+    top: 429px;
+    left: 33.4%;
+}
+.nineGrid9{
+    width: 33.65%;
+    height: 214px;
+    top: 429px;
+    left: 66.45%;
+}
+/* 10格 */
+.tenGrid1{
+    width: 49.9%;
+    height: 320px;
+    top: -1px;
+    left: -1px;
+}
+.tenGrid2{
+    width: 25.1%;
+    height: 160px;
+    top: -1px;
+    left: 49.8%;
+}
+.tenGrid3{
+	width: 25.2%;
+    height: 160px;
+    top: -1px;
+    left: 74.9%;
+}
+.tenGrid4{
+    width: 25.1%;
+    height: 160px;
+    top: 159px;
+    left: 49.8%;
+}
+.tenGrid5{
+    width: 25.2%;
+    height: 160px;
+    top: 159px;
+    left: 74.9%;
+}
+.tenGrid6{
+    width: 24.9%;
+    height: 162px;
+    top: 319px;
+    left: -1px;
+}
+.tenGrid7{
+    width: 25%;
+    height: 162px;
+    top: 319px;
+    left: 24.8%;
+}
+.tenGrid8{
+    width: 24.9%;
+    height: 162px;
+    top: 481px;
+    left: -1px;
+}
+.tenGrid9{
+    width: 25%;
+    height: 162px;
+    top: 481px;
+    left: 24.8%;
+}
+.tenGrid10{
+    width: 50.3%;
+    height: 324px;
+    top: 319px;
+    left: 49.8%;
+}
+/* 12格 */
+.twelveGrid1{
+    width: 25%;
+    height: 215px;
+    top: -1px;
+    left: -1px;
+}
+.twelveGrid2{
+    width: 25%;
+    height: 215px;
+    top: -1px;
+    left: 24.9%;
+}
+.twelveGrid3{
+    width: 25%;
+    height: 215px;
+    top: -1px;
+    left: 49.9%;
+}
+.twelveGrid4{
+    width: 25.2%;
+    height: 215px;
+    top: -1px;
+    left: 74.9%;
+}
+.twelveGrid5{
+    width: 25%;
+    height: 215px;
+    top: 214px;
+    left: -1px;
+}
+.twelveGrid6{
+    width: 25%;
+    height: 215px;
+    top: 214px;
+    left: 24.9%;
+}
+.twelveGrid7{
+    width: 25%;
+    height: 215px;
+    top: 214px;
+    left: 49.9%;
+}
+.twelveGrid8{
+    width: 25.2%;
+    height: 215px;
+    top: 214px;
+    left: 74.9%;
+}
+.twelveGrid9{
+    width: 25%;
+    height: 214px;
+    top: 429px;
+    left: -1px;
+}
+.twelveGrid10{
+    width: 25%;
+    height: 214px;
+    top: 429px;
+    left: 24.9%;
+}
+.twelveGrid11{
+    width: 25%;
+    height: 214px;
+    top: 429px;
+    left: 49.9%;
+}
+.twelveGrid12{
+    width: 25.2%;
+    height: 214px;
+    top: 429px;
+    left: 74.9%;
+}
+/* 13格 */
+.thirteenGrid1{
+    width: 25%;
+    height: 161px;
+    top: -1px;
+    left: -1px;
+}
+.thirteenGrid2{
+    width: 25%;
+    height: 161px;
+    top: -1px;
+    left: 24.9%;
+}
+.thirteenGrid3{
+    width: 25%;
+    height: 161px;
+    top: -1px;
+    left: 49.9%;
+}
+.thirteenGrid4{
+    width: 25.2%;
+    height: 161px;
+    top: -1px;
+    left: 74.9%;
+}
+.thirteenGrid5{
+    width: 25%;
+    height: 161px;
+    top: 160px;
+    left: -1px;
+}
+.thirteenGrid6{
+    width: 50%;
+    height: 322px;
+    top: 160px;
+    left: 24.9%;
+}
+.thirteenGrid7{
+    width: 25.2%;
+    height: 161px;
+    top: 160px;
+    left: 74.9%;
+}
+.thirteenGrid8{
+    width: 25%;
+    height: 161px;
+    top: 321px;
+    left: -1px;
+}
+.thirteenGrid9{
+    width: 25.2%;
+    height: 161px;
+    top: 321px;
+    left: 74.9%;
+}
+.thirteenGrid10{
+    width: 25%;
+    height: 161px;
+    top: 482px;
+    left: -1px;
+}
+.thirteenGrid11{
+    width: 25%;
+    height: 161px;
+    top: 482px;
+    left: 24.9%;
+}
+.thirteenGrid12{
+    width: 25%;
+    height: 161px;
+    top: 482px;
+    left: 49.9%;
+}
+.thirteenGrid13{
+    width: 25.2%;
+    height: 161px;
+    top: 482px;
+    left: 74.9%;
+}
+/* 16格 */
+.sixteenGrid1{
+    width: 25%;
+    height: 161px;
+    top: -1px;
+    left: -1px;
+}
+.sixteenGrid2{
+    width: 25%;
+    height: 161px;
+    top: -1px;
+    left: 24.9%;
+}
+.sixteenGrid3{
+    width: 25%;
+    height: 161px;
+    top: -1px;
+    left: 49.9%;
+}
+.sixteenGrid4{
+    width: 25.2%;
+    height: 161px;
+    top: -1px;
+    left: 74.9%;
+}
+.sixteenGrid5{
+    width: 25%;
+    height: 161px;
+    top: 160px;
+    left: -1px;
+}
+.sixteenGrid6{
+    width: 25%;
+    height: 161px;
+    top: 160px;
+    left: 24.9%;
+}
+.sixteenGrid7{
+    width: 25%;
+    height: 161px;
+    top: 160px;
+    left: 49.9%;
+}
+.sixteenGrid8{
+    width: 25.2%;
+    height: 161px;
+    top: 160px;
+    left: 74.9%;
+}
+.sixteenGrid9{
+    width: 25%;
+    height: 161px;
+    top: 321px;
+    left: -1px;
+}
+.sixteenGrid10{
+    width: 25%;
+    height: 161px;
+    top: 321px;
+    left: 24.9%;
+}
+.sixteenGrid11{
+    width: 25%;
+    height: 161px;
+    top: 321px;
+    left: 49.9%;
+}
+.sixteenGrid12{
+    width: 25.2%;
+    height: 161px;
+    top: 321px;
+    left: 74.9%;
+}
+.sixteenGrid13{
+    width: 25%;
+    height: 161px;
+    top: 482px;
+    left: -1px;
+}
+.sixteenGrid14{
+    width: 25%;
+    height: 161px;
+    top: 482px;
+    left: 24.9%;
+}
+.sixteenGrid15{
+    width: 25%;
+    height: 161px;
+    top: 482px;
+    left: 49.9%;
+}
+.sixteenGrid16{
+    width: 25.2%;
+    height: 161px;
+    top: 482px;
+    left: 74.9%;
+}
+/* 响应式规则 */
+/* 首页、回放播放页自适应规则 */
+
+@media only screen and (max-width: 1564px) {
+    #nowTime {
+        display: none;
+    }
+
+    #j_btnR {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 1549px) {
+    .device_index #j_videoRegion .j_video {
+        width: 97.8% !important;
+    }
+}
+
+@media only screen and (max-width: 1439px) {
+    .device_index #j_videoRegion .j_video {
+        width: 97.5% !important;
+    }
+}
+
+@media only screen and (max-width: 1430px) {
+    .j_time .j_list {
+        display: none;
+    }
+
+    .j_time form .btn-primary {
+        display: none;
+    }
+
+    .myBorderPanel .bottomBar .j_backStyle input {
+        width: 45%;
+    }
+
+    .device_index .mainWindows .canvas {
+        width: 97.7% !important;
+    }
+}
+
+@media only screen and (max-width: 1364px) {
+    .j_ulLiDisplay li a {
+        display: none;
+    }
+
+    #menuGroup .welcome {
+        width: 17%;
+    }
+
+    #menuGroup .j_navWidth {
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 1360px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 0 5px 7px;
+    }
+
+    .myBorderPanel .bottomBar .j_button {
+        margin-left: -6px;
+    }
+}
+
+@media only screen and (max-width: 1346px) {
+    .myBorderPanel .bottomBar .j_button {
+        margin-left: -11px;
+    }
+
+    .myBorderPanel .bottomBar .j_button {
+        margin-left: -6px;
+    }
+}
+
+@media only screen and (max-width: 1339px) {
+    .myBorderPanel .bottomBar .j_button {
+        margin-left: -7px;
+    }
+}
+
+@media only screen and (max-width: 1325px) {
+    .myBorderPanel .bottomBar .j_backStyle input {
+        width: 48%;
+    }
+
+    #menuGroup .welcome {
+        width: 18% !important;
+    }
+
+    #menuGroup .j_navWidth {
+        width: 79% !important;
+    }
+}
+
+@media only screen and (max-width: 1309px) {
+    .device_index #j_videoRegion .j_video {
+        width: 97.3% !important;
+    }
+}
+
+@media only screen and (max-width: 1303px) {
+    .myBorderPanel .bottomBar .j_button {
+        margin-left: -8px;
+    }
+}
+
+@media only screen and (max-width: 1296px) {
+    .myBorderPanel .bottomBar .j_button {
+        margin-right: -2px;
+    }
+}
+
+@media only screen and (max-width: 1291px) {
+    .myBorderPanel .bottomBar .j_button {
+        margin-right: -3px;
+    }
+
+    .device_index .mainWindows .bottomBar .log {
+        height: 132px !important;
+    }
+}
+
+@media only screen and (max-width: 1289px) {
+    .myBorderPanel .bottomBar .j_backStyle input {
+        width: 52%;
+    }
+}
+
+@media only screen and (max-width: 1280px) {
+    .device_index .mainWindow .bottomBar .log {
+        height: 132px !important;
+    }
+
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px 10px;
+    }
+
+    .device_index .mainWindows .bottomBar .warn button {
+        margin: 5px 9px 5px 9px;
+    }
+
+    .j_btnMargin2 {
+        margin-left: 21px !important;
+    }
+
+    .myBorderPanel .bottomBar .j_button {
+        margin-left: 0;
+    }
+
+    .myBorderPanel .bottomBar .j_backStyle input {
+        width: 48%;
+    }
+}
+
+@media only screen and (max-width: 1259px) {
+    #menuGroup .welcome {
+        width: 19% !important;
+    }
+
+    #menuGroup .j_navWidth {
+        width: 78% !important;
+    }
+}
+
+@media only screen and (max-width: 1223px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px 9px;
+    }
+
+    .device_index .mainWindows .bottomBar .warn button {
+        margin: 5px 9px 5px 9px !important; /* 改动 */
+    }
+}
+
+@media only screen and (max-width: 1219px) {
+    .device_index #j_videoRegion .j_video {
+        width: 97% !important;
+    }
+}
+
+@media only screen and (max-width: 1217px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px 8px;
+    }
+}
+
+@media only screen and (max-width: 1211px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px 7px;
+    }
+}
+
+@media only screen and (max-width: 1205px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px 6px;
+    }
+}
+
+@media only screen and (max-width: 1199px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px 5px;
+    }
+
+    #menuGroup .welcome {
+        width: 20% !important;
+    }
+
+    #menuGroup .j_navWidth {
+        width: 77% !important;
+    }
+}
+
+@media only screen and (max-width: 1199px) {
+    .device_index .mainWindows .canvas {
+        width: 97% !important;
+    }
+}
+
+@media only screen and (max-width: 1193px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px 4px;
+    }
+}
+
+@media only screen and (max-width: 1187px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px 3px;
+    }
+}
+
+@media only screen and (max-width: 1181px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px 2px;
+    }
+}
+
+@media only screen and (max-width: 1176px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px 1px;
+    }
+}
+
+@media only screen and (max-width: 1170px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px 0;
+    }
+}
+
+@media only screen and (max-width: 1069px) {
+    .device_index #j_videoRegion .j_video {
+        width: 97% !important;
+    }
+}
+
+@media only screen and (max-width: 1164px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px -1px;
+    }
+}
+
+@media only screen and (max-width: 1158px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px -2px;
+    }
+}
+
+@media only screen and (max-width: 1153px) {
+    .device_index .mainWindows .bottomBar .warn button {
+        margin: 5px 9px 5px 8px;
+    }
+}
+
+@media only screen and (max-width: 1152px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px -3px;
+    }
+}
+
+@media only screen and (max-width: 1146px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px -4px;
+    }
+}
+
+@media only screen and (max-width: 1140px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px -5px;
+    }
+}
+
+@media only screen and (max-width: 1139px) {
+    .device_index .mainWindows .bottomBar .warn button {
+        margin: 5px 9px 5px 7px;
+    }
+}
+
+@media only screen and (max-width: 1134px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px -6px;
+    }
+}
+
+@media only screen and (max-width: 1133px) {
+    .device_index #j_videoRegion .j_video {
+        width: 97.3% !important;
+    }
+}
+
+@media only screen and (max-width: 1029px) {
+    .device_index .j_footing .j_sxPage .span1 {
+        margin-left: 15%;
+    }
+}
+
+@media only screen and (max-width: 1188px) {
+    .myBorderPanel .bottomBar .j_backStyle input {
+        width: 55%;
+    }
+}
+
+@media only screen and (max-width: 1182px) {
+    .myBorderPanel .bottomBar .j_button {
+        margin-left: -4px;
+    }
+}
+
+@media only screen and (max-width: 1153px) {
+    .myBorderPanel .bottomBar .j_button {
+        margin-left: -5px;
+    }
+}
+
+@media only screen and (max-width: 1146px) {
+    .myBorderPanel .bottomBar .j_button {
+        margin-left: -6px;
+    }
+}
+
+@media only screen and (max-width: 1139px) {
+    .myBorderPanel .bottomBar .j_button {
+        margin-left: -7px;
+    }
+
+    .myBorderPanel .bottomBar .j_backStyle input {
+        width: 58%;
+    }
+}
+
+@media only screen and (max-width: 1133px) {
+    .j_modeList {
+        display: none;
+    }
+
+    .device_index .mainWindow {
+        width: 100%;
+    }
+
+    .device_index .mainWindows {
+        width: 100% !important;
+    }
+}
+
+@media only screen and (max-width: 1129px) {
+    #menuGroup .welcome {
+        width: 21% !important;
+    }
+
+    #menuGroup .j_navWidth {
+        width: 76% !important;
+    }
+}
+
+@media only screen and (max-width: 1076px) {
+    #menuGroup .welcome {
+        width: 22% !important;
+    }
+
+    #menuGroup .j_navWidth {
+        width: 75% !important;
+    }
+}
+
+@media only screen and (max-width: 1060px) {
+    .j_rightBar .j_c_bottom .btn-primary {
+        left: 60%;
+    }
+
+    .j_rightBar .j_c_bottom .btn-warning {
+        left: 70%;
+    }
+}
+
+@media only screen and (max-width: 1019px) {
+    #menuGroup .welcome {
+        width: 23% !important;
+    }
+
+    #menuGroup .j_navWidth {
+        width: 74% !important;
+    }
+}
+
+/*@media only screen and (max-width: 1000px) {// 明天只能这样了
+	.device_index .j_ulLi .jt_float table{
+		width: 70.1% !important;
+	}
+}*/
+@media only screen and (max-width: 999px) {
+    .device_index #j_videoRegion .j_video {
+        width: 96.7% !important;
+    }
+}
+
+@media only screen and (max-width: 998px) {
+    .device_index .mainWindow .toolBar > div {
+        margin-right: 5px;
+    }
+}
+
+@media only screen and (max-width: 996px) {
+    .myBorderPanel .bottomBar .j_button {
+        margin-right: -7px;
+    }
+}
+
+@media only screen and (max-width: 994px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px -7px;
+    }
+}
+
+@media only screen and (max-width: 989px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px -8px;
+    }
+}
+
+@media only screen and (max-width: 984px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px -9px;
+    }
+}
+
+@media only screen and (max-width: 979px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px -10px;
+    }
+
+    #menuGroup .welcome {
+        width: 24% !important;
+    }
+
+    #menuGroup .j_navWidth {
+        width: 73% !important;
+    }
+}
+
+@media only screen and (max-width: 974px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px -11px;
+    }
+}
+
+@media only screen and (max-width: 972px) {
+    .myBorderPanel .bottomBar .j_button {
+        margin-right: -8px;
+    }
+}
+
+@media only screen and (max-width: 969px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px -12px;
+    }
+}
+
+@media only screen and (max-width: 964px) {
+    .j_btns {
+        margin-right: 7px !important;
+    }
+
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px 0px;
+    }
+}
+
+@media only screen and (max-width: 966px) {
+    .myBorderPanel .bottomBar .j_button {
+        margin-right: -9px;
+    }
+}
+
+@media only screen and (max-width: 960px) {
+    .myBorderPanel .bottomBar .j_button {
+        margin-left: -9px;
+    }
+
+    .myBorderPanel .bottomBar .j_backStyle input {
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 959px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px -1px;
+    }
+}
+
+@media only screen and (max-width: 954px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px -2px;
+    }
+}
+
+@media only screen and (max-width: 952px) {
+    .device_index .mainWindow .toolBar > div {
+        margin-right: 5px;
+        float: left;
+    }
+}
+
+@media only screen and (max-width: 949px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px -3px;
+    }
+}
+
+@media only screen and (max-width: 948px) {
+    .myBorderPanel .bottomBar .j_button {
+        margin-left: -10px;
+    }
+}
+
+@media only screen and (max-width: 944px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px -4px;
+    }
+}
+
+@media only screen and (min-width: 941px) {
+    .myBorderPanel .bottomBar .j_backStyle input {
+        width: 65%;
+    }
+}
+
+@media only screen and (max-width: 940px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 20px 5px -5px;
+    }
+
+    .myBorderPanel .bottomBar .j_backStyle input {
+        width: 65%;
+    }
+}
+
+@media only screen and (max-width: 934px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 19px 5px -5px;
+    }
+
+    .device_index .mainWindows .bottomBar .log {
+        height: 196px !important;
+    }
+}
+
+@media only screen and (max-width: 934px) {
+    .device_index .mainWindows .bottomBar .log {
+        height: 196px;
+    }
+}
+
+@media only screen and (max-width: 929px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 19px 5px -6px;
+    }
+}
+
+@media only screen and (min-width: 925px) {
+    #openMenu {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 925px) {
+    .device_index #j_videoRegion .j_video {
+        width: 96.3% !important;
+    }
+}
+
+@media only screen and (max-width: 924px) {
+    /* 菜单被隐藏 */
+    #menuGroup {
+        display: none;
+    }
+
+    .device_index .mainWindow .bottomBar .log {
+        height: 132px;
+    }
+}
+
+@media only screen and (max-width: 924px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 18px 5px -6px;
+    }
+}
+
+@media only screen and (max-width: 919px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 18px 5px -7px;
+    }
+}
+
+@media only screen and (max-width: 917px) {
+    /* 增加改动  */
+    .device_index .mainWindows .bottomBar .warn button {
+        margin: 5px 5px 5px 7px !important;
+    }
+
+    .device_index .mainWindows .bottomBar .log {
+        height: 132px !important;
+    }
+}
+
+@media only screen and (max-width: 914px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 18px 5px -8px;
+    }
+}
+
+@media only screen and (max-width: 909px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 18px 5px -9px;
+    }
+}
+
+@media only screen and (max-width: 904px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 18px 5px -10px;
+    }
+}
+
+@media only screen and (max-width: 899px) {
+    .device_index .mainWindow .bottomBar .log {
+        height: 132px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 12px 5px -3px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn > div {
+        margin-left: -4px;
+    }
+
+    .device_index .mainWindows .bottomBar .warn > div { /* 增加改动 */
+        margin-left: -11px;
+    }
+
+    .device_index .mainWindows .bottomBar .log {
+        height: 132px;
+    }
+
+    .myBorderPanel .bottomBar .j_backStyle input {
+        width: 67%;
+    }
+}
+
+@media only screen and (max-width: 899px) {
+    .device_index .j_footing .j_sxPage .span1 {
+        margin-left: 0;
+    }
+}
+
+@media only screen and (max-width: 889px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 15px 5px -6px;
+    }
+}
+
+@media only screen and (max-width: 884px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 15px 5px -7px;
+    }
+}
+
+@media only screen and (max-width: 879px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 15px 5px -8px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        width: 50px !important;
+    }
+
+    .myBorderPanel .bottomBar .j_backStyle input { /* 增加改动 */
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 875px) {
+    .j_rightBar .j_c_bottom .btn-primary {
+        left: 56%;
+    }
+}
+
+@media only screen and (max-width: 874px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 15px 5px -9px;
+    }
+}
+
+@media only screen and (max-width: 869px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 15px 5px -9px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn > div {
+        margin-left: -6px;
+    }
+
+    .device_index .mainWindows .bottomBar .warn > div { /* 增加改动 */
+        margin-left: -10px;
+    }
+
+    .device_index .mainWindows .bottomBar .warn button { /* 增加改动 */
+        margin: 5px 5px 5px 6px !important;
+    }
+}
+
+@media only screen and (max-width: 859px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 15px 5px -10px;
+    }
+}
+
+@media only screen and (max-width: 854px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 9px 5px -7px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn > div {
+        margin-left: -10px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: 10px;
+    }
+}
+
+@media only screen and (max-width: 850px) {
+    .device_index .mainWindows .bottomBar .log {
+        height: 196px !important;
+    }
+}
+
+@media only screen and (max-width: 849px) {
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: 9px;
+    }
+
+    .myBorderPanel .bottomBar .j_backStyle input { /* 增加改动 */
+        width: 75%;
+    }
+}
+
+@media only screen and (max-width: 849px) {
+    .device_index #j_videoRegion .j_video {
+        width: 96% !important;
+    }
+}
+
+@media only screen and (max-width: 844px) {
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: 8px;
+    }
+}
+
+@media only screen and (max-width: 840px) {
+    .myBorderPanel .bottomBar .j_button {
+        margin-left: -10px !important;
+    }
+
+    .device_index .mainWindows .bottomBar .log {
+        height: 196px;
+    }
+
+    .device_index .mainWindows .bottomBar .warn button { /* 增加改动 */
+        margin: 5px 5px 5px 10px !important;
+    }
+}
+
+@media only screen and (max-width: 839px) {
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: 7px;
+    }
+}
+
+@media only screen and (max-width: 834px) {
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: 6px;
+    }
+}
+
+@media only screen and (max-width: 829px) {
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: 5px;
+    }
+}
+
+@media only screen and (max-width: 824px) {
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: 4px;
+    }
+}
+
+@media only screen and (max-width: 819px) {
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: 13px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 10px 5px -9px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        width: 40px !important;
+    }
+}
+
+@media only screen and (max-width: 819px) {
+    .device_index #j_videoRegion .j_video {
+        width: 95.5% !important;
+    }
+}
+
+@media only screen and (max-width: 814px) {
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: 12px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 10px 5px -10px;
+    }
+
+    .myBorderPanel .bottomBar .j_backStyle input { /* 增加改动 */
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 810px) {
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 5px !important;
+    }
+}
+
+@media only screen and (max-width: 809px) {
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: 11px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 9px 5px -10px;
+    }
+}
+
+@media only screen and (max-width: 809px) {
+    .device_index .j_footing .j_sxPage {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 804px) {
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: 10px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 8px 5px -10px;
+    }
+}
+
+@media only screen and (max-width: 799px) {
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: 9px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 7px 5px -10px;
+    }
+}
+
+@media only screen and (max-width: 795px) {
+    .device_index .j_ulLi label {
+        margin: 8px 0 0 20px;
+    }
+}
+
+@media only screen and (max-width: 794px) {
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: 8px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 6px 5px -10px;
+    }
+}
+
+@media only screen and (max-width: 789px) {
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: 7px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 5px 5px -10px;
+    }
+}
+
+@media only screen and (max-width: 784px) {
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: 6px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 4px 5px -10px;
+    }
+
+    .myBorderPanel .bottomBar .j_backStyle input { /* 增加改动 */
+        width: 85%;
+    }
+}
+
+@media only screen and (max-width: 779px) {
+    .device_index .mainWindow .bottomBar .warn > div {
+        margin-left: -19px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: 13px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 2px 5px -10px;
+    }
+}
+
+@media only screen and (max-width: 774px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 1px 5px -10px;
+    }
+}
+
+@media only screen and (max-width: 769px) {
+    .device_index .mainWindow .bottomBar .warn > div {
+        margin-right: -5px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: 17px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 5px 5px -10px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .device_index .mainWindow .bottomBar .log {
+        height: 132px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .device_index #j_videoRegion .j_video {
+        width: 97% !important;
+    }
+
+    .device_index .j_footing .j_sxPage {
+        display: block;
+    }
+
+    /*.j_ulLi label, .jt_float {
+        display: block;
+    }*/
+
+    .device_index .mainWindows .bottomBar .log {
+        height: 132px !important;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 2px 5px 9px;
+    }
+}
+
+@media only screen and (max-width: 749px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 2px 5px 8px;
+    }
+}
+
+@media only screen and (max-width: 749px) {
+    .device_index #j_videoRegion .j_video {
+        width: 96.7% !important;
+    }
+}
+
+@media only screen and (max-width: 744px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 2px 5px 7px;
+    }
+}
+
+@media only screen and (max-width: 739px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 2px 5px 6px;
+    }
+}
+
+@media only screen and (max-width: 734px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 2px 5px 5px;
+    }
+}
+
+@media only screen and (max-width: 729px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 2px 5px 4px;
+    }
+}
+
+@media only screen and (max-width: 724px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 2px 5px 3px;
+    }
+}
+
+@media only screen and (max-width: 719px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 2px 5px 2px;
+    }
+}
+
+@media only screen and (max-width: 714px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 2px 5px 1px;
+    }
+}
+
+@media only screen and (max-width: 709px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 2px 5px 0;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 10px !important;
+    }
+}
+
+@media only screen and (max-width: 704px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 2px 5px -1px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 10px !important;
+    }
+
+    .myBorderPanel .bottomBar .j_button {
+        margin-left: -10px !important; /* -7改-10 */
+    }
+
+    .myBorderPanel .bottomBar .j_backStyle input {
+        width: 65%;
+    }
+}
+
+@media only screen and (max-width: 699px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 2px 5px -2px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 10px !important;
+    }
+}
+
+@media only screen and (max-width: 694px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 2px 5px -3px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 10px !important;
+    }
+
+    .myBorderPanel .bottomBar .j_button {
+        margin-left: -9px !important; /* -3改-9 */
+    }
+}
+
+@media only screen and (max-width: 689px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 2px 5px -4px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 10px !important;
+    }
+
+    .myBorderPanel .bottomBar .j_button {
+        margin-left: -10px !important; /* -2改-10 */
+    }
+}
+
+@media only screen and (max-width: 684px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 2px 5px -5px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 10px !important;
+    }
+
+    .myBorderPanel .bottomBar .j_button {
+        margin-left: -0px !important;
+    }
+
+    .device_index .mainWindows .bottomBar .warn button { /* 增加改动 */
+        margin: 5px 5px 5px 0px !important;
+    }
+}
+
+@media only screen and (max-width: 679px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 2px 5px -6px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 10px !important;
+    }
+
+    .device_index .mainWindows .bottomBar .warn button {
+        margin: 5px 5px 5px 2px;
+    }
+}
+
+@media only screen and (max-width: 674px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 2px 5px -7px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 10px !important;
+    }
+
+    .device_index .mainWindows .bottomBar .warn button {
+        margin: 5px 10px 5px 1px;
+    }
+}
+
+@media only screen and (max-width: 669px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 6px 5px -5px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 10px !important;
+    }
+
+    .device_index .mainWindows .bottomBar .warn button {
+        margin: 5px 7px 5px 0px;
+    }
+}
+
+@media only screen and (max-width: 664px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 6px 5px -6px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 10px !important;
+    }
+
+    .device_index .mainWindows .bottomBar .warn button {
+        margin: 5px 8px 5px 0px;
+    }
+}
+
+@media only screen and (max-width: 659px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 2px 5px -7px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 10px !important;
+    }
+
+    .device_index .mainWindows .bottomBar .warn button {
+        margin: 5px 10px 5px 1px;
+    }
+}
+
+@media only screen and (max-width: 659px) {
+    .device_index #j_videoRegion .j_video {
+        width: 96.3% !important;
+    }
+}
+
+@media only screen and (max-width: 654px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 6px 5px -8px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 10px !important;
+    }
+
+    .device_index .mainWindows .bottomBar .warn button {
+        margin: 5px 11px 5px 1px;
+    }
+}
+
+@media only screen and (max-width: 649px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 6px 5px -9px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 10px !important;
+    }
+
+    .device_index .mainWindows .bottomBar .warn button {
+        margin: 5px 10px 5px 0px;
+    }
+
+    .device_index .mainWindows .canvas {
+        width: 96.5% !important;
+    }
+}
+
+@media only screen and (max-width: 644px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 6px 5px -2px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 10px !important;
+    }
+
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 10px 5px 0px;
+    }
+}
+
+@media only screen and (max-width: 639px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 6px 5px -3px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 10px !important;
+    }
+
+    .device_index .mainWindows .bottomBar .warn button {
+        margin: 5px 8px 5px -2px;
+    }
+}
+
+@media only screen and (max-width: 634px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 6px 5px -4px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 10px !important;
+    }
+
+    .device_index .mainWindows .bottomBar .warn button {
+        margin: 5px 9px 5px -1px;
+    }
+
+    .myBorderPanel .bottomBar .j_backStyle input { /* 增加改动 */
+        width: 70%;
+    }
+}
+
+@media only screen and (max-width: 629px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 6px 5px -5px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 10px !important;
+    }
+
+    .device_index .mainWindows .bottomBar .warn button {
+        margin: 5px 9px 5px -1px;
+    }
+}
+
+@media only screen and (max-width: 624px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 6px 5px -6px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 10px !important;
+    }
+
+    .device_index .mainWindows .bottomBar .warn button {
+        margin: 5px 8px 5px -1px;
+    }
+}
+
+@media only screen and (max-width: 619px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 6px 5px -7px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 20px !important;
+    }
+}
+
+@media only screen and (max-width: 614px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 6px 5px -8px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 20px !important;
+    }
+}
+
+@media only screen and (max-width: 609px) {
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 6px 5px -9px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 20px !important;
+    }
+}
+
+@media only screen and (max-width: 607px) {
+    .device_index #j_videoRegion .j_video {
+        width: 96% !important;
+    }
+}
+
+@media only screen and (max-width: 602px) {
+    .device_index .mainWindows .bottomBar .log {
+        height: 196px !important;
+    }
+}
+
+@media only screen and (max-width: 599px) {
+    .device_index .mainWindow .bottomBar .warn > div {
+        margin-right: -23px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: 10px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 5px !important;
+    }
+
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 24px 5px -3px;
+    }
+
+    .device_index .mainWindows .bottomBar .warn > div { /* 增加改动 */
+        margin-right: -4px;
+    }
+}
+
+@media only screen and (max-width: 594px) {
+    .device_index .mainWindow .bottomBar .warn > div {
+        margin-right: -24px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: -5px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 25px 5px 5px;
+    }
+
+    .device_index .mainWindows .bottomBar .warn > div { /* 增加改动 */
+        margin-right: -5px;
+    }
+
+    .myBorderPanel .bottomBar .j_backStyle input {
+        width: 75%;
+    }
+}
+
+@media only screen and (max-width: 589px) {
+    .device_index .mainWindow .bottomBar .warn > div {
+        margin-left: -40px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: 23px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: 5px !important;
+    }
+
+    .device_index .mainWindow .bottomBar .warn button {
+        margin: 5px 2px 5px -2px;
+    }
+}
+
+@media only screen and (max-width: 585px) {
+    /* 增加改动 */
+    .device_index .mainWindows .bottomBar .warn > div {
+        margin-right: -6px;
+    }
+}
+
+@media only screen and (max-width: 584px) {
+    .device_index .mainWindow .bottomBar .warn > div {
+        margin-left: -40px;
+    }
+}
+
+@media only screen and (max-width: 579px) {
+    .device_index .mainWindow .bottomBar .warn > div {
+        margin-left: -41px;
+    }
+
+    .device_index .mainWindows .bottomBar .warn > div { /* 增加改动 */
+        margin-right: -7px;
+    }
+}
+
+@media only screen and (max-width: 574px) {
+    .device_index .mainWindow .bottomBar .warn > div {
+        margin-left: -42px;
+    }
+}
+
+@media only screen and (max-width: 573px) {
+    /* 增加改动 */
+    .device_index .mainWindows .bottomBar .warn button {
+        margin: 5px 5px 5px -2px !important;
+    }
+}
+
+@media only screen and (max-width: 573px) {
+    .device_index .mainWindows .bottomBar .log {
+        height: 132px !important;
+    }
+}
+
+@media only screen and (max-width: 569px) {
+    .device_index .mainWindow .bottomBar .warn > div {
+        margin-left: -43px;
+    }
+
+    .myBorderPanel .bottomBar .j_backStyle input { /* 增加改动 */
+        width: 80%;
+    }
+}
+
+@media only screen and (max-width: 566px) {
+    .device_index .mainWindows .bottomBar .log {
+        height: 196px !important;
+    }
+}
+
+@media only screen and (max-width: 559px) {
+    .device_index #j_videoRegion .j_video {
+        width: 95.5% !important;
+    }
+
+    .device_index .j_footing .j_sxPage {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 549px) {
+    /* 增加改动 */
+    .device_index .mainWindows .bottomBar .warn button {
+        margin: 5px 5px 5px -3px !important;
+    }
+}
+
+@media only screen and (max-width: 537px) {
+    /* 增加改动 */
+    .device_index .mainWindows .bottomBar .log {
+        height: 196px;
+    }
+
+    .device_index .mainWindows .canvas {
+        width: 95% !important;
+    }
+}
+
+@media only screen and (max-width: 521px) {
+    /* 增加改动 */
+    .myBorderPanel .bottomBar .j_backStyle input {
+        width: 85%;
+    }
+}
+
+@media only screen and (max-width: 510px) {
+    .device_index .j_ulLi label {
+        margin: 8px 0 0 5px;
+    }
+}
+
+@media only screen and (max-width: 492px) {
+    /* 增加改动 */
+    .myBorderPanel .bottomBar .j_backStyle input {
+        width: 90%;
+    }
+
+    .j_time .j_selectTime {
+        margin-left: 18%;
+    }
+}
+
+@media only screen and (max-width: 489px) {
+    .device_index #j_videoRegion .j_video {
+        width: 95% !important;
+    }
+}
+
+@media only screen and (max-width: 470px) {
+    .j_navContainer button {
+        width: 12.5%;
+    }
+}
+
+@media only screen and (max-width: 469px) {
+    .device_index .mainWindow .bottomBar .warn div label {
+        margin-left: 22px;
+    }
+
+    .device_index .mainWindow .bottomBar .warn .bootstrap-select {
+        margin-left: -5px !important;
+    }
+
+    .j_time .j_selectTime { /* 增加变动 */
+        margin-left: 14%;
+    }
+
+    .myBorderPanel .bottomBar .j_backStyle input { /* 增加变动 */
+        width: 95%;
+    }
+}
+
+@media only screen and (max-width: 460px) {
+    .j_rightBar .j_c_bottom .btn-warning {
+        left: 75%;
+    }
+}
+
+@media only screen and (max-width: 453px) {
+    .device_index .mainWindows .bottomBar .log {
+        height: 211px !important;
+    }
+}
+
+@media only screen and (min-width: 449px) and (max-width: 454px) {
+    .device_index .mainWindows .bottomBar .log {
+        height: 211px;
+    }
+}
+
+@media only screen and (max-width: 448px) {
+    /* 增加变动 */
+    .j_time .j_selectTime {
+        margin-left: 12%;
+    }
+}
+
+@media only screen and (max-width: 448px) {
+    /* 增加变动 */
+    .j_time .j_selectTime {
+        margin-left: 10%;
+    }
+
+    .device_index .mainWindows .bottomBar .log {
+        height: 211px;
+    }
+
+    .myBorderPanel .bottomBar .j_backStyle input {
+        width: 100%;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .j_navContainer button {
+        width: 13%;
+    }
+}
+
+@media only screen and (max-width: 410px) {
+    /* 增加变动 */
+    .j_time .j_selectTime {
+        margin-left: 6%;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .j_navContainer button {
+        width: 14%;
+    }
+}
+
+@media only screen and (max-width: 385px) {
+    /* 增加变动 */
+    .j_time .j_selectTime {
+        margin-left: 3%;
+    }
+}
+
+@media only screen and (max-width: 375px) {
+    /* 增加变动 */
+    .j_time .j_selectTime {
+        margin-left: 1%;
+    }
+}
+
+@media only screen and (max-width: 370px) {
+    .j_navContainer button {
+        width: 16%;
+    }
+}
+
+@media only screen and (max-width: 367px) {
+    .device_index .mainWindow .bottomBar .log {
+        height: 147px !important;
+    }
+}
+
+@media only screen and (max-width: 367px) {
+    /* 增加变动 */
+    .j_time .j_selectTime {
+        margin-left: -1%;
+    }
+
+    .device_index .mainWindows .bottomBar .log {
+        height: 211px !important;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    /* 增加变动 */
+    .j_time .j_selectTime {
+        margin-left: 1% !important;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .j_rightBar .j_c_bottom {
+        margin-left: 0;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .j_navContainer button {
+        width: 17%;
+    }
+}

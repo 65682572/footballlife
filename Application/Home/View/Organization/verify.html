@@ -1,0 +1,141 @@
+<!-- 机构管理 -->
+<html>
+<title> 机构管理 </title>
+<include file="Common:matrix_header" />
+<include file="Common:matrix_menu" />
+<include file="Common:matrix_leftbar_public" />
+<include file="Common:msgFootable" />
+<script src="/Public/common/js/msgFootable.js"></script>
+<link rel="stylesheet" href="/Public/common/css/select2.min.css">
+<link rel="stylesheet" href="/Public/common/css/dropify.min.css">
+<script src="/Public/common/js/dropify.min.js"></script>
+<!-- 中间 -->
+<div class="wrap-fluid jt_organMain jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span>机构审核</span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle" />
+                    <div class="col-sm-2">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="btn-group btn-wigdet pull-right visible-lg">
+                            <div class="btn">
+                                Widget</div>
+                            <button data-toggle="dropdown" class="btn dropdown-toggle jt_dropTo" type="button">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul role="menu" class="dropdown-menu">
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-plus-circled margin-iconic"></span>Add New
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-heart margin-iconic"></span>Favorite
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-cog margin-iconic"></span>Setting
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 jt_rowNest1">
+                <div class="nest" id="FootableClose">
+                    <div class="title-alt">
+                        <h6>
+                            机构审核
+                        </h6>
+                        <div class="titleClose">
+                            <a class="gone" href="#FootableClose">
+                                <span class="entypo-cancel"></span>
+                            </a>
+                        </div>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#Footable">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="Footable">
+                        <table class="table-striped footable-res footable metro-blue" data-page-size="10">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>机构名称</th>
+                                <th>申请人</th>
+                                <th>备注</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <volist name="data" id="v">
+                                <tr>
+                                    <td></td>
+                                    <td class="jt_hiddenTd3 footable-first-column">
+                                        <a href="#">{$v.name}</a>
+                                    </td>
+                                    <td class="jt_hiddenTd2">{$v.username}</td>
+                                    <td class="jt_hiddenTd2">{$v.intro}</td>
+
+                                    <td data-value="1" class="jt_hiddenTd4 footable-last-column">
+                                        <div class="btn-group">
+                                            <button id="verifyPass" data-id="{$v.id}" class="btn btn-primary">审核通过</button>
+                                            <button id="verifyReject" data-id="{$v.id}" class="btn btn-danger">审核不通过</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </volist>
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="5">
+                                    <div class="pagination pagination-centered"></div>
+                                </td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    /* 业务逻辑代码 */
+    var myObj = {
+        /* 创建机构  /main/createfirm */
+        verify: function () {
+            $(".btn-primary").on('click', function () {
+                var did = $(this).attr('data-id');
+                publicConfirm({title: '提示信息', content: "确认" + $(this).text() + "？", icon: 'fa fa-rocket'}, did, 'verifyPass');
+            });
+        },
+        reject: function () {
+            $(".btn-danger").on('click', function () {
+                var did = $(this).attr('data-id');
+                publicConfirm({title: '提示信息', content: "确认" + $(this).text() + "？", icon: 'fa fa-rocket'}, did, 'verifyReject');
+
+            });
+        }
+    };
+    myObj.verify();
+    myObj.reject();
+</script>
+<include file="Common:footer" />
+</body>
+</html>

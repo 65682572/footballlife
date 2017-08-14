@@ -1,0 +1,259 @@
+/* 重置 */
+html,body{margin:0; height:100%}
+ul{list-style: none;padding:0;}
+label{font-weight: normal;margin-bottom: 0}
+h3{margin:0}
+/* 弹层 */
+.myDialog{width:25%}
+.public_dialog{width:100%;background-color: #fff;border-radius: 5px}
+.public_dialog .title_dlg{padding:5px 10px}
+.public_dialog .content_dlg{position: relative;padding: 10px 15px 20px;text-align: center;border-bottom: solid 1px #bfbfbf}
+.public_dialog .btns_dlg{height: 45px;line-height: 45px;text-align: center}
+.public_dialog .btns_dlg a{display:block;width:100%;float:left;color:#72b9ef;text-align: center;box-sizing:border-box}
+.public_dialog .btns_dlg a:active{background-color: #e8e8e8}
+.public_dialog .btns_dlg a+a{border-left: solid 1px #bfbfbf}
+.public_dialog .warning{display:none;width: 15px;position: absolute;bottom: 20px;right:0}
+/* 公用 */
+.hot_block{position: absolute;top: 0;left: 0;width: 100%;height: 100%;background: transparent}
+.myFooter{padding: 10px 20px;text-align: center}
+.error{font-size:12px;color: red;display: none;text-align: center }
+.change_lng{position:absolute;top:10px;right:10px}
+.change_lng .btn{padding:2px !important;min-height: auto !important}
+.nav .change_lng{position: static}
+.nav .change_lng a{font-size: 10px !important}
+.codeValition input[type="tel"]{float: left;width: 68%}
+.codeValition .fetchCode{float:right;width:30%;text-align: center}
+.inviteReg{padding-top: 100px}
+.theme-config{display: none}
+.navbar-top-links .personal{display: none}
+.my-m-t-none{margin-top:0 !important}
+.jstree{font-size: 16px}
+.btn-wlg{width: 100px !important}
+.btn-wxlg{width: 200px !important}
+.fl{float:left}
+.fr{float:right}
+.btn_waiting{background-image: url(./../images/loading.gif);background-repeat:no-repeat;background-position: center center;background-size:1.5rem}
+i.my_close{position: absolute;top: -8px;right: -8px;font-size: 18px}
+.sliderValue{margin-left: 5px;width:14px;text-align: center}
+.myBorderPanel{border: solid 1px #2F4050;box-shadow:2px 2px 3px #2F4050;border-radius: 2px}
+.rotate90{
+	transform:rotate(90deg);
+    -ms-transform:rotate(90deg); /* Internet Explorer 9*/
+    -moz-transform:rotate(90deg); /* Firefox */
+    -webkit-transform:rotate(90deg); /* Safari 和 Chrome */
+    -o-transform:rotate(90deg); /* Opera */
+    filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+}
+.rotate180{
+	transform:rotate(180deg);
+    -ms-transform:rotate(180deg); /* Internet Explorer 9*/
+    -moz-transform:rotate(180deg); /* Firefox */
+    -webkit-transform:rotate(180deg); /* Safari 和 Chrome */
+    -o-transform:rotate(180deg); /* Opera */
+    filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+}
+.rotate270{
+	transform:rotate(270deg);
+    -ms-transform:rotate(270deg); /* Internet Explorer 9*/
+    -moz-transform:rotate(270deg); /* Firefox */
+    -webkit-transform:rotate(270deg); /* Safari 和 Chrome */
+    -o-transform:rotate(270deg); /* Opera */
+    filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+}
+/* 颜色背景 */
+.bg_global{;background-color: #2F4050 !important }
+.red{color:red}
+.green{color:green}
+.gray{color:gray}
+/* 重构 */
+.dropdown-messages li {position: relative}
+.dropdown-messages li a{padding:0 !important}
+.dropdown-messages li a:hover,.dropdown-messages li a:active{background: transparent}
+.dropdown-messages li .media-body{display: inline-block;margin-left: 5px;width: 80%}
+.dropdown-messages li .media-body p{width: 100%;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;margin:0}
+.bootstrap-select{margin-left: 5px !important}
+.device_nav_h .navbar-static-top{background: #2f4050 url(../images/header-profile.png) repeat-x left top !important}
+.device_nav_h h2.welcome{width: 235px;float: left;font-size: 18px; color: #fff;text-align: center}
+.device_nav_h .nav.navbar-left li:last-child{margin-right: 0 !important}
+.device_nav_h ul.navbar-left>li>a{color: #fff}
+.device_nav_h ul.navbar-left>li{width: 20% !important;text-align: center}
+.device_nav_h ul.navbar-left>li.active,.device_nav_h ul.navbar-left>li:hover{border-left: none}
+.device_nav_h ul.navbar-left>li.active a,.device_nav_h ul.navbar-left>li.open a,.device_nav_h ul.navbar-left>li>a:hover,.device_nav_h ul.navbar-left>li>a:focus{color: #2f4050 !important;background: #fff !important}
+.device_nav_v ul>li.active{border-left: none !important}
+.slider-selection {	background: #BABABA !important}
+.md-skin .ibox-title, .md-skin .ibox-content{border-style: solid solid none !important}
+.md-skin input{border:solid 1px #e7eaec}
+.anchorBL{display:none} 
+/* modal */
+.modal button.btn{margin-right:10px !important;width:100px}
+.modal .tips{font-size: 20px}
+#myModal_clipImage label{margin:10px auto;width:100px}
+#myModal_clipImage .previewImg img{border-radius: 50%}
+#myModal_add .addBranch{width: 100px}
+#myModal_chooseUser .selectOrg_foruser{margin-right: 10px}
+/*personal*/
+.personal .photo{display:block;position: relative;text-align: center}
+.personal .photo img{width: 80px}
+.personal .photo i{position: absolute;bottom: 10px;left: 50%;margin-left: 25px; color: #1ab394}
+.personal form p{ width: 85%; float: right}
+.personal form input,.personal form textarea{display: none;width:85%;float:right}
+.personal form .confirm{display: none}
+.cropArea {background: #E4E4E4;overflow: hidden;width:500px;height:350px;margin: 0 auto}
+.p_info .passwordBox{padding: 20px}
+/* 机构管理 */
+.org_m button.createOrg{margin-top: 20px}
+/* 邀请用户 */
+.invite_m .fileinput{display: block !important}
+.invite_m .tab-content button{width:100px}
+.invite_m .tab-content button:nth-child(even){margin-left: 10px !important}
+.invite_m .panel-body{text-align: center}
+.invite_m .inviteTel{position: relative}
+/* 邮件 */
+.mailbox .mail-box{margin:0}
+.mailbox .table-mail{table-layout: fixed}
+.mailbox .category-list li+li{border-top: 1px solid #e7eaec}
+.mailbox .category-list li{padding:0 5px}
+.mailbox .category-list li.active{background: #dfdfdf}
+.maildetail .accept{display: none}
+/* 设备管理 */
+.device_m .nameAndPass{position: relative}
+.device_m .nameAndPass input{width: 49%}
+.device_m .addUser{margin-bottom: 20px !important}
+.device_m #myModal_chooseUser .modal-body a{display: block;padding:5px; font-size: 16px}
+/*设备管理首页*/
+.device_index #searchSource{margin: 0 auto;display: block;padding: 4px;border-radius: 4px;border: 1px solid silver}
+.device_index #sourceTree a {padding: 0 !important;font-size: 12px}
+.device_index #sourceTree .jstree-hovered,.device_index #sourceTree .jstree-clicked{background: none;box-shadow: none}
+.device_index .modal-body {padding:15px !important}
+.device_index .mainWindow{width: 85%;height:100%}
+.device_index .mainWindow .toolBar{padding:5px}
+.device_index .mainWindow .toolBar>div{margin-right: 20px}
+.device_index .mainWindow .toolBar label,.device_index .mainWindow .toolBar span.sliderValue{color:#fff;margin-top: 2px}
+.device_index .mainWindow .toolBar .bootstrap-select{width: 50px !important}
+.device_index .mainWindow .toolBar .btn_volume{position: relative;top:2px;font-size: 20px;color: #fff;margin-right: 15px }
+.device_index .mainWindow .toolBar .btn_volume span{display: none;position: absolute;top:3px;right:-12px;font-size: 13px;color: red }
+.device_index .mainWindow .toolBar #volumeSlide{margin-top: -5px;width: 120px}
+.device_index .mainWindow .canvas{margin: 10px 5%}
+.device_index .mainWindow .bottomBar{border-top: solid 1px #666;font-size: 12px;color:black}
+.device_index .mainWindow .bottomBar h3,.device_index .mainWindow .bottomBar p{margin:0;font-size: 12px;font-weight: normal;}
+.device_index .mainWindow .bottomBar p{text-indent: 1em}
+.device_index .mainWindow .bottomBar .log{padding:5px;background-color: #ababab;width: 60%;height:100px;overflow-y:auto}
+.device_index .mainWindow .bottomBar .status,.device_index .mainWindow .bottomBar .warn{width: 20%}
+.device_index .mainWindow .bottomBar .warn{border-left: solid 1px #666}
+.device_index .mainWindow .bottomBar .warn>div{padding:5px;text-align: center;}
+.device_index .mainWindow .bottomBar .warn .bootstrap-select{width:60px !important}
+.device_index .mainWindow .bottomBar .warn button{margin:5px 0}
+.device_index .mainWindow .bottomBar .title{padding:5px;text-align: center;border-bottom:solid 1px #666}
+.device_index .modeList{width: 14%;height:100%;overflow: auto}
+.device_index .modeList .title{padding:5px;text-align: center;border-bottom:solid 1px #666;font-size: 14px;color: #fff}
+.device_index .modeList ul{overflow: auto}
+/* 设备控制 */
+.device_ctrl{padding:0 15px;color: #000;font-size: 12px}
+.device_ctrl .bg_btn{background: url(../images/bg_btn.png) no-repeat;background-size: 100% 100%}
+.device_ctrl label{color: #000;margin-bottom: 0;font-weight: normal;font-size: 12px}
+.device_ctrl table{width:100%;border:none;text-align: center}
+.device_ctrl table td{width: 33%;height: 32px;line-height:32px;text-align: center;vertical-align: middle;color:#999;font-size: 18px}
+.device_ctrl table td:hover{color:#38449a}
+.device_ctrl .tools_lefttop{width: 100px;height: 96px;
+    /*background: url(../images/bg_table.png) no-repeat;background-size: 100% 100%;*/
+}
+.device_ctrl .tools_righttop{width:80px}
+.device_ctrl .tools_righttop .bg_assist{background-size: 100% auto}
+.device_ctrl .tools_righttop .bg_assist td{line-height: 29px}
+.device_ctrl .speedCtrl{height:30px;line-height: 30px;padding:0 5px;margin: 10px 0}
+.device_ctrl .speedCtrl label{width: 34px}
+.device_ctrl #speedSlide{width:121px !important}
+.device_ctrl .sceneCtrl{width:100%}
+.device_ctrl .sceneCtrl td{width:25%}
+.device_ctrl .preCtrl{margin-top: 10px}
+.device_ctrl .preCtrl li{margin-bottom: 5px}
+.device_ctrl .preCtrl label{width: 58px}
+.device_ctrl .preCtrl .bootstrap-select{width: 100px !important}
+.device_ctrl .preCtrl .dropdown-menu > li > a{padding:0 !important;padding-left:45px !important;line-height: auto !important}
+.device_ctrl .preCtrl li label.fa{display: inline-block;background-color: #2f4050;color: #fff;width: 20px; height: 20px;line-height: 20px;text-align: center;border-radius: 3px}
+/*设置时间*/
+.device_setting_time .btns{padding-left:  120px}
+/*设置显示效果*/
+.device_setting_effect .item label{width:120px}
+.device_setting_effect .item .bootstrap-select{width: 100px !important}
+/*窗口号显示*/
+.device_setting_wn label{width:120px}
+.device_setting_wn input[type="color"]{width: 25px}
+.device_setting_wn .bootstrap-select{width: 100px !important;margin-left: 0 !important}
+.device_setting_wn input[type="radio"].m-l{margin-left: 15px !important}
+.device_setting_wn button{margin-left:120px}
+/*输出显示设置*/
+.device_setting_output h4{margin-top: 15px}
+.device_setting_output .item{padding-left:20px}
+.device_setting_output label{width: 70px}
+.device_setting_output .sliderValue{display: inline-block;width: 20px;text-align: center;border: solid 1px #C8C8CB;box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12)}
+.device_setting_output button{margin-left: 160px}
+/*窗口码流设置*/
+.device_setting_codestream label{width:60px}
+.device_setting_codestream button{margin-left: 140px}
+
+/*音频输出设置*/
+.device_setting_audio .bootstrap-select{width:100px !important}
+.device_setting_audio input[type="checkbox"]{width:20px;height:20px}
+.device_setting_audio table{width: 100%}
+.device_setting_audio th,.device_setting_audio td{padding:5px;vertical-align: middle;text-align: center}
+.device_setting_audio button{margin-bottom: 0 !important}
+/* 系统维护 */
+.device_setting_maintain .bootstrap-select{width:100px !important}
+/* 网络设置 */
+.device_setting_network .item{margin:5px 0;}
+.device_setting_network .item label{width:150px}
+.device_setting_network .item .bootstrap-select{margin-left:0 !important;width: 158px !important}
+/* SDK设置 */
+.device_setting_sdk button{margin-left:110px}
+/* 平台设置 */
+.device_setting_platform .item{margin:5px 0;}
+.device_setting_platform .item label{width:80px}
+.device_setting_platform button{margin-left:110px}
+/* 串口配置 */
+.device_setting_serial .item label{width:80px}
+.device_setting_serial .item .bootstrap-select{margin-left:0 !important;width: 158px !important}
+.device_setting_serial .btns{padding-left:105px}
+/* 流媒体设置 */
+.device_setting_stream .item .bootstrap-select{margin-left:0 !important;width: 158px !important}
+.device_setting_stream button{margin-left:150px}
+/* 报警点设置 */
+.device_setting_alarm1 .item{margin:5px}
+.device_setting_alarm1 .item label{width:100px}
+.device_setting_alarm1 .item .bootstrap-select{margin-left:0 !important;width: 158px !important}
+.device_setting_alarm1 .btns{padding-left:140px}
+/* 系统激活 */
+.device_setting_activate label{width:100px}
+/* 系统升级 */
+.device_setting_upgrade .item p{margin:5px 0;}
+.device_setting_upgrade button{margin-left: 90px}
+/* 配置数据 */
+.device_setting_data .item p{margin:5px 0;}
+.device_setting_data button{margin-left: 90px}
+/* 系统信息 */
+.device_setting_sysinfo label{width:120px}
+.device_setting_sysinfo .item{margin: 5px 0}
+/* 输入源原理 */
+.device_input_m table{text-align: center}
+/* 电子地图导入 */
+.map_i #preview{height:200px;display: none}
+.map_i .btn_choose{position: relative}
+.map_i .passwordBox{padding:20px}
+.map_i .btn_choose input{position: absolute; font-size: 25px; width: 100px; left: 50%; margin-left: -50px; opacity: 0;filter: alpha(opacity=0)}
+/* 电子地图管理 */
+.map_m .orgTree{width:20%;}
+.map_m .orgTree .modal-body{padding-left:0 !important;padding-top:0 !important}
+.map_m .orgTree .bootstrap-select{width: 80% !important}
+.map_m #allmap{width:75%}
+
+@media (max-width: 768px) {
+  .navbar-top-links .personal {display: block}
+  .navbar-top-links .welcome-message{display: none}
+  .navbar-top-links li a{padding:5px}
+  .count-info .label{top:-5px;right: -5px}
+  .personal .panel{width: 100%}
+  .cropArea{width: 300px;height: 220px}
+  .myDialog{width:60%}
+  .navbar-top-links li a{min-height: auto}
+ }
+

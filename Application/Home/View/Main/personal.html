@@ -1,0 +1,119 @@
+<include file="Common:header" />
+<link href="__CSS__plugins/jsTree/style.min.css" rel="stylesheet">
+<link  href="__CSS__plugins/ngImgCrop/ng-img-crop.css" rel="stylesheet"/>
+<title data-i18n="menu.p_basic"></title>
+</head>
+<body>
+<div id="wrapper" class="p_info personal">
+    <include file="Common:leftBar" />
+    <div id="page-wrapper" class="gray-bg">
+        <include file="Common:topBar" />
+        <div class="passwordBox animated fadeInLeft">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ibox-content">
+                        <h2 class="font-bold" data-i18n="menu.p_basic"></h2>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <a class="photo" data-toggle="modal" data-target="#myModal_clipImage">
+                                    <img alt="image" class="img-circle" src="images/profile_small.jpg" />
+                                    <i class="fa fa-edit fa-lg"></i>
+                                </a>
+                                <form class="m-t" role="form" action="ModifyInfoAction.php">
+                                    <div class="form-group clearfix">
+                                        <label data-i18n="reg.name"></label>
+                                        <p>唐键坪</p>
+                                        <input name="name" type="text" class="form-control" required="" value="唐键坪">
+                                    </div>
+                                    <div class="form-group clearfix">
+                                        <label data-i18n="personal.email"></label>
+                                        <p>405466742@qq.com</p>
+                                        <input name="email" type="email"  class="form-control" required="" value="405466742@qq.com">
+                                    </div>
+                                    <div class="form-group clearfix">
+                                        <label data-i18n="public.remark"></label>
+                                        <p>某某公司某某部门的负责人,某某公司某某部门的负责人某某公司某某部门的负责人</p>
+                                        <textarea name="remark" rows="3" class="form-control">某某公司某某部门的负责人,某某公司某某部门的负责人某某公司某某部门的负责人</textarea>
+                                    </div>
+                                    <div class="modify m-t-lg text-center">
+                                        <button type="button" class="btn btn-primary btn-wxlg" data-i18n="public.modify"></button>
+                                    </div>
+                                    <div class="confirm m-t-lg text-center">
+                                        <button class="btn btn-primary btn-wlg m-r" type="submit" data-i18n="public.submit"></button>
+                                        <button class="btn btn-default btn-wlg" type="button" data-i18n="public.cancel"></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="modal inmodal" id="myModal_clipImage" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInLeft">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" data-i18n="personal.clip"></h4>
+            </div>
+            <div class="modal-body text-center" ng-app="app" ng-controller="Ctrl">
+                <div class="cropArea">
+                    <img-crop image="myImage" result-image="myCroppedImage"></img-crop>
+                </div>
+                <label for="fileInput" class="btn btn-primary">
+                    <input type="file" accept="image/*" name="file" id="fileInput" class="hide">
+                    <span data-i18n="personal.chooseImg"></span>
+                </label>
+                <div data-i18n="personal.preivewImg"></div>
+                <div class="previewImg"><img ng-src="{{myCroppedImage}}" /> </div>
+                <button type="submit" class="btn btn-primary" data-i18n="public.submit"></button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="__JS__angular.min.js"></script>
+<script type="text/javascript" src="__JS__plugins/ngImgCrop/ng-img-crop.js"></script>
+<script>
+    window.myObj={
+        $myModal_clipImage:$('#myModal_clipImage'),
+        init:function(){
+            angular.module('app', ['ngImgCrop'])
+                    .controller('Ctrl', function($scope) {
+                        $scope.myImage='';
+                        $scope.myCroppedImage='';
+
+                        var handleFileSelect=function(evt) {
+                            var file=evt.currentTarget.files[0];
+                            var reader = new FileReader();
+                            reader.onload = function (evt) {
+                                $scope.$apply(function($scope){
+                                    $scope.myImage=evt.target.result;
+                                });
+                            };
+                            reader.readAsDataURL(file);
+                        };
+                        angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
+                    });
+            myObj.$myModal_clipImage.find('button[type="submit"]').on('click',function(){
+                $('.photo img').attr('src',myObj.$myModal_clipImage.find('.previewImg img').attr('ng-src'));
+                myObj.$myModal_clipImage.modal('hide');
+            });
+            $('.modify button').on('click',function(){
+                $('form').find('p').hide().end().find('input').show().end().find('textarea').show();
+                $('.modify').hide();
+                $('.confirm').show();
+            });
+            $('.confirm button[type="button"]').on('click',function(){
+                $('form').find('input').hide().end().find('textarea').hide().end().find('p').show();
+                $('.confirm').hide();
+                $('.modify').show();
+            });
+        }
+    };
+    myObj.init();
+</script>
+</body>
+</html>

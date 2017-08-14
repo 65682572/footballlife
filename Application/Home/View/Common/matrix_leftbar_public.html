@@ -1,0 +1,58 @@
+<!-- 左菜单 -->
+<div class="jt_leftGYMenu jt_leftXTMenu">
+    <div id="skin-select">
+        <include file="Common:logoFunc" />
+        <div class="jt_leftBarMenu" id="jt_leftBarMenu">
+            <div class="skin-part">
+                <div id="tree-wrap">
+                    <div class="side-bar">
+                        <ul id="jt_showhide2" class="topnav top2 menu-left-nest topList">
+                            <li>
+                                <a onclick="showmenu(this)" class="tooltip-tip title-menu-left ajax-load">
+                                    <span data-i18n="common.organManage"></span>
+                                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                                </a>
+                            </li>
+                            <ul id="menu-showhide2">
+                                <li>
+                                    <a href="{:U('/Organization/organizationMsg','','')}" data-i18n="common.organManage"></a>
+                                </li>
+                                <li>
+                                    <a href="{:U('/Organization/branchMsg','','')}" data-i18n="common.branchManage"></a>
+                                </li>
+                                <li>
+                                    <a class="tooltip-tip ajax-load" data-i18n="common.userManage"></a>
+                                    <ul>
+                                        <li>
+                                            <a href="{:U('/Organization/userMsg','','')}" data-i18n="common.userManage"></a>
+                                        </li>
+                                        <!--<li>-->
+                                            <!--<a href="javascript:void(0);" data-i18n="common.userGroup"></a>-->
+                                        <!--</li>-->
+                                        <!--<li>-->
+                                            <!--<a href="javascript:void(0);" data-i18n="common.roleAuthority"></a>-->
+                                        <!--</li>-->
+                                        <!--<li>-->
+                                            <!--<a href="javascript:void(0);" data-i18n="common.visitor"></a>-->
+                                        <!--</li>-->
+                                        <!--<li>-->
+                                            <!--<a href="javascript:void(0);" data-i18n="common.shareUser"></a>-->
+                                        <!--</li>-->
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="{:U('/Organization/roleMsg','','')}" data-i18n="common.roleManage"></a>
+                                </li>
+                                <?php if(IS_ROOT) { ?>
+                                <li>
+                                    <a href="{:U('/Organization/verify','','')}" data-i18n="common.organExamine"></a>
+                                </li>
+                                <?php } ?>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

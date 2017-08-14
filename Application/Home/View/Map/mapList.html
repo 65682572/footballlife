@@ -1,0 +1,368 @@
+<!-- 地图管理 -->
+<title data-i18n="public.mapManage"></title>
+<include file="Common:matrix_header" />
+<script src="__JS__common.js"></script>
+<link rel="stylesheet" href="/Public/common/css/dropify.min.css">
+<script src="/Public/common/js/dropify.min.js"></script>
+<include file="Common:matrix_menu"/>
+<!-- 左菜单 -->
+<div class="jt_mapLeft1">
+    <div id="skin-select">
+        <include file="Common:logoFunc" />
+        <div class="jt_mapLeft1" id="jt_leftBarMenu">
+            <div class="skin-part">
+                <!-- 左边部分暂无 -->
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Common:msgFootable" />
+<script src="/Public/common/js/msgFootable.js"></script>
+<!-- 中间 -->
+<div class="jt_mapListBox">
+    <i onclick="mapListHideImg()" class="icon icon-cross pull-right"></i>
+    <img id="imgSrc" src=""/>
+</div>
+<div class="wrap-fluid jt_mapListMain jt_branchMain">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span data-i18n="public.mapManage"></span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="content-wrap">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div id="siteClose" class="nest">
+                            <div class="title-alt">
+                                <h6>
+                                    <span class="fontawesome-truck"></span>
+                                    <span data-i18n="common.mapList"></span>
+                                </h6>
+                                <div class="titleClose">
+                                    <a class="gone" href="#siteClose">
+                                        <span class="entypo-cancel"></span>
+                                    </a>
+                                </div>
+                                <div class="titleToggle">
+                                    <a class="nav-toggle-alt" href="#site">
+                                        <span class="entypo-up-open"></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="site" class="body-nest">
+                                <div class="table-responsive">
+                                    <table class="table footable-res footable metro-blue" data-page-size="10">
+                                        <thead>
+                                        <tr>
+                                            <th><span data-i18n="public.number"></span></th>
+                                            <th><span data-i18n="mapManage.mapName"></span></th>
+                                            <th><span data-i18n="mapManage.organization"></span></th>
+                                            <th><span data-i18n="mapManage.mapType"></span></th>
+                                            <th><span data-i18n="public.operation"></span></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <foreach name="data" item="v">
+                                                <tr>
+                                                    <td></td>
+                                                    <td class="armada-devider">
+                                                        <div class="armada">
+                                                                <span class="jt_mapColor1">
+                                                                    <span class="maki-bus"></span>
+                                                                    &nbsp;&nbsp;{$v['map_name']}
+                                                                </span>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        {$v['name']}
+                                                    </td>
+                                                    <td>
+                                                        <span><?php if($v['map_type'] == '1') echo '在线地图';else echo '离线地图';?></span>
+                                                    </td>
+                                                    <td class="progress-devider fixedWidth240">
+                                                        <div class="btn-group">
+                                                            <a href="/Map/mapManage/mapListId/{$v['id']}/mapType/{$v['map_type']}/" class="btn btn-success" data-i18n="public.goIn"></a>
+                                                            <button onclick="editMap({$v['id']},'{$v['map_name']}',{$v['map_type']});" class="btn btn-info btn-updata" data-toggle="modal" data-target="#editMap" data-i18n="public.modify"></button>
+                                                            <?php if($v['map_type'] == '2') {?>
+                                                            <button class="btn btn-primary" onclick="mapListShowImg('<?php echo '/Uploads/map/' . $v['map_img']; ?>')" data-i18n="public.preview"></button><?php }?>
+
+                                                            <a href="/Map/delMapList/deleteId/{$v['id']}">
+                                                                <button class="btn btn-danger btn-control" data-i18n="public.delete"></button>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </foreach>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="5">
+                                                    <div class="pagination pagination-centered"></div>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#addMap" data-i18n="mapManage.addMap"></button>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+
+                    </script>
+                    <div class="col-lg-4">
+                        <div id="RealTimeClose" class="nest">
+                            <div class="title-alt">
+                                <h6>
+                                    <span class="fontawesome-resize-horizontal"></span>
+                                    <span data-i18n="mapLayout.commonAddress"></span>
+                                </h6>
+                                <div class="titleClose">
+                                    <a class="gone" href="#RealTimeClose">
+                                        <span class="entypo-cancel"></span>
+                                    </a>
+                                </div>
+                                <div class="titleToggle">
+                                    <a class="nav-toggle-alt" href="#RealTime">
+                                        <span class="entypo-up-open"></span>
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="RealTime" class="body-nest">
+                                <ul class="direction">
+                                    <foreach name="addressData" item="v">
+                                        <li>
+                                            <span class="direction-icon maki-fuel jt_mapColor2"></span>
+                                            <h3>
+                                                <span data-i18n="mapLayout.commonAddress"></span>
+                                            </h3>
+                                            <p class="jt_overHidden"><span data-i18n="mapLayout.customName"></span><span>{$v['custom_name']}</span></p>
+                                            <p class="jt_overHidden"><span data-i18n="mapManage.address"></span><span>{$v['origin_name']}</span></p>
+                                            <div class="jt_mapDelete">
+                                                <a href="/Map/delAddress/id/{$v['id']}">
+                                                    <button class="btn btn-danger" data-i18n="public.delete"></button>
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li class="divider"></li>
+                                    </foreach>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 添加地图 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="addMap">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 id="myLargeModalLabel" class="modal-title" data-i18n="mapManage.addMap"></h6>
+            </div>
+            <div class="modal-body">
+                <!-- <form class="jt_formPost" method="post" action="{:U('/Map/addMap', '', '')}" enctype="multipart/form-data"> -->
+                <form id="addForm">
+                    <div class="compose_mail">
+                        <div>
+                        <div class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" data-i18n="mapManage.mapName"></label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="mapName" data-i18n="[placeholder]mapManage.tipsInputMapName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" data-i18n="mapManage.mapType"></label>
+                                <div class="col-sm-10">
+                                    <div class="radio jt_addRadio">
+                                    <label>
+                                        <input type="radio" id="onlineMap" name="mapType" value="1" checked><span data-i18n="mapManage.onlineMap"></span>
+                                    </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" id="offlineMap" name="mapType" value="2"><span data-i18n="mapManage.offlineMap"></span>
+                                        </label>
+                                    </div> 
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="addFileDiv">
+                                <label class="col-sm-2 control-label" data-i18n="mapManage.mapUpload"></label>
+                                <div class="col-sm-10">
+                                    <input type="file" class="dropify" name="offlineMap" data-allowed-file-extensions="jpg png gif jpeg" data-errors-position="outside">
+                                </div>
+                            </div>
+                            <div class="form-group jt_okMap">
+                                <button class="addTrueBtn btn col-sm-offset-2" data-i18n="public.confirm"></button>
+                                <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 修改地图 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="editMap">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+
+                <h6 class="modal-title" data-i18n="mapManage.modifyMap"></h6>
+            </div>
+            <div class="modal-body">
+                <!-- <form class="jt_formPost" method="post" action="{:U('/Map/editMap', '', '')}" enctype="multipart/form-data"> -->
+                <form id="editForm">
+                    <input id="editMapId" name="id" type="hidden" value="">
+                    <div class="compose_mail">
+                        <div>
+                        <div class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" data-i18n="mapManage.mapName"></label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" name="mapName" data-i18n="[placeholder]mapManage.tipsInputMapName">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" data-i18n="mapManage.mapType"></label>
+                                <div class="col-sm-10">
+                                    <div class="radio jt_addRadio">
+                                        <label>
+                                            <input type="radio" name="mapType" value="1" checked><span data-i18n="mapManage.onlineMap"></span>
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="mapType" value="2"><span data-i18n="mapManage.offlineMap"></span>
+                                        </label>
+                                    </div> 
+                                </div>
+                            </div>
+                            <div class="form-group" id="editFileDiv">
+                                <label class="col-sm-2 control-label" data-i18n="mapManage.mapUpload"></label>
+                                <div class="col-sm-10">
+                                    <input type="file" class="dropify" name="offlineMap" data-allowed-file-extensions="jpg png gif jpeg" data-errors-position="outside">
+                                </div>
+                            </div>
+                            <div class="form-group jt_okMap">
+                                <button class="editTrueBtn btn col-sm-offset-2" data-i18n="public.confirm"></button>
+                                <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<form id="aform"></form>
+<script>
+    $(document).ready(function (){
+        $("#addFileDiv").hide();
+        $("#addMap input[name='mapType']").change(function (){               
+            var value=$(this).val();
+            if(value==1){ 
+                $("#addFileDiv").hide();
+            }else{
+                $("#addFileDiv").show();
+            }                     
+        });
+        $("#editFileDiv").hide();
+        $("#editMap input[name='mapType']").change(function (){               
+            var value=$(this).val();
+            if(value==1){ 
+                $("#editFileDiv").hide();
+            }else{
+                $("#editFileDiv").show();
+            }                     
+        });
+
+        $('.addTrueBtn').on('click',function(e){
+            e.preventDefault();
+            $(this).attr('disabled','disabled');
+            mapSave('addMap');
+        });
+        $('.editTrueBtn').on('click',function(e){
+            e.preventDefault();
+            $(this).attr('disabled','disabled');
+            mapSave('editMap');
+        });
+        $('.dropify').dropify({
+            messages: {'default': '点击选择图片，只支持JPG|GIF|PNG|JPEG格式','replace': '点击替换图片','remove':  '移除','error':   '上传失败'},
+            error: {'fileSize': '文件大小不能超过({{ value }}).','minWidth': '图片宽度不能小于({{ value }}}px).','maxWidth': '图片宽度不能小于({{ value }}}px).','minHeight': '图片高度不能小于({{ value }}}px).','maxHeight': '图片高度不能大于({{ value }}px).','imageFormat': '只支持({{ value }}格式的图片).','fileExtension': '只支持({{ value }}格式).'}
+        });
+    });
+    function editMap(id, name, type) {
+        $("#editMap input[value='1']").prop('checked', false);
+        $("#editMap input[value='2']").prop('checked', false);
+        $('#editMapId').val(id);
+        $("#editMap input[name='mapName']").val(name);
+        if (type == 1) {
+            $("#editMap input[value='1']").prop('checked', true);
+            $("#editFileDiv").hide();
+        } else if (type == 2) {
+            $("#editMap input[value='2']").prop('checked', true);
+            $("#editFileDiv").show();
+        }
+    }
+    function mapSave(formid){
+        var formData = new FormData($('#aform'));
+        var mapname = $('#'+formid+' input[name="mapName"]').val();
+        var maptype = $('#'+formid+' input[name="mapType"]:checked').val();
+        var offlineMap = $('#'+formid+' input[name="offlineMap"]');
+        if(formid == 'editMap'){
+            var id = $('#editMapId').val();
+            formData.append('id',id);
+        }
+        formData.append('mapName',mapname);
+        formData.append('mapType',maptype);
+        formData.append('offlineMap',offlineMap[0].files[0]);
+        $.ajax({
+            url:"/map/" + formid,
+            type:"post",
+            async:false,
+            data:formData,
+            processData:false,
+            contentType:false,
+            success:function(ret){console.log(ret);
+                alert(ret['msg']);
+                if (ret['status'] == true){
+                    location.reload();
+                }
+            }
+        });
+    }
+    function mapListShowImg(imgSrc){
+        $('#imgSrc').attr('src', imgSrc);
+        $(".jt_mapListBox").show(400);
+    }
+    function mapListHideImg(){
+        $(".jt_mapListBox").hide(400);
+    }
+</script>
+<include file="Common:footer" />
+</body>
+</html>

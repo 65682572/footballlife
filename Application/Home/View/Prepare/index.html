@@ -1,0 +1,79 @@
+<include file="Common:header" />
+<title data-i18n="createOrg.title"></title>
+</head>
+<body class="gray-bg ">
+<div class="passwordBox createOrg">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox-content">
+                <h2 class="font-bold" data-i18n="createOrg.title"></h2>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <p class="error"></p>
+                        <form class="m-t" role="form">
+                            <div class="form-group">
+                                <input name="name" type="text" class="form-control" data-i18n="[placeholder]createOrg.name" required="">
+                            </div>
+                            <div class="form-group">
+                                <textarea name="des" id='des' rows="5" class="form-control" data-i18n="[placeholder]createOrg.des"></textarea>
+                            </div>
+                            <button type="button" class="btn btn-primary block full-width m-b dosub" data-i18n="createOrg.create"></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Common:change_lng" />
+<include file="Common:footer" />
+<script src="__JS__plugins/iCheck/icheck.min.js"></script>
+<script>
+    var myObj = {
+        $name:$('input[name="name"]'),
+        $intro:$('#des'),
+        $error:$('.error'),
+        $sub:true,
+        init:function(){
+            $(".dosub").bind("click", function(){
+                myObj.sub($(this));
+            });
+        },
+        sub:function(obj){
+            var name = $.trim(myObj.$name.val());
+            var intro = $.trim(myObj.$intro.val());
+            if (name == ''){
+                myObj.$error.text('名称不能为空!').show();
+                return false;
+            }
+            if (intro == ''){
+                myObj.$error.text('描述不能为空!').show();
+                return false;
+            }
+            if (myObj.$sub == false){
+                return false;
+            }
+            myObj.$sub = false;
+            obj.addClass("btn_waiting");
+            $.ajax({
+                url:'/Prepare/createFirm',
+                type:'post',
+                async:false,
+                data:{name:name,intro:intro},
+                dataType : 'json',
+                success:function(ret){
+                    if (ret['status'] == true){
+                        location.href = '/main';
+                    }else{
+                        myObj.$error.text(ret.msg).show();
+                        obj.removeClass("btn_waiting");
+                        myObj.$sub = true;
+                    }
+                }
+            });
+        }
+    };
+    myObj.init();
+</script>
+</body>
+</html>

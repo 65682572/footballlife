@@ -1,0 +1,103 @@
+<!-- 在线地图 -->
+<title> 在线地图 </title>
+<include file="Common:matrix_header"/>
+<script src="__JS__common.js"></script>
+<include file="Common:matrix_menu"/>
+<!-- 左菜单 -->
+<div class="jt_mapLeft1">
+    <div id="skin-select">
+        <include file="Common:logoFunc" />
+        <div class="jt_leftBarMenu jt_mapLeft1" id="jt_leftBarMenu">
+            <div class="skin-part">
+                <div id="tree-wrap">
+                    <div class="side-bar jt_setSide">
+                        <ul id="menu-showhide1" class="topnav top2 menu-left-nest">
+                            <li>
+                                <a onclick="showmenu(this)" class="tooltip-tip title-menu-left ajax-load">
+                                    <span class="jt_mapList">地图设置</span>
+                                    <i data-toggle="tooltip" class="entypo-cog pull-right config-wrap"></i>
+                                </a>
+                            </li>
+                            <ul id="menu3">
+                                <li>
+                                    <a href="{:U('/Map/mapList','','')}">
+                                        <span class="span-t4">我的地图</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{:U('/Map/mapSetting','','')}">
+                                        <span class="span-t4">添加地图</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{:U('/Map/addAddress','','')}">
+                                        <span class="span-t4">常用地址</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  中间 -->
+<div class="wrap-fluid jt_mapSetMain jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span>添加地图</span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle" />
+                    <div class="col-sm-2">
+                        <div class="devider-vertical visible-lg"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="body-nest jt_rowNest14" id="Blank_Page_Content">
+                        <div class="row">
+                            <div class="col-md-12 personal-info">
+                                <form class="jt_formPost" method="post" action="{:U('addMap')}" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>地图名</label>
+                                        <input type="text" class="form-control" name="mapName" placeholder="请输入地图名">
+                                    </div>
+                                    <div class="radio" style="margin-top: 30px;">
+                                        <label>
+                                            <input type="radio" name="mapType" value="1" checked>在线地图
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            <input type="radio" name="mapType" value="2" checked>离线地图
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>离线地图上传：</label>
+                                        <input type="file" name="offlineMap">
+                                    </div>
+                                    <button type="submit" class="btn btn-info">提&nbsp;交</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="Common:footer"/>
+<!-- Custom and plugin javascript -->
+<script src="__JS__bootstrap-select.min.js"></script>
+</body>
+</html>

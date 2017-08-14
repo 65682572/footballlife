@@ -1,0 +1,417 @@
+<!-- 机构管理 -->
+<title> 机构管理 </title>
+<include file="Common:matrix_header" />
+<include file="Common:matrix_menu" />
+<include file="Common:matrix_leftbar_public" />
+<include file="Common:msgFootable" />
+<script src="/Public/common/js/msgFootable.js"></script>
+<link rel="stylesheet" href="/Public/common/css/select2.min.css">
+<link rel="stylesheet" href="/Public/common/css/dropify.min.css">
+<script src="/Public/common/js/dropify.min.js"></script>
+<!-- 中间 -->
+<div class="wrap-fluid jt_organMain jt_basicMain jt_main">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <div class="content-wrap">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-sm-3">
+                        <h2 class="tittle-content-header">
+                            <i class="icon-media-record"></i>
+                            <span>机构管理</span>
+                        </h2>
+                    </div>
+                    <include file="Common:matrix_mainMiddle" />
+                    <div class="col-sm-2">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="btn-group btn-wigdet pull-right visible-lg">
+                            <div class="btn">
+                                Widget</div>
+                            <button data-toggle="dropdown" class="btn dropdown-toggle jt_dropTo" type="button">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul role="menu" class="dropdown-menu">
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-plus-circled margin-iconic"></span>Add New
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-heart margin-iconic"></span>Favorite
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="entypo-cog margin-iconic"></span>Setting
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 jt_rowNest1">
+                <div class="nest" id="FootableClose">
+                    <div class="title-alt">
+                        <h6>
+                            机构管理
+                        </h6>
+                        <div class="titleClose">
+                            <a class="gone" href="#FootableClose">
+                                <span class="entypo-cancel"></span>
+                            </a>
+                        </div>
+                        <div class="titleToggle">
+                            <a class="nav-toggle-alt" href="#Footable">
+                                <span class="entypo-up-open"></span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="body-nest" id="Footable">
+                        <div class="form-group form-horizontal jt_thisJG">
+                            <label class="col-sm-8 control-label">当前机构</label>
+                            <div class="col-sm-4">
+                                <input type="text" placeholder="{$lastfirmname}" disabled class="form-control">
+                            </div>
+                        </div>
+                        <table class="table-striped footable-res footable metro-blue" data-page-size="10">
+                            <thead>
+                            <tr>
+                                <th>序号</th>
+                                <th>机构名称</th>
+                                <th data-hide="phone,tablet">备注</th>
+                                <th>机构用户关系</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <volist name="formatfirm" id="v">
+                                    <tr>
+                                        <td></td>
+                                        <td class="jt_hiddenTd3 footable-first-column">
+                                            <a href="#">{$v.text}</a>
+                                        </td>
+                                        <td class="jt_hiddenTd2">{$v.intro}</td>
+                                        <td><php> $a="用户邀请加入";if(!$v['not_self_firm']){ $a="本用户创建";};echo $a;</php></td>
+
+                                        <td data-value="1" class="jt_hiddenTd4 footable-last-column">
+                                            <?php if ($v['verify'] == 1) { php ?>
+                                            <div class="btn-group">
+                                                <button {$v.not_self_firm} data-copyright="{$v.copyright}" data-logoimg="{$v.logoimg}" data-name="{$v.text}" data-id="{$v.id}" data-intro="{$v.intro}" class="btn btn-warning editFirmbtnclass" data-toggle="modal" data-target="#add">编&nbsp;辑</button>
+                                                <button data-name="{$v.text}" data-id="{$v.id}" data-intro="{$v.intro}" class="btn btn-success changeFirmbtnclass" id="" data-toggle="modal">切&nbsp;换</button>
+                                                <button data-id="{$v.id}" class="btn btn-danger" id="organMsgDel">{$v.not_self_name}</button>
+                                                <!--<button {$v.not_self_firm} class="btn btn-primary" onclick="addLotUser({$v.id},'{$v.text}')">批量导入用户</button>-->
+                                            </div>
+                                            <?php } elseif ($v['verify'] == 0) { ?>
+                                            请等待管理员审核此机构
+                                            <?php } elseif ($v['verify'] == 2) { ?>
+                                            该申请已被管理员拒绝，请联系管理员或重新申请
+                                            <?php } ?>
+                                        </td>
+                                    </tr>
+                                </volist>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <div class="pagination pagination-centered"></div>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                            <div class="btn-group jt_btnSetWidth">
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#addOrg">创建机构</button>
+                                <!--<button class="btn btn-primary" onclick='showModal()'>加入机构</button>-->
+                            </div>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 创建机构 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="addOrg">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">创建机构</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div >
+                        <div class="form-horizontal" role="form">
+                           <div class="form-group">
+                                <label  for="firmName" class="col-sm-2 control-label">机构名称</label>
+                                <div class="col-sm-10">
+                                    <input type="text" placeholder="机构名称" id="firmName" class="form-control">
+                                </div>
+                           </div>
+                           <div class="form-group">
+                                <label  for="firmDesc" class="col-sm-2 control-label">备注</label>
+                                <div class="col-sm-10">
+                                    <textarea class="form-control" id="firmDesc" placeholder="备注" rows="8"></textarea>
+                                </div>
+                           </div>
+                           <div class="form-group jt_btnGroupWZ">
+                               <button class="btn creatTruebtn col-sm-offset-2">确&nbsp;认</button>
+                               <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button> 
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 编辑 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="add">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">编辑机构</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div >
+                    <div class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label  for="firmEditId" class="col-sm-2 control-label">机构名称</label>
+                            <div class="col-sm-10">
+                                <input type="text" placeholder="机构名称" id="firmEditId" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  for="jt_zidingyi" class="col-sm-2 control-label">修改LOGO图标</label>
+                            <div class="tab-pane fade in active col-sm-10" id="jt_zidingyi">
+                                <div class="form-group jt_fileParent jt_file1">
+                                    <i class="entypo-user-add" title="" data-original-title="user-add"></i>
+                                    <label>修改LOGO图标</label>
+                                    <input id="file_upload" type="file"/>
+                                </div>
+                                <div class="jt_showTXArea">
+                                    <img class="jt_imgPublicStyle" id="preview" src="{:session('public')[logoimg]}" alt=""/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  for="copyright" class="col-sm-2 control-label">请填写版权信息</label>
+                            <div class="col-sm-10">
+                                <input type="text" value="{:session('public')[copyright]}" id="copyright" placeholder="请填写版权信息" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label  for="intro" class="col-sm-2 control-label">备注</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="intro" placeholder="备注" rows="8"></textarea>
+                            </div>
+                        </div>
+                        <form enctype="multipart/form-data" method="post" name="fileinfo" id="editfrom"></form>
+                        <div class="form-group jt_btnGroupWZ">
+                            <button class="btn editTrueBtn col-sm-offset-2">确&nbsp;认</button>
+                            <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 加入机构 -->
+<!--<div aria-labelledby="myModalLabel" role="dialog" class="modal fade bs-example-modal-lg" aria-hidden="true" id="joinOrg">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title">加入机构</h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div >
+                        <div class="form-horizontal" role="form">
+                           <div class="form-group">
+                                <label  for="firmName" class="col-sm-2 control-label">选择机构</label>
+                                <div class="">
+                                    <select class="not-join-org jt_not-join-org" multiple="multiple"></select>
+                                </div>
+                           </div>
+                           <div class="form-group jt_btnGroupWZ">
+                               <button class="btn joinOrgbtn col-sm-offset-2">确&nbsp;认</button>
+                               <button class="btn" data-dismiss="modal" aria-hidden="true">取&nbsp;消</button> 
+                           </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
+
+<form id="mo"></form>
+<script src="/Public/common/js/select2.min.js"></script>
+<script>
+
+//  function showModal(){
+//      var optionData = '';
+//      $.ajax({
+//          url:"/Organization/getNotJoinOrg",
+//          type:"post",
+//          async:false,
+//          data:{},
+//          dataType : 'json',
+//          success:function(ret){
+//              if (ret['status'] == true){
+//                  $.each(ret['data'].data,function (i,c){
+//                      if($.inArray(c.id,ret['data'].alreadyJoin) >= 0){
+//                          optionData += '<option value="' + c.id + '" disabled="disabled">' + c.text + '(已加入)</option>';
+//                      }else if($.inArray(c.id,ret['data'].alreadyApp) >= 0){
+//                          optionData += '<option value="' + c.id + '" disabled="disabled">' + c.text + '(已申请)</option>';
+//                      }else{
+//                          optionData += '<option value="' + c.id + '">' + c.text + '</option>';
+//                      }
+//                  });
+//              }else{
+//                  return false;
+//              }
+//          }
+//      });
+//      $('.not-join-org').html(optionData);
+//      $('.not-join-org').select2({
+//          placeholder: "请选择机构",
+//          allowClear: true
+//      });
+//      $('#joinOrg').modal('show');
+//  }
+//  $('#joinOrg').on('hidden.bs.modal', function () {
+//      $('.not-join-org').empty();
+//  });
+    $(".changeFirmbtnclass").on('click',function () {
+        myObj.id = $(this).attr('data-id');
+        confirmBtnDisabled($(this),'/Organization/changeFirm',{firmid:myObj.id});
+    });
+    /* 业务逻辑代码 */
+    var myObj = {
+        /* 创建机构  /main/createfirm */
+        creatfirm:function () {
+            $(".creatTruebtn").on('click',function () {
+                var name = $("#firmName").val();
+                var intro = $("#firmDesc").val();
+                var id = '';
+                var action = 'createOrgAction';
+                confirmBtnDisabled($(this),'/Organization/createfirm',{id:id,action:action,name:name,intro:intro});
+            });
+        },
+        delFirm:function () {
+            $(".btn-danger").on('click',function () {
+//                var res = confirm("确认" + $(this).text());
+                var did = $(this).attr('data-id');
+                publicConfirm({title:'提示信息',content:"确认" + $(this).text() + "？",icon:'fa fa-rocket'},did);
+//                if(res == false){
+//                    return;
+//                }
+//                var id = $(this).attr('data-id');
+//                var action = 'delOrgAction';
+//                confirmBtnDisabled($(this),'/Organization/createfirm',{id:id,action:action});
+            });
+
+        },
+        /* 编辑机构 */
+        editFirm:function () {
+            $(".editFirmbtnclass").on('click',function () {
+                myObj.id = $(this).attr('data-id');
+                myObj.name = $(this).attr('data-name');
+                myObj.intro = $(this).attr('data-intro');
+                myObj.copyright = $(this).attr('data-copyright');
+                myObj.logoimg = $(this).attr('data-logoimg');
+                $("#firmEditId").val(myObj.name);
+                $("#intro").val(myObj.intro);
+                $("#copyright").val(myObj.copyright);
+                $("#preview").attr('src',myObj.logoimg);
+
+            });
+            $(".editTrueBtn").on('click',function () {
+                $(this).attr('disabled', 'disabled');
+                var action = 'editOrgAction';
+                var name = $("#firmEditId").val();
+                var intro = $("#intro").val();
+                var logoImg = $("#file_upload")[0].files[0];
+                var copyright = $("#copyright").val();
+                var formObj = $("#editfrom");
+                var formData = new FormData (formObj);
+                formData.append('id',myObj.id);
+                formData.append('action',action);
+                formData.append('name',name);
+                formData.append('intro',intro);
+                formData.append('logoimg',logoImg);
+                formData.append('copyright',copyright);
+                var request = new XMLHttpRequest();
+                request.open("POST", "/Organization/createfirm");
+                request.send(formData);
+                request.onload = function(oEvent) {
+                    var res = JSON.parse(oEvent.currentTarget.response);
+                    if (oEvent.currentTarget.status == 200) {
+//                        alert(res.msg);
+                        publicAlert({title:'提示信息',content:res.msg,icon:'fa fa-rocket'},res.status);
+//                        if(res.status == false){
+//                            $(this).removeAttr('disabled');
+//                        }else{
+//                            location.reload();
+//                        }
+                    }
+                };
+            });
+        }
+
+//        joinFirm:function () {
+//            $(".joinOrgbtn").on('click',function () {
+//                var ids = $('.not-join-org').val();
+//                if(!ids || ids.length <= 0){
+//                    alert('最少选择一个机构！');
+//                    return false;
+//                }
+//                confirmBtnDisabled($(this),'/Organization/joinFirm',{ids:ids});
+//            });
+//
+//        },
+    };
+    myObj.creatfirm();
+    myObj.delFirm();
+    myObj.editFirm();
+//    myObj.joinFirm();
+    $(document).ready(function(){
+        $("#file_upload").change(function() {
+            var $file = $(this);
+            var fileObj = $file[0];
+            var windowURL = window.URL || window.webkitURL;
+            var dataURL;
+            var $img = $("#preview");
+
+            if(fileObj && fileObj.files && fileObj.files[0]){
+                dataURL = windowURL.createObjectURL(fileObj.files[0]);
+                $img.attr('src',dataURL);
+            }else{
+                dataURL = $file.val();
+                var imgObj = document.getElementById("preview");
+                // 两个坑:
+                // 1、在设置filter属性时，元素必须已经存在在DOM树中，动态创建的Node，也需要在设置属性前加入到DOM中，先设置属性在加入，无效；
+                // 2、src属性需要像下面的方式添加，上面的两种方式添加，无效；
+                imgObj.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                imgObj.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = dataURL;
+            }
+        });
+    });
+</script>
+<include file="Common:footer" />
+</body>
+</html>

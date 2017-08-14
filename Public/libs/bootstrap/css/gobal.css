@@ -1,0 +1,48 @@
+@charset "utf-8";
+.clearfix:after {visibility: hidden;display: block;font-size: 0;content: " ";clear: both;height: 0;}
+.clearfix{*zoom:1;}
+
+body, div, ol, li, dl, dt ,dd ,ul ,h2,h1,h3,h4, form ,input,a{ margin:0; padding:0;}
+body{font-size:12px;color:#666;font-family:"宋体","Microsoft YaHei",Arial,'simson';}
+h1, h2, h3, h4, h5, h6{margin:0;font-weight:normal;}
+h1{font-size:24px;font-family: "Microsoft YaHei",Arial,'simson'; }
+h2{font-size:22px;font-family: "Microsoft YaHei",Arial,'simson'; }
+h3{font-size:20px;font-family: "Microsoft YaHei",Arial,'simson'; }
+h4{font-size:18px;font-family: "Microsoft YaHei",Arial,'simson'; }
+h6{font-size:14px;}
+h5{font-size:16px;}
+textarea  { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
+ul ,ol ,li{ list-style:none;}
+a img { border:none; }
+a{text-decoration:none;color:#039dd6;}
+a:hover{color:#0A6A8E;}
+p{margin:0;}
+.left{float:left;}
+.right{float:right;}
+/*------文字颜色------*/
+.red{color:#c0382a;}
+.green{color:#537512;}
+/*-----文字状态-----*/
+.text-info{color:#b76244;font-size:14px;}
+.wrip{padding:0 10px;background:#fff;width:960px; overflow:hidden;margin:0 auto;}
+/*表格*/
+table{border-spacing: 0;}
+table.frameSkin {border-collapse: collapse;border-spacing: 0;border:none;padding: 0;border:none;margin:0 auto;}
+table.frameSkin td,table.frameSkin th{padding: 0;border:none;color:#777777;} 
+table.frameSkin-fixed{ clear:both;max-width:740px; position: fixed;left:50%;top:90px;margin-left:-350px; z-index:1002;}
+table.info-table thead tr {
+    display:block;
+}
+
+table.info-table tbody {
+    display: block;
+    max-height: 200px;
+    overflow: auto;
+}
+
+/*全局表格线样式*/
+table.table-line{border-collapse:collapse;}  
+table.table-line td{border:1px solid #808080;}
+table.table-line th{border:1px solid #808080;font-weight:bold;}
+.public-table thead td{background:#d9f1f6;color:#666; border:1px solid #ccc;line-height:20px;}
+.public-table tbody td{color:#0d78ca;line-height:20px;border:1px solid #ccc;}

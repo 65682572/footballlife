@@ -1,0 +1,564 @@
+<!-- 设备控制 -->
+<!DOCTYPE html>
+<html>
+	<head>
+	    <meta charset="utf-8">
+	    <title> 设备控制 </title>
+		<include file="Common:matrix_header" />
+	</head>
+	<body onload="init();">
+		<div class="jt_wrapPage">
+			<include file="Common:matrix_menu" />
+			<include file="Common:matrix_leftbar_push" />
+			<!-- 中间 -->
+			<div class="jt_main">
+				<div class="wrap-fluid">
+					<div class="container-fluid paper-wrap bevel tlbr">
+						<div class="row">
+							<div id="paper-top">
+								<div class="col-lg-3 jt_mainLeftBar">
+									<h2 class="tittle-content-header">
+										<span class="menu_a entypo-home"></span>
+										<span>
+											<ul>
+												<li class="menu_a jt_menu_a"><i class="fa fa-lg fa-angle-right"></i>
+												<li class="menu_a jt_menu_b">设备控制</li>
+											</ul>
+										</span>
+									</h2>
+								</div>
+								<div class="col-lg-7">
+									<div class="devider-vertical visible-lg"></div>
+									<div class="tittle-middle-header">
+										<div class="alert">
+											<button type="button" class="close" data-dismiss="alert">×</button>
+											<span class="tittle-alert entypo-info-circled"></span>
+											欢迎回来,&nbsp;
+											<strong>李逍遥!</strong>&nbsp;&nbsp;您最后一次登录时间,&nbsp;&nbsp;{:date('Y-m-d H:i:s', session('lastLoginTime'))}
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-2 jt_mainRightBar">
+									<div class="devider-vertical visible-lg"></div>
+									<div class="btn-group btn-wigdet pull-right visible-lg">
+										<div class="btn" id="fastbtn">{$matrixname}</div>
+										<button data-toggle="dropdown" class="btn dropdown-toggle" type="button">
+											<span class="caret"></span>
+											<span class="sr-only">Toggle Dropdown</span>
+										</button>
+										<ul role="menu" class="dropdown-menu">
+											<li>
+												<a onclick="reset();">
+													<span class="entypo-plus-circled margin-iconic"></span>初始化
+												</a>
+											</li>
+											<li>
+												<a onclick="test();">
+													<span class="entypo-cog margin-iconic"></span>预览
+												</a>
+											</li>
+											<li>
+												<a onclick="clean();">
+													<span class="entypo-heart margin-iconic"></span>清理LOG
+												</a>
+											</li>
+											<li>
+												<a onclick="pushconfig(1);">
+													<span class="entypo-cog margin-iconic"></span>同步上传
+												</a>
+											</li>
+											<li>
+												<a onclick="getconfig();">
+													<span class="entypo-cog margin-iconic"></span>同步下载
+												</a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="paper-middle" class="jt_mainMiddle">
+							<canvas id="lk_canvas" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+							</canvas>
+							<div class="j_preview" id="test">
+
+							</div>
+						</div>
+						<div class="jt_mainMiddleFooter">
+							<div class="col-sm-12">
+								<div class="nest" id="BlockquotesClose">
+									<div class="title-alt">
+										<h6>
+											系统信息</h6>
+										<div class="titleClose">
+											<a class="gone" href="#BlockquotesClose">
+												<span class="entypo-cancel"></span>
+											</a>
+										</div>
+										<div class="titleToggle">
+											<a class="nav-toggle-alt" href="#Blockquotes">
+												<span class="entypo-up-open"></span>
+											</a>
+										</div>
+									</div>
+									<div class="body-nest" id="lkMes"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 右边开始 -->
+			<div class="sb-slidebar sb-right sb-active" id="jt_rightBarInfo">
+				<div class="right-wrapper">
+					<div class="row">
+						<h3>
+							<span><i class="entypo-gauge"></i>&nbsp;&nbsp;功能区</span>
+						</h3>
+						<div class="col-lg-12 jt_functionArea">
+
+						</div>
+					</div>
+				</div>
+				<div style="margin-top:0;" class="right-wrapper">
+					<div class="row">
+						<h3>
+							<span><i class="entypo-chat"></i>&nbsp;&nbsp;状态区</span>
+						</h3>
+						<div class="col-lg-12">
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 右边结束 -->
+			<!-- 弹出框-->
+            <div class="modal fade" id="modal-container-884435" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="myModalLabel">
+                                请选择设备
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="panel panel-default">
+                                <volist name="list" id="v">
+                                    <div class="panel-heading">
+                                         <a class="panel-title" data-id="{$v.id}" data-intro="{$v.intro}" data-groupid="{$v.groupid}" data-groupname="{$v.catename}" href="/Matrix/index/matrix_id/{$v.id}">{$v.name}:{$v.uuid}</a>
+                                    </div>
+                                </volist>
+                            </div>
+                        </div>
+                    </div>                    
+                </div>                
+            </div>
+		</div>
+		<!-- ************************************************Html代码结束************************************************** -->
+		<script type="text/javascript">
+		    $(document).ready(function(){
+		        var matrix_id = "{$matrix_id}";
+		        if (matrix_id=="") {
+		            $("#modal-container-884435").css("display","block").addClass("in");
+		        }
+		        $("#closemo").click(function(){
+		            $("#modal-container-884435").css("display","none").removeClass("in");
+		        });
+		    })
+		</script>
+		<!--初始化p2p-->
+		<div style="position: absolute;"><embed id="pgAtx99999" codebase="/Uploads/pgSetup_zh_v1.28.0.msi" width="0" height="0" type="application/peergine-plugin"></div>
+		<script src="__JS__plugins/jsTree/jstree.min.js"></script>
+		<!--加载pg插件-->
+		<script src="__JS__PgLib.js"></script>
+		<!--加载初始化函数-->
+		<script src="__JS__PgLibinit.js"></script>
+		<script>
+		    var matrixId = "_DEV_{$matrixId}";
+
+		    function device_drag(ev) {
+		        ev.dataTransfer.setData("Text", ev.target.id);
+		        var dragEmt = document.getElementById(ev.target.id);
+		    }
+		    function allowDrop(ev) {
+		        ev.preventDefault();
+		    }
+		    function drop(ev) {
+		        ev.preventDefault();
+		        var data = ev.dataTransfer.getData("Text");
+		        videoNum = data.substr(11);
+		        parent.$("#ctrl").attr("data-id",videoNum);
+		        bind_video(videoNum);
+		        pushconfig(7);
+		    }
+		    function max(id) {
+		        $("#" + id).css("height", "100%");
+		    }
+		    function min(id) {
+		        $("#" + id).css("height", "25px");
+		    }
+		    function RandomNum(Min, Max) {
+		        var Range = Max - Min;
+		        var Rand = Math.random();
+		        if (Math.round(Rand * Range) == 0) {
+		            return Min + 1;
+		        } else if (Math.round(Rand * Max) == Max) {
+		            index++;
+		            return Max - 1;
+		        } else {
+		            var num = Min + Math.round(Rand * Range) - 1;
+		            return num;
+		        }
+		    }
+		    //获取speed设置
+		    /**$(document).ready(function () {
+		        $("#speedSlide").bind("input propertychange",function(){
+		            var value=$(this).val();
+		            if(value){
+		                $("#speedSlide").attr("data-slider-value",value);
+		            }else{
+		                $("#speedSlide").attr("data-slider-value","1");
+		            }
+		        });
+		    });**/
+		</script>
+		<!--初始化p2p结束-->
+		<!--拼接屏插件-->
+		<link rel="stylesheet" href="__CSS__lkcanvas.css">
+		<script src="__JS__lkcanvas.js"></script>
+		<script src="__JS__plugins/datePicker/WdatePicker.js"></script>
+		<!--初始化设备列表与拼接屏-->
+		<script>
+		    var matrixId = "_DEV_{$matrixId}";
+		    var id = "{$id}";
+		    var initObj = initList(matrixId,id);
+		    initObj.pgInitialize('pgAtx99999');
+		    lc = null;
+		    mount = "";
+		    mount_a = "";
+		    window.myObj = {
+		        $volumeSlide: 1,
+		        $volumeValue: 100,
+		        $btn_volume: $("#btn_volume"),
+		        inits: function () {
+		             // 初始化化音量控件
+		             // myObj.$volumeSlide.slider();
+		             // myObj.$volumeValue.text(myObj.$volumeSlide.val());
+		             // myObj.$volumeSlide.on("slide", function (slideEvt) {
+		             //     myObj.$volumeValue.text(slideEvt.value);
+		             // });
+		             // myObj.$btn_volume.on('click', function () {
+		             //     var $span = $(this).find('span');
+		             //     if ($span.is(':visible')) $span.hide();
+		             //     else $span.show();
+		             // });
+		        }
+		    };
+		    myObj.inits();
+		    function init() {
+		        try {
+		            lc = new lkCanvas("lk_canvas");// 初始化js插件 ，传入canva标签的id号
+		            // lc.wins=win2;//加入窗口配置文件
+		            var loginCode = [0x00, 0x01, 0xff, 0xaf];// 登录矩阵的随机码
+		            lc.setCode(loginCode);// 写入登录矩阵得到的随机码，随机码为二进制数组，长度为4
+		            bind = lc.onGetFIle(7);
+		            lc.onExt = getMes;// 指定一个回调方法，操作功能的时候通过回调返回数据
+		            var type = lc.init();// 初始化js插件  success=成功
+		            var input = '@{:rand(10000,99999)}/{$inputData}';
+		            lc.onReset(3, input);
+		            // lc.onReset(1, win);
+		            showMes("type:" + type);
+		        } catch (e) {
+		            showMes(e);
+		        }
+		    }
+		    /*******************************************************************
+		     *指定一个回调方法，操作功能的时候通过回调返回数据
+		     *@param pType  回调内容的类型   , 0:二进制数据,1=字符串数据
+		     *@param    pMethod   回调内容的编号  ,>0的数字为配置文件的编号,“0x 0x”为二进制数据的功能编号
+		     *@param pData  回调内容
+		     */
+		    function getMes(pType, pMethod, pData) {
+		        if (pType == 1 && pMethod == 1) {
+		            if (pData) {
+		                // setTimeout(function () {
+		                //     pushconfig2(pData,1)
+		                // }, 1000);
+		                pushconfig2(pData,1);
+		            }
+		        }
+		        if (pType == 1 && pMethod == 2) {
+		            console.log("pMethod2:"+pData);
+		        }
+		        if (pType == 1 && pMethod == 7) {
+		            var show = "";
+		            // var showifo = "@1:1:0:1920*1080:0,2:2:0:0*0:0"; //测试添加设备
+		            if (pData) {
+		                pData = pData.split("/");
+		                json_pData = JSON.parse(pData[1]);
+		                for (var i = 0; i < json_pData.length; i++) {
+		                    if (i < json_pData.length - 1) {
+		                        show += json_pData[i]['outputId'] + ":" + json_pData[i]['inputId'] + ":0:0*0:0,";
+		                    } else {
+		                        show += json_pData[i]['outputId'] + ":" + json_pData[i]['inputId'] + ":0:0*0:0";
+		                    }
+		                }
+		                var showifo = "@" + show; //添加设备与窗口对应关系
+		                lc.onReset(5, showifo);
+		            }
+		        }
+		        showMes(" type:" + pType + " method:" + pMethod + "  data:" + JSON.stringify(pData), "blue");
+		        if (pType == 0) {
+		            showMes("转换：" + conversionStr(pData), "red");// conversionStr 转换为16进制字符串
+		        }
+		    }
+		    function bind_video(num) {
+		        var bindstr = lc.onPlay(event, num, 0);
+		    }
+		    function getconfig() {
+		        var ss = initObj.getCon(1);
+		        console.log(ss);
+		        setTimeout(function () {
+		            initObj.getCon(7);
+		        }, 1000);
+		    }
+		    function setconfig(sdata,num){
+		        num = parseInt(num);
+		        console.log(num);
+		        lc.onReset(1, sdata[5]);
+		    }
+		    function pushconfig(num){
+		        var str = lc.onGetFIle(num);
+		        setTimeout(function () {
+		            var code = initObj.pushCon(str,num)
+		        }, 1000);
+		    }
+		    function pushconfig2(str,num){
+		        setTimeout(function () {
+		            var code = initObj.pushCon(str,num)
+		        }, 1000);
+		    }
+		    function test() {
+		    	$("#lk_canvas").hide();
+		        $("#test div").remove(); // 首先清除原来的div
+		        mount = lc.onGetFIle(1);
+		        mount = mount.split("/[");
+		        mount_0 = mount[0].split("/");
+		        $("#test").css("height",mount_0[2]+"px");
+		        mount = JSON.parse(mount[1]);
+		        for (var i = 0; i < mount.length; i++) {
+		            if (mount[i]["pp"].indexOf(";") > 0) {
+		                ppArray = mount[i]["pp"].split(";");
+		                upArray = mount[i]["up"].split(";");
+		                for (var a = 0; a < ppArray.length; a++) {
+		                    ppArray_arr = ppArray[a].split(",");
+		                    upArray_arr = upArray[a].split(",");
+		                    $("#test").append('<div id="pp' + ppArray_arr[0] + '" class="loading" style="position:absolute;border: 1px solid #E2E2E3;left:' + upArray_arr[0] + 'px;top:' + upArray_arr[1] + 'px;width:' + (parseFloat(upArray_arr[2]) - parseFloat(upArray_arr[0])) + 'px;height:' + (parseFloat(upArray_arr[3]) - parseFloat(upArray_arr[1])) + 'px;"></div>');
+		                }
+		            } else {
+		                var pp = mount[i]["pp"].split(",");
+		                var up = mount[i]["up"].split(",");
+		                $("#test").append('<div id="pp' + mount[i]["id"] + '" class="loading" style="position:absolute;border: 1px solid #FDFD01;left:' + up[0] + 'px;top:' + up[1] + 'px;width:' + (parseFloat(up[2]) - parseFloat(up[0])) + 'px;height:' + (parseFloat(up[3]) - parseFloat(up[1])) + 'px;"></div>');
+		            }
+		        }
+		        ifoList = returnList("IFOlist");
+
+		        if (ifoList == null) {
+		            alert('没有检测到输入源，请添加输入源');
+		            return;
+		        }
+		        for (var j = 0; j < ifoList.length; j++) {
+		            $("#pp" + ifoList[j]['outputId']).append('<embed id="pgAtx' + ifoList[j]['inputId'] + '" width="100%" height="100%" type="application/peergine-plugin">');
+		        }
+		        setTimeout(function () {
+		            for (var o = 0; o < ifoList.length; o++) {
+		                id = ifoList[o]['inputId'];
+		                initObj.playVideo(matrixId,id,'pgAtx' + id);
+		            }
+		        }, 500);
+		        // $("#lk_canvas").hide();
+		        document.getElementById("fastbtn").innerHTML = '<a onclick="removetest();">取消预览</a>';
+		        $("#test").show();
+		        $("#j_if").removeAttr("onclick");
+		    }
+		    /***********************************
+		     * win1=窗口配置文件 ，编号：1
+		     * input =输入源配置文件，编号：3
+		     * showito=当前显示的对应关系，编号：5
+		     * ito=输入源对应窗口输出配置文件，编号7
+		     * model =模式配置文件，编号：8
+		     * modellx=模式定时轮巡配置文件，编号：13
+		     * modelGroup =模式组轮巡配置文件，编号：19
+		     *
+		     */
+		    function reset() {
+		        var win1 = '@233/947/474/2/2/1/1/[[{"id":1,"st":0,"cl":0,"pp":"1,1","up":"10,10,473.5,237"},{"id":2,"st":0,"cl":0,"pp":"2,2","up":"473.5,10,937,237"},{"id":3,"st":0,"cl":0,"pp":"3,3","up":"10,237,473.5,464"},{"id":4,"st":0,"cl":0,"pp":"4,4","up":"473.5,237,937,464"}]';
+		        lc.onReset(1, win1);
+		        var input = '@{:rand(10000,99999)}/{$inputData}';
+		        lc.onReset(3, input);
+		        // var ito = '';
+		        // var showIto = '';
+		        // lc.onReset(5, showIto);
+		        // lc.onReset(7, ito);
+		        // var model = '';
+		        // lc.onReset(8, model);
+		        // var modellx = '';
+		        // lc.onReset(13, modellx);
+		        // var modelGroup = '';
+		        // lc.onReset(19, modelGroup);
+		    }
+		    function showMes(pMes, pColor) {
+		        var lkMes = document.getElementById("lkMes");
+		        if (lkMes != null) {
+//		            $("#lkMes").append("<span style='display:inline-block;min-height:20px; line-height:20px; word-wrap : break-word ; color:" + pColor + "; min-width:400px; width:100%;'>" + pMes + "</span>");
+		            $("#lkMes").append("<span style='display:inline-block;min-height:20px; line-height:20px; word-wrap : break-word ; color:" + pColor + "; min-width:400px; width:100%;'>" + pMes + "</span>");
+		        }
+		    }
+		    $(function () {
+		        $("body").click(function () {
+					/*******************************
+					 *切换输入源例子
+		             *onPlay ：切换输入源函数,需要初始化lkCanvas对象
+		             *event ：鼠标对象
+		             *inputId: >1为输入源id号，最大值为65536
+		             *inputChannal: 0为输入源没有通道，>1为通道号最大值为256
+		             *返回值[字符串]：Success=成功，其他返回值为失败原因。
+		             *异步返回：切换指令和输入对应窗口关系文件
+		             */
+//		            var rbStr=lc.onPlay(event,11,0);//切换输入源
+//		            showMes("返回："+rbStr);
+		        });
+		        /************************************
+		         * 按下键盘触发事件
+		         */
+		        $("html").keyup(function (event) {
+		            var keyCode = event.keyCode;
+		            showMes("keyCode:" + keyCode);
+		            switch (keyCode) {
+		                case 69:
+		                    var rbStr = lc.onLanguage("0");
+		                    showMes("设置中文:" + rbStr);
+		                    break;
+		                case 82:
+		                    var rbStr = lc.onLanguage("1");
+		                    showMes("设置英文:" + rbStr);
+		                    break;
+		                case 84:
+		                    var rbStr = lc.onLanguage("2");
+		                    showMes("设置繁体:" + rbStr);
+		                    break;
+		                case 81:
+		                    testSpilit();//测试
+		                    break;
+		                case 87:
+		                    closeSplit();//测试
+		                    $("#lkMes *").remove();
+
+		                    break;
+		                case 49:
+		                    lc.onGetFIle(1);
+		                    break;
+		                case 50:
+		                    lc.onGetFIle(3);
+		                    break;
+		                case 51:
+		                    lc.onGetFIle(7);
+		                    break;
+		                default:
+		                    break;
+		            }
+//		    		param_list=buffer_one;
+		            // 根据keycode判断按下的是哪个键
+		        });
+		    });
+		    /*************************************
+		     *导入录像回放内容
+		     */
+		    function inputVideo() {
+		        var videoFile = '@/idea0/2017-01-06/001/0.0.0-2.16.28[R],/idea0/2017-01-06/001/2.16.28-6.10.55[R],/idea0/2017-01-06/001/6.10.55-9.34.35[R],/idea0/2017-01-06/001/9.34.35-12.38.18[R],/idea0/2017-01-06/001/12.38.18-15.52.57[R],/idea0/2017-01-06/001/15.52.57-17.6.56[R]';
+		        var inputId = 8;
+		        var inputChannal = 1;
+		        /*******************************************
+		         *onSetReplay ： 导入录像内容的方法
+		         *videoFile[字符串] ：输入源的录像内容
+		         *inputId[整型]：输入源id,>1为输入源id号，最大值为65536
+		         *inputChananl[整型]：输入源通道号 0=没有通道，>1为通道号，最大值为256
+		         *注：
+		         */
+		        lc.onSetReplay(videoFile, inputId, inputChannal);
+		    }
+		    /***************************************
+		     *控制窗口录像回放
+		     *@param playType 播放类型：  1=正堂播放  、2=倒播、3=暂停、4=停止、5=播放上一个文件、6=播放下一个文件
+		     *@param spped 速度  ：0=停止、1=正堂播放速度、2=2倍播放速度、3=3倍播放速度、4=倍播放速度。最大4倍速
+		     *@param windowId 窗口id，>1为正常值 ，最大值为65536。作为停止命令的时候可以同时停止多个窗口回放，例：[56,32]
+		     */
+		    function testReplay(playType, speed, windowId) {
+		        lc.onRePlay(playType, speed, windowId);
+		    }
+		    function clean() {
+		        $("#lkMes *").remove();
+		    }
+		    function removetest(){
+		    	$.each(objList, function(i, item){
+	                if(objList[i] != undefined) {
+	                    if(objList[i].obj.matrixInit == true) {
+	                        objList[i].obj.matrixInit = false;
+	                        objList[i].obj.stopVideo();
+	                        objList[i].obj.pgClean(0);
+	                    }
+	                }
+	            });
+	            document.getElementById("fastbtn").innerHTML = '快捷功能';
+	            $("#test").children().remove();
+	            $("#test").css("height","0");
+	            $("#lk_canvas").show();
+	            $("#j_if").attr("onclick","test();");
+		    }
+			$(document).ready(function () {
+				$("#cancel_obv").click(function () {
+					$.each(objList, function(i, item){
+		                if(objList[i] != undefined) {
+							if(objList[i].obj.matrixInit == true) {
+								objList[i].obj.matrixInit = false;
+								objList[i].obj.stopVideo();
+								objList[i].obj.pgClean(0);
+							}
+						}
+					});
+					$("#test").children().remove();
+					$("#test").removeAttr("style");
+					$("#lk_canvas").show();
+					$("#j_if").attr("onclick","test();");
+		         });
+		     });
+		</script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$(".grid").click(function(){
+					parent.$("#ctrl").removeAttr("data-id");
+				});
+				$(".grid").attr({
+					"ondrop":"drop(event)",
+					"ondragover":"allowDrop(event)"
+				});
+			});
+			function sendCtrl(code){
+		    	var id = parent.$("#ctrl").attr("data-id");
+		    	var speed = parent.$("#speedSlide").attr("data-slider-value");
+		    	if (code > 0) {
+		    		var cmd = id+",0,"+code+","+speed+",0";
+		    	}else{
+		    		var cmd = id+",0,"+code+",0,0";
+		    	}
+		    	if (id > 0) {
+		        	objList[id].obj.ctrlSend(cmd);
+		    	}else{
+		    		alert("未选择可操作的设备！");
+		    	}
+		    }
+		</script>
+		<include file="Common:footer" />
+	</body>
+</html>

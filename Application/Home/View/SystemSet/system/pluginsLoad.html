@@ -1,0 +1,133 @@
+<!-- 插件下载 -->
+<title> 插件下载 </title>
+<include file="Common:matrix_header" />
+<include file="Common:matrix_menu" />
+<div class="jt_leftMenu1">
+    <include file="Common:matrix_leftbar_public4" />
+    <!-- 中间 -->
+    <div class="wrap-fluid jt_pluginsLoadMain jt_basicMain jt_main">
+        <div class="container-fluid paper-wrap bevel tlbr">
+            <div class="content-wrap">
+                <div class="row">
+                    <div id="paper-top">
+                        <div class="col-sm-3">
+                            <h2 class="tittle-content-header">
+                                <i class="icon-media-record"></i>
+                                <span>插件下载</span>
+                            </h2>
+                        </div>
+                        <include file="Common:matrix_mainMiddle" />
+                        <div class="col-sm-2">
+                            <div class="devider-vertical visible-lg"></div>
+                            <div class="btn-group btn-wigdet pull-right visible-lg">
+                                <div class="btn">
+                                    Widget</div>
+                                <button data-toggle="dropdown" class="btn dropdown-toggle">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul role="menu" class="dropdown-menu">
+                                    <li>
+                                        <a href="#">
+                                            <span class="entypo-plus-circled margin-iconic"></span>Add New
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="entypo-heart margin-iconic"></span>Favorite
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="entypo-cog margin-iconic"></span>Setting
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="body-nest jt_rowNest9" id="Blank_Page_Content">
+                            <div class="row">
+                                <div class="col-md-12 personal-info">
+                                    <div class="alert alert-info alert-dismissable">
+                                        <a class="panel-close close" data-dismiss="alert">×</a>
+                                        <a class="fa fa-coffee" onClick="copylink();">点击按钮</a>
+                                        &nbsp;&nbsp;&nbsp;下载浏览器插件
+                                        </span>
+                                    </div>
+                                    <h3 class="jt_titleCJ">插件下载</h3>
+                                    <div class="jt_copyLJ">
+                                        <div class="form-group">
+                                            <div>
+                                                windows用户请点击下载按钮下载插件
+                                            </div>
+                                            <br />
+                                            <div>
+                                            <button onClick="downLoad('http://www.msu7.net/pgSetup_zh_v1.28.0.msi')" id="btnCopy" class="btn btn-primary">浏&nbsp;览&nbsp;器&nbsp;插&nbsp;件&nbsp;下&nbsp;载</button>
+                                            <button class="btn btn-primary" onClick="plugininfo()" >插&nbsp;件&nbsp;说&nbsp;明</button>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    <h3 class="jt_titleCJ">APP下载</h3>
+                                    <div class="jt_copyLJ">
+                                        <div class="form-group">
+                                            <div>
+                                                安卓用户请用手机扫描二维码下载App
+                                            </div>
+                                            <br />
+                                            <div >
+                                                <img src="../../../../../apkdownload.png" width="70" height="70">
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function downLoad(url){
+        try{ 
+            var elemIF = document.createElement("iframe");   
+            elemIF.src = url;   
+            elemIF.style.display = "none";   
+            document.body.appendChild(elemIF);   
+        }catch(e){ 
+
+        } 
+    }
+    function copylink(){
+        //var linkobj = $('#jt_spanCopy').text();
+        var linkobj = document.getElementById('jt_spanCopy');
+        linkobj.select();
+        document.execCommand("Copy"); // 执行浏览器复制命令
+        alert("链接已复制，可粘贴");
+    }
+    function plugininfo(){
+        // window.open("http://www.baidu.com");
+    }
+    $(function(){
+        //input框值为主机地址
+        var inputel = $('#jt_spanCopy');
+        inputel.val(window.location+'/');
+        //input框宽度自适应
+        var inputval = document.getElementById('jt_spanCopy').value;
+        var sensor = $('<pre>'+ inputval +'</pre>').css({display: 'none'}); 
+        $('body').append(sensor); 
+        var inputw = sensor.width();
+        sensor.remove(); 
+        inputel.css('width',inputw);
+    })
+</script>
+<include file="Common:footer" />
+</body>
+</html>

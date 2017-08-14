@@ -1,0 +1,647 @@
+<!-- 设备运维 -->
+<title data-i18n="public.deviceOperation"></title>
+<include file="Common:matrix_header"/>
+<script src="__JS__plugins/datePicker/WdatePicker.js"></script>
+<body onload="init();">
+<include file="Common:matrix_menu"/>
+<include file="Common:matrix_leftbar_push"/>
+<!-- 中间 -->
+<div class="jt_main">
+    <div class="wrap-fluid">
+        <div class="container-fluid paper-wrap bevel tlbr">
+            <div class="row">
+                <div id="paper-top">
+                    <div class="col-lg-3 jt_mainLeftBar">
+                        <h2 class="tittle-content-header">
+                            <span class="menu_a entypo-home jt_mainLeft1"></span>
+                            <span class="jt_mainLeft2">
+                                <li class="menu_a jt_menu_a"><i class="fa fa-lg fa-angle-right"></i></li>
+                                <li class="menu_a jt_menu_b" data-i18n="public.deviceOperation"></li>
+                            </span>
+                        </h2>
+                        <span class="jt_funcRight">
+                            <img id="jt_imgToggle" src="/Public/common/images/icon_showTool.png"/>
+                        </span>
+                    </div>
+                    <div class="jt_deviceCZ">
+                        <li class="dropdown" >
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#" >
+                                <img src="/Public/common/images/icon_sensor.png" />
+                                <span data-i18n="device.deviceToggle"></span>
+                            </a>
+                            <ul role="menu" id="deviceUl" class="dropdown-menu dropdown-wrap jt_ul5">
+
+                            </ul>
+                        </li>
+                    </div>
+                    <include file="Common:matrix_mainMiddle"/>
+                    <div class="col-lg-2 jt_mainRightBar">
+                        <div class="devider-vertical visible-lg"></div>
+                        <div class="btn-group btn-wigdet pull-right visible-lg jt_indexBtn">
+                            <div class="btn jt_maxWidth" id="fastbtn" title="{$matrixname}">{$matrixname}</div>
+                            <button data-toggle="dropdown" class="btn dropdown-toggle jt_btnHeight" type="button">
+                                <span class="caret"></span>
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <ul role="menu" class="dropdown-menu">
+                                <li>
+                                    <a onclick="showInit();">
+                                        <span class="icon icon-clockwise margin-iconic"></span>
+                                        <span data-i18n="device.init"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a onclick="test();">
+                                        <span class="fontawesome-eye-close margin-iconic"></span>
+                                        <span data-i18n="device.preview"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a onclick="clean();">
+                                        <span class="icon icon-trash margin-iconic"></span>
+                                        <span data-i18n="device.clearLOG"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a onclick="pushconfig(1);">
+                                        <span class="icon icon-media-shuffle margin-iconic"></span>
+                                        <span data-i18n="device.synchroUpload"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a onclick="getconfig();">
+                                        <span class="icon icon-download margin-iconic"></span>
+                                        <span data-i18n="device.synchroDownload"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a onclick="savemode();">
+                                        <span class="icon icon-download margin-iconic"></span>
+                                        <span data-i18n="device.modelSave"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="jt_toolBar">
+                <div class="jt_toolBarOne">
+                    <div class="jt_volume">
+                        <label data-i18n="device.volume"></label>
+                        <img id="jt_toggleYY" src="/Public/common/images/icon_volume.png" alt="音量"/>
+                        <input id="volumeSlide" data-slider-id="volumeSlide" type="text" data-slider-min="0"
+                               data-slider-max="32" data-slider-step="1" data-slider-value="24" />
+                    </div>
+                </div>
+                <div class="jt_toolBarTwo">
+                    <div class="jt_turning">
+                        <label data-i18n="device.modelTurn"></label>
+                        <select name="" id="">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                        </select>
+                        <div class="btn-group">
+                            <button class="btn" data-i18n="device.startTurn"></button>
+                            <button class="btn" data-i18n="device.endTurn"></button>
+                            <button class="btn" data-i18n="device.customWindow"></button>
+                            <button class="btn" data-i18n="device.openAddWindow"></button>
+                            <button class="btn jt_saveMS" data-toggle="modal" data-target="#saveMS" data-i18n="device.saveModel"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="paper-middle" class="jt_mainMiddle">
+                <canvas id="lk_canvas" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+                </canvas>
+                <div class="j_preview" id="test">
+
+                </div>
+            </div>
+            <div class="jt_mainMiddleFooter">
+                <div class="col-sm-12">
+                    <div class="nest" id="lkMesClose">
+                        <div class="title-alt">
+                            <h6 data-i18n="public.systemInfo"></h6>
+                            <div class="titleClose">
+                                <a class="gone" href="#lkMesClose">
+                                    <span class="entypo-cancel"></span>
+                                </a>
+                            </div>
+                            <div class="titleToggle">
+                                <a class="nav-toggle-alt" href="#lkMes">
+                                    <span class="entypo-up-open"></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="body-nest" id="lkMes">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 右边开始 -->
+<div class="sb-slidebar sb-right sb-active" id="jt_rightBarInfo">
+    <div class="row">
+        <div class="jt_rightShow">
+            <ul class="topnav top2 menu-left-nest topList">
+                <li>
+                    <a onclick="showmenu(this)" class="tooltip-tip title-menu-left">
+                        <span data-i18n="device.modelArea"></span>
+                        <i data-toggle="tooltip" class="entypo-cog pull-right"></i>
+                    </a>
+                </li>
+                <ul id="menu4">
+                    <li>
+                        <a href="/Matrix/index" data-i18n="device.signOutModel"></a>
+                    </li>
+                    <volist name="modulelist" id="v">
+                        <li>
+                            <a href="/Matrix/monitor/moduleId/{$v.id}">{$v.name}</a>
+                        </li>
+                    </volist>
+                </ul>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="jt_rightShow">
+            <ul class="topnav top2 menu-left-nest topList jt_topListJL1">
+                <li>
+                    <a onclick="showmenu(this)" class="tooltip-tip title-menu-left">
+                        <span data-i18n="device.alertLinkArea"></span>
+                    </a>
+                </li>
+                <ul id="menu5">
+                    <li>
+                        <a href="javascript:void(0);" data-i18n="device.noContent"></a>
+                    </li>
+                </ul>
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- 右边结束 -->
+<!-- 添加模式 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg" aria-hidden="true" id="saveMS">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h6 class="modal-title" data-i18n="device.addModel"></h6>
+            </div>
+            <div class="modal-body">
+                <div class="compose_mail">
+                    <div >
+                        <div class="form-group">
+                            <input type="text" data-i18n="[placeholder]device.modelName" id="creatGroupName" class="form-control">
+                        </div>
+                        <button id="addmonitormodule" class="btn" data-i18n="public.confirm"></button>
+                        <button class="btn" data-dismiss="modal" aria-hidden="true" data-i18n="public.cancel"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 弹出框 -->
+<div aria-labelledby="myModalLabel" role="dialog" tabindex="-1" class="modal fade bs-example-modal-lg"
+     aria-hidden="true" id="modal-container-884435">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                    <span class="entypo-cancel"></span>
+                </button>
+                <h4 id="myLargeModalLabel" class="modal-title" data-i18n="device.selectDevice"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel panel-default">
+                    <volist name="list" id="v">
+                        <php>
+                            $isdev = strstr($v['uuid'],'ffff');
+                            if($isdev){
+                        </php>
+                        <div class="panel-heading">
+                            <a class="panel-title" data-id="{$v.id}" data-intro="{$v.intro}"
+                               data-groupid="{$v.groupid}" data-groupname="{$v.catename}"
+                               href="/Matrix/index/matrix_id/{$v.id}">{$v.name}:{$v.uuid}</a>
+                        </div>
+                        <php>}</php>
+                    </volist>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!--初始化p2p-->
+<div class="initPTP">
+    <embed id="pgAtx_99999" codebase="/Uploads/pgSetup_zh_v1.28.0.msi" width="0" height="0"
+           type="application/peergine-plugin">
+</div>
+<script src="__JS__plugins/jsTree/jstree.min.js"></script>
+<!--加载pg插件-->
+<script src="__JS__PgLib.js"></script>
+<!--加载初始化函数-->
+<script src="__JS__PgLibinit.js"></script>
+<script>
+    function device_drag(ev) {
+        ev.dataTransfer.setData("Text", ev.target.id);
+        var dragEmt = document.getElementById(ev.target.id);
+    }
+    function allowDrop(ev) {
+        ev.preventDefault();
+    }
+    function drop(ev) {
+        ev.preventDefault();
+        var videoNum = ev.dataTransfer.getData("Text"); //视频源对象
+        var Wnd = "pgAtx"+videoNum; //视频播放控件对象
+        var strs = videoNum.split("_");
+        var fileFive = '@';
+        if (strs[4] > 0) {
+            bind_video(strs[3], strs[4]);
+            var fileSeven = lc.onGetFIle(7).split('/');
+            fileSeven = JSON.parse(fileSeven[1]);
+            $.each(fileSeven, function (k, v) {
+                if (v.gn == null) {
+                    fileFive += v.outputId + ':' + v.inputId + ':0:0*0:0,';
+                } else {
+                    fileFive += v.outputId + ':' + v.inputId + ':' + v.gn + ':0*0:0,';
+                }
+            });
+            lc.onReset(5, fileFive.substr(0, fileFive.length - 1));
+        } else {
+            bind_video(strs[3], 0);
+            var fileSeven = lc.onGetFIle(7).split('/');
+            fileSeven = JSON.parse(fileSeven[1]);
+            $.each(fileSeven, function (k, v) {
+                if (v.gn == null) {
+                    fileFive += v.outputId + ':' + v.inputId + ':0:0*0:0,';
+                } else {
+                    fileFive += v.outputId + ':' + v.inputId + ':' + v.gn + ':0*0:0,';
+                }
+            });
+            lc.onReset(5, fileFive.substr(0, fileFive.length - 1));
+        }
+        selfDevice = Wnd; // 当前操作设备
+        pushconfig(7);
+    }
+    function RandomNum(Min, Max) {
+        var Range = Max - Min;
+        var Rand = Math.random();
+        if (Math.round(Rand * Range) == 0) {
+            return Min + 1;
+        } else if (Math.round(Rand * Max) == Max) {
+            index++;
+            return Max - 1;
+        } else {
+            var num = Min + Math.round(Rand * Range) - 1;
+            return num;
+        }
+    }
+    $(document).ready(function () {
+        var matrix_id = "{$matrix_id}";
+        /* 进入页面自动弹出选取矩的模态框 */
+        if (matrix_id == "") {
+            $('#modal-container-884435').modal({
+                show: true,
+                backdrop: true
+            });
+        }
+        $("#close").click(function () {
+            $('#modal-container-884435').modal({
+                show: false,
+                backdrop: false
+            });
+        });
+        /* ajax 获取矩阵信息 */
+        $.post('/Matrix/commonAjaxDevice',{},function (resData) {
+            if(typeof resData == 'object'){
+                for(var i = 0; i < resData.length ; i++){
+                    if(resData[i]['state'] == 1){
+                        var status = resData[i]['state'] == 0?'离线':'在线';
+                        var html =  '<li><a style="position: relative; left: -5px;" href="/Matrix/index/matrix_id/'+resData[i].id+'"><span style="background:#DF2135;" class="noft-icon maki-bus"></span><i style="font-style: normal; position: relative; top: 3px; overflow-x: hidden; width: 104px; display: inline-block; text-overflow: ellipsis;" title="' + resData[i].name + '">' + resData[i].name + '</i><b>'+status+'</b></a></li><li class="divider"></li>';
+                        $("#deviceUl").append(html);
+                    }
+                }
+            }
+        });
+    });
+</script>
+<!-- 初始化p2p结束 -->
+<!-- 拼接屏插件 -->
+<link rel="stylesheet" href="__CSS__lkcanvas.css">
+<script src="__JS__lkcanvas.js"></script>
+<!-- 初始化设备列表与拼接屏 -->
+<script>
+    matrixId = "_DEV_{$matrixId}";
+    ifoList = null;
+    initObj = initList(matrixId);
+    initObj.needUpdate = 0;
+    initObj.pgInitialize('pgAtx_99999');
+    lc = null;
+    mount = "";
+    mount_a = "";
+    window.myObj = {
+        $volumeSlide: 1,
+        $volumeValue: 100,
+        $btn_volume: $("#btn_volume"),
+        inits: function () {
+
+        }
+    };
+    myObj.inits();
+    function init() {
+        try {
+            lc = new lkCanvas("lk_canvas");// 初始化js插件 ，传入canva标签的id号
+            // lc.wins=win2;//加入窗口配置文件
+            var loginCode = [0x00, 0x01, 0xff, 0xaf];// 登录矩阵的随机码
+            lc.setCode(loginCode);// 写入登录矩阵得到的随机码，随机码为二进制数组，长度为4
+            // bind = lc.onGetFIle(7);
+            lc.onExt = getMes;// 指定一个回调方法，操作功能的时候通过回调返回数据
+            var type = lc.init();// 初始化js插件  success=成功
+            setTimeout(function () {
+                getconfig();
+            }, 1000);
+        } catch (e) {
+            showMes(e);
+        }
+    }
+    /*******************************************************************
+     *指定一个回调方法，操作功能的时候通过回调返回数据
+     *@param pType  回调内容的类型   , 0:二进制数据,1=字符串数据
+     *@param    pMethod   回调内容的编号  ,>0的数字为配置文件的编号,“0x 0x”为二进制数据的功能编号
+     *@param pData  回调内容
+     */
+    function getMes(pType, pMethod, pData) {
+        if (pType == 1 && pMethod == 1) {
+            if (pData) {
+                pushconfig2(pData, 1);
+            }
+        }
+        if (pType == 1 && pMethod == 30) {
+            var rightId = parseInt(pData);
+            if (rightId) {
+                initObj.switchSend(rightId + ',0,0', matrixId);
+                initObj.getCon(5);
+            }
+        }
+    }
+    function savemode(){
+        lc.inputConfig();
+    }
+    function bind_video(num, passid) {
+        var bindstr = lc.onPlay(event, num, passid);
+    }
+    function getconfig() {
+        initObj.getCon(1);
+        initObj.getCon(3);
+        initObj.getCon(5);
+        initObj.getCon(7);
+    }
+
+    function getreqlist() {
+        var str = lc.onGetFIle(3);
+        console.log(str);
+    }
+    function setconfig(sdata, num) {
+        num = parseInt(num);
+
+        if (num == 3) {
+            var input = '@{:rand(10000,99999)}/' + sdata;
+            lc.onReset(3, input);
+        } else if (num == 5) {
+            lc.onReset(num, '@' + sdata);
+        } else {
+            lc.onReset(num, sdata);
+        }
+    }
+    function pushconfig(num) {
+        var str = lc.onGetFIle(num);
+        setTimeout(function () {
+            var code = initObj.pushCon(str, num)
+        }, 1000);
+    }
+    function pushconfig2(str, num) {
+        setTimeout(function () {
+            var code = initObj.pushCon(str, num)
+        }, 1000);
+    }
+    function test() {
+        $("#lk_canvas").hide();
+        mount = lc.onGetFIle(1);
+        mount = mount.split("/[");
+        mount_0 = mount[0].split("/");
+        $("#test").css("height", mount_0[2] + "px");
+        mount = JSON.parse(mount[1]);
+        console.log(mount);
+        for (var i = 0; i < mount.length; i++) {
+            if (mount[i]["pp"].indexOf(";") > 0) {
+                ppArray = mount[i]["pp"].split(";");
+                upArray = mount[i]["up"].split(";");
+                for (var a = 0; a < ppArray.length; a++) {
+                    ppArray_arr = ppArray[a].split(",");
+                    upArray_arr = upArray[a].split(",");
+                    $("#test").append('<div id="pp' + ppArray_arr[0] + '" class="loading" style="position:absolute;border: 1px solid white;left:' + upArray_arr[0] + 'px;top:' + upArray_arr[1] + 'px;width:' + (parseFloat(upArray_arr[2]) - parseFloat(upArray_arr[0])) + 'px;height:' + (parseFloat(upArray_arr[3]) - parseFloat(upArray_arr[1])) + 'px;"></div>');
+                }
+            } else {
+                var pp = mount[i]["pp"].split(",");
+                var up = mount[i]["up"].split(",");
+                $("#test").append('<div id="pp' + mount[i]["id"] + '" class="loading"  style="position:absolute;border: 1px solid white;left:' + up[0] + 'px;top:' + up[1] + 'px;width:' + (parseFloat(up[2]) - parseFloat(up[0])) + 'px;height:' + (parseFloat(up[3]) - parseFloat(up[1])) + 'px;"></div>');
+            }
+        }
+        setvideostart();
+        // setTimeout(function () {
+        //     id = ifoList.pop();
+        //     initObj.playVideo(matrixId, id['inputId'], 'pgAtx_' + id['inputId'] + '_' + id['gn'], id['gn']);
+        // }, 500);
+        document.getElementById("fastbtn").innerHTML = '<a onclick="removetest();" class="cancelPreview" data-i18n="device.cancelPreview"></a>';
+        $(".cancelPreview").i18n();/* 单独加载多语言 */
+        $("#test").show();
+        $("#j_if").removeAttr("onclick");
+    }
+    // function getIfoList() {
+    //     if (ifoList.length != 0) {
+    //         id = ifoList.pop();
+    //         initObj.playVideo(matrixId, id['inputId'], 'pgAtx_' + id['inputId'] + '_' + id['gn'], id['gn']);
+    //     }
+    // }
+    function setvideostart(){
+        ifoList = returnList("IFOlist");
+        if (ifoList == null) {
+            publicAlert({title:'提示信息',content:'没有检测到输入源，请添加输入源！',icon:'fa fa-rocket'},false);
+            return;
+        }
+        for (var j = 0; j < ifoList.length; j++) {
+            // var id = ifoList.pop();
+            var id = ifoList[j];
+            var gn = id['gn'];
+            if (gn == null) {gn = 0};
+            var videoNum = matrixId+"_"+id['inputId']+"_"+gn;
+            var grid = 'pp'+id['outputId'];
+            console.log(id)
+            console.log(grid)
+            var Wnd = "pgAtx"+videoNum+"_"+grid;
+            $("#" + grid).append('<embed id="' + Wnd + '" width="100%" height="100%" type="application/peergine-plugin">');
+            
+
+            initObj.playVideo(matrixId, id['inputId'], Wnd, gn);
+            // initObj.playVideo("_DEV_"+data[2], data[3], cur_person.name ,data[4]);
+        }
+    }
+    /***********************************
+     * win1=窗口配置文件 ，编号：1
+     * input =输入源配置文件，编号：3
+     * showito=当前显示的对应关系，编号：5
+     * ito=输入源对应窗口输出配置文件，编号7
+     * model =模式配置文件，编号：8
+     * modellx=模式定时轮巡配置文件，编号：13
+     * modelGroup =模式组轮巡配置文件，编号：19
+     *
+     */
+    function reset() {
+        var win1 = '@233/947/474/2/2/1/1/[[{"id":1,"st":0,"cl":0,"pp":"1,1","up":"10,10,473.5,237"},{"id":2,"st":0,"cl":0,"pp":"2,2","up":"473.5,10,937,237"},{"id":3,"st":0,"cl":0,"pp":"3,3","up":"10,237,473.5,464"},{"id":4,"st":0,"cl":0,"pp":"4,4","up":"473.5,237,937,464"}]';
+        lc.onReset(1, win1);
+        var sssss = '';
+        var input = '@{:rand(10000,99999)}/' + sssss;
+        lc.onReset(3, input);
+    }
+    function showMes(pMes, pColor) {
+        var lkMes = document.getElementById("lkMes");
+        if (lkMes != null) {
+           $("#lkMes").append("<span style='display:inline-block;min-height:20px; line-height:20px; word-wrap : break-word ; color:" + pColor + "; min-width:400px; width:100%;'>" + pMes + "</span>");
+        }
+    }
+    $(function () {
+        $("body").click(function () {
+            /*******************************
+             *切换输入源例子
+             *onPlay ：切换输入源函数,需要初始化lkCanvas对象
+             *event ：鼠标对象
+             *inputId: >1为输入源id号，最大值为65536
+             *inputChannal: 0为输入源没有通道，>1为通道号最大值为256
+             *返回值[字符串]：Success=成功，其他返回值为失败原因。
+             *异步返回：切换指令和输入对应窗口关系文件
+             */
+        });
+        /************************************
+         * 按下键盘触发事件
+         */
+        $("html").keyup(function (event) {
+            var keyCode = event.keyCode;
+            showMes("keyCode:" + keyCode);
+            switch (keyCode) {
+                case 69:
+                    var rbStr = lc.onLanguage("0");
+                    showMes("设置中文:" + rbStr);
+                    break;
+                case 82:
+                    var rbStr = lc.onLanguage("1");
+                    showMes("设置英文:" + rbStr);
+                    break;
+                case 84:
+                    var rbStr = lc.onLanguage("2");
+                    showMes("设置繁体:" + rbStr);
+                    break;
+                case 81:
+                    testSpilit();//测试
+                    break;
+                case 87:
+                    closeSplit();//测试
+                    $("#lkMes *").remove();
+
+                    break;
+                case 49:
+                    lc.onGetFIle(1);
+                    break;
+                case 50:
+                    lc.onGetFIle(3);
+                    break;
+                case 51:
+                    lc.onGetFIle(7);
+                    break;
+                default:
+                    break;
+            }
+        });
+    });
+    /*************************************
+     *导入录像回放内容
+     */
+    function inputVideo() {
+        var videoFile = '@/idea0/2017-01-06/001/0.0.0-2.16.28[R],/idea0/2017-01-06/001/2.16.28-6.10.55[R],/idea0/2017-01-06/001/6.10.55-9.34.35[R],/idea0/2017-01-06/001/9.34.35-12.38.18[R],/idea0/2017-01-06/001/12.38.18-15.52.57[R],/idea0/2017-01-06/001/15.52.57-17.6.56[R]';
+        var inputId = 8;
+        var inputChannal = 1;
+        /*******************************************
+         *onSetReplay ： 导入录像内容的方法
+         *videoFile[字符串] ：输入源的录像内容
+         *inputId[整型]：输入源id,>1为输入源id号，最大值为65536
+         *inputChananl[整型]：输入源通道号 0=没有通道，>1为通道号，最大值为256
+         *注：
+         */
+        lc.onSetReplay(videoFile, inputId, inputChannal);
+    }
+    /***************************************
+     *控制窗口录像回放
+     *@param playType 播放类型：  1=正堂播放  、2=倒播、3=暂停、4=停止、5=播放上一个文件、6=播放下一个文件
+     *@param spped 速度  ：0=停止、1=正堂播放速度、2=2倍播放速度、3=3倍播放速度、4=倍播放速度。最大4倍速
+     *@param windowId 窗口id，>1为正常值 ，最大值为65536。作为停止命令的时候可以同时停止多个窗口回放，例：[56,32]
+     */
+    function testReplay(playType, speed, windowId) {
+        lc.onRePlay(playType, speed, windowId);
+    }
+    function clean() {
+        $("#lkMes *").remove();
+    }
+    function removetest() {
+        document.getElementById("fastbtn").innerHTML = '快捷功能';
+        $("#test").children().remove();
+        $("#test div").remove(); // 首先清除原来的div
+        $("#test").css("height", "0");
+        $("#lk_canvas").show();
+        $("#j_if").attr("onclick", "test();");
+    }
+    function sendCtrl(code){
+        // var data = parent.$("#ctrl").attr("data-id");
+        var strs = theDevice;
+        var martid = matrixId;
+        var id = strs.ii;
+        var pass = strs.gn;
+        var speed = parent.$(".min-slider-handle").attr("aria-valuenow");
+        if (code > 0) {
+            var cmd = id+","+pass+","+code+","+speed+",0";
+        }else{
+            var cmd = id+","+pass+","+code+",0,0";
+        }
+        if (id > 0) {
+            initObj.ctrlSend(cmd,martid);
+        }else{
+            publicAlert({title:'提示信息',content:'未选择可操作的设备！',icon:'fa fa-rocket'},false);
+        }
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#cancel_obv").click(function () {
+            $("#test").children().remove();
+            $("#test").removeAttr("style");
+            $("#lk_canvas").show();
+            $("#j_if").attr("onclick", "test();");
+        });
+        //调用公共函数生成输入源列表
+        var vlist = {};
+        vlist = {$videolist2};(vlist == null) ? vlist={} : vlist={$videolist2};
+        var mid = '{$matrixId}';
+        createvlist(vlist,mid);
+    });
+</script>
+<include file="Common:footer"/>
+</body>
+</html>

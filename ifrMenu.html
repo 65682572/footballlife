@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="/Public/common/js/jquery-2.0.3.min.js"></script>
+		<link rel="stylesheet" href="/Public/common/css/bootstrap.min.css" />
+		<style>
+			body{
+				background-color: #5A5D60 !important;
+			}
+            #j_btn button{
+                background-color: #676a6c;
+                border-color: #676a6c;
+            }
+            #j_btn .j_marginTop{
+                margin-top: 5px;
+            }
+		</style>
+	</head>
+	<body>
+		<div id="j_btn">
+			<button id="checkok" class="btn btn-xs btn-info glyphicon glyphicon-cog" style="background-color:#676a6c;border-color:#676a6c;"></button>
+			<button id="funPlayAudio" class="btn btn-xs btn-info" style="background-color:#676a6c;border-color:#676a6c;margin-top: 5px;">音</button>
+			<button id="funCutPic" class="btn btn-xs btn-info" style="background-color:#676a6c;border-color:#676a6c;margin-top: 5px;">截</button>
+			<button id="funStartRecord" class="btn btn-xs btn-info" style="background-color:#676a6c;border-color:#676a6c;margin-top: 5px;">录</button>
+			<button id="funCloseRecord" class="btn btn-xs btn-info" style="background-color:#676a6c;border-color:#676a6c;margin-top: 5px;">停</button>
+			<button id="funObjremove" class="btn btn-xs btn-info" style="background-color:#676a6c;border-color:#676a6c;margin-top: 5px;">清</button>
+		</div>
+	</body>
+	<script>
+		$("#j_btn").bind("mouseover",function(){
+			var addStr = window.location.toString().split("?")[1];
+		 	var addUser = addStr.split("=")[1];
+		 	parent.max(addUser);
+        });
+        $(document).bind("mouseout",function(){
+        	var addStr = window.location.toString().split("?")[1];
+		 	var addUser = addStr.split("=")[1];
+		 	parent.min(addUser);
+        });
+		$("#funPlayAudio").bind("click",function(){
+            var addStr = window.location.toString().split("?")[1].substr(9);
+            var matrix_id = window.location.toString().split("?")[1].substr(10);
+		    parent.funPlayAudio(addStr,matrix_id);
+		});
+		$("#funCutPic").bind("click",function(){
+            var addStr = window.location.toString().split("?")[1].substr(9);
+		    parent.funCutPic(addStr);
+		});
+		$("#funStartRecord").bind("click",function(){
+            var addStr = window.location.toString().split("?")[1].substr(9);
+		    parent.funStartRecord(addStr);
+		});
+		$("#funCloseRecord").bind("click",function(){
+            var addStr = window.location.toString().split("?")[1].substr(9);
+		    parent.funCloseRecord(addStr);
+		});
+        $("#funObjremove").bind("click",function(){
+            var addStr = window.location.toString().split("?")[1].substr(9);
+            parent.funObjRemove(addStr);
+        });
+        $("#checkok").bind("click",function(){
+            var addStr = window.location.toString().split("?")[1].substr(9);
+            parent.checkok(addStr);
+        });
+	</script>
+</html>
