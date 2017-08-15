@@ -351,7 +351,7 @@ class MylifeController extends IndexController
             $res = M('ChatUserinfo')->where($ww)->save($data);
             $w['id'] = $value['id'];
             $datamoney['money'] = array('exp',"money+".rand(100,190));
-            M('ChatUser')->where($w)->save($datamoney);
+            $res = M('ChatUser')->where($w)->save($datamoney);
         }       
     }
 
