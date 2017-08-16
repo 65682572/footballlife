@@ -16,6 +16,7 @@ class MylifeController extends IndexController
     public $uid;
     public $userinfo;
     public $userinfoField;
+    public $mygroup;
 
     protected function _initialize()
     {
@@ -60,41 +61,47 @@ class MylifeController extends IndexController
                 'id' => '1',
                 'v' => '1',
             'name' => '大腿撞伤', 
-            'value' => '*0.77'
+            'value' => '*0.77',
+            'hurt' => 23
             ),
             '1' => array(
                 'id' => '2',
                 'v' => '15',
             'name' => '肌肉拉伤', 
-            'value' => '*0.87'
+            'value' => '*0.87',
+            'hurt' => 13
             ),
             '2' => array(
                 'id' => '3',
                 'v' => '51',
             'name' => '肌肉擦伤', 
-            'value' => '*1.02'
+            'value' => '*1.02',
+            'hurt' => 1
             ),
             '3' => array(
                 'id' => '4',
                 'v' => '10',
             'name' => '扭伤了', 
-            'value' => '*0.91'
+            'value' => '*0.91',
+            'hurt' => 9
             ),
             '4' => array(
                 'id' => '5',
                 'v' => '1',
             'name' => '疝气发作', 
-            'value' => '*0.55'
+            'value' => '*0.55',
+            'hurt' => 45
             ),
             '5' => array(
                 'id' => '6',
                 'v' => '20',
             'name' => '小腿挫伤', 
-            'value' => '*0.96'
+            'value' => '*0.96',
+            'hurt' => 2
             )
         );
         //设置攻门事件
-        $this->jinqiuevent = array(
+        $this->shootevent = array(
             '0' => array(
                 'id' => '1',
                 'v' => '20',
@@ -178,7 +185,6 @@ class MylifeController extends IndexController
             )
         );
         $dataser = serialize($work);
-        // var_dump($dataser);
 
         // Vendor('getgailu');
         //         $gailu = new \getgailu();
@@ -244,10 +250,10 @@ class MylifeController extends IndexController
                 $data_last[]=$userailist[$val];
             }
 
-            $mygroup = $data_last;
+            $this->mygroup = $data_last;
         }
-        session('mygroup',$mygroup); //设置本队与敌队数据
-        $this->ajaxReturn($mygroup);
+        session('mygroup',$this->mygroup); //设置本队与敌队数据
+        $this->ajaxReturn($this->mygroup);
     }
 
     //计算比赛结果
@@ -270,15 +276,15 @@ class MylifeController extends IndexController
             'from_client_name' =>$this->userInfo['username'],
             'to_client_id'=>$this->uid,
         );
-        $mygroup = session('mygroup');
+        $this->mygroup = session('mygroup');
         for ($i=0; $i < 9; $i++) {                     
             $action = I('action');
             //本队成员分别计算战力，判断意外事件
-            foreach ($mygroup as $key => $value) {
+            foreach ($this->mygroup as $key => $value) {
                 $resmycombat = $this->getUserCombat($value);
                 if ($resmycombat['hurtevent'] !== '正常') {
                     //获取伤情奖
-                    $mygroup[$key]['jiang'] = $this->get_award($mygroup[$key]['jiang'],3);
+                    $this->mygroup[$key]['jiang'] = $this->get_award($this->mygroup[$key]['jiang'],3);
 
                     $new_message['group'] = $value['group'];
                     $new_message['content'] = "伤情： ".$contestgroupname[$value['group']].$value['username'].$resmycombat['hurtevent']."!!!";
@@ -287,7 +293,7 @@ class MylifeController extends IndexController
                     Gateway::sendToUid($this->uid,json_encode($new_message));
                 }
                 //获取奖励
-                $mygroup[$key]['jiang'] = $this->get_award($mygroup[$key]['jiang'],1);
+                $this->mygroup[$key]['jiang'] = $this->get_award($this->mygroup[$key]['jiang'],1);
                 //汇总本轮两队各自战力
                 if ($value['group'] == 'm') {
                     $myCombat += $resmycombat['value'];
@@ -295,7 +301,12 @@ class MylifeController extends IndexController
                     $eqCombat += $reseqcombat['value']; 
                 }                
                 //记录个体战力，也用于概率
-                $mygroup[$key]['v'] = $resmycombat['value'];
+                $this->mygroup[$key]['v'] = $resmycombat['value'];
+                //判断当前成员是否射门
+                $shoot = $this->shoot($value);
+                if ($shoot) {
+                    $this->mygroup[$key]['shoot']++;
+                }               
                
             }
             //战力值取小数点后2位
@@ -304,21 +315,31 @@ class MylifeController extends IndexController
             //比赛的当前时间节点
             $jqtime = 10*$i+rand(1,9); //进球分钟
             $jqsec = rand(1,59); //进球秒钟
-
-            //计算正在攻门的人
-            $jqer = $this->gailu($mygroup);
-            //如果随机到1，计算进球事件，否则计算攻门事件
-            if (rand(1,3) == 1) {
+            
+            // foreach ($this->mygroup as $key => $value) {
+            //     if ($value['id'] == $jqer['yes']['id']) {
+            //         $this->mygroup[$key]['shoot']++;
+            //     }
+            // }
+            //如果随机到1，计算进球事件
+            if (rand(1,2) == 1) {
+                //计算正在攻门的人
+                $jqer = $this->gailu($this->mygroup);
                 $jqevent = $this->get_jingqiu($this->ballinevent);
+                foreach ($this->mygroup as $k => $v) {
+                    if ($v['id'] == $jqer['yes']['id']) {
+                        $this->mygroup[$k]['goin']++;
+                    }
+                }
                 if ($jqer['yes']['group'] == 'm') {
                     $m++;
                 }else{
                     $e++;
                 }
             }else{
-                //抽取攻门事件
-                $jqevent = $this->gailu($this->jinqiuevent);
+                $jqevent = $this->gailu($this->shootevent);
             }
+
             $new_message['group'] = $jqer['yes']['group'];
             $new_message['content'] = "第".$jqtime."分".$jqsec."秒，".$contestgroupname[$jqer['yes']['group']]."【".$jqer['yes']['username']."】".$jqevent['yes']['name']; 
             //通知当前实时分数
@@ -328,17 +349,28 @@ class MylifeController extends IndexController
             Gateway::sendToUid($this->uid,json_encode($new_message));
         }
         //写入奖励
-        $this->setjiang($mygroup);
+        $this->setjiang($this->mygroup);
         if ($m > $e) {
-            $flag  = ['status'=>true, 'msg'=>'我方胜！', 'group'=>$mygroup];
+            $flag  = ['status'=>true, 'msg'=>'我方胜！', 'group'=>$this->mygroup];
         }
         if ($m < $e) {
-            $flag  = ['status'=>true, 'msg'=>'我方负！', 'group'=>$mygroup];
+            $flag  = ['status'=>true, 'msg'=>'我方负！', 'group'=>$this->mygroup];
         }
         if ($m == $e) {
-            $flag  = ['status'=>true, 'msg'=>'双方战平！', 'group'=>$mygroup];
+            $flag  = ['status'=>true, 'msg'=>'双方战平！', 'group'=>$this->mygroup];
         }
         $this->ajaxReturn($flag);
+    }
+
+    //射门判断
+    public function shoot($thisuserinfo = []){
+        $r = rand(1,25);
+        $myshoot = round($thisuserinfo['agi']*0.01);
+        if ($r <= $myshoot) {
+            return true;
+        }else{
+            return false;
+        }
     }
 
     //写入奖励
@@ -451,19 +483,22 @@ class MylifeController extends IndexController
         $thisuserinfo['combtext'] = $combtext;
 
         //伤病设置
-        $theCombatarr = $this->setHurt($thisuserinfo['combat']);
+        $theCombatarr = $this->setHurt($thisuserinfo['combat'],$thisuserinfo);
         //将最终战力写入用户信息里
         $thisuserinfo['value'] = $theCombatarr['value'];
         $thisuserinfo['hurtevent'] = $theCombatarr['event'];
         return $thisuserinfo;
     }
-    //伤情判断
-    public function setHurt($theCombat){        
+    //伤情判断,参数1为战力值，参数2为当前用户详情
+    public function setHurt($theCombat,$thisuserinfo){        
         //随机到1则触发伤情判断
         $randevent = rand(1,79);
         if ($randevent == 1) {
             $cevent = $this->gailu($this->combatevent);
-            $ass = "return ".$theCombat.$cevent['yes']['value'].";";         
+            $ass = "return ".$theCombat.$cevent['yes']['value'].";";
+            $uid = $thisuserinfo['id'];
+            $udata['hurt'] = $cevent['yes']['hurt'];
+            M('ChatUser')->where("id = $uid")->save($udata);
             // $res = eval($ass);
             $theCombatarr['value'] = $res;
             $theCombatarr['event'] = $cevent['yes']['name'];
