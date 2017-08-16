@@ -75,7 +75,7 @@
             // 登录 更新用户列表
             case 'login':
                 //{"type":"login","client_id":xxx,"client_name":"xxx","client_list":"[...]","time":"xxx"}
-                say(data['client_id'], data['client_name'],  data['client_name']+' 加入了房间'+data['room_id'], data['time']);
+                say(data);
                 var clientid = data['client_id'];
                 $.post('Mylife/bind', {client_id: clientid}, function(data){}, 'json');
                 if(data['client_list'])
@@ -87,12 +87,12 @@
                     client_list[data['client_id']] = data['client_name']; 
                 }
                 flush_client_list();
-                console.log(data['client_name']+"登录成功");
+                // console.log(data['client_name']+"登录成功");
                 break;
             // 发言
             case 'say':
                 //{"type":"say","from_client_id":xxx,"to_client_id":"all/client_id","content":"xxx","time":"xxx"}
-                say(data['from_client_id'], data['from_client_name'], data['content'], data['time']);
+                say(data);
                 break;
             // 我的工作
             case 'mywork':
@@ -156,8 +156,15 @@
     }
 
     // 发言
-    function say(from_client_id, from_client_name, content, time){
-      $("#dialog").append('<div class="speech_item"><img src="/chat/img/face_default.jpg" class="user_icon" /> '+from_client_name+' <br> '+time+'<div style="clear:both;"></div><p class="triangle-isosceles top">'+content+'</p> </div>');
+    function say(data){
+      console.log(data)
+      if (data["type"] == "login") {
+        var html = '<span class="tittle-alert entypo-info-circled"></span><strong> '+data['client_name']+'</strong>&nbsp;&nbsp;加入了房间'+data['room_id']+', '+data["time"];
+        $("#gonggao").html(html);
+      }else{
+        $("#dialog").append('<div class="speech_item"><img src="/chat/img/face_default.jpg" class="user_icon" /> '+data["from_client_name"]+' <br> '+data["time"]+'<div style="clear:both;"></div><p class="triangle-isosceles top">'+data["content"]+'</p> </div>');
+      }
+      
     }
 
     // 工作
@@ -247,7 +254,7 @@
                     <div class="col-sm-3">
                         <h2 class="tittle-content-header">
                             <span class="entypo-doc-text"></span>
-                            <span>Blog List
+                            <span>首页
                             </span>
                         </h2>
 
@@ -259,9 +266,8 @@
 
                             <div class="alert">
                                 <button type="button" class="close" data-dismiss="alert">×</button>
-                                <span class="tittle-alert entypo-info-circled"></span>
-                                Welcome back,&nbsp;
-                                <strong>Dave mattew!</strong>&nbsp;&nbsp;Your last sig in at Yesterday, 16:54 PM
+                                <p id="gonggao">
+                                </p>
                             </div>
 
 
@@ -272,7 +278,7 @@
                         <div class="devider-vertical visible-lg"></div>
                         <div class="btn-group btn-wigdet pull-right visible-lg">
                             <div class="btn">
-                                Widget</div>
+                                快捷菜单</div>
                             <button data-toggle="dropdown" class="btn dropdown-toggle" type="button">
                                 <span class="caret"></span>
                                 <span class="sr-only">Toggle Dropdown</span>
@@ -298,71 +304,14 @@
                 </div>
             </div>
             <!--/ TITLE -->
-
-            <!-- 导航条搜索区 -->
-            <!-- <ul id="breadcrumb">
-                <li>
-                    <span class="entypo-home"></span>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="#" title="Sample page 1">Blog</a>
-                </li>
-                <li><i class="fa fa-lg fa-angle-right"></i>
-                </li>
-                <li><a href="#" title="Sample page 1">Blog List</a>
-                </li>
-                <li class="pull-right">
-                    <div class="input-group input-widget">
-
-                        <input style="border-radius:15px" type="text" placeholder="Search..." class="form-control">
-                    </div>
-                </li>
-            </ul> -->
-
-            <!-- END OF BREADCRUMB -->
-
-
             <!--CONTENT-->
             <div class="row" style="margin-top:30px;padding:0 15px;">
                 <!--  BLOG CONTENT -->
                 <div class="col-sm-8">
 
                     <div class="blog-list-nest">
-                        <!--封面图-->
-                        <!-- <div class="vendor">
-                            <img class="img-responsive-media" src="http://lorempixel.com/output/food-q-c-600-300-9.jpg" alt="">
-                        </div> -->
-
-                        <!-- <div class="blog-list-content">
-                            <h2>Article Heading</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate. Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero.</p>
-
-                            <p class="pull-right">
-                                <span class="label label-default">keyword</span>
-                                <span class="label label-default">tag</span>
-                                <span class="label label-default">post</span>
-                            </p>
-                            <ul class="list-inline">
-                                <li>
-                                    <a href="#">
-                                        <span class="entypo-network"></span>&nbsp;2 Days Ago</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="entypo-chat"></span>&nbsp;2 Comments</a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="entypo-share"></span>&nbsp;14 Shares</a>
-                                </li>
-                            </ul>
-                            <hr>
-                            <button class="btn btn-info pull-right">Read More</button>
-                            <div style="clear:both;"></div>
-                        </div> -->
                         <div class="panel-body">
-                            <img class="img-circle pull-left" src="http://api.randomuser.me/portraits/thumb/men/29.jpg">
+                            <img class="img-circle pull-left" src="/assets/img/10.jpg">
                             <div class="social-profile">
                                 <h3> <a class="tweet-link" href="#">Ahmad Heavy Folder</a>
                                     <span><i class="entypo-globe"></i>&nbsp;1 hours ago</span>
@@ -409,19 +358,7 @@
                             </div> -->
                         </div>
                         <div class="panel-body">
-                            <img class="img-circle pull-left" src="http://api.randomuser.me/portraits/thumb/men/29.jpg">
-                            <div class="social-profile">
-                                <h3> <a class="tweet-link" href="#">Ahmad Heavy Folder</a>
-                                    <span><i class="entypo-globe"></i>&nbsp;1 hours ago</span>
-                                </h3>
-                                <p>mungkin pengemis yg baru saja mampir kerumah jauh lebih kaya dari saya...(minimal kaya daging, dia gemuk sedang saya kurus)....</p>
-                            </div>
-
-                            <div class="clearfix"></div>
-                            <hr>
-                        </div>
-                        <div class="panel-body">
-                            <img class="img-circle pull-left" src="http://api.randomuser.me/portraits/thumb/men/29.jpg">
+                            <img class="img-circle pull-left" src="/assets/img/10.jpg">
                             <div class="social-profile">
                                 <h3> <a class="tweet-link" href="#">Ahmad Heavy Folder</a>
                                     <span><i class="entypo-globe"></i>&nbsp;1 hours ago</span>
@@ -435,18 +372,26 @@
                     </div>
 
                     <ul class="pager success">
-                        <li class="previous"><a href="#">�?Older</a>
+                        <li class="previous"><a href="#">历史</a>
                         </li>
-                        <li class="next disabled"><a href="#">Newer �?/a&gt;
+                        <li class="next disabled"><a href="#">更新&gt;
                         </a></li>
                     </ul>
+
+                    <form onsubmit="onSubmit(); return false;">
+                        <select style="margin-bottom:8px" id="client_list">
+                              <option value="all">所有人</option>
+                          </select>
+                          <textarea class="textarea thumbnail" id="textarea"></textarea>
+                          <div class="say-btn"><input type="submit" class="btn btn-default" value="发表" /></div>
+                     </form>
                 </div>
                 <!--  END OF BLOG CONTENT -->
 
                 <!--  BLOG SIDE CONTENT -->
                 <div class="col-sm-4">
                     <div class="panel panel-default">
-                        <img class="media-object img-circle blog-profile" data-src="holder.js/64x64" alt="64x64" src="http://api.randomuser.me/portraits/thumb/men/10.jpg">
+                        <img class="media-object img-circle blog-profile" data-src="holder.js/64x64" alt="64x64" src="/assets/img/10.jpg">
                         <hr style="margin:0;">
 
                         <div class="panel-body">
@@ -464,15 +409,29 @@
 
                             </p> -->
                             <p style="text-align: center;">
-                              <span class="fontawesome-money" title="金钱"></span>&nbsp;248&nbsp;&nbsp;
-                              <span class="entypo-trophy" title="精力"></span>&nbsp;1000000&nbsp;&nbsp;
-                              <span class="fontawesome-user-md" title="力量"></span>&nbsp;2130&nbsp;&nbsp;
+                              <span class="fontawesome-money" title="金钱"></span>&nbsp;{$userinfo.money}&nbsp;&nbsp;
+                              <span class="entypo-trophy" title="精力"></span>&nbsp;{$userinfo.ene}&nbsp;&nbsp;
+                              <span class="fontawesome-user-md" title="力量"></span>&nbsp;{$userinfo.str}&nbsp;&nbsp;<span class="fontawesome-user-md" title="敏捷"></span>&nbsp;{$userinfo.agi}&nbsp;&nbsp;
                               <!-- <span class="entypo-gauge"></span>&nbsp;12 Km/<i>Hours</i>&nbsp;&nbsp; -->
                             </p>
                         </div>
                     </div>
-
+                    <!--  功能区 -->
                     <div class="blog-side-nest">
+                        <!-- <h4 class="text-left">功能</h4>
+                        <hr style="margin:0"> -->
+                        <ul class="list-inline">
+                            <li>
+                                <a class="btn btn-info" onclick="startworks();" href="javascript:void(0);">开工</a>
+                            </li>
+                            <li>
+                                <a class="btn btn-info" data-toggle="modal" data-target="#contest_1" href="javascript:void(0);">练习赛</a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <!-- <div class="blog-side-nest">
                         <h4 class="text-center">加入机构</h4>
                         <p class="text-center">Sign up for our daily Newslatter</p>
                         <form role="form">
@@ -482,15 +441,12 @@
                                         <input type="email" class="form-control" placeholder="Enter email">
                                     </div>
                                 </div>
-                                <!-- /.col-xs-8 -->
                                 <div class="col-xs-4 col-full-width-left">
                                     <button type="submit" class="btn btn-info btn-block">Sign up</button>
                                 </div>
-                                <!-- /.col-xs-4 -->
                             </div>
-                            <!-- /.row -->
                         </form>
-                    </div>
+                    </div> -->
 
                     <div class="blog-side-nest">
                         <h4 class="text-left">实时</h4>
@@ -499,25 +455,11 @@
                         <div class="media">
                             <div class="media-body">
                                 <h5 class="media-heading">Cras sit amet nibh Lorem ipsum dolor si amet</h5>
-                                <a class="link-comment recentpost-link" style="margin:-10px 0 10px" href="#">88 Views</a>
+                                <!-- <a class="link-comment recentpost-link" style="margin:-10px 0 10px" href="#">88 Views</a> -->
                             </div>
-                        </div>
+                        </div>                        
                         <br>
-                    </div>
-                    <!--  标签区 -->
-                    <div class="blog-side-nest">
-                        <h4 class="text-left">功能</h4>
-                        <hr style="margin:0">
-                        <ul class="list-inline">
-                            <li>
-                                <a class="btn btn-info" onclick="hidepl(this);" href="javascript:void(0);">开工</a>
-                            </li>
-                            <li>
-                                <a class="btn btn-info" onclick="hidepl(this);" href="javascript:void(0);">练习赛</a>
-                            </li>
-
-                        </ul>
-                    </div>
+                    </div>                    
                 </div>
                 <!--  END OF BLOG SIDE CONTENT -->
             </div>
